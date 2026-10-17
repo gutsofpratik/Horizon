@@ -1,9 +1,9 @@
 import {SketchDialog} from './SketchDialog';
-import {composerModes} from './ComposerModes';
+import {ApprovalModePicker,composerModes} from './ComposerModes';
 import {useComposerMentions} from './use-composer-mentions';
 import {useRef,useEffect,useState} from 'react';
 
-import {ArrowUp,Plus,Square,Mic,Paperclip,X} from 'lucide-react';import {ModelPicker} from './ModelPicker';import {ComposerMenu} from './ComposerMenu';
+import {ArrowUp,Plus,Square,Mic,Paperclip,X,Folder} from 'lucide-react';import {ModelPicker} from './ModelPicker';import {ComposerMenu} from './ComposerMenu';
 
 export function Composer({text,setText,onSend,running,onCancel,models,settings,onModel,onSettings,onRefresh,attachments,onUpload,onRemoveAttachment,projects,projectId,onProject,onCustomize,skills=[],tools=[],layout='welcome',memoryEnabled=true,onMemoryChange,onError,onMode}:{[key:string]:any}){
 
@@ -16,7 +16,7 @@ export function Composer({text,setText,onSend,running,onCancel,models,settings,o
  const mentions=useComposerMentions({text,setText,field,skills,tools,settings});
  const dictate=()=>{const Recognition=(window as any).SpeechRecognition??(window as any).webkitSpeechRecognition;if(!Recognition){onError?.('Dictation is not supported by this browser.');return;}const speech=new Recognition();speech.lang=settings.voiceLanguage??navigator.language;speech.interimResults=false;speech.onresult=(event:any)=>setText(text+' '+event.results[0][0].transcript);speech.onend=()=>setDictating(false);speech.onerror=()=>setDictating(false);speech.start();setDictating(true);};
 
- const picker=<ModelPicker disabled={running} thinking={settings.thinking} onThinking={(thinking:boolean)=>onSettings({...settings,thinking})} models={models} model={settings.model} providerId={settings.providerId} onChange={onModel} onRefresh={onRefresh}/>;
+ const picker=<ModelPicker settings={settings} onSettings={onSettings} memoryEnabled={memoryEnabled} onMemoryChange={onMemoryChange} disabled={running} thinking={settings.thinking} onThinking={(thinking:boolean)=>onSettings({...settings,thinking})} models={models} model={settings.model} providerId={settings.providerId} onChange={onModel} onRefresh={onRefresh}/>;
 
  const mode=settings.accessMode??'chat';
 
@@ -26,7 +26,7 @@ export function Composer({text,setText,onSend,running,onCancel,models,settings,o
 
  <textarea ref={field} {...mentions.inputProps} aria-label="Message" placeholder={running?'Add a follow-up to the queue…':layout==='welcome'?'How can I help you today?':'Write a message…'} value={text} onChange={mentions.change} onKeyDown={event=>{if(mentions.keyDown(event))return;if(event.key==='Enter'&&!event.shiftKey&&!event.nativeEvent.isComposing){event.preventDefault();if(text.trim()||attachments.length)onSend();}}} onDragOver={event=>event.preventDefault()} onDrop={event=>{event.preventDefault();onUpload([...event.dataTransfer.files]);}} rows={layout==='welcome'?2:1}/>
 
- <div className="composer-bottom"><div className="composer-actions"><button ref={menuAnchor} className="icon-button add-button" aria-label="Add files, skills, and tools" aria-expanded={menu} onClick={()=>setMenu(!menu)}><Plus size={19}/></button>
+ <div className="composer-bottom"><div className="composer-actions"><button ref={menuAnchor} className="icon-button add-button" aria-label="Add files, skills, and tools" aria-expanded={menu} onClick={()=>setMenu(!menu)}><Plus size={19}/></button><ApprovalModePicker compact settings={settings} onSettings={onSettings} running={running}/>
 
  {menu&&<ComposerMenu anchor={menuAnchor.current} onSelectMode={(mode:string)=>{onSettings({...settings,composerMode:mode});if(mode==='sketch')setSketch(true);onMode?.(mode);field.current?.focus();}} running={running} onError={onError} onRefresh={onRefresh} memoryEnabled={memoryEnabled} onMemoryChange={onMemoryChange} skills={skills} settings={settings} onSettings={onSettings} onUpload={()=>file.current?.click()} onCustomize={onCustomize} projects={projects} projectId={projectId} onProject={onProject} onClose={()=>setMenu(false)} onInvoke={(name:string)=>{setText('@'+(/\s/.test(name)?JSON.stringify(name):name)+' '+text);field.current?.focus();}}/>}
 
@@ -34,6 +34,6 @@ export function Composer({text,setText,onSend,running,onCancel,models,settings,o
 
  </div><div className="composer-actions">{layout==='welcome'&&picker}<button className={'icon-button '+(dictating?'dictating':'')} aria-label="Dictate" onClick={dictate}><Mic size={17}/></button>{running?<>{(text.trim()||attachments.length>0)&&<button className="send-button" aria-label="Queue message" onClick={onSend}><ArrowUp size={18}/></button>}<button className="send-button stop" aria-label="Stop generation" onClick={onCancel}><Square size={15} fill="currentColor"/></button></>:<button className="send-button" aria-label="Send message" disabled={!text.trim()&&!attachments.length||!settings.model} onClick={onSend}><ArrowUp size={18}/></button>}</div></div></div>
 
- <div className="composer-meta"><div className="composer-scope">{projectId?projects.find((project:any)=>project.id===projectId)?.name:''}</div><div className="composer-meta-right">{layout==='conversation'&&picker}</div></div></div>;
+ <div className="composer-meta"><div className="composer-scope"><label className="composer-project-select"><Folder size={12}/><select aria-label="Project" value={projectId??''} onChange={event=>onProject(event.target.value||undefined)}><option value="">Add to project</option>{projects.map((project:any)=><option key={project.id} value={project.id}>{project.name}</option>)}</select></label></div><div className="composer-meta-right">{layout==='conversation'&&picker}</div></div></div>;
 
 }
