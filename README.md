@@ -6,7 +6,11 @@ OpenClaude connects to Ollama and OpenAI-compatible model servers. The desktop a
 
 **Early preview · 0.1.0 · Windows desktop + self-hosted web**
 
-**[Windows installer](https://github.com/gutsofpratik/OpenClaude/releases/download/v0.1.0/OpenClaude-0.1.0-windows-x64-setup.exe)** · **[Portable ZIP](https://github.com/gutsofpratik/OpenClaude/releases/download/v0.1.0/OpenClaude-0.1.0-windows-x64-portable.zip)** · [SHA-256 checksums](https://github.com/gutsofpratik/OpenClaude/releases/download/v0.1.0/SHA256SUMS.txt)
+| Release file | Download |
+| --- | --- |
+| Windows installer EXE · 70 MiB | [Download installer](https://github.com/gutsofpratik/OpenClaude/releases/download/v0.1.0/OpenClaude-0.1.0-windows-x64-setup.exe) |
+| Portable ZIP · 108 MiB | [Download portable ZIP](https://github.com/gutsofpratik/OpenClaude/releases/download/v0.1.0/OpenClaude-0.1.0-windows-x64-portable.zip) |
+| SHA-256 checksums | [Download checksums](https://github.com/gutsofpratik/OpenClaude/releases/download/v0.1.0/SHA256SUMS.txt) |
 
 [Download releases](https://github.com/gutsofpratik/OpenClaude/releases) · [Source](https://github.com/gutsofpratik/OpenClaude) · [Skills repository](https://github.com/gutsofpratik/OpenClaude-Skills) · [Report an issue](https://github.com/gutsofpratik/OpenClaude/issues)
 
@@ -32,6 +36,167 @@ OpenClaude is an independent project. It is not affiliated with, endorsed by, or
 - **Generate documents with an optional worker:** run isolated PDF and Office document processing and supported skill scripts through the Docker runtime.
 
 Capabilities depend on the edition, enabled settings, installed dependencies, model support, and permissions. A skill describes a workflow; installing it does not install every tool or service it mentions.
+
+## Full tool list
+
+OpenClaude registers **93 built-in tools**. The model discovers task-relevant tools through `toolkit`; it does not receive every detailed schema on every request. Tool availability depends on the edition, enabled permissions, installed runtimes, and model capabilities. This inventory lists supported operations, not a promise that every tool is available in every chat.
+
+### Tool discovery and capabilities
+
+| Tool | Purpose |
+| --- | --- |
+| `discover_tools` | Find and enable additional eligible tools for this run, such as PDF/Office generation, charts, files, browser or terminal. |
+| `runtime_capabilities` | Get authoritative live tool and runtime status: embedded browser DOM interaction, desktop connection, screenshot interpretation, terminal, document worker and actual callable tool names. |
+| `toolkit` | Single gateway to OpenClaude tools. |
+
+### Files and calculation
+
+| Tool | Purpose |
+| --- | --- |
+| `files_list` | List files and folders in this project workspace. |
+| `files_read` | Read a bounded text file by workspace path. |
+| `files_write` | Write UTF-8 text inside this workspace and return a real downloadable file. |
+| `files_patch` | Apply one exact text replacement to a file; reject missing or ambiguous matches. |
+| `files_search` | Find literal text in bounded project text files with matching line numbers. |
+| `calculate` | Evaluate numeric arithmetic: + - * / % ^, parentheses, pi, e, sqrt, abs, min, max, pow, round, floor, ceil, sin, cos, tan, log, exp. |
+
+### Memory, projects and conversation history
+
+| Tool | Purpose |
+| --- | --- |
+| `memory_save` | Persist a useful personal fact, preference, decision or task outcome across chats and app restarts. |
+| `memory_search` | Search durable facts, preferences and decisions across app restarts. |
+| `memory_read` | Read the exact text of a saved memory by ID, paging long entries using next_offset. |
+| `memory_update` | Update an existing explicit memory. |
+| `memory_delete` | Forget one saved memory when explicitly requested. |
+| `project_search` | Find matching project instructions, memories, and reference-source text. |
+| `conversation_search` | Recover user and assistant text in THIS chat, including context omitted from the model window. |
+| `conversation_read` | Read exact user or assistant source from the active branch of THIS chat. |
+| `chat_history_search` | Search saved past chats for relevant user and assistant messages. |
+| `chat_history_read` | Read a bounded page of user and assistant messages from a saved chat, excluding private reasoning and abandoned branches. |
+
+### Plans and questions
+
+| Tool | Purpose |
+| --- | --- |
+| `plan_create` | Create a visible task plan for a multi-step request. |
+| `plan_read` | Read the current conversation task plans. |
+| `plan_update` | Update one task status in an existing plan. |
+| `ask_user` | Ask 1–3 focused clarification questions with 2–4 selectable options and free-text answers. |
+
+### Artifacts and live drafts
+
+| Tool | Purpose |
+| --- | --- |
+| `artifact_create` | Create a reusable artifact with complete actual source and a preview when supported. |
+| `artifact_update` | Publish a complete new version of the same artifact. |
+| `artifact_patch` | Publish one exact source replacement, preserving the artifact identity and all other source. |
+| `artifact_list` | List saved artifacts in this chat or its explicitly selected project. |
+| `artifact_read` | Read a bounded slice of actual artifact source, metadata, current version and full source hash. |
+| `artifact_versions` | List saved version metadata without injecting every historical source. |
+| `artifact_export` | Save a published artifact as a real downloadable workspace file. |
+| `artifact_draft_read` | Read a bounded part of an unfinished draft in this chat. |
+| `artifact_draft_resume` | Resume an unfinished saved draft in this chat without losing its source. |
+| `artifact_draft_start` | Open the code panel before generating a substantial artifact. |
+| `artifact_draft_write` | Write the current real source into an owned draft and display it in the code panel. |
+| `artifact_draft_finish` | Save the complete drafted source as a real artifact and open its preview when its format supports one. |
+
+### Skills and custom tools
+
+| Tool | Purpose |
+| --- | --- |
+| `skill_create` | Create and install a reusable personal skill, immediately available in every chat. |
+| `skill_update` | Improve a personal skill after reading it with skill_load. |
+| `skills_list` | Discover globally installed skill workflows by name or topic, with bounded pagination. |
+| `skill_load` | Load an installed skill when its purpose matches the current task. |
+| `skill_read_resource` | Read a supporting reference file from a loaded skill package. |
+| `skill_run_script` | Execute a supporting script from a loaded skill in the project sandbox. |
+| `custom_tool_create` | Create and persist a reusable typed tool workflow. |
+| `custom_tool_list` | List saved user-created tool workflows and their steps. |
+| `custom_tool_delete` | Remove a user-created tool when the user requests removal. |
+
+### Search and research
+
+| Tool | Purpose |
+| --- | --- |
+| `research_read` | Read the saved research plan, counts, report and a page of verified source metadata in this chat. |
+| `research_source_read` | Read actual fetched evidence from a saved research source by its returned source ID. |
+| `web_search` | Search the configured provider (SearXNG or DuckDuckGo) and return real source URLs, titles, and excerpts. |
+| `web_fetch` | Read a public webpage and return extracted text with its real source URL. |
+
+### Browser
+
+| Tool | Purpose |
+| --- | --- |
+| `browser_open` | Open a HTTP(S) page in the isolated browser and return observed element references. |
+| `browser_find` | Find text in an owned desktop browser page; returns whether a match was found. |
+| `browser_print` | Open the print dialog for an owned desktop tab only when the user requests printing. |
+| `browser_zoom` | Set desktop browser page zoom (factor 1 = 100%). |
+| `browser_emulate_device` | Enable or reset a mobile viewport in an owned desktop tab. |
+| `browser_snapshot` | Inspect a browser tab and return current page text and element references. |
+| `browser_click` | Click an observed browser element and return updated page state. |
+| `browser_fill` | Fill an observed input field with text. |
+| `browser_press` | Press a key in the selected tab or an observed element. |
+| `browser_scroll` | Scroll a browser tab and inspect updated page state. |
+| `browser_tabs` | List, select, or close owned browser tabs. |
+| `browser_screenshot` | Capture the actual browser tab as a PNG. |
+| `browser_download` | Observe and save a download triggered by clicking an observed element. |
+| `browser_open_file` | OPEN an existing file/artifact, not scroll or inspect an already-open page. |
+
+### Terminal
+
+| Tool | Purpose |
+| --- | --- |
+| `terminal_run` | Run a command in the granted desktop PowerShell workspace when connected, otherwise in the project Docker Bash sandbox. |
+| `terminal_read` | Read new output and status from an owned terminal job. |
+| `terminal_stdin` | Send input to a running terminal job. |
+| `terminal_cancel` | Cancel the terminal job and its child processes. |
+
+### Computer control
+
+| Tool | Purpose |
+| --- | --- |
+| `computer_screenshot` | Capture the granted Windows desktop scaled to 1280x800 when connected, otherwise the Docker virtual desktop. |
+| `computer_click` | Click original screenshot coordinates on the granted desktop. |
+| `computer_move` | Move the desktop pointer to screenshot coordinates. |
+| `computer_drag` | Drag the desktop mouse between original screenshot coordinates. |
+| `computer_scroll` | Scroll the granted desktop. |
+| `computer_type` | Enter text on the selected desktop; Windows input uses Unicode keyboard events. |
+| `computer_key` | Press a keyboard chord on the granted desktop. |
+| `computer_wait` | Wait briefly and return a fresh desktop screenshot. |
+
+### Documents, spreadsheets and media
+
+| Tool | Purpose |
+| --- | --- |
+| `document_extract` | Extract actual text from an uploaded PDF, DOCX, spreadsheet, presentation, or text file. |
+| `document_create` | Create and validate a real PDF or DOCX from headings, paragraphs, and tables. |
+| `spreadsheet_inspect` | Read sheet names, values, and formulas from a registered XLSX file. |
+| `spreadsheet_create` | Create a real XLSX workbook from named sheets and cell rows. |
+| `slides_create` | Create a real PowerPoint presentation with title and content slides. |
+| `chart_create` | Render a chart from a registered CSV file. |
+| `image_transform` | Resize, crop, rotate, or convert a registered image file. |
+
+### Clock, schedules, queues and webhooks
+
+| Tool | Purpose |
+| --- | --- |
+| `message_queue_list` | List pending follow-up messages in this conversation. |
+| `message_queue_add` | Queue a follow-up task only when the user explicitly asks for later/next work. |
+| `message_queue_cancel` | Cancel an unstarted queued message in this conversation using its actual queue ID. |
+| `webhook_list` | List configured webhook integrations permitted for agent calls. |
+| `webhook_send` | Queue a JSON payload to an existing user-configured webhook, only for a user-authorized external action. |
+| `webhook_delivery_status` | Inspect actual delivery status for a webhook sent from this conversation. |
+| `webhook_events` | Read authenticated incoming webhook events for a configured integration. |
+| `clock_now` | Read the live system clock, current date and time in an IANA timezone. |
+| `schedule_create` | Schedule a user-requested future task/reminder in this saved chat. |
+| `schedule_list` | List saved schedules and actual dispatch/error status for this conversation. |
+| `schedule_update` | Pause/resume or reschedule a task belonging to this conversation. |
+| `schedule_delete` | Delete a schedule from this conversation when the user requests cancellation. |
+
+**Runtime requirements:** native terminal and Windows computer control require the desktop app and the relevant grants. Browser operations use the native desktop browser or the web backend browser. Document/media processing, sandbox execution, and skill scripts require their configured runtime, often the optional Docker worker. Computer screenshots require a vision-capable model for interpretation. Memory tools respect memory settings and incognito mode. Schedules require a running backend.
+
+**Additional tools:** connected MCP servers register their own tools after authorization, and saved custom workflows can add `user_*` tools. Their names and availability vary by installation, so they are discovered at runtime rather than presented as fixed built-in entries here. Skills supply instructions; installing a skill does not itself add missing tool implementations.
 
 ## Desktop and web
 
