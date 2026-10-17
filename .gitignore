@@ -1,0 +1,17 @@
+node_modules/
+.local/
+.env
+.env.*
+!.env.example
+*.sqlite*
+*.log
+__pycache__/
+dist/
+dist-desktop/
+release/
+public-release/
+src-tauri/target/
+src-tauri/gen/
+.rea/
+tests/
+test-results/

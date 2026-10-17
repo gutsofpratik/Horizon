@@ -1,0 +1,2 @@
+import {spawn} from 'node:child_process';
+const npm=process.env.npm_execpath;if(!npm)throw new Error('Run this build through npm run build:desktop');const child=spawn(process.execPath,[npm,'run','build'],{stdio:'inherit',windowsHide:true,env:{...process.env,OPENCLAUDE_EDITION:'desktop'}});child.on('exit',code=>{process.exitCode=code??1;});child.on('error',error=>{console.error(error.message);process.exitCode=1;});

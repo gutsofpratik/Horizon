@@ -1,0 +1,42 @@
+import {randomUUID} from 'node:crypto';
+import {z} from 'zod';
+import type {AppContext} from '../app.ts';
+import type {FastifyInstance} from 'fastify';
+import type {ToolRegistry,ToolContext} from './registry.ts';
+export function liveClock(timeZone=Intl.DateTimeFormat().resolvedOptions().timeZone,now=new Date()){
+ const local=new Intl.DateTimeFormat('en-GB',{timeZone,dateStyle:'full',timeStyle:'long'}).format(now);
+ return {utc:now.toISOString(),unixMilliseconds:now.getTime(),timeZone,local};
+}
+const scheduleInput=z.object({name:z.string().min(1).max(120),prompt:z.string().min(1).max(20000),run_at:z.string().datetime({offset:true}),time_zone:z.string().max(100).default('UTC'),repeat_seconds:z.number().int().min(60).max(31536000).optional()}).strict();
+export class Scheduler{
+ private timer:ReturnType<typeof setInterval>|undefined;private busy=false;
+ constructor(private app:AppContext,private now=()=>Date.now()){}
+ list(conversationId?:string){return this.app.store.list('schedules').filter(s=>!conversationId||s.conversationId===conversationId).sort((a,b)=>a.nextRunAt.localeCompare(b.nextRunAt));}
+ create(input:z.infer<typeof scheduleInput>,conversationId:string,edition='web'){
+  const body=scheduleInput.parse(input);liveClock(body.time_zone);const conversation=this.app.store.get('conversations',conversationId);if(!conversation||conversation.incognito)throw new Error('Schedules require a saved conversation');if(Date.parse(body.run_at)<=this.now())throw new Error('Choose a future run_at including its UTC offset');if(this.list().filter(s=>s.enabled).length>=100)throw new Error('Maximum of 100 active schedules reached');
+  return this.app.store.put('schedules',{id:randomUUID(),conversationId,edition,name:body.name,prompt:body.prompt,timeZone:body.time_zone,nextRunAt:body.run_at,repeatSeconds:body.repeat_seconds,enabled:true,status:'scheduled',createdAt:new Date(this.now()).toISOString()});
+ }
+ update(id:string,patch:{enabled?:boolean;run_at?:string},conversationId?:string){const item=this.list(conversationId).find(s=>s.id===id);if(!item)throw new Error('Schedule not found');if(patch.run_at&&(!Number.isFinite(Date.parse(patch.run_at))||Date.parse(patch.run_at)<=this.now()))throw new Error('Choose a future run_at');if(patch.enabled&&!patch.run_at&&Date.parse(item.nextRunAt)<=this.now())throw new Error('Set a future time before resuming an expired schedule');return this.app.store.put('schedules',{...item,enabled:patch.enabled??item.enabled,...(patch.run_at?{nextRunAt:patch.run_at}:{}),status:(patch.enabled??item.enabled)?'scheduled':'paused',error:undefined});}
+ remove(id:string,conversationId?:string){if(!this.list(conversationId).some(s=>s.id===id))throw new Error('Schedule not found');this.app.store.delete('schedules',id);return {deleted:true};}
+ async tick(){if(this.busy)return;this.busy=true;try{const queue=this.app.ephemeral.get('messageQueue');if(!queue)return;for(const item of this.list().filter(s=>s.enabled&&Date.parse(s.nextRunAt)<=this.now())){try{
+   const key=item.id+':'+item.nextRunAt;const existing=this.app.store.list('message_queue').find(job=>job.input?.scheduleOccurrence===key);const conversation=this.app.store.get('conversations',item.conversationId);if(!conversation)throw new Error('Scheduled conversation no longer exists');const settings:any=this.app.store.get('settings','main')??{};
+   const result=existing?{queueId:existing.id}:queue.enqueue({content:item.prompt,conversationId:item.conversationId,providerId:conversation.providerId??settings.providerId,model:conversation.model??settings.model,edition:item.edition,timeZone:item.timeZone,scheduleOccurrence:key});
+   const next=item.repeatSeconds?new Date(Date.parse(item.nextRunAt)+(Math.floor((this.now()-Date.parse(item.nextRunAt))/(item.repeatSeconds*1000))+1)*item.repeatSeconds*1000).toISOString():item.nextRunAt;
+   this.app.store.put('schedules',{...item,nextRunAt:next,enabled:!!item.repeatSeconds,status:item.repeatSeconds?'scheduled':'dispatched',lastQueueId:result.queueId,lastRunAt:new Date(this.now()).toISOString(),error:undefined});
+  }catch(error){this.app.store.put('schedules',{...item,enabled:false,status:'failed',error:(error as Error).message});}}}finally{this.busy=false;}}
+ start(){this.timer=setInterval(()=>void this.tick(),1000);this.timer.unref();void this.tick();}close(){clearInterval(this.timer);}
+}
+export function registerScheduleRoutes(app:FastifyInstance,context:AppContext){const scheduler=new Scheduler(context);context.ephemeral.set('scheduler',scheduler);app.addHook('onReady',async()=>scheduler.start());app.addHook('onClose',async()=>scheduler.close());
+ app.get('/api/schedules',async()=>({schedules:scheduler.list(),requiresRunningApp:true}));
+ app.post('/api/schedules',async(request:any)=>{const body=scheduleInput.extend({conversation_id:z.string(),edition:z.enum(['web','desktop']).default('web')}).parse(request.body);const {conversation_id,edition,...input}=body;return scheduler.create(input,conversation_id,edition);});
+ app.patch('/api/schedules/:id',async(request:any)=>scheduler.update(request.params.id,z.object({enabled:z.boolean().optional(),run_at:z.string().datetime({offset:true}).optional()}).strict().parse(request.body)));
+ app.delete('/api/schedules/:id',async(request:any)=>scheduler.remove(request.params.id));
+}
+export function registerTimeTools(registry:ToolRegistry){
+ const service=(ctx:ToolContext)=>{if(ctx.incognito)throw new Error('Persistent schedules are unavailable in incognito');const scheduler=ctx.app.ephemeral.get('scheduler') as Scheduler;if(!scheduler)throw new Error('Scheduling service is unavailable');return scheduler;};
+ registry.register({name:'clock_now',capability:'conversation',description:'Read the live system clock, current date and time in an IANA timezone. Call when actual time matters; never infer current time from training data. Returns UTC and local time. Use before computing reminder times.',input:z.object({time_zone:z.string().max(100).optional()}).strict(),handler:(args,ctx)=>liveClock(args.time_zone??ctx.app.store.get('conversations',ctx.conversationId)?.timeZone)});
+ registry.register({name:'schedule_create',capability:'conversation',description:'Schedule a user-requested future task/reminder in this saved chat. First read clock_now and clarify ambiguous times. run_at is ISO 8601 with an explicit UTC offset; repeat_seconds is an optional fixed elapsed interval, not a DST-aware calendar rule. Saved across restarts; requires OpenClaude running. Missed repeating occurrences coalesce into one task. Uses the conversation model and normal tool permissions; scheduling does not authorize external actions.',input:scheduleInput,handler:(args,ctx)=>({schedule:service(ctx).create(args,ctx.conversationId,ctx.edition),requiresRunningApp:true})});
+ registry.register({name:'schedule_list',capability:'conversation',description:'List saved schedules and actual dispatch/error status for this conversation.',input:z.object({}).strict(),handler:(_args,ctx)=>({schedules:service(ctx).list(ctx.conversationId)})});
+ registry.register({name:'schedule_update',capability:'conversation',description:'Pause/resume or reschedule a task belonging to this conversation. Use its actual schedule_id from schedule_list. Resuming an expired schedule requires a new future run_at.',input:z.object({schedule_id:z.string().uuid(),enabled:z.boolean().optional(),run_at:z.string().datetime({offset:true}).optional()}).strict(),handler:({schedule_id,...patch},ctx)=>({schedule:service(ctx).update(schedule_id,patch,ctx.conversationId)})});
+ registry.register({name:'schedule_delete',capability:'conversation',description:'Delete a schedule from this conversation when the user requests cancellation. Does not cancel a task already queued or running; inspect message_queue_list for that.',input:z.object({schedule_id:z.string().uuid()}).strict(),handler:(args,ctx)=>service(ctx).remove(args.schedule_id,ctx.conversationId)});
+}

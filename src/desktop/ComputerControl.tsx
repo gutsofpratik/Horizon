@@ -1,0 +1,7 @@
+import {useEffect,useRef} from 'react';import {Monitor,MousePointer2,Keyboard,Loader2} from 'lucide-react';
+export function ComputerControl({busy,call,screenshot,activities=[]}:any){
+ const native=!!window.claudeDesktop;const observed=useRef(false);const steps=activities.filter((item:any)=>item.name?.startsWith('computer_'));const last=steps.at(-1);const running=last&&!last.result;
+ useEffect(()=>{if(native&&!observed.current){observed.current=true;void call('computer_screenshot',{});}},[native]);
+ if(!native)return <div className="native-runtime-empty"><Monitor size={26}/><h3>Desktop connection unavailable</h3><p>Restart OpenClaude Desktop to reconnect its native tools.</p></div>;
+ return <><h3>Computer use</h3><p className="form-note">Windows desktop · Ready. The agent observes the screen before each action.</p>{last&&<div role="status" className="file-result">{running?<Loader2 size={16}/>:last.name==='computer_type'||last.name==='computer_key'?<Keyboard size={16}/>:<MousePointer2 size={16}/>}<span>{last.name.replace('computer_','').replaceAll('_',' ')} · {running?'Running':last.result?.status==='succeeded'?'Completed':'Failed'}</span></div>}<button className="secondary-button" disabled={busy} onClick={()=>void call('computer_screenshot',{})}><Monitor size={14}/>Refresh screen</button>{screenshot?<img className="workspace-screenshot" src={screenshot.url??'data:image/png;base64,'+screenshot.image} alt="Windows desktop screenshot"/>:<p className="form-note">Waiting for the desktop screenshot…</p>}</>;
+}

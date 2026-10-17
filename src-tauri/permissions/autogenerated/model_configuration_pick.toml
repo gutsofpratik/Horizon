@@ -1,0 +1,11 @@
+# Automatically generated - DO NOT EDIT!
+
+[[permission]]
+identifier = "allow-model-configuration-pick"
+description = "Enables the model_configuration_pick command without any pre-configured scope."
+commands.allow = ["model_configuration_pick"]
+
+[[permission]]
+identifier = "deny-model-configuration-pick"
+description = "Denies the model_configuration_pick command without any pre-configured scope."
+commands.deny = ["model_configuration_pick"]

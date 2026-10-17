@@ -1,0 +1,29 @@
+import {decodeRecords,normalizeEvents} from './streams.ts';
+export interface Provider {id:string;name:string;type:'ollama'|'openai';baseUrl:string;apiKey?:string}
+export interface GenerateRequest {model:string;messages:any[];tools?:any[];temperature?:number;numCtx?:number;maxTokens?:number;thinking?:boolean;toolChoice?:'auto'|'required';outputFormat?:'json';cacheScope?:string;autoCompact?:boolean;toolProtocol?:'envelope'}
+export function normalizeSystemMessages(messages:any[]){const system=messages.filter(message=>message.role==='system');if(!system.length||system.length===1&&messages[0].role==='system')return messages;const content=system.every(message=>message.content==null||typeof message.content==='string')?system.map(message=>message.content??'').join('\n\n'):system.flatMap(message=>Array.isArray(message.content)?message.content:[{type:'text',text:message.content??''}]);return [{...system[0],content},...messages.filter(message=>message.role!=='system')];}
+const base=(provider:Provider)=>{const url=provider.baseUrl.replace(/\/$/,'');return provider.type==='openai'&&new URL(url).pathname==='/'?url+'/v1':url;};
+const headers=(provider:Provider)=>({'Content-Type':'application/json',...(provider.apiKey?{Authorization:`Bearer ${provider.apiKey}`}:{})});
+export function modelContextSize(metadata:any):number|undefined {
+ const raw=typeof metadata?.parameters==='object'?metadata.parameters?.num_ctx:String(metadata?.parameters??'').match(/^\s*num_ctx\s+(\d+)\s*$/m)?.[1];
+ const size=Number(raw);return Number.isSafeInteger(size)&&size>0?size:undefined;
+}
+export function modelParameter(metadata:any,name:string):number|undefined{const raw=typeof metadata?.parameters==='object'?metadata.parameters?.[name]:String(metadata?.parameters??'').match(new RegExp('^\\s*'+name+'\\s+(-?\\d+(?:\\.\\d+)?)\\s*$','m'))?.[1];const value=Number(raw);return raw!==undefined&&Number.isFinite(value)?value:undefined;}
+export async function modelConfiguration(provider:Provider,model:string,signal?:AbortSignal){
+ if(provider.id==='builtin'){const response=await checked(await fetch(base(provider).replace(/\/v1$/,'')+'/configuration?model='+encodeURIComponent(model),{signal:signal??AbortSignal.timeout(1800000)}));return response.json();}
+ if(provider.type!=='ollama')return undefined;
+ const response=await checked(await fetch(base(provider)+'/api/show',{method:'POST',headers:headers(provider),body:JSON.stringify({model}),signal:signal?AbortSignal.any([signal,AbortSignal.timeout(8000)]):AbortSignal.timeout(8000)}));
+ const metadata=await response.json();return {contextTokens:modelContextSize(metadata),outputTokens:modelParameter(metadata,'num_predict'),temperature:modelParameter(metadata,'temperature'),capabilities:metadata.capabilities??[],parameters:metadata.parameters};
+}
+async function checked(response:Response){if(!response.ok){const text=await response.text();let error=text;try{const body=JSON.parse(text);error=body.error?.message??body.error??text;}catch{}throw new Error(`${response.status}: ${String(error).slice(0,1500)}`);}return response;}
+export async function listModels(provider:Provider,signal?:AbortSignal){
+ const response=await checked(await fetch(base(provider)+(provider.type==='ollama'?'/api/tags':'/models'),{headers:headers(provider),signal:signal??AbortSignal.timeout(8000)}));const json=await response.json();
+ return provider.type==='ollama'?(json.models??[]).map((model:any)=>({id:model.name,name:model.name,providerId:provider.id,providerName:provider.name,size:model.size,details:model.details,capabilities:model.capabilities??[],reportedCapabilities:true})):(json.data??[]).map((model:any)=>({id:model.id,name:model.name??model.id,providerId:provider.id,providerName:provider.name,capabilities:model.capabilities??[],reportedCapabilities:!!model.local,local:!!model.local,loaded:model.loaded,reasoningMode:model.reasoningMode,runtimeInfo:model.runtimeInfo}));
+}
+export async function* generate(provider:Provider,request:GenerateRequest,signal:AbortSignal):AsyncGenerator<any>{
+ request={...request,messages:normalizeSystemMessages(request.messages)};
+ if(provider.type==='openai')request={...request,messages:request.messages.map(message=>{const {images,...rest}=message;return images?.length?{...rest,content:[{type:'text',text:message.content},...images.map((image:string)=>({type:'image_url',image_url:{url:`data:image/${image.startsWith('iVBOR')?'png':'jpeg'};base64,${image}`}}))]}:rest;})};
+ const body=provider.type==='ollama'?{model:request.model,messages:request.messages,stream:true,...(request.outputFormat?{format:request.outputFormat}:{}),...(request.tools?.length?{tools:request.tools}:{}),think:/gpt-oss/i.test(request.model)?(request.thinking?'medium':'low'):!!request.thinking}:{model:request.model,messages:request.messages,stream:true,...(request.outputFormat?{response_format:{type:'json_object'}}:{}),temperature:request.temperature??0.7,...(request.maxTokens!==undefined?{max_tokens:request.maxTokens}:provider.id==='builtin'?{}:{max_tokens:4096}),...(provider.id==='builtin'?{thinking:!!request.thinking,cache_scope:request.cacheScope,auto_compact:request.autoCompact===true,...(request.toolProtocol?{tool_protocol:request.toolProtocol}:{})}:{}),...(request.tools?.length?{tools:request.tools,tool_choice:request.toolChoice??'auto'}:{})};
+ const response=await checked(await fetch(base(provider)+(provider.type==='ollama'?'/api/chat':'/chat/completions'),{method:'POST',headers:headers(provider),body:JSON.stringify(body),signal}));if(!response.body)throw new Error('Model returned no stream');
+ try{yield* normalizeEvents(decodeRecords(response.body,provider.type==='ollama'?'ndjson':'sse'),provider.type);}catch(error){if((error as Error).message==='terminated')throw new Error('The model connection closed before generation finished. No incomplete tool call was executed.',{cause:error});throw error;}
+}

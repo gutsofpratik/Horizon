@@ -1,0 +1,1 @@
+export function readAloud(text:string,settings:any){if(!('speechSynthesis' in window))return;const utterance=new SpeechSynthesisUtterance(text);utterance.lang=settings.voiceLanguage??navigator.language;utterance.rate=settings.voiceRate??1;window.speechSynthesis.cancel();window.speechSynthesis.speak(utterance);}

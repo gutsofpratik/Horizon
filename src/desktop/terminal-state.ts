@@ -1,0 +1,1 @@
+export function terminalSessionEnded(error:unknown){const message=String((error as any)?.message??error);return /TERMINAL_EXITED|terminal (?:process has exited|session not found|not found|job has stopped)|pipe (?:is being|has been|is) closed|os error (?:109|232|233)\b/i.test(message);}

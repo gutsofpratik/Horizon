@@ -1,0 +1,15 @@
+services:
+  worker-image:
+    image: claude-local-worker:0.1
+    build:
+      context: ..
+      dockerfile: runtime/Dockerfile
+    command: ["node", "-e", "console.log('Worker image ready')"]
+    restart: "no"
+  search:
+    image: searxng/searxng:latest
+    ports:
+      - "127.0.0.1:8081:8080"
+    volumes:
+      - ./searxng:/etc/searxng:ro
+    restart: unless-stopped

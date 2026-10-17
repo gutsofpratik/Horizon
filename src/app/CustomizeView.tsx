@@ -1,0 +1,5 @@
+import {useState,useEffect} from 'react';import {Puzzle,BookOpen} from 'lucide-react';
+import {OfficialPluginsView} from '../skills/OfficialPluginsView';import {ConnectorsView} from './ConnectorsView';import {SkillsView} from './LibraryViews';
+export function CustomizeView(props:any){const [tab,setTab]=useState(props.initialTab??'skills');useEffect(()=>{setTab(props.initialTab??'skills');},[props.initialTab]);
+ return <div className="customize-shell"><div className="customize-tabs" role="tablist" aria-label="Customize workspace"><button role="tab" aria-selected={tab==='skills'} onClick={()=>setTab('skills')}><BookOpen size={15}/>Skills</button><button role="tab" aria-selected={tab==='connectors'} onClick={()=>setTab('connectors')}>Connectors</button><button role="tab" aria-selected={tab==='plugins'} onClick={()=>setTab('plugins')}><Puzzle size={15}/>Plugins</button></div>{tab==='skills'?<SkillsView {...props}/>:tab==='connectors'?<ConnectorsView onError={props.onError}/>:<OfficialPluginsView {...props} onConnectors={()=>setTab('connectors')}/>}</div>;
+}

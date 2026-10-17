@@ -1,0 +1,13 @@
+import http from 'node:http';import {existsSync} from 'node:fs';import {chromium} from 'playwright';import {terminal,cancelJobs} from './terminal.mjs';import {browser,closeBrowser} from './browser.mjs';import {computer,desktopSession} from './desktop.mjs';import {run,fault,scoped} from './common.mjs';
+const token=process.env.WORKER_TOKEN;if(!token)throw new Error('WORKER_TOKEN is required');const queues=new Map();
+async function perform(operation,args,session){
+ if(operation==='health')return {status:'ready',browser:existsSync(chromium.executablePath()),desktop:existsSync('/usr/bin/Xvfb'),version:'0.1.0'};
+ if(operation==='session_cancel'){cancelJobs(session);await closeBrowser(session);return {cancelled:true};}
+ if(operation.startsWith('terminal_')){const desktop=await desktopSession(session);return terminal(operation,args,session,desktop.display);}
+ if(operation.startsWith('browser_'))return browser(operation,args,session);
+ if(operation.startsWith('computer_'))return computer(operation,args,session);
+ if(['document_extract','document_create','spreadsheet_inspect','spreadsheet_create','slides_create','chart_create','image_transform'].includes(operation)){if(args.file_path)await scoped(args.file_path);return JSON.parse(await run('python3',['/opt/worker/documents.py'],{input:JSON.stringify({operation,args}),timeout:120000}));}
+ throw fault('UNKNOWN_OPERATION','Worker operation is unknown');
+}
+const server=http.createServer(async(request,response)=>{if(request.method!=='POST'||request.url!=='/call'){response.writeHead(404);response.end();return;}if(request.headers.authorization!=='Bearer '+token){response.writeHead(401);response.end();return;}let size=0;const chunks=[];try{for await(const chunk of request){size+=chunk.length;if(size>12*1024*1024)throw fault('BODY_TOO_LARGE','Request is too large');chunks.push(chunk);}const {operation,args={},session}=JSON.parse(Buffer.concat(chunks).toString());if(typeof operation!=='string'||typeof session!=='string'||session.length>300)throw fault('INVALID_ARGUMENTS','Invalid worker request');let result;if(operation.startsWith('browser_')||operation.startsWith('computer_')){const previous=queues.get(session)??Promise.resolve();const task=previous.catch(()=>{}).then(()=>perform(operation,args,session));queues.set(session,task);try{result=await task;}finally{if(queues.get(session)===task)queues.delete(session);}}else result=await perform(operation,args,session);response.writeHead(200,{'Content-Type':'application/json'});response.end(JSON.stringify(result));}catch(error){response.writeHead(400,{'Content-Type':'application/json'});response.end(JSON.stringify({error:error.message,code:error.code??'WORKER_FAILED'}));}});
+server.listen(8787,'0.0.0.0');

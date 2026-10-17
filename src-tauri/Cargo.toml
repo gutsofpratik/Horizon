@@ -1,0 +1,25 @@
+[package]
+name = "claude-local-desktop"
+version = "0.1.0"
+edition = "2021"
+
+[build-dependencies]
+tauri-build = { version = "2", features = [] }
+
+[dependencies]
+tauri = { version = "2", features = ["unstable"] }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+portable-pty = "0.9"
+rfd = "0.15"
+uuid = { version = "1", features = ["v4"] }
+windows-sys = { version = "0.61", features = ["Win32_Graphics_Gdi", "Win32_UI_WindowsAndMessaging", "Win32_UI_Input_KeyboardAndMouse"] }
+image = { version = "0.25", default-features = false, features = ["png"] }
+base64 = "0.22"
+windows-core = "0.62"
+webview2-com = "0.39.1"
+
+[profile.release]
+strip = true
+debug = false
+

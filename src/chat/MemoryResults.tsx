@@ -1,0 +1,2 @@
+import {BookmarkCheck} from 'lucide-react';
+export function MemoryResults({tools}:any){const memories=new Map<string,any>();for(const tool of tools){if(['memory_save','memory_update'].includes(tool.name)&&tool.result?.status==='succeeded'&&tool.result.data?.memory?.id)memories.set(tool.result.data.memory.id,tool.result.data.memory);}return <>{[...memories.values()].map(memory=><div className="memory-saved-card" role="status" key={memory.id}><BookmarkCheck size={16}/><div><strong>Memory saved</strong><p>{memory.text}</p></div></div>)}</>;}

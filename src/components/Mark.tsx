@@ -1,0 +1,1 @@
+export function Mark({size=32}:{size?:number}){return <svg width={size} height={size} viewBox="0 0 40 40" fill="none" aria-hidden="true">{Array.from({length:12},(_,i)=><path key={i} d="M20 3 L21 15 L20 20 L18.5 15 Z" fill="currentColor" transform={`rotate(${i*30} 20 20)`}/>)}</svg>}

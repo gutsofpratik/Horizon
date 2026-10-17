@@ -1,0 +1,40 @@
+{
+  "identifier": "main-interface",
+  "description": "Trusted local React interface only",
+  "webviews": [
+    "main"
+  ],
+  "remote": {
+    "urls": [
+      "http://127.0.0.1:5173/*",
+      "http://127.0.0.1:3001/*"
+    ]
+  },
+  "permissions": [
+    "core:default",
+    "allow-native-cancel",
+    "allow-computer-status",
+    "allow-computer-grant",
+    "allow-computer-tool",
+    "allow-model-pick",
+    "allow-model-configuration-pick",
+    "allow-browser-tool",
+    "allow-workspace-status",
+    "allow-workspace-choose",
+    "allow-terminal-open",
+    "allow-terminal-read",
+    "allow-terminal-write",
+    "allow-terminal-resize",
+    "allow-terminal-close",
+    "allow-browser-select",
+    "allow-browser-open",
+    "allow-browser-status",
+    "allow-browser-navigate",
+    "allow-browser-action",
+    "allow-browser-bounds",
+    "allow-browser-close",
+    "allow-workspace-current",
+    "allow-open-external",
+    "allow-browser-manage"
+  ]
+}

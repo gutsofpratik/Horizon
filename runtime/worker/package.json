@@ -1,0 +1,1 @@
+{"name":"claude-local-worker","private":true,"type":"module","dependencies":{"claude-local-studio":"file:../..","node-pty":"1.1.0","playwright":"1.64.0"}}

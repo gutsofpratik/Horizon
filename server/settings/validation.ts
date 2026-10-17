@@ -1,0 +1,7 @@
+import {z} from 'zod';
+import {modelDefaultsSchema} from '../models/defaults.ts';
+const clock=z.string().regex(/^(?:[01]\d|2[0-3]):[0-5]\d$/);
+const focus=z.object({timeZone:z.string().refine(value=>{try{new Intl.DateTimeFormat('en',{timeZone:value}).format();return true;}catch{return false;}},'Invalid focus timezone'),dailyLimitMinutes:z.number().int().min(1).max(1440).nullable(),quiet:z.array(z.object({day:z.number().int().min(0).max(6),start:clock,end:clock}).strict()).max(7)}).strict();
+export function validateSettings(settings:Record<string,any>){if(settings.modelDefaults!==undefined)modelDefaultsSchema.parse(settings.modelDefaults);if(settings.researchStrategy!==undefined)z.enum(["standard","deep_search","deep_research"]).parse(settings.researchStrategy);if(settings.researchTarget!==undefined)z.number().int().min(100).max(200).parse(settings.researchTarget);if(settings.focusPolicy!==undefined)focus.parse(settings.focusPolicy);for(const key of ['autoCompact','memoryEnabled','toolsEnabled','webSearchEnabled','artifactsEnabled','documentJobsEnabled','completionNotifications'])if(settings[key]!==undefined)z.boolean().parse(settings[key]);if(settings.voiceRate!==undefined)z.number().min(.5).max(2).parse(settings.voiceRate);}
+
+

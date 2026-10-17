@@ -1,0 +1,12 @@
+use_default_settings: true
+search:
+  safe_search: 1
+  formats:
+    - html
+    - json
+server:
+  bind_address: "0.0.0.0"
+  port: 8080
+  secret_key: "claude-local-loopback-search-service-change-before-network-exposure"
+  limiter: false
+  image_proxy: false

@@ -1,0 +1,36 @@
+{
+  "schemaVersion": 1,
+  "packs": [],
+  "skills": [
+    {
+      "id": "openclaude-tool-author",
+      "name": "openclaude-tool-author",
+      "description": "Create a reusable typed tool from a verified sequence of existing OpenClaude tools when no existing leaf tool already does the job.",
+      "sourceFamily": "OpenClaude",
+      "builtIn": true,
+      "bundledEntry": "built-in/tool-author/SKILL.md",
+      "requirements": [],
+      "sha256": "a8b15b9a523f4a760de1afbfc3797075ab2cae15a2cd35dfaaf4f82c69aa5fee"
+    },
+    {
+      "id": "openclaude-skill-author",
+      "name": "openclaude-skill-author",
+      "description": "Create or improve a reusable personal workflow skill when repeated work needs specific instructions beyond ordinary model knowledge.",
+      "sourceFamily": "OpenClaude",
+      "builtIn": true,
+      "bundledEntry": "built-in/skill-author/SKILL.md",
+      "requirements": [],
+      "sha256": "68f22b02b473eb078463597580e2ffc16a594cbfab822d337f3ce46dab27c095"
+    },
+    {
+      "id": "app-native/research-workflow",
+      "name": "research-workflow",
+      "description": "Plan topic-specific research, compare evidence and produce a cited report with verified website counts.",
+      "sourceFamily": "OpenClaude",
+      "builtIn": true,
+      "bundledEntry": "app-research/SKILL.md",
+      "requirements": [],
+      "sha256": "18ca1ebf354517b84754dc8694f859d52a0e6f27a7869e762fd00e7bb82054e2"
+    }
+  ]
+}

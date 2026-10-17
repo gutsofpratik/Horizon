@@ -1,0 +1,11 @@
+# Automatically generated - DO NOT EDIT!
+
+[[permission]]
+identifier = "allow-browser-action"
+description = "Enables the browser_action command without any pre-configured scope."
+commands.allow = ["browser_action"]
+
+[[permission]]
+identifier = "deny-browser-action"
+description = "Denies the browser_action command without any pre-configured scope."
+commands.deny = ["browser_action"]

@@ -1,0 +1,14 @@
+export function ModelDefaults({settings,onChange}:any){
+ const value={minimumContext:4096,autoFit:true,guardrail:'balanced',maximumModelGiB:16,ggufRuntime:'auto',...settings.modelDefaults};
+ const update=(patch:any)=>onChange({...settings,modelDefaults:{...value,...patch}});
+ return <section className="model-configuration"><h3>Model defaults</h3><p className="form-note">Applies when a model has no explicit total context window. Saved per-model settings take priority.</p>
+ <label className="checkbox-label"><input type="checkbox" checked={value.autoFit} onChange={e=>update({autoFit:e.target.checked})}/>Automatically fit context to available memory</label>
+ <label>Minimum auto-fit context length · {value.minimumContext.toLocaleString()} tokens<input aria-label="Minimum auto-fit context length" type="range" min={512} max={131072} step={512} value={value.minimumContext} onChange={e=>update({minimumContext:Number(e.target.value)})}/></label>
+ <label className="checkbox-label"><input aria-label="Automatically compact context" type="checkbox" checked={settings.autoCompact!==false} onChange={e=>onChange({...settings,autoCompact:e.target.checked})}/>Automatically compact at 90% context usage</label><p className="form-note">Compacts conversation only, including during a running response. System instructions and tool definitions stay intact. Saved messages remain available. Applies to built-in GGUF inference.</p><label>Exact minimum context<input aria-label="Exact minimum context" type="number" min={512} max={262144} step={1} value={value.minimumContext} onChange={e=>{const n=Number(e.target.value);if(Number.isInteger(n)&&n>=512&&n<=262144)update({minimumContext:n});}}/></label><h4>Model loading guardrails</h4><p className="form-note">Loading models beyond system resources may cause instability or freezing. Guardrails prevent accidental overloading. Loading near the system limit may reduce stability. File-size checks are preliminary; context, KV cache and runtime buffers also need memory.</p>
+ <label>Precaution level<select aria-label="Model loading guardrails" value={value.guardrail} onChange={e=>update({guardrail:e.target.value})}><option value="off">Off · no precaution against overload</option><option value="relaxed">Relaxed · mild precaution</option><option value="balanced">Balanced · moderate precaution</option><option value="strong">Strong · strict precaution</option><option value="custom">Custom · maximum model size</option></select></label>
+ {value.guardrail==='custom'&&<label>Maximum model size · {value.maximumModelGiB} GiB<input aria-label="Maximum model size" type="range" min={.25} max={128} step={.25} value={value.maximumModelGiB} onChange={e=>update({maximumModelGiB:Number(e.target.value)})}/><input aria-label="Maximum model size in GiB" type="number" min={.25} max={4096} step={.25} value={value.maximumModelGiB} onChange={e=>update({maximumModelGiB:Number(e.target.value)})}/></label>}
+ </section>;
+}
+
+
+
