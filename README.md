@@ -1,5 +1,7 @@
 # OpenClaude
 
+**[Download models →](https://github.com/gutsofpratik/OpenCloud-Models#revision-pinned-file-downloads)** · Verified upstream links, model comparisons, and RAM/VRAM guidance. Choose a model there and download its weights from Hugging Face; model files are not bundled with OpenClaude.
+
 An open-source workspace for local AI: chat, versioned artifacts, web research, skills, and tools in a shared web interface and a native Windows desktop app.
 
 OpenClaude connects to Ollama and OpenAI-compatible model servers. The desktop app also loads supported local models through a built-in inference worker, with direct GGUF inference through llama.cpp. Choose how you run your models and which capabilities the assistant can use.
@@ -121,7 +123,7 @@ OpenClaude registers **93 built-in tools**. The model discovers task-relevant to
 | --- | --- |
 | `research_read` | Read the saved research plan, counts, report and a page of verified source metadata in this chat. |
 | `research_source_read` | Read actual fetched evidence from a saved research source by its returned source ID. |
-| `web_search` | Search the configured provider (SearXNG or DuckDuckGo) and return real source URLs, titles, and excerpts. |
+| `web_search` | Search the configured provider (SearXNG, DuckDuckGo, Brave, Tavily or a custom API) and return real source URLs, titles, and excerpts. |
 | `web_fetch` | Read a public webpage and return extracted text with its real source URL. |
 
 ### Browser
@@ -297,6 +299,18 @@ The packager selects the latest installed x64 Windows SDK SignTool; `OPENCLAUDE_
 
 For local testing only, explicitly use `npm run release:package -- --unsigned`, or enable the workflow's `unsigned_preview` input. For signed CI builds, provision the certificate/token or Artifact Signing client, credentials, and metadata on the runner and set the matching repository variables. The workflow does not install a certificate, obtain a signing identity, or authenticate to Azure for you. Keep private keys, signing credentials and metadata outside Git. Self-signed/test certificates do not establish public publisher trust. A valid signature does not guarantee the absence of SmartScreen reputation warnings.
 
+### Cloud model and search API connections
+
+For model choices, verified download links, hardware estimates and runtime requirements, see [OpenCloud Models](https://github.com/gutsofpratik/OpenCloud-Models). Its catalog distinguishes upstream capabilities from OpenClaude testing and includes Bonsai 2 27B, Qwen3.5 and coding/reasoning alternatives.
+
+Settings → Models → Model connections is available in both editions. Presets include Ollama, LM Studio and **OpenRouter**, plus custom **OpenAI-compatible Chat Completions** APIs. OpenRouter uses `https://openrouter.ai/api/v1`. Supply a base URL and API key, test discovery, then select a model in chat. Optional model IDs support APIs without a `/models` endpoint; their connection test only confirms configuration, and real generation is needed to validate credentials. APIs limited to Anthropic Messages, Responses or another proprietary protocol need an adapter. Cloud providers control their context and supported tools/vision; choosing a cloud model does not load local weights. See [OpenRouter's API reference](https://openrouter.ai/docs/quickstart).
+
+Settings → Capabilities → Web search now supports **Brave Search API**, **Tavily**, and a **custom search API**, in addition to SearXNG and DuckDuckGo. Save a separate key for each provider and use Test search. Explicit API selections report failures without falling back to another service. A custom endpoint accepts GET parameters `q`, `limit`, `page`, `time_range`, `language`, and `safesearch`, optionally authenticated with `Authorization: Bearer`. It returns `{ "results": [{ "title": "Example", "url": "https://example.com", "content": "Snippet" }] }`. Other search services need a compatible adapter. Brave has limited paging; Tavily returns up to 20 results per query and does not support our language/Safe search controls. Deep searches can issue additional queries; provider quotas and readable-page checks still apply. See [Brave](https://api-dashboard.search.brave.com/app/documentation/web-search) and [Tavily](https://docs.tavily.com/documentation/api-reference/endpoint/search).
+
+Credentials stay in the local backend database and are omitted from entity responses; this is **not encrypted credential storage**. Protect that directory. Remote model services receive prompts/tool results, and search services receive queries under their own billing and privacy terms. Authenticated remote model endpoints require HTTPS; search APIs require HTTPS except for loopback development endpoints. Requests refuse redirects to avoid forwarding credentials unexpectedly. No browser extension is needed.
+
+These additions are available in current source; the v0.1.1 downloadable installer predates them.
+
 ### Optional document and search runtime
 
 ```powershell
@@ -350,7 +364,7 @@ Docker sandbox terminal/browser/virtual-desktop jobs, where enabled, act inside 
 
 ## Search, Deep Search, and Deep Research
 
-Search supports SearXNG and DuckDuckGo, including an automatic fallback mode. Source reading and the research coordinator keep track of actual retrieved pages and citations.
+Search supports SearXNG, DuckDuckGo, Brave, Tavily and compatible custom APIs; automatic fallback applies only to Automatic mode. Source reading and the research coordinator keep track of actual retrieved pages and citations.
 
 | Mode | Output |
 | --- | --- |
