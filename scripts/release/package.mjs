@@ -16,7 +16,11 @@ const npm=process.env.npm_execpath??join(dirname(process.execPath),'node_modules
 async function download(item,name){const file=join(cache,name);let bytes;try{bytes=await readFile(file);}catch{}if(!bytes||createHash('sha256').update(bytes).digest('hex')!==item.sha256){const response=await fetch(item.url);if(!response.ok)throw new Error('Download failed '+response.status+': '+item.url);bytes=Buffer.from(await response.arrayBuffer());if(createHash('sha256').update(bytes).digest('hex')!==item.sha256)throw new Error('Release dependency checksum mismatch: '+name);await writeFile(file,bytes);}return file;}
 if(!process.argv.includes('--skip-build')){
  await run(process.execPath,[npm,'run','build']);await run(process.execPath,[npm,'run','build:desktop']);
- await run('cargo',['build','--release','--manifest-path','src-tauri/Cargo.toml'],{env:{...process.env,CARGO_TARGET_DIR:process.env.CARGO_TARGET_DIR??resolve('.local/release-target')}});
+ const nativeBuild=join(process.env.PUBLIC??'C:/Users/Public','OpenClaudeReleaseBuild-'+version);await mkdir(join(nativeBuild,'src-tauri'),{recursive:true});
+ for(const file of ['src','capabilities','permissions','icons','Cargo.toml','Cargo.lock','build.rs','tauri.conf.json'])await cp(join(root,'src-tauri',file),join(nativeBuild,'src-tauri',file),{recursive:true});
+ await cp(join(root,'dist-desktop'),join(nativeBuild,'dist-desktop'),{recursive:true});
+ const flags=[...(process.env.CARGO_ENCODED_RUSTFLAGS?.split('\x1f')??[]),'--remap-path-prefix='+homedir()+'=/build'].join('\x1f');
+ await run('cargo',['build','--release','--manifest-path',join(nativeBuild,'src-tauri/Cargo.toml')],{env:{...process.env,CARGO_ENCODED_RUSTFLAGS:flags,CARGO_TARGET_DIR:process.env.CARGO_TARGET_DIR??resolve('.local/release-target')}});
 }
 const target=resolve(process.env.CARGO_TARGET_DIR??'.local/release-target');
 await cp(join(target,'release/claude-local-desktop.exe'),join(stage,'OpenClaude.exe'));await cp(join(target,'release/WebView2Loader.dll'),join(stage,'WebView2Loader.dll'));
