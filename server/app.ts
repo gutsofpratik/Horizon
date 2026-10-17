@@ -40,7 +40,7 @@ export async function createApp(options:{dataDirectory:string;dbPath?:string;roo
   if(!store.get('providers','ollama'))store.put('providers',{id:'ollama',name:'Ollama',type:'ollama',baseUrl:'http://127.0.0.1:11434'});
   if(!store.get('settings','main'))store.put('settings',{id:'main',theme:'light',userName:'',model:'qwen3.5:9b-q4_K_M',providerId:'ollama',temperature:0.7,numCtx:8192,maxTokens:4096,thinking:true,toolsEnabled:true,searchProvider:'auto',searchUrl:'http://127.0.0.1:8081',searchLanguage:'en',safeSearch:1});
   app.post('/api/native/connect',async(request:any)=>{const body=request.body;const endpoint=new URL(body.origin);if(endpoint.protocol!=='http:'||endpoint.hostname!=='127.0.0.1'||!/^\d+$/.test(endpoint.port)||typeof body.token!=='string'||!/^[a-f0-9]{64}$/.test(body.token))throw new Error('Invalid native bridge');const response=await fetch(endpoint.origin+'/status',{headers:{Authorization:'Bearer '+body.token},signal:AbortSignal.timeout(2000)});if(!response.ok)throw new Error('Native bridge authentication failed');const capabilities=await response.json();context.ephemeral.set('nativeBridge',{origin:endpoint.origin,token:body.token,terminal:!!capabilities.terminal,updated:Date.now()});return {connected:true};});
-  app.get('/api/health',async()=>({app:'OpenClaude',status:'ok',storage:'ready',version:'0.1.1',desktopOwned:process.env.OPENCLAUDE_DESKTOP_OWNED==='1'}));
+  app.get('/api/health',async()=>({app:'OpenClaude',status:'ok',storage:'ready',version:'0.1.2',desktopOwned:process.env.OPENCLAUDE_DESKTOP_OWNED==='1'}));
   registerNativeBroker(app,context);
   registerModelRuntime(app,context);
   registerWebhooks(app,context);

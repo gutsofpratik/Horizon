@@ -14,10 +14,10 @@ SetCompressor /SOLID lzma
 !uninstfinalize 'powershell.exe -NoLogo -NoProfile -NonInteractive -File "${SIGN_SCRIPT}" -Path "%1"' = 0
 !endif
 BrandingText "OpenClaude · Independent open-source AI workspace"
-VIProductVersion "0.1.1.0"
+VIProductVersion "0.1.2.0"
 VIAddVersionKey "ProductName" "OpenClaude"
 VIAddVersionKey "FileDescription" "OpenClaude Windows Installer"
-VIAddVersionKey "FileVersion" "0.1.1"
+VIAddVersionKey "FileVersion" "0.1.2"
 VIAddVersionKey "LegalCopyright" "OpenClaude contributors"
 !define MUI_ABORTWARNING
 !insertmacro MUI_PAGE_WELCOME
@@ -52,7 +52,7 @@ Section "OpenClaude desktop and bundled runtimes (required)" Core
  CreateShortcut "$DESKTOP\OpenClaude.lnk" "$INSTDIR\OpenClaude.exe"
  CreateShortcut "$SMPROGRAMS\OpenClaude\Optional dependency setup.lnk" "$INSTDIR\Setup-Dependencies.cmd"
  WriteRegStr HKCU "Software\Microsoft\Windows\CurrentVersion\Uninstall\OpenClaude" "DisplayName" "OpenClaude"
- WriteRegStr HKCU "Software\Microsoft\Windows\CurrentVersion\Uninstall\OpenClaude" "DisplayVersion" "0.1.1"
+ WriteRegStr HKCU "Software\Microsoft\Windows\CurrentVersion\Uninstall\OpenClaude" "DisplayVersion" "0.1.2"
  WriteRegStr HKCU "Software\Microsoft\Windows\CurrentVersion\Uninstall\OpenClaude" "UninstallString" '"$INSTDIR\Uninstall.exe"'
 SectionEnd
 Section "Local model engine (online CPU/CUDA dependency setup)" Inference

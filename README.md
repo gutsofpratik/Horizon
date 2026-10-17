@@ -6,13 +6,13 @@ An open-source workspace for local AI: chat, versioned artifacts, web research, 
 
 OpenClaude connects to Ollama and OpenAI-compatible model servers. The desktop app also loads supported local models through a built-in inference worker, with direct GGUF inference through llama.cpp. Choose how you run your models and which capabilities the assistant can use.
 
-**Early preview · 0.1.1 · Windows desktop + self-hosted web**
+**Early preview · 0.1.2 · Windows desktop + self-hosted web**
 
 | Release file | Download |
 | --- | --- |
-| Windows installer EXE | [Download installer](https://github.com/gutsofpratik/OpenClaude/releases/download/v0.1.1/OpenClaude-0.1.1-windows-x64-setup.exe) |
-| Portable ZIP | [Download portable ZIP](https://github.com/gutsofpratik/OpenClaude/releases/download/v0.1.1/OpenClaude-0.1.1-windows-x64-portable.zip) |
-| SHA-256 checksums | [Download checksums](https://github.com/gutsofpratik/OpenClaude/releases/download/v0.1.1/SHA256SUMS.txt) |
+| Windows installer EXE | [Download installer](https://github.com/gutsofpratik/OpenClaude/releases/download/v0.1.2/OpenClaude-0.1.2-windows-x64-setup.exe) |
+| Portable ZIP | [Download portable ZIP](https://github.com/gutsofpratik/OpenClaude/releases/download/v0.1.2/OpenClaude-0.1.2-windows-x64-portable.zip) |
+| SHA-256 checksums | [Download checksums](https://github.com/gutsofpratik/OpenClaude/releases/download/v0.1.2/SHA256SUMS.txt) |
 
 [Download releases](https://github.com/gutsofpratik/OpenClaude/releases) · [Source](https://github.com/gutsofpratik/OpenClaude) · [Skills repository](https://github.com/gutsofpratik/OpenClaude-Skills) · [Report an issue](https://github.com/gutsofpratik/OpenClaude/issues)
 
@@ -291,7 +291,7 @@ This release command builds both frontends, the native app, and the bundled back
 
 ### Windows release signing
 
-The existing v0.1.1 download is an **unsigned preview**. This source now requires a signing identity for normal release builds; it does not retroactively sign published files.
+The v0.1.2 downloads are an **unsigned preview**. Normal release builds require a signing identity; this preview was explicitly built with --unsigned while public code signing is being set up.
 
 Use a publicly trusted code-signing certificate with its private key available through the Windows Current User certificate store (including a hardware-token provider), and set `OPENCLAUDE_SIGN_CERT_SHA1` to its thumbprint. Alternatively, set both `OPENCLAUDE_SIGN_DLIB` and `OPENCLAUDE_SIGN_METADATA` to the Microsoft Artifact Signing client library and account/profile metadata paths, and authenticate with that service outside the repository. Artifact Signing requires a compatible current Windows SDK and a public-trust certificate profile. A signing subscription or certificate is not included with OpenClaude.
 
@@ -309,7 +309,7 @@ Settings → Capabilities → Web search now supports **Brave Search API**, **Ta
 
 Credentials stay in the local backend database and are omitted from entity responses; this is **not encrypted credential storage**. Protect that directory. Remote model services receive prompts/tool results, and search services receive queries under their own billing and privacy terms. Authenticated remote model endpoints require HTTPS; search APIs require HTTPS except for loopback development endpoints. Requests refuse redirects to avoid forwarding credentials unexpectedly. No browser extension is needed.
 
-These additions are available in current source; the v0.1.1 downloadable installer predates them.
+These additions are included in the v0.1.2 installer and portable ZIP.
 
 ### Optional document and search runtime
 
