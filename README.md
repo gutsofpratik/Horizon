@@ -287,6 +287,16 @@ npm run release:package
 
 This release command builds both frontends, the native app, and the bundled backend, then writes an installer EXE, portable ZIP, and SHA-256 checksums under `release/`. It downloads checksum-pinned Python and NSIS inputs and requires network access. The optional GitHub Actions workflow builds the same packages on Windows. No models, private data, CUDA drivers, or Docker Desktop binaries are bundled.
 
+### Windows release signing
+
+The existing v0.1.1 download is an **unsigned preview**. This source now requires a signing identity for normal release builds; it does not retroactively sign published files.
+
+Use a publicly trusted code-signing certificate with its private key available through the Windows Current User certificate store (including a hardware-token provider), and set `OPENCLAUDE_SIGN_CERT_SHA1` to its thumbprint. Alternatively, set both `OPENCLAUDE_SIGN_DLIB` and `OPENCLAUDE_SIGN_METADATA` to the Microsoft Artifact Signing client library and account/profile metadata paths, and authenticate with that service outside the repository. Artifact Signing requires a compatible current Windows SDK and a public-trust certificate profile. A signing subscription or certificate is not included with OpenClaude.
+
+The packager selects the latest installed x64 Windows SDK SignTool; `OPENCLAUDE_SIGNTOOL` can override its path. The app EXE and dependency setup PowerShell script are signed before packaging, NSIS signs the generated uninstaller, and the installer is signed before SHA-256 checksums are written. Each operation requires SHA-256, an RFC 3161 timestamp, and successful Authenticode verification. Third-party binary signatures are preserved. The portable ZIP contains the signed app; ZIP archives do not themselves support Authenticode signatures.
+
+For local testing only, explicitly use `npm run release:package -- --unsigned`, or enable the workflow's `unsigned_preview` input. For signed CI builds, provision the certificate/token or Artifact Signing client, credentials, and metadata on the runner and set the matching repository variables. The workflow does not install a certificate, obtain a signing identity, or authenticate to Azure for you. Keep private keys, signing credentials and metadata outside Git. Self-signed/test certificates do not establish public publisher trust. A valid signature does not guarantee the absence of SmartScreen reputation warnings.
+
 ### Optional document and search runtime
 
 ```powershell

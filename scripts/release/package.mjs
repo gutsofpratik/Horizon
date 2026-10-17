@@ -1,4 +1,5 @@
 import {createReleaseStage,releaseFiles} from './payload.mjs';
+import {signingConfig,signRelease} from './signing.mjs';
 import {build} from 'esbuild';
 import {mkdir,cp,readFile,writeFile,readdir,stat,access} from 'node:fs/promises';
 import {join,resolve,dirname} from 'node:path';
@@ -8,11 +9,14 @@ import {fileURLToPath} from 'node:url';
 import {homedir} from 'node:os';
 import JSZip from 'jszip';
 const root=process.cwd(),version=JSON.parse(await readFile('package.json','utf8')).version;
+const signing=signingConfig(process.env,process.argv.includes('--unsigned'));
 const out=resolve(process.env.OPENCLAUDE_RELEASE_DIR??'release'),stage=await createReleaseStage(out);
 const cache=resolve('.local/release-cache');await mkdir(cache,{recursive:true});await mkdir(stage,{recursive:true});
 const backend=join(stage,'backend');await mkdir(backend,{recursive:true});
 const inputs=JSON.parse(await readFile('scripts/release/inputs.json','utf8'));
 async function run(command,args,options={}){await new Promise((ok,fail)=>{const child=spawn(command,args,{stdio:'inherit',windowsHide:true,...options});child.on('error',fail);child.on('exit',code=>code===0?ok():fail(new Error(command+' exited '+code)));});}
+if(signing.mode!=='unsigned')await run('powershell.exe',['-NoLogo','-NoProfile','-NonInteractive','-File',resolve('scripts/release/Sign-Release.ps1'),'-CheckOnly']);
+else console.warn('UNSIGNED PREVIEW: these packages do not establish an authenticated OpenClaude publisher.');
 const npm=process.env.npm_execpath??join(dirname(process.execPath),'node_modules/npm/bin/npm-cli.js');
 async function download(item,name){const file=join(cache,name);let bytes;try{bytes=await readFile(file);}catch{}if(!bytes||createHash('sha256').update(bytes).digest('hex')!==item.sha256){const response=await fetch(item.url);if(!response.ok)throw new Error('Download failed '+response.status+': '+item.url);bytes=Buffer.from(await response.arrayBuffer());if(createHash('sha256').update(bytes).digest('hex')!==item.sha256)throw new Error('Release dependency checksum mismatch: '+name);await writeFile(file,bytes);}return file;}
 if(!process.argv.includes('--skip-build')){
@@ -75,7 +79,12 @@ const nsisZip=await download(inputs.nsis,'nsis.zip'),nsisDir=join(cache,'nsis');
 const nsis=await JSZip.loadAsync(await readFile(nsisZip));for(const entry of Object.values(nsis.files)){if(entry.dir)continue;if(entry.name.includes('..')||entry.name.startsWith('/'))throw new Error('Unsafe NSIS archive');const file=join(nsisDir,entry.name);await mkdir(dirname(file),{recursive:true});await writeFile(file,await entry.async('nodebuffer'));}
 const makensis=join(nsisDir,'nsis-3.11/makensis.exe');await access(makensis);
 const payload=await releaseFiles(stage);
-const installer=join(out,'OpenClaude-'+version+'-windows-x64-setup.exe');await run(makensis,['/V2','/DSTAGE='+stage,'/DOUTFILE='+installer,resolve('installer/OpenClaude.nsi')]);
+await signRelease(join(stage,'OpenClaude.exe'),signing);
+await signRelease(join(stage,'Setup-Dependencies.ps1'),signing);
+const installer=join(out,'OpenClaude-'+version+'-windows-x64-setup.exe');
+const signingDefines=signing.mode==='unsigned'?[]:['/DSIGN_SCRIPT='+resolve('scripts/release/Sign-Release.ps1')];
+await run(makensis,['/V2','/DSTAGE='+stage,'/DOUTFILE='+installer,...signingDefines,resolve('installer/OpenClaude.nsi')]);
+await signRelease(installer,signing);
 const zip=new JSZip();for(const path of payload)zip.file('OpenClaude/'+path,await readFile(join(stage,path)));
 const portable=join(out,'OpenClaude-'+version+'-windows-x64-portable.zip');await writeFile(portable,await zip.generateAsync({type:'nodebuffer',compression:'DEFLATE',compressionOptions:{level:6},streamFiles:true}));
 let checksums='';for(const file of [installer,portable])checksums+=createHash('sha256').update(await readFile(file)).digest('hex')+'  '+file.slice(out.length+1)+'\n';await writeFile(join(out,'SHA256SUMS.txt'),checksums);

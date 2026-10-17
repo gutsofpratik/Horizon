@@ -1,11 +1,21 @@
 name: Windows release packages
 on:
   workflow_dispatch:
+    inputs:
+      unsigned_preview:
+        description: 'Explicitly build an unsigned preview (no verified publisher)'
+        type: boolean
+        default: false
 permissions:
   contents: read
 jobs:
   package:
     runs-on: windows-latest
+    env:
+      OPENCLAUDE_SIGN_CERT_SHA1: ${{ vars.OPENCLAUDE_SIGN_CERT_SHA1 }}
+      OPENCLAUDE_SIGNTOOL: ${{ vars.OPENCLAUDE_SIGNTOOL }}
+      OPENCLAUDE_SIGN_DLIB: ${{ vars.OPENCLAUDE_SIGN_DLIB }}
+      OPENCLAUDE_SIGN_METADATA: ${{ vars.OPENCLAUDE_SIGN_METADATA }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -19,7 +29,13 @@ jobs:
         run: rustup default 1.97.1
       - run: npm ci
       - name: Build installer and portable ZIP
-        run: npm run release:package
+        shell: pwsh
+        run: |
+          if ('${{ inputs.unsigned_preview }}' -eq 'true') {
+            npm run release:package -- --unsigned
+          } else {
+            npm run release:package
+          }
       - uses: actions/upload-artifact@v4
         with:
           name: OpenClaude-windows-x64

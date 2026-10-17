@@ -10,6 +10,9 @@ OutFile "${OUTFILE}"
 InstallDir "$LOCALAPPDATA\Programs\OpenClaude"
 RequestExecutionLevel user
 SetCompressor /SOLID lzma
+!ifdef SIGN_SCRIPT
+!uninstfinalize 'powershell.exe -NoLogo -NoProfile -NonInteractive -File "${SIGN_SCRIPT}" -Path "%1"' = 0
+!endif
 BrandingText "OpenClaude · Independent open-source AI workspace"
 VIProductVersion "0.1.1.0"
 VIAddVersionKey "ProductName" "OpenClaude"
