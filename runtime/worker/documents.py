@@ -89,19 +89,23 @@ elif op=='spreadsheet_create':
         for column in sheet.columns: sheet.column_dimensions[column[0].column_letter].width=min(50,max(12,max(len(str(cell.value or '')) for cell in column)+2))
     book.save(p);check=openpyxl.load_workbook(p);check.close();previews,error=preview(p);result={'files':[record(p,'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'),*previews],'formulas_recalculated':False,'preview_error':error}
 elif op=='spreadsheet_inspect':
-    import openpyxl
-    book=openpyxl.load_workbook(scoped(a['file_path']),read_only=True,data_only=False);sheets=[]
-    for sheet in book:
-        if a.get('sheet') and sheet.title!=a['sheet']: continue
-        sheets.append({'name':sheet.title,'rows':[[str(v) if not isinstance(v,(str,int,float,bool,type(None))) else v for v in row] for row in list(sheet.values)[:100]],'row_count':sheet.max_row,'column_count':sheet.max_column})
-    book.close();result={'sheets':sheets,'truncated':True}
+    from document_editing import inspect_spreadsheet
+    result=inspect_spreadsheet(scoped(a['file_path']),a)
+elif op=='spreadsheet_edit':
+    from document_editing import edit_spreadsheet
+    p=output(a['output_name'],'xlsx');result=edit_spreadsheet(scoped(a['file_path']),p,a)
+    previews,error=preview(p);result.update({'files':[record(p,'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'),*previews],'preview_error':error})
+elif op=='pdf_inspect':
+    from document_editing import inspect_pdf
+    result=inspect_pdf(scoped(a['file_path']))
+elif op=='pdf_edit':
+    from document_editing import edit_pdf
+    p=output(a['output_name'],'pdf');result=edit_pdf(scoped(a['file_path']),p,a)
+    previews,error=preview(p);result.update({'files':[record(p,'application/pdf'),*previews],'preview_error':error})
 elif op=='slides_create':
-    from pptx import Presentation
-    from pptx.util import Inches,Pt
-    p=output(a['output_name'],'pptx');deck=Presentation();deck.slide_width=Inches(13.333);deck.slide_height=Inches(7.5)
-    for source in a['slides']:
-        slide=deck.slides.add_slide(deck.slide_layouts[1]);slide.shapes.title.text=source['title'];slide.placeholders[1].text=source['body']
-    deck.save(p);Presentation(p);previews,error=preview(p);result={'files':[record(p,'application/vnd.openxmlformats-officedocument.presentationml.presentation'),*previews],'preview_error':error}
+    from document_editing import create_slides
+    p=output(a['output_name'],'pptx');create_slides(p,a)
+    previews,error=preview(p);result={'files':[record(p,'application/vnd.openxmlformats-officedocument.presentationml.presentation'),*previews],'preview_error':error}
 elif op=='chart_create':
     import pandas as pd
     import matplotlib;matplotlib.use('Agg');import matplotlib.pyplot as plt
