@@ -1,0 +1,43 @@
+import {randomUUID} from 'node:crypto';
+import {z} from 'zod';
+import type {AppContext} from '../app.ts';
+
+export const goalInput=z.object({objective:z.string().trim().min(1).max(20000),runLimit:z.number().int().min(1).max(25).default(5)}).strict();
+export const goalPatch=z.object({objective:z.string().trim().min(1).max(20000).optional(),runLimit:z.number().int().min(1).max(25).optional(),progress:z.string().trim().min(1).max(2000).optional()}).strict();
+export type Goal={id:string;conversationId:string;objective:string;runLimit:number;status:'draft'|'running'|'paused'|'completed';sessionRuns:number;totalRuns:number;steps:{at:string;text:string}[];createdAt:string;updatedAt?:string;reason?:string;pendingQueueId?:string;lastRunId?:string;edition:'web'|'desktop'};
+const now=()=>new Date().toISOString();
+
+/** Persistent intent; dispatch is always bounded by an explicit start/resume. */
+export class GoalService {
+ private timer:ReturnType<typeof setInterval>|undefined;private closed=false;private ticking=false;
+ constructor(private app:AppContext){for(const goal of this.all().filter(g=>g.status==='running'||g.pendingQueueId)){this.stopWork(goal);this.save({...goal,status:goal.status==='completed'?'completed':'paused',pendingQueueId:undefined,reason:'App restarted. Resume when ready.'});}}
+ private all(){return this.app.store.list('goals') as Goal[];}
+ private save(goal:Goal){return this.app.store.put('goals',goal) as Goal;}
+ private agent(){return this.app.ephemeral.get('agent');}
+ private queue(){return this.app.ephemeral.get('messageQueue');}
+ private conversation(id:string){const chat=this.agent()?.conversation(id);if(!chat)throw new Error('Conversation not found');if(chat.incognito)throw new Error('Persistent goals require a saved conversation');return chat;}
+ list(conversationId:string){this.conversation(conversationId);return this.all().filter(g=>g.conversationId===conversationId);}
+ read(conversationId:string,id:string){const goal=this.list(conversationId).find(g=>g.id===id);if(!goal)throw new Error('Goal not found in this conversation');return goal;}
+ create(conversationId:string,input:unknown,edition:'web'|'desktop'='web'){this.conversation(conversationId);const data=goalInput.parse(input);if(this.list(conversationId).filter(g=>g.status!=='completed').length>=20)throw new Error('This conversation already has 20 unfinished goals');return this.save({id:randomUUID(),conversationId,...data,edition,status:'draft',sessionRuns:0,totalRuns:0,steps:[],createdAt:now()});}
+ update(conversationId:string,id:string,input:unknown){const goal=this.read(conversationId,id),{progress,...patch}=goalPatch.parse(input);if(goal.status==='completed')throw new Error('Completed goals cannot be edited');if(goal.status==='running'&&(patch.objective!==undefined||patch.runLimit!==undefined))throw new Error('Pause the goal before changing its scope or run limit');return this.save({...goal,...patch,steps:progress?[...goal.steps,{at:now(),text:progress}].slice(-100):goal.steps});}
+ start(conversationId:string,id:string){const goal=this.read(conversationId,id);if(this.closed)throw new Error('Goals service is shutting down');if(goal.status==='completed')throw new Error('This goal is already completed');if(goal.status==='running')return goal;if(goal.pendingQueueId)throw new Error('Wait for the previous goal response to stop before resuming');if(this.list(conversationId).some(g=>g.id!==id&&g.status==='running'))throw new Error('Pause the active goal in this conversation first');if(!this.queue())throw new Error('Message queue is unavailable');this.save({...goal,status:'running',sessionRuns:0,reason:undefined});this.tick();return this.read(conversationId,id);}
+ private stopWork(goal:Goal){if(!goal.pendingQueueId)return;const job=this.queue()?.list(goal.conversationId).find((j:any)=>j.id===goal.pendingQueueId);if(job&&['queued','paused'].includes(job.status)){this.queue().cancel(goal.conversationId,job.id);}else if(job?.status==='running')this.agent()?.cancel(job.runId);}
+ pause(conversationId:string,id:string,reason='Paused by user',cancel=true){const goal=this.read(conversationId,id);if(goal.status==='completed')return goal;this.save({...goal,status:'paused',reason});if(cancel)this.stopWork(goal);this.tick();return this.read(conversationId,id);}
+ complete(conversationId:string,id:string,summary:string,cancel=true){if(!summary?.trim())throw new Error('Describe the completed outcome');const goal=this.read(conversationId,id);if(goal.status==='completed')return goal;const saved=this.save({...goal,status:'completed',reason:summary.slice(0,2000),steps:[...goal.steps,{at:now(),text:summary.slice(0,2000)}].slice(-100)});if(cancel)this.stopWork(goal);return saved;}
+ event(run:any,type:string,data:any){if(!['question.requested','approval.requested','tool.failed'].includes(type))return;const goal=this.all().find(g=>g.status==='running'&&g.conversationId===run.conversationId&&this.queue()?.list(g.conversationId).some((j:any)=>j.id===g.pendingQueueId&&j.runId===run.id));if(goal)this.pause(goal.conversationId,goal.id,type==='question.requested'?'Waiting for your answer. Resume the goal when ready.':type==='approval.requested'?'Waiting for approval. Resume when ready.':'A tool failed. Review the response before resuming.',false);}
+ settled(_run?:any,_status?:string){queueMicrotask(()=>this.tick());}
+ tick(){if(this.closed||this.ticking||!this.queue())return;this.ticking=true;try{for(let goal of this.all()){
+  const chat=this.agent()?.conversation(goal.conversationId);if(!chat||chat.incognito){if(goal.status==='running')this.save({...goal,status:'paused',reason:'Saved conversation is unavailable'});continue;}
+  if(goal.pendingQueueId){const job=this.queue().list(goal.conversationId).find((j:any)=>j.id===goal.pendingQueueId);if(job?.runId){if(goal.lastRunId!==job.runId)goal=this.save({...goal,lastRunId:job.runId});for(const event of this.agent().events(job.runId))this.event({id:job.runId,conversationId:goal.conversationId},event.type,event.data);goal=this.read(goal.conversationId,goal.id);}
+   if(job&&['queued','running'].includes(job.status))continue;
+   goal=this.save({...goal,pendingQueueId:undefined,lastRunId:job?.runId??goal.lastRunId,...(job?.status==='completed'?{steps:[...goal.steps,{at:now(),text:`Response ${goal.totalRuns} finished; awaiting goal completion confirmation.`}].slice(-100)}:{status:goal.status==='completed'?'completed':'paused',reason:job?.error??`Goal response ${job?.status??'is unavailable'}. Review before resuming.`})});
+  }
+  if(goal.status!=='running')continue;if(goal.sessionRuns>=goal.runLimit){this.save({...goal,status:'paused',reason:`Run limit reached (${goal.runLimit}). Review progress and resume to continue.`});continue;}
+  // Human messages and other queued work retain precedence.
+  if(chat.activeRunId||this.queue().list(goal.conversationId).some((j:any)=>['queued','paused','running'].includes(j.status)))continue;
+  const settings:any=this.app.store.get('settings','main')??{};
+  try{const queued=this.queue().enqueue({conversationId:goal.conversationId,providerId:chat.providerId??settings.providerId,model:chat.model??settings.model,edition:goal.edition,goalId:goal.id,content:`[Goal continuation ${goal.id}]\nContinue this user-authorized goal: ${goal.objective}\nResponse ${goal.sessionRuns+1} of ${goal.runLimit} in this session. Stay within this scope and normal permissions. Record useful progress with the goal tool. If the objective is achieved, mark this goal completed with evidence. If input, approval, or recovery is needed, pause the goal and explain what is needed. Never mark a run limit as completion.\nRecent progress:\n${goal.steps.slice(-5).map(step=>step.text).join('\n')||'No progress recorded yet.'}`});this.save({...goal,pendingQueueId:queued.queueId,sessionRuns:goal.sessionRuns+1,totalRuns:goal.totalRuns+1});}catch(error){this.save({...goal,status:'paused',reason:(error as Error).message});}
+ }}finally{this.ticking=false;}}
+ startPolling(){this.timer=setInterval(()=>this.tick(),500);this.timer.unref();}
+ close(){this.closed=true;clearInterval(this.timer);for(const goal of this.all().filter(g=>g.status==='running')){this.save({...goal,status:'paused',reason:'App stopped. Resume when ready.'});this.stopWork(goal);}}
+}

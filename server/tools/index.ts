@@ -1,3 +1,5 @@
+import {registerToolGroups} from './groups.ts';
+import {registerGoalTools} from '../goals/tools.ts';
 import {registerGateway} from './gateway.ts';
 import {registerCustomTools} from './custom.ts';
 import {registerTimeTools} from './schedules.ts';
@@ -13,5 +15,5 @@ import {registerHistoryTools} from './history.ts';
 import {registerQuestionTool} from './questions.ts';
 import {registerDiscoveryTool} from './discovery.ts';
 import {registerRuntimeTools} from '../runtime/tools.ts';
-export function createTools(app:AppContext){const registry=new ToolRegistry(app);registerFileTools(registry);registerCoreTools(registry);registerHistoryTools(registry);registerResearchTools(registry);registerQuestionTool(registry);registerArtifactTools(registry);registerDraftTools(registry);registerSkillTools(registry);registerWebTools(registry);registerRuntimeTools(registry,app);registerDiscoveryTool(registry);registerBrowserFileTools(registry);registerCapabilityTool(registry);registerAutomationTools(registry);registerTimeTools(registry);registerGateway(registry);registerCustomTools(registry,app);return registry;}
+export function createTools(app:AppContext){const registry=new ToolRegistry(app);registerFileTools(registry);registerCoreTools(registry);registerHistoryTools(registry);registerResearchTools(registry);registerQuestionTool(registry);registerArtifactTools(registry);registerDraftTools(registry);registerSkillTools(registry);registerWebTools(registry);registerRuntimeTools(registry,app);registerDiscoveryTool(registry);registerBrowserFileTools(registry);registerCapabilityTool(registry);registerAutomationTools(registry);registerTimeTools(registry);registerGateway(registry);registerCustomTools(registry,app);registerGoalTools(registry);registerToolGroups(registry);return registry;}
 
