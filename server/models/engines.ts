@@ -2,37 +2,48 @@ import {spawn,execFile} from 'node:child_process';
 import {promisify} from 'node:util';import {join} from 'node:path';import {access,cp,mkdir} from 'node:fs/promises';
 const exec=promisify(execFile);
 export class EngineEnvironment {
- status='idle';error='';log='';private installing?:Promise<string>;
+ status='idle';error='';log='';private installing?:Promise<string>;private profile='python';
  constructor(private root:string){}
  get dataRoot(){return process.env.OPENCLAUDE_DATA_DIR??join(this.root,'.local');}
- get python(){return join(this.dataRoot,'inference','python',process.platform==='win32'?'Scripts/python.exe':'bin/python');}
- async ensure(engine:string,device='auto'){
-  if(this.installing)return this.installing;
-  const module=engine==='mlx'?'mlx_lm':'llama_cpp';
+ get python(){return join(this.dataRoot,'inference',this.profile,process.platform==='win32'?'Scripts/python.exe':'bin/python');}
+ async ensure(engine:string,device='auto'):Promise<string>{
+  if(!['llama.cpp','mlx','transformers','download'].includes(engine))throw new Error('Unknown runtime environment');
+  if(this.installing){await this.installing;return this.ensure(engine,device);}
+  this.installing=this.prepare(engine,device).finally(()=>{this.installing=undefined;});return this.installing;
+ }
+ private async prepare(engine:string,device:string){
+  this.profile=engine==='download'?'downloads':engine==='transformers'?'transformers':'python';
   let needsCuda=device==='cuda';
-  if(device==='auto'&&process.platform!=='darwin'){try{await exec('nvidia-smi',['--query-gpu=name','--format=csv,noheader'],{windowsHide:true,timeout:8000});needsCuda=true;}catch{}}
-  try{await exec(this.python,['-c','import sys;sys.path.insert(0,'+JSON.stringify(join(this.root,'runtime/models'))+');import native_worker;import '+module+(engine==='mlx'?'':';assert '+module+'.__version__=="0.3.36"'+(needsCuda?';assert '+module+'.llama_supports_gpu_offload();assert "CUDA" in '+module+'.llama_print_system_info().decode()':''))],{windowsHide:true,timeout:30000});this.status='ready';return this.python;}catch{}
-  this.installing=this.install(engine,device).finally(()=>{this.installing=undefined;});return this.installing;
+  if(device==='auto'&&process.platform!=='darwin')try{await exec('nvidia-smi',['--query-gpu=name','--format=csv,noheader'],{windowsHide:true,timeout:8000});needsCuda=true;}catch{}
+  let probe:string;
+  if(engine==='download')probe='import huggingface_hub;assert huggingface_hub.__version__=="2.2.0"';
+  else if(engine==='transformers')probe='import torch,transformers,accelerate,psutil,lmformatenforcer;assert torch.__version__.split("+")[0]=="2.14.1";assert transformers.__version__=="5.19.0"'+(needsCuda?';assert torch.cuda.is_available(),"CUDA PyTorch cannot access the GPU; check the NVIDIA driver"':'');
+  else{const module=engine==='mlx'?'mlx_lm':'llama_cpp';probe='import sys;sys.path.insert(0,'+JSON.stringify(join(this.root,'runtime/models'))+');import native_worker;import '+module+(engine==='mlx'?'':';assert '+module+'.__version__=="0.3.36"'+(needsCuda?';assert '+module+'.llama_supports_gpu_offload();assert "CUDA" in '+module+'.llama_print_system_info().decode()':''));}
+  try{await exec(this.python,['-c',probe],{windowsHide:true,timeout:30000});this.status='ready';return this.python;}catch{}
+  return this.install(engine,needsCuda,probe);
  }
  private async run(command:string,args:string[]){await new Promise<void>((resolve,reject)=>{const child=spawn(command,args,{windowsHide:true,stdio:['ignore','pipe','pipe']});for(const stream of [child.stdout,child.stderr])stream.on('data',chunk=>{this.log=(this.log+chunk.toString()).slice(-6000);});child.on('error',reject);child.on('exit',code=>code===0?resolve():reject(new Error('Runtime setup failed: '+this.log.slice(-2000))));});}
- private async install(engine:string,device:string){
+ private async install(engine:string,cuda:boolean,probe:string){
   this.status='installing';this.error='';this.log='';
   try{
    if(engine==='mlx'&&(process.platform!=='darwin'||process.arch!=='arm64'))throw new Error('MLX requires an Apple Silicon Mac');
    try{await access(this.python);}catch{
     let base=process.env.OPENCLAUDE_PYTHON??'python';
     if(process.env.OPENCLAUDE_BUNDLED_PYTHON){const target=join(this.dataRoot,'inference','base-python');base=join(target,process.platform==='win32'?'python.exe':'bin/python3');try{await access(base);}catch{await mkdir(join(this.dataRoot,'inference'),{recursive:true});await cp(process.env.OPENCLAUDE_BUNDLED_PYTHON,target,{recursive:true});}}
-    await this.run(base,['-m','venv',join(this.dataRoot,'inference','python')]);
+    await this.run(base,['-m','venv',join(this.dataRoot,'inference',this.profile)]);
    }
-   if(engine==='mlx')await this.run(this.python,['-m','pip','install','mlx-lm==0.32.0']);
+   if(engine==='download')await this.run(this.python,['-m','pip','install','--only-binary=:all:','huggingface_hub==2.2.0']);
+   else if(engine==='transformers'){
+    const args=['-m','pip','install','--only-binary=:all:'];if(process.platform!=='darwin')args.push('--index-url','https://download.pytorch.org/whl/'+(cuda?'cu130':'cpu'));args.push('torch==2.14.1');await this.run(this.python,args);
+    await this.run(this.python,['-m','pip','install','-r',join(this.root,'runtime/models/requirements.txt')]);
+   }
+   else if(engine==='mlx')await this.run(this.python,['-m','pip','install','mlx-lm==0.32.0']);
    else{
-    let variant=process.platform==='darwin'&&process.arch==='arm64'?'metal':'cpu';
-    if(device==='cuda')variant='cu132';
-    else if(device==='auto'&&process.platform!=='darwin'){try{await exec('nvidia-smi',['--query-gpu=name','--format=csv,noheader'],{windowsHide:true,timeout:8000});variant='cu132';}catch{}}
+    const variant=cuda?'cu132':process.platform==='darwin'&&process.arch==='arm64'?'metal':'cpu';
     await this.run(this.python,['-m','pip','install','--force-reinstall','--only-binary=:all:','--extra-index-url','https://abetlen.github.io/llama-cpp-python/whl/'+variant,'llama-cpp-python==0.3.36']);
     if(variant==='cu132'&&process.platform==='win32')await this.run(this.python,['-m','pip','install','--only-binary=:all:','nvidia-cublas==13.2.2.2']);
    }
-   this.status='ready';return this.python;
+   await this.run(this.python,['-c',probe]);this.status='ready';return this.python;
   }catch(error){this.status='failed';this.error=(error as Error).message;throw error;}
  }
 }

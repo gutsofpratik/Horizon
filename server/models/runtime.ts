@@ -30,7 +30,7 @@ export class ModelRuntime {
   const failed=(error:Error)=>{if(this.worker!==child)return;this.worker=undefined;this.loaded=null;this.status='unavailable';this.error=error.message;for(const pending of this.pending.values()){pending.cleanup();pending.reject(error);}this.pending.clear();};
   child.on('error',failed);child.on('exit',code=>failed(new Error('Model worker exited ('+code+'): '+this.stderr.slice(-1500))));
  }
- call(action:string,args:any={},event?:(event:any)=>void,signal?:AbortSignal):Promise<any>{if(action==='generate')return this.schedule(()=>{if(signal?.aborted)throw new Error('Generation cancelled');return this.dispatch(action,args,event,signal);});return this.dispatch(action,args,event,signal);}
+ call(action:string,args:any={},event?:(event:any)=>void,signal?:AbortSignal):Promise<any>{if(action==='download')return this.schedule(async()=>{this.python=await this.environment.ensure('download','cpu');if(this.closed)throw new Error('Model runtime closed');return this.dispatch(action,args,event,signal);});if(action==='generate')return this.schedule(()=>{if(signal?.aborted)throw new Error('Generation cancelled');return this.dispatch(action,args,event,signal);});return this.dispatch(action,args,event,signal);}
  private dispatch(action:string,args:any={},event?:(event:any)=>void,signal?:AbortSignal){this.start();if(action==='generate')this.generations++;const id=randomUUID();return new Promise<any>((resolve,reject)=>{
   const cancel=()=>{if(action==='load'){this.dispose();this.status='idle';return;}this.worker?.stdin.write(JSON.stringify({id:randomUUID(),action:'cancel',args:{requestId:id}})+'\n');};
   const timeout=setTimeout(()=>{this.pending.delete(id);cleanup();cancel();reject(new Error('Model operation timed out'));},action==='inspect_runtime'?60000:1800000);timeout.unref();
@@ -49,8 +49,7 @@ export class ModelRuntime {
    const effective=runtimeConfiguration(entry.path,config,defaults);
    this.dispose();this.engine=engine;this.runtimeVariant=config.runtimeVariant??'stock';
    if(this.runtimeVariant==='prism'&&engine!=='llama.cpp')throw new Error('Prism requires a GGUF model and the llama.cpp engine');
-   if(engine==='transformers'){this.workerFile='worker.py';this.python=process.env.OPENCLAUDE_PYTHON??'python';}
-   else{this.status='Preparing '+engine+' runtime';this.python=await this.environment.ensure(engine,config.device);this.workerFile='native_worker.py';}
+   this.status='Preparing '+engine+' runtime';this.python=await this.environment.ensure(engine,config.device);this.workerFile=engine==='transformers'?'worker.py':'native_worker.py';
    if(this.closed)throw new Error('Model runtime closed');
    this.loaded=await this.call('load',{path:entry.path,configuration:effective,modelId:entry.id,engine,importedSystem:entry.ollama?.system,projectorLayers:entry.ollama?.layers},event=>{this.status=event.data.stage??'loading';});this.selectedSignature=this.signature(entry);this.status='loaded';return this.loaded;
   }catch(error){const details=this.stderr.slice(-1800);this.dispose();this.status='failed';this.error=(error as Error).message+(details?'\nNative runtime details:\n'+details:'');throw new Error(this.error);}
