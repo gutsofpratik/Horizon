@@ -54,7 +54,7 @@ export async function executeGroupedLeaf(registry:ToolRegistry,name:string,args:
 export function registerToolGroups(registry:ToolRegistry){
  for(const [name,description] of Object.entries(families)){
   const leaves=groupLeafNames(name,registry);if(!leaves.length)continue;
-  const resolve=(action:unknown)=>leaves.find(leaf=>groupAction(leaf)===action);
+  const resolve=(action:unknown)=>leaves.find(leaf=>groupAction(leaf)===action||leaf===action);
   const input=z.any().superRefine((args,ctx)=>{if(!args||typeof args!=='object'||Array.isArray(args)){ctx.addIssue({code:'custom',message:'Expected an object with action'});return;}const leaf=resolve(args.action);if(!leaf){ctx.addIssue({code:'custom',path:['action'],message:'Expected one of '+leaves.map(groupAction).join(', ')});return;}const tool=registry.tools.get(leaf)!;const schema=tool.inputSchema??z.toJSONSchema(tool.input);const parsed=tool.input.safeParse(leafArguments(args,schema));if(!parsed.success)for(const issue of parsed.error.issues)ctx.addIssue({code:'custom',path:issue.path,message:issue.message});});
   const definitions=leaves.map(leaf=>{const tool=registry.tools.get(leaf)!;return {function:{name:leaf,description:tool.description,parameters:tool.inputSchema??z.toJSONSchema(tool.input)}};});
   registry.register({name,description,capability:'conversation',input,inputSchema:categoryDefinitions(definitions)[0].function.parameters,handler:(args,ctx)=>{const leaf=resolve(args.action)!;const tool=registry.tools.get(leaf)!;return executeGroupedLeaf(registry,leaf,leafArguments(args,tool.inputSchema??z.toJSONSchema(tool.input)),ctx);}});
