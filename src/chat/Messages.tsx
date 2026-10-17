@@ -1,3 +1,4 @@
+import {groupedActivities} from './tool-families';
 import {responsePhaseLabel,prefillProgressLabel} from './response-status';
 
 
@@ -63,7 +64,7 @@ function InlineActivity({activities}:any){return <div className="thinking-tools"
 
  <div className="thinking-tools-label">Tools used · {activities.length}</div>
 
- <div className="activity-steps">{activities.map((item:any,index:number)=>{const args=item.arguments??{};const detail=args.query??args.url??item.result?.data?.query??item.result?.data?.url;const status=item.result?.status??(item.phase==='preparing'?'Preparing':'Running');return <div className="thinking-tool" key={item.callId??index}>
+ <div className="activity-steps">{groupedActivities(activities).map((group,groupIndex)=><details className="tool-family" key={groupIndex} open={group.items.some((item:any)=>!item.result)}><summary>{group.name}<small>{group.items.length} {group.items.length===1?'action':'actions'}</small></summary>{group.items.map((item:any,index:number)=>{const args=item.arguments??{};const detail=args.query??args.url??item.result?.data?.query??item.result?.data?.url;const status=item.result?.status??(item.phase==='preparing'?'Preparing':'Running');return <div className="thinking-tool" key={item.callId??index}>
 
  <div className="thinking-tool-heading"><span>{(item.name??'tool').replaceAll('_',' ')}</span><small>{status}</small></div>
 
@@ -73,7 +74,7 @@ function InlineActivity({activities}:any){return <div className="thinking-tools"
 
  {item.result?.data?.sources?.length>0&&<div className="thinking-tool-sources">{item.result.data.sources.slice(0,5).filter((source:any)=>/^https?:\/\//.test(source.url)).map((source:any)=><a key={source.source_id??source.url} href={source.url} target="_blank" rel="noopener noreferrer">{source.title||source.url}<ArrowUpRight size={11}/></a>)}</div>}
 
- </div>;})}</div>
+ </div>;})}</details>)}</div>
 
  {activities.some((item:any)=>['artifact_create','artifact_update'].includes(item.name)&&!item.result)&&<div className="artifact-drafting" role="status"><FileCode size={23}/><div><strong>Drafting artifact…</strong><span className="draft-lines"><i/><i/><i/></span></div></div>}
 

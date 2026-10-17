@@ -1,10 +1,12 @@
+import {toolFamily} from './tool-families';
 const activeLabels=['Thinking…','Cooking…','Working…','Putting it together…','Connecting the dots…'];
 export function responsePhaseLabel(message:any,workingWithTools=false,toolName?:string,tick=0){
  if(message.status!=='generating')return 'Thought process';
+ if(message.engineStage==='approval')return 'Waiting for your approval…';
  if(message.engineStage==='loading')return 'Loading model…';
  if(message.engineStage==='compacting')return 'Compacting conversation…';
  if(message.engineStage==='queued')return 'Waiting for previous response…';
- if(workingWithTools&&toolName&&toolName!=='toolkit')return 'Using '+toolName.replaceAll('_',' ')+'…';
+ if(workingWithTools&&toolName&&toolName!=='toolkit')return 'Using '+toolFamily(toolName)+'…';
  return activeLabels[tick%activeLabels.length];
 }
 export function prefillProgressLabel(progress:any){

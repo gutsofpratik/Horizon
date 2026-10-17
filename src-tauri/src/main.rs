@@ -5,6 +5,7 @@ mod browser_manage;
 mod browser_tools;
 mod cancellation;
 mod computer;
+mod control_indicator;
 mod models;
 use portable_pty::{native_pty_system, Child, CommandBuilder, MasterPty, PtySize};
 use serde::Serialize;
@@ -561,6 +562,7 @@ fn main() {
         .manage(Desktop::default())
         .manage(browser_tools::BrowserTools::default())
         .manage(computer::Computer::default())
+        .setup(|app| { if let Err(error) = control_indicator::prepare(app.handle()) { eprintln!("Computer control indicator could not initialize: {error}"); } Ok(()) })
         .manage(cancellation::Cancellation::default())
         .invoke_handler(tauri::generate_handler![
             cancellation::native_cancel,

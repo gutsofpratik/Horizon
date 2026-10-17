@@ -1,0 +1,3 @@
+const names:Record<string,string>={artifact:'Artifact',browser:'Browser',computer:'Computer',web:'Web',document:'Documents',pdf:'PDF',spreadsheet:'Sheets',slides:'Slides',plan:'Plan',goal:'Goal'};
+export function toolFamily(name:string){const prefix=name.split('_')[0];return names[prefix]??name.replaceAll('_',' ');}
+export function groupedActivities(activities:any[]){const groups:{name:string;items:any[]}[]=[];for(const item of activities){const name=toolFamily(item.name??'tool');const previous=groups.at(-1);if(previous?.name===name)previous.items.push(item);else groups.push({name,items:[item]});}return groups;}

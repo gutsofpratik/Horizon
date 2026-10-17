@@ -1,11 +1,13 @@
+import {SketchDialog} from './SketchDialog';
+import {composerModes} from './ComposerModes';
 import {useComposerMentions} from './use-composer-mentions';
 import {useRef,useEffect,useState} from 'react';
 
 import {ArrowUp,Plus,Square,Mic,Paperclip,X} from 'lucide-react';import {ModelPicker} from './ModelPicker';import {ComposerMenu} from './ComposerMenu';
 
-export function Composer({text,setText,onSend,running,onCancel,models,settings,onModel,onSettings,onRefresh,attachments,onUpload,onRemoveAttachment,projects,projectId,onProject,onCustomize,skills=[],tools=[],layout='welcome',memoryEnabled=true,onMemoryChange,onError}:{[key:string]:any}){
+export function Composer({text,setText,onSend,running,onCancel,models,settings,onModel,onSettings,onRefresh,attachments,onUpload,onRemoveAttachment,projects,projectId,onProject,onCustomize,skills=[],tools=[],layout='welcome',memoryEnabled=true,onMemoryChange,onError,onMode}:{[key:string]:any}){
 
- const menuAnchor=useRef<HTMLButtonElement>(null);const field=useRef<HTMLTextAreaElement>(null);const file=useRef<HTMLInputElement>(null);const [menu,setMenu]=useState(false);const [dictating,setDictating]=useState(false);
+ const menuAnchor=useRef<HTMLButtonElement>(null);const field=useRef<HTMLTextAreaElement>(null);const file=useRef<HTMLInputElement>(null);const [menu,setMenu]=useState(false);const [sketch,setSketch]=useState(false);const [dictating,setDictating]=useState(false);
 
  useEffect(()=>{if(field.current){field.current.style.height='auto';field.current.style.height=Math.min(field.current.scrollHeight,220)+'px';}},[text,layout]);
 
@@ -18,7 +20,7 @@ export function Composer({text,setText,onSend,running,onCancel,models,settings,o
 
  const mode=settings.accessMode??'chat';
 
- return <div className={'composer-wrap '+layout+'-composer'} data-layout={layout}>{mentions.menu}<div className={'composer '+(attachments.length?'has-attachments':'')}>
+ return <div className={'composer-wrap '+layout+'-composer'} data-layout={layout}>{sketch&&<SketchDialog onClose={()=>setSketch(false)} onAttach={onUpload} onError={onError}/ >}{settings.composerMode&&settings.composerMode!=='chat'&&<div className="composer-mode-chip"><span>{composerModes.find(mode=>mode.id===settings.composerMode)?.label}</span><button aria-label="Clear workflow mode" onClick={()=>onSettings({...settings,composerMode:'chat'})}><X size={12}/></button></div>}{mentions.menu}<div className={'composer '+(attachments.length?'has-attachments':'')}>
 
  {attachments.length>0&&<div className="attachment-chips">{attachments.map((attachment:any)=><span className="attachment-chip" key={attachment.id}><Paperclip size={13}/>{attachment.name}<button aria-label={'Remove '+attachment.name} onClick={()=>onRemoveAttachment(attachment.id)}><X size={12}/></button></span>)}</div>}
 
@@ -26,7 +28,7 @@ export function Composer({text,setText,onSend,running,onCancel,models,settings,o
 
  <div className="composer-bottom"><div className="composer-actions"><button ref={menuAnchor} className="icon-button add-button" aria-label="Add files, skills, and tools" aria-expanded={menu} onClick={()=>setMenu(!menu)}><Plus size={19}/></button>
 
- {menu&&<ComposerMenu anchor={menuAnchor.current} running={running} onError={onError} onRefresh={onRefresh} memoryEnabled={memoryEnabled} onMemoryChange={onMemoryChange} skills={skills} settings={settings} onSettings={onSettings} onUpload={()=>file.current?.click()} onCustomize={onCustomize} projects={projects} projectId={projectId} onProject={onProject} onClose={()=>setMenu(false)} onInvoke={(name:string)=>{setText('@'+(/\s/.test(name)?JSON.stringify(name):name)+' '+text);field.current?.focus();}}/>}
+ {menu&&<ComposerMenu anchor={menuAnchor.current} onSelectMode={(mode:string)=>{onSettings({...settings,composerMode:mode});if(mode==='sketch')setSketch(true);onMode?.(mode);field.current?.focus();}} running={running} onError={onError} onRefresh={onRefresh} memoryEnabled={memoryEnabled} onMemoryChange={onMemoryChange} skills={skills} settings={settings} onSettings={onSettings} onUpload={()=>file.current?.click()} onCustomize={onCustomize} projects={projects} projectId={projectId} onProject={onProject} onClose={()=>setMenu(false)} onInvoke={(name:string)=>{setText('@'+(/\s/.test(name)?JSON.stringify(name):name)+' '+text);field.current?.focus();}}/>}
 
  <input ref={file} hidden type="file" multiple accept="image/*,.pdf,.docx,.txt,.md,.csv,.json,.js,.ts,.py,.html,.css,.xlsx,.pptx" onChange={event=>{onUpload([...event.target.files??[]]);event.target.value='';}}/>
 

@@ -29,6 +29,8 @@ struct Screen {
     width: i32,
     height: i32,
 }
+// Desktop input and captures share one lock, keeping the overlay out of screenshots.
+static DESKTOP_INPUT: Mutex<()> = Mutex::new(());
 pub struct Computer {
     enabled: AtomicBool,
     screens: Mutex<HashMap<String, Screen>>,
@@ -286,6 +288,7 @@ pub async fn computer_tool(
         return Err("Computer tools require a conversation owner".into());
     }
     if name == "computer_screenshot" {
+        let _desktop = DESKTOP_INPUT.lock().map_err(|_| "Desktop control lock is unavailable")?;
         return capture(&state, &owner);
     }
     if name == "computer_wait" {
@@ -302,8 +305,11 @@ pub async fn computer_tool(
         .await
         .map_err(|e| e.to_string())?;
         request.check()?;
+        let _desktop = DESKTOP_INPUT.lock().map_err(|_| "Desktop control lock is unavailable")?;
         return capture(&state, &owner);
     }
+    let _desktop = DESKTOP_INPUT.lock().map_err(|_| "Desktop control lock is unavailable")?;
+    request.check()?;
     let screen = state
         .screens
         .lock()
@@ -315,6 +321,7 @@ pub async fn computer_tool(
     {
         return Err("Screenshot is stale; capture the screen again".into());
     }
+    let indicator = super::control_indicator::ActiveIndicator::show(view.app_handle())?;
     match name.as_str() {
         "computer_move" => pointer(
             &screen,
@@ -426,5 +433,6 @@ pub async fn computer_tool(
         }
         _ => return Err(format!("Native computer tool is unavailable: {}", name)),
     }
+    drop(indicator);
     capture(&state, &owner)
 }
