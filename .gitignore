@@ -8,8 +8,8 @@ node_modules/
 __pycache__/
 dist/
 dist-desktop/
-release/
-public-release/
+/release/
+/public-release/
 src-tauri/target/
 src-tauri/gen/
 .rea/
