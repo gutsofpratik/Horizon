@@ -592,7 +592,7 @@ fn main() {
         ])
         .build(tauri::generate_context!())
         .expect("Native desktop runtime failed");
-    app.run(|app,event|{if matches!(event,tauri::RunEvent::Exit){app.state::<backend::Backend>().stop();}});
+    app.run(|app,event|{if let tauri::RunEvent::WindowEvent { label, event: tauri::WindowEvent::CloseRequested { .. }, .. } = &event { if label == "main" { app.exit(0); } } if matches!(event,tauri::RunEvent::Exit){app.state::<backend::Backend>().stop();}});
 }
 
 
