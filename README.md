@@ -6,6 +6,8 @@ OpenClaude connects to Ollama and OpenAI-compatible model servers. The desktop a
 
 **Early preview · 0.1.0 · Windows desktop + self-hosted web**
 
+**[Windows installer](https://github.com/gutsofpratik/OpenClaude/releases/download/v0.1.0/OpenClaude-0.1.0-windows-x64-setup.exe)** · **[Portable ZIP](https://github.com/gutsofpratik/OpenClaude/releases/download/v0.1.0/OpenClaude-0.1.0-windows-x64-portable.zip)** · [SHA-256 checksums](https://github.com/gutsofpratik/OpenClaude/releases/download/v0.1.0/SHA256SUMS.txt)
+
 [Download releases](https://github.com/gutsofpratik/OpenClaude/releases) · [Source](https://github.com/gutsofpratik/OpenClaude) · [Skills repository](https://github.com/gutsofpratik/OpenClaude-Skills) · [Report an issue](https://github.com/gutsofpratik/OpenClaude/issues)
 
 ![OpenClaude chat overview](docs/images/overview.png)
