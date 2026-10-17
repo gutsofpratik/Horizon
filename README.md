@@ -4,13 +4,13 @@ An open-source workspace for local AI: chat, versioned artifacts, web research, 
 
 OpenClaude connects to Ollama and OpenAI-compatible model servers. The desktop app also loads supported local models through a built-in inference worker, with direct GGUF inference through llama.cpp. Choose how you run your models and which capabilities the assistant can use.
 
-**Early preview · 0.1.0 · Windows desktop + self-hosted web**
+**Early preview · 0.1.1 · Windows desktop + self-hosted web**
 
 | Release file | Download |
 | --- | --- |
-| Windows installer EXE · 70 MiB | [Download installer](https://github.com/gutsofpratik/OpenClaude/releases/download/v0.1.0/OpenClaude-0.1.0-windows-x64-setup.exe) |
-| Portable ZIP · 108 MiB | [Download portable ZIP](https://github.com/gutsofpratik/OpenClaude/releases/download/v0.1.0/OpenClaude-0.1.0-windows-x64-portable.zip) |
-| SHA-256 checksums | [Download checksums](https://github.com/gutsofpratik/OpenClaude/releases/download/v0.1.0/SHA256SUMS.txt) |
+| Windows installer EXE | [Download installer](https://github.com/gutsofpratik/OpenClaude/releases/download/v0.1.1/OpenClaude-0.1.1-windows-x64-setup.exe) |
+| Portable ZIP | [Download portable ZIP](https://github.com/gutsofpratik/OpenClaude/releases/download/v0.1.1/OpenClaude-0.1.1-windows-x64-portable.zip) |
+| SHA-256 checksums | [Download checksums](https://github.com/gutsofpratik/OpenClaude/releases/download/v0.1.1/SHA256SUMS.txt) |
 
 [Download releases](https://github.com/gutsofpratik/OpenClaude/releases) · [Source](https://github.com/gutsofpratik/OpenClaude) · [Skills repository](https://github.com/gutsofpratik/OpenClaude-Skills) · [Report an issue](https://github.com/gutsofpratik/OpenClaude/issues)
 

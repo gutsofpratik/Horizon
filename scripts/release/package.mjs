@@ -1,3 +1,4 @@
+import {createReleaseStage,releaseFiles} from './payload.mjs';
 import {build} from 'esbuild';
 import {mkdir,cp,readFile,writeFile,readdir,stat,access} from 'node:fs/promises';
 import {join,resolve,dirname} from 'node:path';
@@ -7,7 +8,7 @@ import {fileURLToPath} from 'node:url';
 import {homedir} from 'node:os';
 import JSZip from 'jszip';
 const root=process.cwd(),version=JSON.parse(await readFile('package.json','utf8')).version;
-const out=resolve(process.env.OPENCLAUDE_RELEASE_DIR??'release'),stage=join(out,'OpenClaude-'+version+'-windows-x64');
+const out=resolve(process.env.OPENCLAUDE_RELEASE_DIR??'release'),stage=await createReleaseStage(out);
 const cache=resolve('.local/release-cache');await mkdir(cache,{recursive:true});await mkdir(stage,{recursive:true});
 const backend=join(stage,'backend');await mkdir(backend,{recursive:true});
 const inputs=JSON.parse(await readFile('scripts/release/inputs.json','utf8'));
@@ -73,8 +74,9 @@ await writeFile(join(backend,'runtime-manifest.json'),JSON.stringify({version,no
 const nsisZip=await download(inputs.nsis,'nsis.zip'),nsisDir=join(cache,'nsis');await mkdir(nsisDir,{recursive:true});
 const nsis=await JSZip.loadAsync(await readFile(nsisZip));for(const entry of Object.values(nsis.files)){if(entry.dir)continue;if(entry.name.includes('..')||entry.name.startsWith('/'))throw new Error('Unsafe NSIS archive');const file=join(nsisDir,entry.name);await mkdir(dirname(file),{recursive:true});await writeFile(file,await entry.async('nodebuffer'));}
 const makensis=join(nsisDir,'nsis-3.11/makensis.exe');await access(makensis);
+const payload=await releaseFiles(stage);
 const installer=join(out,'OpenClaude-'+version+'-windows-x64-setup.exe');await run(makensis,['/V2','/DSTAGE='+stage,'/DOUTFILE='+installer,resolve('installer/OpenClaude.nsi')]);
-const zip=new JSZip();async function add(folder,prefix=''){for(const entry of await readdir(folder,{withFileTypes:true})){const path=join(folder,entry.name),name=prefix+entry.name;if(entry.isDirectory())await add(path,name+'/');else zip.file(name,await readFile(path));}}await add(stage,'OpenClaude/');
+const zip=new JSZip();for(const path of payload)zip.file('OpenClaude/'+path,await readFile(join(stage,path)));
 const portable=join(out,'OpenClaude-'+version+'-windows-x64-portable.zip');await writeFile(portable,await zip.generateAsync({type:'nodebuffer',compression:'DEFLATE',compressionOptions:{level:6},streamFiles:true}));
 let checksums='';for(const file of [installer,portable])checksums+=createHash('sha256').update(await readFile(file)).digest('hex')+'  '+file.slice(out.length+1)+'\n';await writeFile(join(out,'SHA256SUMS.txt'),checksums);
-console.log(JSON.stringify({installer,portable,checksums:join(out,'SHA256SUMS.txt')}));
+console.log(JSON.stringify({stage,installer,portable,checksums:join(out,'SHA256SUMS.txt')}));
