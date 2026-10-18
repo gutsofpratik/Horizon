@@ -1,3 +1,9 @@
+import {registerShellTools} from './shell.ts';
+import {registerApiTools} from './api.ts';
+import {registerTriggerTools} from './triggers.ts';
+import {registerNotificationTools} from './notifications.ts';
+import {registerMcpTools} from './mcp.ts';
+import {registerHttpTools} from './http.ts';
 import {registerDataTools} from './data.ts';
 import {registerToolGroups} from './groups.ts';
 import {registerExtendedFileTools} from './files-extended.ts';
@@ -19,5 +25,5 @@ import {registerHistoryTools} from './history.ts';
 import {registerQuestionTool} from './questions.ts';
 import {registerDiscoveryTool} from './discovery.ts';
 import {registerRuntimeTools} from '../runtime/tools.ts';
-export function createTools(app:AppContext){const registry=new ToolRegistry(app);registerFileTools(registry);registerExtendedFileTools(registry);registerDataTools(registry);registerGitTools(registry);registerSubagentTools(registry);registerCoreTools(registry);registerHistoryTools(registry);registerResearchTools(registry);registerQuestionTool(registry);registerArtifactTools(registry);registerDraftTools(registry);registerSkillTools(registry);registerWebTools(registry);registerRuntimeTools(registry,app);registerDiscoveryTool(registry);registerBrowserFileTools(registry);registerCapabilityTool(registry);registerAutomationTools(registry);registerTimeTools(registry);registerGateway(registry);registerCustomTools(registry,app);registerGoalTools(registry);registerToolGroups(registry);return registry;}
+export function createTools(app:AppContext){const registry=new ToolRegistry(app);registerFileTools(registry);registerExtendedFileTools(registry);registerDataTools(registry);registerApiTools(registry);registerTriggerTools(registry);registerNotificationTools(registry);registerGitTools(registry);registerSubagentTools(registry);registerCoreTools(registry);registerHttpTools(registry);registerMcpTools(registry);registerHistoryTools(registry);registerResearchTools(registry);registerQuestionTool(registry);registerArtifactTools(registry);registerDraftTools(registry);registerSkillTools(registry);registerWebTools(registry);registerRuntimeTools(registry,app);registerShellTools(registry);registerDiscoveryTool(registry);registerBrowserFileTools(registry);registerCapabilityTool(registry);registerAutomationTools(registry);registerTimeTools(registry);registerGateway(registry);registerCustomTools(registry,app);registerGoalTools(registry);registerToolGroups(registry);return registry;}
 

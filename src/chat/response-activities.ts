@@ -1,4 +1,4 @@
-const categoryPrefixes:Record<string,string>={artifact:'artifact',browser:'browser',computer:'computer',web:'web',documents:'document',pdf:'pdf',sheets:'spreadsheet',slides:'slides',planning:'plan'};
+const categoryPrefixes:Record<string,string>={api:'api',trigger:'trigger',notification:'notification',file:'files',directory:'directory',archive:'archive',git:'git',agent:'agent',shell:'terminal',data:'data',http:'http',mcp:'mcp',schedule:'schedule',queue:'message_queue',webhook:'webhook',artifact:'artifact',browser:'browser',computer:'computer',web:'web',documents:'document',pdf:'pdf',sheets:'spreadsheet',slides:'slides',planning:'plan'};
 function routed(name:string,args:any){
  const prefix=categoryPrefixes[name];if(!prefix||typeof args.action!=='string')return {name,arguments:args};
  const {action,...rest}=args;const suffix=name==='artifact'&&['write','finish'].includes(action)?'draft_'+action:action;

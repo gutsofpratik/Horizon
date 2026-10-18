@@ -1,3 +1,6 @@
+import {registerHttpRoutes} from './tools/http.ts';
+import {Triggers} from './tools/triggers.ts';
+import {registerNotificationRoutes} from './tools/notifications.ts';
 import {pendingApprovals,resolveApproval} from './tools/approvals.ts';
 import {registerGoalRoutes} from './goals/routes.ts';
 import {registerOfficialPluginRoutes} from './skills/official-plugins.ts';
@@ -45,7 +48,8 @@ export async function createApp(options:{dataDirectory:string;dbPath?:string;roo
   app.get('/api/health',async()=>({app:'OpenClaude',status:'ok',storage:'ready',version:'0.1.2',desktopOwned:process.env.OPENCLAUDE_DESKTOP_OWNED==='1'}));
   registerNativeBroker(app,context);
   registerModelRuntime(app,context);
-  registerWebhooks(app,context);
+  context.ephemeral.set('triggers',new Triggers(context));
+  registerWebhooks(app,context);registerHttpRoutes(app,context);registerNotificationRoutes(app,context);
   registerWebBrowser(app,context);
   app.get('/api/runtime/health',async()=>context.runtime!.health());
   app.post('/api/runtime/start',async()=>context.runtime!.startSetup());

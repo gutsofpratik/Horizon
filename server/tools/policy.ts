@@ -7,7 +7,7 @@ export function capabilityOf(tool:Tool):Capability|null{
  if(/^terminal_/.test(tool.name)||tool.name==='skill_run_script')return 'terminal';
  if(/^browser_/.test(tool.name))return 'browser';if(/^computer_/.test(tool.name))return 'computer';
  if(/^artifact_/.test(tool.name))return 'artifact';if(/^(files_|directory_|archive_)/.test(tool.name))return 'workspace-file';
- if(tool.name==='web_search')return 'web-search';if(tool.name==='web_fetch')return 'web-fetch';
+ if(tool.name==='web_search'||tool.name==='web_search_documents')return 'web-search';if(tool.name==='web_fetch')return 'web-fetch';
  if(/^(document_|pdf_|spreadsheet_|slides_|chart_|image_)/.test(tool.name))return 'document-job';
  if(/^(memory_|chat_history_|plan_|skill_|skills_)/.test(tool.name)||['calculate','project_search'].includes(tool.name))return 'conversation';return null;
 }
@@ -26,7 +26,7 @@ export function decideTool(tool:Tool,ctx:ToolContext,settings:any){
  if(taskMode==='plan'&&!isToolGroup(tool.name)&&!['conversation','web-search','web-fetch'].includes(capability)&&!/^artifact_|^files_(read|list|search)$|^browser_(snapshot|screenshot|tabs|find)$/.test(tool.name))return {allowed:false,code:'PLAN_MODE_READ_ONLY',reason:'Plan mode permits research and planning artifacts, not execution or computer control. Switch out of Plan mode to execute.'};
  const desktop=ctx.app.ephemeral?.get('nativeBridge');
  if(capability==='browser'&&tool.name!=='browser_open_file'&&ctx.edition==='desktop'&&desktop?.kind==='tauri'&&desktop.browser&&Date.now()-desktop.updated<12000&&desktop.tools&&!desktop.tools.includes(tool.name))return {allowed:false,code:'NATIVE_TOOL_UNAVAILABLE',reason:'This tool is not implemented for the embedded desktop browser; use the available browser DOM tools or computer screenshot with a vision model'};
- if(ctx.incognito&&(['workspace-file','document-job'].includes(capability)||tool.name==='artifact_export'||tool.name==='browser_open_file'))return {allowed:false,code:'PRIVATE_FILES_UNAVAILABLE',reason:'Persistent file operations are unavailable in incognito; use a saved chat for generated downloads. Private HTML/code artifacts remain memory-only.'};
+ if(ctx.incognito&&(['workspace-file','document-job'].includes(capability)||tool.name==='artifact_export'||['browser_open_file','browser_upload'].includes(tool.name)))return {allowed:false,code:'PRIVATE_FILES_UNAVAILABLE',reason:'Persistent file operations are unavailable in incognito; use a saved chat for generated downloads. Private HTML/code artifacts remain memory-only.'};
  if(capability==='web-search'&&(settings.webSearchEnabled===false||conversation?.webSearchEnabled===false||ctx.webSearchEnabled===false))return {allowed:false,code:'SEARCH_DISABLED',reason:'Web search is turned off'};
  if(capability==='artifact'&&settings.artifactsEnabled===false)return {allowed:false,code:'ARTIFACTS_DISABLED',reason:'Artifacts are turned off'};
  if(capability==='document-job'&&settings.documentJobsEnabled===false)return {allowed:false,code:'DOCUMENT_JOBS_DISABLED',reason:'File execution is turned off'};
