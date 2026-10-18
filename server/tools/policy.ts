@@ -6,7 +6,7 @@ export function capabilityOf(tool:Tool):Capability|null{
  if(tool.capability)return tool.capability;
  if(/^terminal_/.test(tool.name)||tool.name==='skill_run_script')return 'terminal';
  if(/^browser_/.test(tool.name))return 'browser';if(/^computer_/.test(tool.name))return 'computer';
- if(/^artifact_/.test(tool.name))return 'artifact';if(/^files_/.test(tool.name))return 'workspace-file';
+ if(/^artifact_/.test(tool.name))return 'artifact';if(/^(files_|directory_|archive_)/.test(tool.name))return 'workspace-file';
  if(tool.name==='web_search')return 'web-search';if(tool.name==='web_fetch')return 'web-fetch';
  if(/^(document_|pdf_|spreadsheet_|slides_|chart_|image_)/.test(tool.name))return 'document-job';
  if(/^(memory_|chat_history_|plan_|skill_|skills_)/.test(tool.name)||['calculate','project_search'].includes(tool.name))return 'conversation';return null;
