@@ -12,10 +12,7 @@ def render_native_call(name,arguments):
     params=''.join('\n<parameter='+key+'>\n'+(value if isinstance(value,str) else json.dumps(value,ensure_ascii=True))+'\n</parameter>' for key,value in arguments.items())
     return '<tool_call>\n<function='+name+'>'+params+'\n</function>\n</tool_call>'
 
-def _json_value(value):
-    value=value.strip()
-    fence=re.fullmatch(r'```(?:json)?\s*([\s\S]*?)\s*```',value,re.I)
-    if fence:value=fence[1]
+def _json_decoder():
     def pairs(items):
         result={}
         for key,item in items:
@@ -25,7 +22,33 @@ def _json_value(value):
     def constant(_):raise ValueError('Non-finite JSON value')
     # XML parameter bodies may contain literal newlines inside JSON strings.
     # This preserves their exact value without guessing quotes or executing code.
-    return json.loads(value,strict=False,object_pairs_hook=pairs,parse_constant=constant)
+    return json.JSONDecoder(strict=False,object_pairs_hook=pairs,parse_constant=constant)
+
+def _json_value(value):
+    value=value.strip()
+    fence=re.fullmatch(r'```(?:json)?\s*([\s\S]*?)\s*```',value,re.I)
+    if fence:value=fence[1]
+    try:return _json_decoder().decode(value)
+    except json.JSONDecodeError as error:
+        if error.msg=='Extra data':raise ValueError('Multiple JSON values in one parameter. Supply one object; put each separate tool call in its own <tool_call> wrapper. Never concatenate objects inside arguments.') from error
+        raise
+
+def _json_call_records(value):
+    """Complete call records inside an explicit wrapper; never parse prose as calls.
+
+    Some native templates emit JSONL calls in a single wrapper. Validate the
+    entire sequence before returning any call; never merge parameter objects
+    or discard a suffix to make malformed arguments executable.
+    """
+    decoder=_json_decoder();offset=0;records=[]
+    while offset<len(value):
+        while offset<len(value) and value[offset].isspace():offset+=1
+        if offset==len(value):break
+        record,end=decoder.raw_decode(value,offset);records.append(record)
+        if len(records)>16:raise ValueError('Too many native tool calls')
+        if end<len(value) and not value[end].isspace():raise ValueError('Separate complete JSON tool records with whitespace')
+        offset=end
+    return records
 
 def decode_native_calls(text,tools):
     # Some native templates end the turn immediately after </function>. That
@@ -60,9 +83,10 @@ def parse_native_calls(text,tools):
         # same wrapper. Accept that complete, validated transport without trying
         # to repair quotes, infer values, or execute JSON printed as ordinary text.
         if block.startswith('{'):
-            value=_json_value(block)
-            if not isinstance(value,dict) or set(value)-{'name','arguments'} or value.get('name') not in offered or not isinstance(value.get('arguments'),dict):raise ValueError('Invalid native JSON tool body; no tools executed')
-            calls.append({'name':value['name'],'arguments':value['arguments']})
+            records=_json_call_records(block)
+            for value in records:
+                if not isinstance(value,dict) or set(value)-{'name','arguments'} or value.get('name') not in offered or not isinstance(value.get('arguments'),dict):raise ValueError('Invalid native JSON tool body; no tools executed')
+            calls.extend({'name':value['name'],'arguments':value['arguments']} for value in records)
             if len(calls)>16:raise ValueError('Too many native tool calls')
             offset=end+12;continue
         match=re.fullmatch(r'<function=([\w.-]+)>([\s\S]*)</function>',block)
