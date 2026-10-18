@@ -106,6 +106,17 @@ elif op=='slides_create':
     from document_editing import create_slides
     p=output(a['output_name'],'pptx');create_slides(p,a)
     previews,error=preview(p);result={'files':[record(p,'application/vnd.openxmlformats-officedocument.presentationml.presentation'),*previews],'preview_error':error}
+elif op=='slides_inspect':
+    from document_editing import inspect_slides
+    result=inspect_slides(scoped(a['file_path']))
+elif op=='slides_edit':
+    from document_editing import edit_slides
+    p=output(a['output_name'],'pptx');result=edit_slides(scoped(a['file_path']),p,a)
+    previews,error=preview(p);result.update({'files':[record(p,'application/vnd.openxmlformats-officedocument.presentationml.presentation'),*previews],'preview_error':error})
+elif op=='spreadsheet_chart':
+    from document_editing import chart_spreadsheet
+    p=output(a['output_name'],'xlsx');result=chart_spreadsheet(scoped(a['file_path']),p,a)
+    previews,error=preview(p);result.update({'files':[record(p,'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'),*previews],'preview_error':error})
 elif op=='chart_create':
     import pandas as pd
     import matplotlib;matplotlib.use('Agg');import matplotlib.pyplot as plt

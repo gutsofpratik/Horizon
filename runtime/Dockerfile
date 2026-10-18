@@ -1,6 +1,6 @@
 FROM node:22-bookworm-slim
 ENV DEBIAN_FRONTEND=noninteractive PLAYWRIGHT_BROWSERS_PATH=/ms-playwright PYTHONUNBUFFERED=1
-RUN apt-get update && apt-get install -y --no-install-recommends python3 python3-pip python3-dev python3-tk build-essential bash xvfb openbox scrot xclip xauth libreoffice poppler-utils fonts-dejavu ca-certificates && rm -rf /var/lib/apt/lists/*
+RUN apt-get update && apt-get install -y --no-install-recommends python3 python3-pip python3-dev python3-tk build-essential bash xvfb openbox scrot xclip xauth xdotool wmctrl libreoffice poppler-utils fonts-dejavu ca-certificates && rm -rf /var/lib/apt/lists/*
 WORKDIR /opt/worker
 COPY runtime/worker/package*.json ./
 RUN npm install --omit=dev && npx playwright install --with-deps chromium

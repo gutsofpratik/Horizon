@@ -2,6 +2,7 @@ use serde_json::{json, Value};
 use std::{collections::HashMap, sync::Mutex, time::Duration};
 use tauri::{Manager, State, Webview};
 use uuid::Uuid;
+use base64::{engine::general_purpose::STANDARD,Engine};
 #[derive(Default)]
 pub struct BrowserTools {
     tabs: Mutex<HashMap<String, String>>,
@@ -53,6 +54,9 @@ pub async fn browser_tool(
     super::trusted(&view)?;
     let request = cancellations.begin(&request_id);
     request.check()?;
+    if name == "browser_capabilities" {
+        return Ok(json!({"tools":["browser_open","browser_snapshot","browser_click","browser_fill","browser_scroll","browser_tabs","browser_press","browser_find","browser_print","browser_zoom","browser_emulate_device","browser_back","browser_forward","browser_reload","browser_select_option","browser_check","browser_inspect_element","browser_wait_for_element","browser_hover","browser_double_click","browser_upload","browser_screenshot","browser_download","browser_downloads"]}));
+    }
     if owner.is_empty() {
         return Err("Browser tools require a conversation owner".into());
     }
@@ -124,6 +128,45 @@ pub async fn browser_tool(
     let window = app
         .get_webview(&id)
         .ok_or("Browser tab was closed")?;
+    if name == "browser_downloads" {return Ok(super::browser_manage::downloads_for(&app,&id));}
+    if name == "browser_screenshot" {
+        let mut parameters=json!({"format":"png","captureBeyondViewport":false});
+        if args["full_page"]==true {let metrics=super::browser_manage::protocol(window.clone(),"Page.getLayoutMetrics",json!({})).await?;let size=metrics.get("cssContentSize").unwrap_or(&metrics["contentSize"]);let width=size["width"].as_f64().ok_or("Page width unavailable")?;let height=size["height"].as_f64().ok_or("Page height unavailable")?;if width<=0.0||height<=0.0||width*height>8_000_000.0{return Err("Full-page screenshot exceeds eight million pixels; use a viewport screenshot".into());}parameters=json!({"format":"png","captureBeyondViewport":true,"clip":{"x":0,"y":0,"width":width,"height":height,"scale":1}});}
+        let result=super::browser_manage::protocol(window,"Page.captureScreenshot",parameters).await?;request.check()?;let data=result["data"].as_str().ok_or("Browser screenshot data unavailable")?;if data.len()>10_000_000{return Err("Browser screenshot exceeds transport limit".into());}let bytes=STANDARD.decode(data).map_err(|e|e.to_string())?;let image=image::load_from_memory(&bytes).map_err(|e|e.to_string())?;return Ok(json!({"screenshot":{"width":image.width(),"height":image.height(),"image":data}}));
+    }
+    if matches!(name.as_str(),"browser_hover"|"browser_double_click"|"browser_upload"|"browser_download") {
+        let key=format!("__oc_{}",id.replace('-',""));let marker=Uuid::new_v4().to_string();
+        let observed=evaluate(window.clone(),format!(r#"(()=>{{try{{const args={args},store=window[{key}];if(!store||store.nonce!==args.snapshot_id)throw Error('Snapshot is stale; inspect the page again');const element=store.elements.get(args.ref);if(!element||!element.isConnected)throw Error('Element is stale; inspect the page again');element.scrollIntoView({{block:'center',inline:'center'}});const box=element.getBoundingClientRect();if(!box.width||!box.height)throw Error('Element is not visible');element.setAttribute('data-oc-target',{marker});return {{x:box.x+box.width/2,y:box.y+box.height/2,file_input:element.tagName==='INPUT'&&element.type==='file'}};}}catch(error){{return {{error:String(error)}};}}}})()"#,args=args,key=json!(key),marker=json!(marker))).await?;
+        request.check()?;
+        if name=="browser_upload" {if observed["file_input"]!=true{return Err("Choose an observed file input".into());}let path=std::path::PathBuf::from(args["file_path"].as_str().ok_or("Scoped upload file is required")?);let metadata=std::fs::metadata(&path).map_err(|e|e.to_string())?;if !path.is_absolute()||!metadata.is_file()||metadata.len()>10_000_000{return Err("Upload a scoped regular file under 10 MB".into());}let root=super::browser_manage::protocol(window.clone(),"DOM.getDocument",json!({})).await?;let node=super::browser_manage::protocol(window.clone(),"DOM.querySelector",json!({"nodeId":root["root"]["nodeId"],"selector":format!("[data-oc-target='{}']",marker)})).await?;if node["nodeId"].as_u64().unwrap_or(0)==0{return Err("File input changed; inspect the page again".into());}request.check()?;super::browser_manage::protocol(window.clone(),"DOM.setFileInputFiles",json!({"nodeId":node["nodeId"],"files":[path]})).await?;}
+        else {let x=observed["x"].as_f64().ok_or("Element coordinate missing")?;let y=observed["y"].as_f64().ok_or("Element coordinate missing")?;super::browser_manage::protocol(window.clone(),"Input.dispatchMouseEvent",json!({"type":"mouseMoved","x":x,"y":y})).await?;if name=="browser_double_click"||name=="browser_download" {let clicks=if name=="browser_double_click"{2}else{1};for count in 1..=clicks {request.check()?;super::browser_manage::protocol(window.clone(),"Input.dispatchMouseEvent",json!({"type":"mousePressed","x":x,"y":y,"button":"left","clickCount":count})).await?;super::browser_manage::protocol(window.clone(),"Input.dispatchMouseEvent",json!({"type":"mouseReleased","x":x,"y":y,"button":"left","clickCount":count})).await?;}}}
+        request.check()?;if name=="browser_download"{return Ok(json!({"download_requested":true,"downloads":super::browser_manage::downloads_for(&app,&id),"summary":"Download requested. The user must confirm the native save dialog; inspect downloads before claiming completion."}));}return snapshot(window,&id).await;
+    }
+    if matches!(name.as_str(), "browser_back" | "browser_forward" | "browser_reload") {
+        let script = match name.as_str() {"browser_back"=>"history.back()","browser_forward"=>"history.forward()",_=>"location.reload()"};
+        window.eval(script).map_err(|e|e.to_string())?;
+        tauri::async_runtime::spawn_blocking(||std::thread::sleep(Duration::from_millis(250))).await.map_err(|e|e.to_string())?;
+        for _ in 0..40 {request.check()?;let ready={desktop.browser_loaded.lock().unwrap().get(&id)!=Some(&false)};if ready{return snapshot(window,&id).await;}tauri::async_runtime::spawn_blocking(||std::thread::sleep(Duration::from_millis(250))).await.map_err(|e|e.to_string())?;}
+        return Err(format!("Navigation is still loading; inspect browser_snapshot for tab {}",id));
+    }
+    if name == "browser_wait_for_element" {
+        let selector=args["selector"].as_str().ok_or("CSS selector is required")?;
+        let timeout=args["timeout_ms"].as_u64().unwrap_or(5000).min(10000);
+        let started=std::time::Instant::now();
+        loop {request.check()?;let found=evaluate(window.clone(),format!("(()=>{{try{{const element=document.querySelector({});if(!element)return {{visible:false}};const box=element.getBoundingClientRect();return {{visible:!!(box.width&&box.height&&getComputedStyle(element).visibility!=='hidden')}};}}catch(error){{return {{error:String(error)}};}}}})()",json!(selector))).await?;
+            if found["visible"]==true {return snapshot(window,&id).await;}
+            if started.elapsed().as_millis()>=timeout as u128{return Err("Timed out waiting for a visible browser element".into());}
+            tauri::async_runtime::spawn_blocking(||std::thread::sleep(Duration::from_millis(200))).await.map_err(|e|e.to_string())?;
+        }
+    }
+    if matches!(name.as_str(),"browser_select_option"|"browser_check"|"browser_inspect_element") {
+        let key=format!("__oc_{}",id.replace('-',""));
+        let script=format!(r#"(()=>{{try{{const args={args},name={name},store=window[{key}];if(!store||store.nonce!==args.snapshot_id)throw Error('Snapshot is stale; inspect the page again');const element=store.elements.get(args.ref);if(!element||!element.isConnected)throw Error('Element is stale; inspect the page again');if(name==='browser_inspect_element')return {{element:{{tag:element.tagName.toLowerCase(),text:(element.textContent||'').slice(0,2000),role:element.getAttribute('role'),type:element.type||null,value:element.type==='password'?'[redacted]':String(element.value||'').slice(0,2000),checked:element.checked??null,disabled:!!element.disabled,options:element.tagName==='SELECT'?Array.from(element.options).slice(0,100).map(option=>({{value:option.value,text:option.text,selected:option.selected}})):undefined}}}};if(element.disabled)throw Error('Element is disabled');if(name==='browser_select_option'){{if(element.tagName!=='SELECT')throw Error('Expected a select element');if(!Array.from(element.options).some(option=>option.value===args.value))throw Error('Option value not found');Object.getOwnPropertyDescriptor(HTMLSelectElement.prototype,'value').set.call(element,args.value);element.dispatchEvent(new Event('input',{{bubbles:true}}));element.dispatchEvent(new Event('change',{{bubbles:true}}));}}else{{if(element.tagName!=='INPUT'||!['checkbox','radio'].includes(element.type))throw Error('Expected a checkbox or radio input');if(element.type==='radio'&&!args.checked)throw Error('Radio inputs cannot be unchecked directly');if(element.checked!==args.checked)element.click();if(element.checked!==args.checked)throw Error('Checked state did not change');}}return {{ok:true}};}}catch(error){{return {{error:String(error)}};}}}})()"#,args=args,name=json!(name),key=json!(key));
+        let result=evaluate(window.clone(),script).await?;
+        request.check()?;
+        if name=="browser_inspect_element" {return Ok(result);}
+        return snapshot(window,&id).await;
+    }
     if let Some(action)=match name.as_str(){"browser_find"=>Some("find"),"browser_print"=>Some("print"),"browser_zoom"=>Some("zoom"),"browser_emulate_device"=>Some("device"),_=>None}{return super::browser_manage::page_action(window,action,args).await;}
     if name == "browser_open" {
         let mut ready=false;

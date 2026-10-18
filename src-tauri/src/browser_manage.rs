@@ -16,12 +16,13 @@ fn access<T>(app:&tauri::AppHandle,edit:bool,f:impl FnOnce(&mut Value)->T)->Resu
 }
 pub fn preferences(app:&tauri::AppHandle)->Value{access(app,false,|data|data["preferences"].clone()).unwrap_or_else(|_|json!({"passwords":true,"autofill":true}))}
 pub fn visit(app:&tauri::AppHandle,url:&tauri::Url){if matches!(url.scheme(),"http"|"https") {let _=access(app,true,|data|{let items=data["history"].as_array_mut().unwrap();if items.last().and_then(|v|v["url"].as_str())!=Some(url.as_str()){items.push(json!({"url":url.as_str(),"time":timestamp()}));}});}}
-pub fn downloaded(app:&tauri::AppHandle,url:&tauri::Url,path:Option<&std::path::Path>,status:&str){let _=access(app,true,|data|{
+pub fn downloaded(app:&tauri::AppHandle,tab:&str,url:&tauri::Url,path:Option<&std::path::Path>,status:&str){let _=access(app,true,|data|{
  let items=data["downloads"].as_array_mut().unwrap();
- if status=="failed"&&items.last().is_some_and(|item|item["url"]==url.as_str()&&item["status"]=="cancelled"){return;}
- if status!="downloading"{if let Some(item)=items.iter_mut().rev().find(|item|item["url"]==url.as_str()&&item["status"]=="downloading"){item["status"]=json!(status);if let Some(path)=path{item["path"]=json!(path);}return;}}
- items.push(json!({"url":url.as_str(),"path":path,"status":status,"time":timestamp()}));
+ if status=="failed"&&items.last().is_some_and(|item|item["tab_id"]==tab&&item["url"]==url.as_str()&&item["status"]=="cancelled"){return;}
+ if status!="downloading"{if let Some(item)=items.iter_mut().rev().find(|item|item["tab_id"]==tab&&item["url"]==url.as_str()&&item["status"]=="downloading"){item["status"]=json!(status);if let Some(path)=path{item["path"]=json!(path);}return;}}
+ items.push(json!({"tab_id":tab,"url":url.as_str(),"path":path,"status":status,"time":timestamp()}));
 });}
+pub fn downloads_for(app:&tauri::AppHandle,tab:&str)->Value{access(app,false,|data|json!({"downloads":data["downloads"].as_array().unwrap().iter().rev().filter(|item|item["tab_id"]==tab).take(30).map(|item|json!({"url":item["url"],"status":item["status"],"time":item["time"],"name":item["path"].as_str().and_then(|path|std::path::Path::new(path).file_name()).map(|name|name.to_string_lossy().into_owned())})).collect::<Vec<Value>>()})).unwrap_or_else(|error|json!({"error":error}))}
 
 async fn receive(receiver:mpsc::Receiver<Result<Value,String>>)->Result<Value,String>{tauri::async_runtime::spawn_blocking(move||receiver.recv_timeout(Duration::from_secs(20))).await.map_err(|e|e.to_string())?.map_err(|_|"Browser operation timed out".to_string())?}
 pub async fn protocol(view:Webview,method:&str,parameters:Value)->Result<Value,String>{

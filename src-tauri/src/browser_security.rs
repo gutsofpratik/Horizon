@@ -21,10 +21,10 @@ pub fn download(view:Webview,event:tauri::webview::DownloadEvent<'_>)->bool{
         let origin=view.url().ok().and_then(|url|url.host_str().map(str::to_owned)).or_else(||url.host_str().map(str::to_owned)).unwrap_or_else(||"this website".into());
         let selected=rfd::FileDialog::new().set_parent(&view.window()).set_title(format!("Download from {origin} — choose where to save")).set_file_name(download_name(destination)).save_file();
         let approved=approved_path(selected,destination);
-        super::browser_manage::downloaded(view.app_handle(),&url,if approved{Some(destination.as_path())}else{None},if approved{"downloading"}else{"cancelled"});
+        super::browser_manage::downloaded(view.app_handle(),view.label(),&url,if approved{Some(destination.as_path())}else{None},if approved{"downloading"}else{"cancelled"});
         return approved;
     }
-    if let tauri::webview::DownloadEvent::Finished{url,path,success}=event{super::browser_manage::downloaded(view.app_handle(),&url,path.as_deref(),if success{"completed"}else{"failed"});}
+    if let tauri::webview::DownloadEvent::Finished{url,path,success}=event{super::browser_manage::downloaded(view.app_handle(),view.label(),&url,path.as_deref(),if success{"completed"}else{"failed"});}
     true
 }
 

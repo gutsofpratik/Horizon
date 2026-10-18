@@ -34,10 +34,14 @@ static DESKTOP_INPUT: Mutex<()> = Mutex::new(());
 pub struct Computer {
     enabled: AtomicBool,
     screens: Mutex<HashMap<String, Screen>>,
+    windows: Mutex<HashMap<String,HashMap<String,WindowRef>>>,
 }
+struct WindowRef {handle:isize,pid:u32,time:Instant}
 impl Default for Computer {
-    fn default()->Self{Self{enabled:AtomicBool::new(true),screens:Mutex::new(HashMap::new())}}
+    fn default()->Self{Self{enabled:AtomicBool::new(true),screens:Mutex::new(HashMap::new()),windows:Mutex::new(HashMap::new())}}
 }
+unsafe extern "system" fn collect_window(handle:windows_sys::Win32::Foundation::HWND,data:isize)->i32 {if IsWindowVisible(handle)==0{return 1;}let length=GetWindowTextLengthW(handle);if length<=0{return 1;}let mut text=vec![0u16;(length as usize+1).min(1024)];let read=GetWindowTextW(handle,text.as_mut_ptr(),text.len() as i32);if read<=0{return 1;}let mut pid=0;GetWindowThreadProcessId(handle,&mut pid);let entries=&mut *(data as *mut Vec<(isize,u32,String)>);if entries.len()<200{entries.push((handle as isize,pid,String::from_utf16_lossy(&text[..read as usize])));}1}
+fn list_windows(state:&Computer,owner:&str)->Result<Value,String>{let mut entries:Vec<(isize,u32,String)>=Vec::new();unsafe{if EnumWindows(Some(collect_window),&mut entries as *mut _ as isize)==0{return Err("Cannot enumerate visible Windows applications".into());}}let mut references=HashMap::new();let mut items=Vec::new();for(handle,pid,title)in entries{let id=Uuid::new_v4().to_string();references.insert(id.clone(),WindowRef{handle,pid,time:Instant::now()});items.push(json!({"window_id":id,"title":title,"process_id":pid}));}state.windows.lock().unwrap().insert(owner.into(),references);Ok(json!({"windows":items}))}
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -278,6 +282,7 @@ pub async fn computer_tool(
     cancellations: State<'_, super::cancellation::Cancellation>,
 ) -> Result<Value, String> {
     super::trusted(&view)?;
+    if name=="computer_capabilities" {return Ok(json!({"tools":["computer_screenshot","computer_click","computer_move","computer_drag","computer_scroll","computer_type","computer_key","computer_wait","computer_windows","computer_focus_window","computer_open_application"]}));}
     let request = cancellations.begin(&request_id);
     request.check()?;
     if name!="computer_screenshot"&&view.state::<super::Desktop>().download_prompt.load(Ordering::Acquire){return Err("User download approval is pending. The agent cannot approve or interact with this save dialog.".into());}
@@ -307,6 +312,25 @@ pub async fn computer_tool(
         request.check()?;
         let _desktop = DESKTOP_INPUT.lock().map_err(|_| "Desktop control lock is unavailable")?;
         return capture(&state, &owner);
+    }
+    if name=="computer_windows" {return list_windows(&state,&owner);}
+    if name=="computer_open_application" {
+        let application=args["application"].as_str().ok_or("Application executable is required")?;
+        if application.is_empty()||application.len()>1000||application.contains('\0')||(!std::path::Path::new(application).is_absolute()&&!application.chars().all(|c|c.is_ascii_alphanumeric()||"._-".contains(c))){return Err("Use an executable name or absolute executable path; shell command text is not accepted".into());}
+        let arguments=args["arguments"].as_array().ok_or("Application arguments must be an array")?;
+        if arguments.len()>30{return Err("At most 30 application arguments are allowed".into());}
+        let values:Vec<&str>=arguments.iter().map(|value|value.as_str().filter(|text|text.len()<=4000&&!text.contains('\0')).ok_or("Invalid application argument")).collect::<Result<_,_>>()?;
+        let child=std::process::Command::new(application).args(values).spawn().map_err(|e|e.to_string())?;
+        std::thread::sleep(Duration::from_millis(250));
+        let _desktop = DESKTOP_INPUT.lock().map_err(|_| "Desktop control lock is unavailable")?;
+        let mut result=capture(&state,&owner)?;result["process_id"]=json!(child.id());return Ok(result);
+    }
+    if name=="computer_focus_window" {
+        let id=args["window_id"].as_str().ok_or("Observed window ID is required")?;
+        let windows=state.windows.lock().unwrap();let reference=windows.get(&owner).and_then(|items|items.get(id)).ok_or("List visible windows before choosing an observed window ID")?;
+        if reference.time.elapsed()>Duration::from_secs(60){return Err("Window observation is stale; list windows again".into());}
+        let handle=reference.handle as windows_sys::Win32::Foundation::HWND;let mut pid=0;unsafe{GetWindowThreadProcessId(handle,&mut pid);if pid!=reference.pid||IsWindowVisible(handle)==0{return Err("Window changed; list windows again".into());}ShowWindow(handle,SW_RESTORE);if SetForegroundWindow(handle)==0{return Err("Windows refused to focus this application; the user may need to bring it forward".into());}}
+        drop(windows);let _desktop=DESKTOP_INPUT.lock().map_err(|_|"Desktop control lock is unavailable")?;return capture(&state,&owner);
     }
     let _desktop = DESKTOP_INPUT.lock().map_err(|_| "Desktop control lock is unavailable")?;
     request.check()?;

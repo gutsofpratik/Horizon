@@ -200,3 +200,84 @@ def create_slides(target, args):
         if source.get('notes'):
             slide.notes_slide.notes_text_frame.text = source['notes']
     deck.save(target); Presentation(target)
+
+
+def inspect_slides(path):
+    from pptx import Presentation
+    deck = Presentation(path)
+    return {'slide_count': len(deck.slides), 'slides': [
+        {'slide': index + 1, 'shapes': [
+            {'shape_id': shape.shape_id, 'name': shape.name,
+             'text': shape.text[:6000] if shape.has_text_frame else None,
+             'table': [[cell.text[:1000] for cell in row.cells] for row in shape.table.rows][:20] if shape.has_table else None}
+            for shape in list(slide.shapes)[:100]],
+         'notes': slide.notes_slide.notes_text_frame.text[:6000] if slide.has_notes_slide else ''}
+        for index, slide in enumerate(islice(deck.slides, 100))],
+        'truncated': len(deck.slides) > 100}
+
+
+def edit_slides(source, target, args):
+    from pptx import Presentation
+    from pptx.util import Inches, Pt
+    from pptx.dml.color import RGBColor
+    deck = Presentation(source)
+    def slide_at(number):
+        if type(number) is not int or not 1 <= number <= len(deck.slides):
+            raise ValueError('Slide number must refer to an existing slide (1-based)')
+        return deck.slides[number - 1]
+    for change in args.get('changes', []):
+        slide = slide_at(change['slide'])
+        shape = next((item for item in slide.shapes if item.shape_id == change['shape_id']), None)
+        if shape is None or not shape.has_text_frame:
+            raise ValueError('Text shape was not found; inspect slides first')
+        shape.text_frame.text = change['text']
+        for paragraph in shape.text_frame.paragraphs:
+            if 'font_size' in change: paragraph.font.size = Pt(change['font_size'])
+            if 'color' in change: paragraph.font.color.rgb = RGBColor.from_string(change['color'])
+            if 'bold' in change: paragraph.font.bold = change['bold']
+    for note in args.get('notes', []):
+        slide_at(note['slide']).notes_slide.notes_text_frame.text = note['text']
+    if 'order' in args:
+        order = args['order']
+        if not order or len(order) != len(set(order)) or any(type(number) is not int or not 1 <= number <= len(deck.slides) for number in order):
+            raise ValueError('order must contain unique existing slide numbers')
+        ids = list(deck.slides._sldIdLst)
+        kept = set(order)
+        for index, item in enumerate(ids, 1):
+            deck.slides._sldIdLst.remove(item)
+            if index not in kept: deck.part.drop_rel(item.rId)
+        for number in order: deck.slides._sldIdLst.append(ids[number - 1])
+    for item in args.get('add_slides', []):
+        slide = deck.slides.add_slide(deck.slide_layouts[6])
+        for text, y, height, size in [(item['title'], .5, 1.2, 32), (item.get('body', ''), 1.9, 4.7, 24)]:
+            box = slide.shapes.add_textbox(Inches(.7), Inches(y), deck.slide_width - Inches(1.4), Inches(height))
+            box.text_frame.word_wrap = True; box.text_frame.text = text
+            for paragraph in box.text_frame.paragraphs: paragraph.font.size = Pt(size)
+    if len(deck.slides) > 200: raise ValueError('Edited presentation exceeds 200 slides')
+    deck.save(target)
+    check = Presentation(target)
+    return {'slide_count': len(check.slides), 'formatting_notice': 'Only selected shape text and explicit style properties were edited. Inspect previews for text fit.'}
+
+
+def chart_spreadsheet(source, target, args):
+    import openpyxl
+    from openpyxl.chart import BarChart, LineChart, PieChart, Reference
+    from openpyxl.utils.cell import range_boundaries
+    book = openpyxl.load_workbook(source)
+    try:
+        if args['sheet'] not in book.sheetnames: raise ValueError('Requested sheet was not found')
+        sheet = book[args['sheet']]
+        left, top, right, bottom = range_boundaries(args['range'])
+        if right <= left or bottom <= top or (right-left+1)*(bottom-top+1) > 100000:
+            raise ValueError('Chart range needs a header row, category column and numeric data, with at most 100000 cells')
+        chart = {'bar': BarChart, 'line': LineChart, 'pie': PieChart}[args['chart_type']]()
+        chart.title = args.get('title', 'Chart')
+        end_column = left + 1 if args['chart_type'] == 'pie' else right
+        chart.add_data(Reference(sheet, min_col=left+1, max_col=end_column, min_row=top, max_row=bottom), titles_from_data=True)
+        chart.set_categories(Reference(sheet, min_col=left, min_row=top+1, max_row=bottom))
+        sheet.add_chart(chart, args.get('anchor', 'E2'))
+        book.save(target)
+    finally:
+        book.close()
+    check = openpyxl.load_workbook(target); check.close()
+    return {'chart_type': args['chart_type'], 'sheet': args['sheet']}
