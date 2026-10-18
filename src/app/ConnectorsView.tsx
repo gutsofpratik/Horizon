@@ -2,6 +2,7 @@ import {useState,useEffect} from 'react';
 import {Plug,Plus,Trash2,ExternalLink,Pencil,Loader2} from 'lucide-react';
 import {openExternal} from '#desktop-ui';
 import {api} from './api';
+import {HttpConnectionsView} from './HttpConnectionsView';
 export async function openConnectorAuthorization(url:string){
  const parsed=new URL(url);if(!['http:','https:'].includes(parsed.protocol))throw new Error('Invalid authorization URL');
  await openExternal(url);
@@ -34,5 +35,6 @@ export function ConnectorsView({onError}:any){
  {editing.authMode==='oauth'&&<details><summary>Advanced OAuth settings</summary><p className="form-note">Most servers register automatically. If the service requires your own OAuth app, enter its client ID and register this redirect URL:</p><code className="connector-callback">{window.location.origin}/api/connectors/oauth/callback</code><label>Client ID<input value={editing.clientId??''} onChange={event=>setEditing({...editing,clientId:event.target.value})}/></label><label>Client secret (if required)<input type="password" autoComplete="off" value={editing.clientSecret??''} onChange={event=>setEditing({...editing,clientSecret:event.target.value})}/></label></details>}
  {error&&<p role="alert" className="connector-error">{error}</p>}
  <div className="dialog-actions"><button type="button" className="secondary-button" onClick={()=>setEditing(null)}>Cancel</button><button className="primary-button" disabled={busy==='save'}>{busy==='save'?'Saving…':'Save connector'}</button></div></form></div>}
+ <HttpConnectionsView onError={onError}/>
  </div>;
 }

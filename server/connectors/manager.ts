@@ -22,6 +22,10 @@ export class ConnectorManager {
  private secret(id:string){return this.app.store.get('connector_credentials',id)??{id};}
  private persist(id:string,patch:any){this.app.store.put('connector_credentials',{...this.secret(id),...patch,id});}
  list(){return this.app.store.list('mcp').map(item=>({id:item.id,name:item.name,url:item.url,type:'http',authMode:item.authMode??(item.apiKey?'bearer':'oauth'),clientId:this.secret(item.id).client?.client_id??'',hasApiKey:!!(this.secret(item.id).apiKey??item.apiKey),...this.view(item.id)}));}
+ toolEntries(id:string,offset=0,limit=20){if(!this.app.store.get('mcp',id))throw new ToolError('CONNECTOR_NOT_FOUND','Choose a saved connector');const prefix=this.prefix(id);const entries=[...this.tools.tools.values()].filter(tool=>tool.name.startsWith(prefix));return {tools:entries.slice(offset,offset+limit).map(tool=>({name:tool.name,description:tool.description})),next_offset:offset+limit<entries.length?offset+limit:null,total:entries.length,status:this.view(id).status};}
+ ownsTool(id:string,name:string){return this.sessions.get(id)?.status==='connected'&&name.startsWith(this.prefix(id))&&this.tools.tools.has(name);}
+ async resources(id:string,cursor?:string){const client=this.sessions.get(id)?.client;if(!client||this.sessions.get(id)?.status!=='connected')throw new ToolError('CONNECTOR_NOT_CONNECTED','Connect and authorize this server in Customize first');if(!client.getServerCapabilities()?.resources)throw new ToolError('RESOURCE_UNAVAILABLE','This MCP server does not expose resources');const page=await client.listResources(cursor?{cursor}:undefined,{timeout:30000});const seen=this.app.ephemeral.get('mcp-resources:'+id)??new Set<string>();for(const item of page.resources)if(seen.size<1000)seen.add(item.uri);this.app.ephemeral.set('mcp-resources:'+id,seen);return {resources:page.resources.slice(0,100),next_cursor:page.nextCursor??null};}
+ async readResource(id:string,uri:string,signal:AbortSignal){const client=this.sessions.get(id)?.client;if(!client||this.sessions.get(id)?.status!=='connected')throw new ToolError('CONNECTOR_NOT_CONNECTED','Connect and authorize this server in Customize first');if(!this.app.ephemeral.get('mcp-resources:'+id)?.has(uri))throw new ToolError('RESOURCE_NOT_DISCOVERED','List this connector resources before reading an observed URI');const result=await client.readResource({uri},{signal,timeout:30000});let remaining=30000;return {contents:result.contents.map(content=>{if('text' in content){const text=String(content.text).slice(0,remaining);remaining-=text.length;return {uri:content.uri,mimeType:content.mimeType,text,truncated:text.length<String(content.text).length};}return {uri:content.uri,mimeType:content.mimeType,binary:true,reason:'Binary MCP resources are not included in model context'};})};}
  view(id:string){const session=this.sessions.get(id);return {status:session?.status??'disconnected',error:session?.error,authorizationUrl:session?.authorizationUrl,toolCount:session?.toolCount??0};}
  async save(body:any){
   const parsed=new URL(String(body.url));
@@ -39,7 +43,7 @@ export class ConnectorManager {
   return this.list().find(item=>item.id===id);
  }
  private clearStates(id:string){for(const [state,value] of this.states)if(value.id===id)this.states.delete(state);}
- private unregister(id:string){const prefix=this.prefix(id);for(const name of this.tools.tools.keys())if(name.startsWith(prefix))this.tools.tools.delete(name);}
+ private unregister(id:string){this.app.ephemeral.delete('mcp-resources:'+id);const prefix=this.prefix(id);for(const name of this.tools.tools.keys())if(name.startsWith(prefix))this.tools.tools.delete(name);}
  private prefix(id:string){return 'connector_'+createHash('sha256').update(id).digest('hex').slice(0,10)+'_';}
  async disconnect(id:string,forget=true){
   if(this.pending.has(id))throw new Error('A connection is already in progress. Wait for it to finish.');
