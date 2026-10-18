@@ -2,6 +2,7 @@ import {randomUUID} from 'node:crypto';import type {ToolContext} from './registr
 export type ApprovalMode='ask'|'auto'|'full';
 const readOnly=/^(?:artifact_(?:read|list)|browser_(?:snapshot|screenshot|find|zoom|scroll)|computer_(?:screenshot|wait)|terminal_read|document_extract|pdf_inspect|spreadsheet_inspect|web_search|web_fetch|plan_read|goal_read|goal_list|memory_search|chat_history_|conversation_|skills_list|skill_load|skill_read_resource|runtime_capabilities|clock_now|calculate|discover_tools)/;
 export function needsApproval(name:string,mode:ApprovalMode,args:any={}){
+ if(/^git_(?:clone|commit|restore|reset|revert|cherry_pick|stash|stash_pop|branch|switch|merge|rebase|worktree_add|worktree_remove|worktree_prune|pull|push|pr_create|pr_checkout|pr_review|pr_merge)$/.test(name))return true;
  if(name==='goal'&&['list','read'].includes(args.action))return false;
  if(mode==='full'||readOnly.test(name)||name==='browser_tabs'&&args.action!=='close'||name==='ask_user')return false;
  if(mode==='auto'&&/^(?:artifact_|plan_|goal_|document_create|pdf_edit|spreadsheet_(?:create|edit)|slides_create|chart_create|image_transform|memory_(?:save|update)|files_(?:read|list|search|write|patch)|browser_open(?:_file)?$)/.test(name))return false;
