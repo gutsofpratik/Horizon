@@ -1,0 +1,113 @@
+/* Shared workspace controls use the same semantic colors as chat and settings. */
+.ecosystem-workspace button,
+.ecosystem-dialog button {
+  min-height: 34px;
+  padding: 7px 12px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--surface);
+  color: var(--text);
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1.35;
+}
+.ecosystem-workspace button:hover:not(:disabled),
+.ecosystem-dialog button:hover:not(:disabled) {
+  background: var(--hover);
+}
+.ecosystem-workspace button.primary-button,
+.ecosystem-dialog button.primary-button {
+  background: var(--text);
+  color: var(--surface);
+  border-color: var(--text);
+}
+.ecosystem-workspace button.primary-button:hover:not(:disabled),
+.ecosystem-dialog button.primary-button:hover:not(:disabled) {
+  filter: brightness(.9);
+}
+.ecosystem-workspace button:disabled,
+.ecosystem-dialog button:disabled {
+  opacity: .6;
+  background: var(--surface-2);
+  color: var(--muted);
+  border-color: var(--line);
+  cursor: not-allowed;
+}
+.ecosystem-workspace .ecosystem-columns > nav > button {
+  border: 1px solid transparent;
+  background: transparent;
+}
+.ecosystem-workspace .ecosystem-columns > nav > button.selected {
+  background: var(--surface);
+  border-color: var(--line);
+}
+.ecosystem-workspace .ecosystem-tabs button {
+  background: transparent;
+  border-color: transparent;
+}
+.ecosystem-workspace .ecosystem-tabs button.selected {
+  background: var(--surface);
+  border-color: var(--line);
+}
+.ecosystem-workspace .ecosystem-form,
+.ecosystem-workspace .team-task-list article,
+.ecosystem-workspace .automation-grid article {
+  padding: 20px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--surface);
+}
+.ecosystem-form input:not([type=checkbox]):not([type=radio]),
+.ecosystem-form select,
+.ecosystem-form textarea {
+  min-height: 40px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 10px 12px;
+  background: var(--main);
+  color: var(--text);
+  width: 100%;
+  font-size: 13px;
+}
+.ecosystem-form textarea { min-height: 112px; line-height: 1.6; }
+.ecosystem-form input::placeholder,
+.ecosystem-form textarea::placeholder { color: var(--muted); opacity: 1; }
+.ecosystem-form input:focus-visible,
+.ecosystem-form select:focus-visible,
+.ecosystem-form textarea:focus-visible {
+  border-color: var(--accent);
+  outline: 2px solid var(--accent-soft);
+  outline-offset: 2px;
+}
+.ecosystem-form input[type=checkbox] { width: 15px; height: 15px; accent-color: var(--accent); flex-shrink: 0; }
+.ecosystem-form label { font-weight: 500; line-height: 1.5; }
+.ecosystem-form h3 { margin: 0; font-size: 16px; }
+.ecosystem-form .form-note { margin: 0; color: var(--muted); font-size: 12px; }
+.ecosystem-form > button.primary-button { align-self: flex-start; min-width: 108px; }
+.ecosystem-toolbar { row-gap: 10px; padding-bottom: 8px; }
+.ecosystem-workspace .member-strip { gap: 12px; }
+.ecosystem-workspace .member-strip > div {
+  flex: 1 1 180px;
+  padding: 14px 16px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--surface);
+}
+.member-strip small { overflow-wrap: anywhere; line-height: 1.5; }
+.state-pill { display: inline-flex; align-items: center; background: var(--surface-2); color: var(--text); font-weight: 500; }
+.state-pill[data-state=running],.state-pill[data-state=generating] { background: var(--accent-soft); color: var(--text); border-color: var(--accent); }
+.state-pill[data-state=completed],.state-pill[data-state=succeeded] { color: var(--success); border-color: var(--success); }
+.state-pill[data-state=failed],.state-pill[data-state=cancelled] { color: var(--danger); border-color: var(--danger); }
+.team-task-list article > .ecosystem-toolbar { align-items: flex-start; }
+.team-task-list article > .ecosystem-toolbar > strong { flex: 1 1 240px; font-size: 14px; line-height: 1.5; overflow-wrap: anywhere; }
+.team-task-list article > p { font-size: 13px; color: var(--muted); margin: 10px 0; }
+.team-task-list summary { cursor: pointer; padding: 8px 0; font-size: 13px; font-weight: 500; }
+.team-task-list details[open] > pre { padding: 12px; background: var(--main); border: 1px solid var(--line); border-radius: 8px; }
+.ecosystem-empty { border: 1px dashed var(--line); border-radius: 12px; background: var(--surface); opacity: 1; }
+.ecosystem-empty > svg { color: var(--muted); margin-bottom: 12px; }
+.ecosystem-empty p { color: var(--muted); font-size: 13px; }
+.ecosystem-dialog fieldset { background: var(--main); }
+@media(max-width:850px) {
+  .ecosystem-workspace .ecosystem-form { padding: 16px; }
+  .ecosystem-toolbar h2 { flex-basis: 100%; }
+}

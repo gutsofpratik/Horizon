@@ -1,5 +1,6 @@
 :root{--main:#faf9f5;--sidebar:#f0eee6;--surface:#ffffff;--surface-2:#eceae2;--text:#262624;--muted:#73726c;--line:#deddd5;--hover:#eae8df;--brand:#c4694a;--interactive:#296dbe;--accent:var(--brand);--accent-soft:#f5e6de;--success:#387947;--danger:#b13e45;--focus:#2a78d6}
 :root[data-theme=dark]{--main:#151515;--sidebar:#111111;--surface:#20201e;--surface-2:#2b2b29;--text:#f0efec;--muted:#a5a49f;--line:#383836;--hover:#2a2a28;--brand:#d78364;--interactive:#6da7ec;--accent:var(--brand);--accent-soft:#392720;--success:#85bc88;--danger:#f38b91;--focus:#6da7ec}
+:root{--border:var(--line)}
 button:focus-visible,a:focus-visible,select:focus-visible{outline:2px solid var(--focus);outline-offset:2px}
 input:focus,textarea:focus,input:focus-visible,textarea:focus-visible{outline:none}
 .composer:focus-within{border-color:var(--line);box-shadow:0 2px 5px #00000003}.composer textarea:focus{border:0}.search-dialog input:focus,.settings-search input:focus,.model-search input:focus{border:0}

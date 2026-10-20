@@ -6,6 +6,7 @@ import App from './app/App';import './styles/app.css';import 'katex/dist/katex.m
 import './styles/chat-detail.css';import './styles/tokens.css';
 import './styles/research.css';
 import './styles/creative.css';
+import './styles/workspace-controls.css';
 import {ComputerIndicator} from './chat/ComputerIndicator';
 import {Notifications} from './app/Notifications';
 
