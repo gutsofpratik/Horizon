@@ -1,6 +1,7 @@
 import {useState,memo,useDeferredValue} from 'react';import ReactMarkdown from 'react-markdown';import remarkGfm from 'remark-gfm';import remarkMath from 'remark-math';import rehypeKatex from 'rehype-katex';import {Copy,Check} from 'lucide-react';
 function CodeBlock(props:any){const [copied,setCopied]=useState(false);const child=Array.isArray(props.children)?props.children[0]:props.children;const text=String(child?.props?.children??'');const language=String(child?.props?.className??'').replace(/^language-/,'')||'Code';return <div className="code-block"><div className="code-block-heading"><span>{language}</span><button className="code-copy" aria-label="Copy code" onClick={async()=>{await navigator.clipboard.writeText(text);setCopied(true);setTimeout(()=>setCopied(false),1500);}}>{copied?<Check size={13}/>:<Copy size={13}/>}<span>{copied?'Copied':'Copy'}</span></button></div><pre {...props}/></div>;}
-const remarkPlugins=[remarkGfm,remarkMath],rehypePlugins=[rehypeKatex];
+// Keep ordinary currency such as $68k and $22k out of math parsing.
+const remarkPlugins:any=[remarkGfm,[remarkMath,{singleDollarTextMath:false}]],rehypePlugins=[rehypeKatex];
 const components={a:(props:any)=><a {...props} target="_blank" rel="noopener noreferrer"/>,pre:CodeBlock,table:(props:any)=><div className="table-scroll"><table {...props}/></div>};
 const MarkdownBody=memo(function MarkdownBody({text}:{text:string}){return <ReactMarkdown remarkPlugins={remarkPlugins} rehypePlugins={rehypePlugins} components={components}>{text}</ReactMarkdown>;});
 export const Markdown=memo(function Markdown({text}:{text:string}){const deferred=useDeferredValue(text);return <div className="markdown"><MarkdownBody text={deferred}/></div>;});
