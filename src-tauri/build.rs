@@ -1,7 +1,7 @@
 fn main() {
     let attributes = tauri_build::Attributes::new().app_manifest(
         tauri_build::AppManifest::new().commands(&[
-            "native_cancel", "computer_status", "computer_grant", "computer_tool",
+            "profile_restart", "host_credential", "background_mode", "native_cancel", "computer_status", "computer_grant", "computer_tool",
             "model_pick", "model_configuration_pick", "open_external", "browser_tool", "browser_manage", "workspace_status",
             "workspace_choose", "workspace_current", "terminal_open", "terminal_read", "terminal_write",
             "terminal_resize", "terminal_close", "browser_select", "browser_open",

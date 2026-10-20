@@ -7,7 +7,8 @@
   "remote": {
     "urls": [
       "http://127.0.0.1:5173/*",
-      "http://127.0.0.1:3001/*"
+      "http://127.0.0.1:3001/*",
+      "http://127.0.0.1:5174/*"
     ]
   },
   "permissions": [
@@ -35,6 +36,9 @@
     "allow-browser-close",
     "allow-workspace-current",
     "allow-open-external",
-    "allow-browser-manage"
+    "allow-browser-manage",
+    "allow-host-credential",
+    "allow-background-mode",
+    "allow-profile-restart"
   ]
 }
