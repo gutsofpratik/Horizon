@@ -1,7 +1,7 @@
 import {mkdir,mkdtemp,readdir,lstat} from 'node:fs/promises';
 import {join} from 'node:path';
-const roots=new Set(['OpenClaude.exe','WebView2Loader.dll','LICENSE','THIRD_PARTY_NOTICES.md','Setup-Dependencies.ps1','Setup-Dependencies.cmd','backend']);
-const backendRoots=new Set(['server.mjs','setup-runtime.mjs','node','python','node_modules','package.json','package-lock.json','runtime','skills','dist','dist-desktop','licenses','runtime-manifest.json']);
+const roots=new Set(['Horizon.exe','WebView2Loader.dll','LICENSE','README.md','THIRD_PARTY_NOTICES.md','Setup-Dependencies.ps1','Setup-Dependencies.cmd','backend']);
+const backendRoots=new Set(['server.mjs','setup-runtime.mjs','node','python','node_modules','package.json','package-lock.json','runtime','skills','dist','dist-desktop','licenses','runtime-manifest.json','engine','vendor']);
 export async function createReleaseStage(output){await mkdir(output,{recursive:true});return mkdtemp(join(output,'.openclaude-stage-'));}
 export async function releaseFiles(stage){
  const files=[];

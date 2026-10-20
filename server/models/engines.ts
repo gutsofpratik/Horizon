@@ -1,9 +1,11 @@
+import {registerOwnedProcess} from '../runtime/managed-process.ts';
+import type {AppContext} from '../app.ts';
 import {spawn,execFile} from 'node:child_process';
 import {promisify} from 'node:util';import {join} from 'node:path';import {access,cp,mkdir} from 'node:fs/promises';
 const exec=promisify(execFile);
 export class EngineEnvironment {
  status='idle';error='';log='';private installing?:Promise<string>;private profile='python';
- constructor(private root:string){}
+ constructor(private root:string,private app?:AppContext){}
  get dataRoot(){return process.env.OPENCLAUDE_DATA_DIR??join(this.root,'.local');}
  get python(){return join(this.dataRoot,'inference',this.profile,process.platform==='win32'?'Scripts/python.exe':'bin/python');}
  async ensure(engine:string,device='auto'):Promise<string>{
@@ -22,7 +24,7 @@ export class EngineEnvironment {
   try{await exec(this.python,['-c',probe],{windowsHide:true,timeout:30000});this.status='ready';return this.python;}catch{}
   return this.install(engine,needsCuda,probe);
  }
- private async run(command:string,args:string[]){await new Promise<void>((resolve,reject)=>{const child=spawn(command,args,{windowsHide:true,stdio:['ignore','pipe','pipe']});for(const stream of [child.stdout,child.stderr])stream.on('data',chunk=>{this.log=(this.log+chunk.toString()).slice(-6000);});child.on('error',reject);child.on('exit',code=>code===0?resolve():reject(new Error('Runtime setup failed: '+this.log.slice(-2000))));});}
+ private async run(command:string,args:string[]){await new Promise<void>((resolve,reject)=>{const child=spawn(command,args,{env:{...process.env,OPENCLAUDE_HOST_TOKEN:undefined},windowsHide:true,detached:process.platform!=='win32',stdio:['ignore','pipe','pipe']});if(this.app)registerOwnedProcess(this.app,child,'inference-setup',command,process.platform!=='win32');for(const stream of [child.stdout,child.stderr])stream.on('data',chunk=>{this.log=(this.log+chunk.toString()).slice(-6000);});child.on('error',reject);child.on('exit',code=>code===0?resolve():reject(new Error('Runtime setup failed: '+this.log.slice(-2000))));});}
  private async install(engine:string,cuda:boolean,probe:string){
   this.status='installing';this.error='';this.log='';
   try{

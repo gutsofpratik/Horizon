@@ -14,7 +14,7 @@ export function ConnectorsView({onError}:any){
  const fail=(error:any)=>{setError(error.message);onError?.(error.message);};
  useEffect(()=>{let active=true;const update=()=>api('/connectors').then(data=>{if(active)setItems(data);}).catch(error=>{if(active)setError(error.message);});void update();const timer=setInterval(update,2000);return()=>{active=false;clearInterval(timer);};},[]);
  const action=async(id:string,operation:string)=>{setBusy(id);setError('');try{await api(`/connectors/${encodeURIComponent(id)}/${operation}`,{method:'POST'});await refresh();}catch(error){fail(error);}finally{setBusy('');}};
- return <div className="library-page"><div className="page-heading"><div><h1>Connectors</h1><p>Connect your tools and services to OpenClaude.</p></div><button className="primary-button" onClick={()=>setEditing({name:'',url:'',authMode:'oauth'})}><Plus size={15}/>Add connector</button></div>
+ return <div className="library-page"><div className="page-heading"><div><h1>Connectors</h1><p>Connect your tools and services to Horizon.</p></div><button className="primary-button" onClick={()=>setEditing({name:'',url:'',authMode:'oauth'})}><Plus size={15}/>Add connector</button></div>
  <p className="form-note">Authorize a service in your browser. Once connected, its tools are available to the model in chat.</p>
  {error&&<p role="alert" className="connector-error">{error}</p>}
  {items.map(item=><div className="connector-card" key={item.id}><div className="provider-row"><Plug size={20}/><div><strong>{item.name}</strong><small>{item.url}</small></div><span role="status" className="connector-status" data-status={item.status}>{labels[item.status]??'Not connected'}{item.status==='connected'&&` · ${item.toolCount} tools`}</span></div>

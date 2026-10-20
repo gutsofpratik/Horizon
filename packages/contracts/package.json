@@ -1,0 +1,12 @@
+{
+  "name": "@openclaude/contracts",
+  "version": "0.1.2",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "check": "tsc --noEmit --strict --target es2022 --module nodenext --moduleResolution nodenext src/index.ts"
+  },
+  "exports": {
+    "./*": "./src/*.ts"
+  }
+}

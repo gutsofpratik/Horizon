@@ -1,0 +1,9 @@
+{
+  "name": "@openclaude/agent-backend",
+  "version": "0.1.2",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "node ../../scripts/build-component.mjs agent-backend"
+  }
+}

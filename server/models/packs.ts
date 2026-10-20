@@ -5,7 +5,7 @@ export function runtimePacks(platform=process.platform){return [
  {id:'executorch',name:'ExecuTorch · XNNPACK CPU · PTE',installable:false,status:'Not integrated',description:'Runs compatible PTE programs exported for the XNNPACK CPU backend. Requires a matching tokenizer and model execution interface; integration is not yet available.'},
  {id:'torch-asr-cuda',name:'Torch ASR CUDA',installable:false,status:'Not integrated',description:'Speech recognition runtime; requires a separate ASR model and transcription pipeline.'},
  {id:'harmony',name:'Harmony',installable:false,status:'Not integrated',description:'No compatible Harmony runtime pack is configured. Current inference uses the loaded model chat template; Harmony-specific packages need a separate verified integration.'},
- {id:'office',name:'Office document processor',installable:true,status:'Docker runtime',description:'Uses the existing isolated document worker for PDF and Office generation.'},
+ {id:'office',name:'Office document processor',installable:true,status:'Local Python � no Docker',description:'App-managed PDF, Word, Excel and PowerPoint generation/editing. Installs its own Python environment and libraries; Docker is optional for other sandbox tasks.'},
  ];}
 
 

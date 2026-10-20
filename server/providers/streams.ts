@@ -3,7 +3,7 @@ function toolArguments(value:any){try{const parsed=typeof value==='string'?JSON.
 export async function* decodeRecords(body:ReadableStream<Uint8Array>,mode:'ndjson'|'sse'):AsyncGenerator<any>{
  const reader=body.getReader();const decoder=new TextDecoder();let pending='';
  const parse=(text:string)=>{const value=mode==='sse'?text.split('\n').filter(line=>line.startsWith('data:')).map(line=>line.slice(5).trimStart()).join('\n'):text.trim();if(!value)return undefined;if(value==='[DONE]')return {__done:true};return JSON.parse(value);};
- try{while(true){const {value,done}=await reader.read();pending+=done?decoder.decode():decoder.decode(value,{stream:true});pending=pending.replaceAll('\r\n','\n');if(pending.length>4*1024*1024)throw new Error('Model stream record is too large');const delimiter=mode==='sse'?'\n\n':'\n';let index;while((index=pending.indexOf(delimiter))>=0){const text=pending.slice(0,index);pending=pending.slice(index+delimiter.length);const record=parse(text);if(record)yield record;}if(done)break;}if(pending.trim()){const record=parse(pending);if(record)yield record;}}finally{reader.releaseLock();}
+ try{while(true){const {value,done}=await reader.read();pending+=done?decoder.decode():decoder.decode(value,{stream:true});pending=pending.replaceAll('\r\n','\n');if(pending.length>4*1024*1024)throw new Error('Model stream record is too large');const delimiter=mode==='sse'?'\n\n':'\n';let index;while((index=pending.indexOf(delimiter))>=0){const text=pending.slice(0,index);pending=pending.slice(index+delimiter.length);const record=parse(text);if(record)yield record;}if(done)break;}if(pending.trim()){const record=parse(pending);if(record)yield record;}}finally{await reader.cancel().catch(()=>{});reader.releaseLock();}
 }
 export async function* normalizeEvents(records:AsyncIterable<any>,provider:'ollama'|'openai'):AsyncGenerator<any>{
  const calls=new Map<number,{id:string;name:string;arguments:string;argumentError?:string}>();let finished=false;
@@ -12,7 +12,7 @@ export async function* normalizeEvents(records:AsyncIterable<any>,provider:'olla
   if(provider==='ollama'){
    const message=record.message??{};if(message.content)yield {type:'content',text:message.content};if(message.thinking)yield {type:'reasoning',text:message.thinking};
    for(const call of message.tool_calls??[]){yield {type:'tool_call',id:call.id??randomUUID(),name:call.function.name,...toolArguments(call.function.arguments)};}
-   if(record.done){finished=true;yield {type:'done',reason:record.done_reason,usage:{input:record.prompt_eval_count,output:record.eval_count,duration:record.total_duration}};}
+   if(record.done){finished=true;yield {type:'done',reason:record.done_reason,usage:{input:record.prompt_eval_count,output:record.eval_count,prompt_tokens:record.prompt_eval_count,completion_tokens:record.eval_count,duration:record.total_duration}};}
   }else{
    const choice=record.choices?.[0];const delta=choice?.delta??{};
    if(delta.openclaude_phase)yield {type:'model_status',phase:delta.openclaude_phase};

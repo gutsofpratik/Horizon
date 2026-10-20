@@ -1,0 +1,6 @@
+import test from 'node:test';import assert from 'node:assert/strict';import {generate} from '../server/providers/adapter.ts';
+for(const type of ['openai','ollama'] as const)test(type+' folds continuation feedback into the leading system message',async()=>{
+ const original=globalThis.fetch;let sent:any;globalThis.fetch=async(_url,options)=>{sent=JSON.parse(String(options?.body));return new Response(type==='ollama'?'{"done":true}\n':'data: [DONE]\n\n');};
+ const messages=[{role:'system',content:'Main policy'},{role:'user',content:'Create a presentation'},{role:'assistant',content:'Let me create it.'},{role:'system',content:'Execution feedback: finish the artifact'},{role:'tool',content:'Actual tool result',tool_call_id:'call'}];
+ try{for await(const _ of generate({id:type,name:type,type,baseUrl:'http://test'}, {model:'test',messages},new AbortController().signal)){}assert.equal(sent.messages[0].role,'system');assert.equal(sent.messages.filter((message:any)=>message.role==='system').length,1);assert.match(sent.messages[0].content,/Main policy[\s\S]*Execution feedback/);assert.deepEqual(sent.messages.slice(1).map((message:any)=>message.role),['user','assistant','tool']);assert.equal(messages[3].role,'system');}finally{globalThis.fetch=original;}
+});

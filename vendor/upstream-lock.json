@@ -1,0 +1,29 @@
+{
+  "schemaVersion": 1,
+  "sources": [
+    {
+      "repository": "https://github.com/iOfficeAI/AionCore",
+      "revision": "503a87199eb978790ca77675b39c84b241535bf3",
+      "archiveSha256": "4ba3aa75a2b53afa8fe7c5b048afc59f1f9ac8dc4fe7cbc78732a2fd6146039d",
+      "directory": "vendor/AionCore",
+      "license": "Apache-2.0",
+      "modifications": [
+        "Cargo dependencies use vendored locked aionrs revision",
+        "OpenClaude binary and CLI display name",
+        "Embedded identity requires host token; token gate covers HTTP and WebSocket and denies direct browser origins",
+        "Embedded host tool-policy contract: allow only registered OpenClaude MCP tools and filtered read-only ToolSearch; disable inherited native tools/hooks/MCP configuration. Source changes awaiting user-authorized build and verification.",
+        "Carry provider total context into the embedded runtime configuration rather than storing it only as unused provider metadata; source not rebuilt or verified yet."
+      ]
+    },
+    {
+      "repository": "https://github.com/iOfficeAI/aionrs",
+      "revision": "8e61a90329fa9f67c4fdf7e97fe02c24dba33f75",
+      "archiveSha256": "53f540324dfd0100e8ec2b41cbe7219f9063c802896ef2e392a019b3a4f14d13",
+      "directory": "vendor/aionrs",
+      "license": "Apache-2.0",
+      "modifications": [
+        "MCP calls use distinct request IDs; preserve isError for agent recovery and image blocks as validated model follow-up content. Source changes awaiting user-authorized build and verification."
+      ]
+    }
+  ]
+}

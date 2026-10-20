@@ -1,0 +1,15 @@
+import {useCallback,useEffect,useState} from 'react';
+import {ListChecks,Check,MessageSquare} from 'lucide-react';
+import {api} from '../app/api';
+
+export function PlanApprovalPanel({conversationId,running,onApproved,onError}:any){
+ const [plan,setPlan]=useState<any>(null);const [busy,setBusy]=useState(false);const [editing,setEditing]=useState(false);const [feedback,setFeedback]=useState('');
+ useEffect(()=>{let active=true;setPlan(null);setEditing(false);setFeedback('');
+  const refresh=()=>{if(conversationId)void api('/conversations/'+conversationId+'/plans').then(data=>{if(active)setPlan(data.plans?.find((item:any)=>item.id===data.gate?.planId&&(item.status==='awaiting_approval'||item.status==='approved'&&!data.gate.approvedRunId))??null);}).catch(()=>{});};
+  refresh();const changed=(event:Event)=>{if((event as CustomEvent).detail?.conversationId===conversationId)refresh();};window.addEventListener('openclaude-plan-changed',changed);const timer=running?setInterval(refresh,3000):undefined;
+  return()=>{active=false;clearInterval(timer);window.removeEventListener('openclaude-plan-changed',changed);};
+ },[conversationId,running]);
+ const resolve=useCallback(async(approve:boolean)=>{if(!plan||busy)return;setBusy(true);try{const result=await api('/conversations/'+conversationId+'/plans/'+plan.id+(approve?'/approve':'/changes'),{method:'POST',body:JSON.stringify({revision:plan.revision,...(!approve?{feedback}: {})})});setPlan(null);setEditing(false);setFeedback('');if(approve)onApproved?.(result);}catch(error){onError?.((error as Error).message);}finally{setBusy(false);}},[plan,busy,conversationId,feedback,onApproved,onError]);
+ if(!plan)return null;
+ return <section className="plan-approval-card" aria-label="Plan approval"><header><ListChecks size={18}/><div><strong>{plan.title}</strong><small>Review this plan before execution</small></div><span>{plan.status==='approved'?'Approved':'Awaiting approval'}</span></header><ol>{plan.tasks.map((task:any)=><li key={task.id}>{task.text}</li>)}</ol><p>The assistant can inspect and ask questions. It cannot edit files or execute this plan until you approve.</p>{editing&&<label className="plan-change-input">What should change?<textarea aria-label="Plan feedback" value={feedback} maxLength={4000} onChange={event=>setFeedback(event.target.value)} placeholder="Describe the changes you want…"/></label>}<footer>{editing?<><button type="button" className="secondary-button" disabled={busy} onClick={()=>setEditing(false)}>Back</button><button type="button" className="primary-button" disabled={busy||!feedback.trim()} onClick={()=>void resolve(false)}>Request changes</button></>:<><button type="button" className="secondary-button" disabled={busy} onClick={()=>setEditing(true)}><MessageSquare size={14}/>Request changes</button><button type="button" className="primary-button" disabled={busy} onClick={()=>void resolve(true)}><Check size={15}/>{busy?'Approving…':'Approve plan'}</button></>}</footer></section>;
+}

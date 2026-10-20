@@ -1,0 +1,18 @@
+export const contractVersion=1 as const;
+export const messagePageSize=50;
+export type RuntimePhase='connecting'|'loading'|'processing_input'|'generating'|'executing_tools'|'awaiting_approval'|'awaiting_answer'|'stopping'|'completed'|'failed'|'interrupted';
+export interface BackendDescriptor {id:string;version:string;transport:'embedded'|'acp'|'direct-cli'|'remote';handshake:{models?:unknown;modes?:unknown;commands?:unknown;configuration?:unknown;authentication?:unknown;sessionCapabilities?:unknown};host:{edition:'web'|'desktop';availableTools:string[]};model?:{id:string;vision?:boolean;thinking?:boolean;contextTokens?:number};permissions:{tools:string[];planApproved:boolean};health:{status:'listed'|'installed'|'authenticated'|'ready'|'verified'|'unavailable';reason?:string}}
+export interface RuntimeEvent<T=unknown>{contractVersion:1;sessionId:string;turnId:string;sequence:number;phase:RuntimePhase;messageId?:string;toolCallId?:string;approvalId?:string;data:T}
+export interface MessagePage<T=unknown>{items:T[];before?:string;after?:string;hasMoreBefore:boolean;hasMoreAfter:boolean;limit:number}
+export interface ProcessRecord {id:string;pid:number;parentPid:number;kind:string;executable:string;identity:string;startedAt:string;parentIdentity?:string;processGroup?:number}
+export interface AutomationOccurrence {id:string;scheduleId:string;conversationId?:string;backendId:string;model?:string;workspace?:string;approvalMode:'ask'|'auto'|'full';status:'queued'|'running'|'awaiting_approval'|'completed'|'failed'|'cancelled';attempt:number;lastError?:string}
+export interface BackendLifecycle {listed:boolean;installed:boolean;authenticated:'unknown'|'yes'|'no'|'not-required';ready:boolean;verified:boolean;checkedAt?:number|string;reason?:string}
+export interface BackendSessionDescriptor {id:string;backendId:string;adapterId:string;connected:boolean;handshake:BackendDescriptor['handshake'];currentModel?:string;currentMode?:string;raw:unknown}
+export interface TeamMember {id:string;name:string;role:'leader'|'member';backendId:string;providerId:string;model:string;assistantId?:string;approvalMode:'ask'|'auto'|'full';toolNames?:string[]}
+export type TeamTaskStatus='pending'|'dispatching'|'running'|'blocked'|'completed'|'failed'|'cancelled'|'interrupted';
+export interface TeamTask {id:string;teamId:string;memberId:string;title:string;prompt:string;dependsOn:string[];resources:string[];readOnly:boolean;status:TeamTaskStatus;conversationId?:string;runId?:string;engineSessionId?:string;result?:string;error?:string}
+export type ScheduleCalendar={kind:'once';at:string}|{kind:'interval';seconds:number}|{kind:'cron';expression:string;timeZone:string};
+export interface AutomationJob {id:string;name:string;prompt:string;calendar:ScheduleCalendar;conversationMode:'continue'|'fresh';conversationId?:string;projectId?:string;assistantId?:string;backendId:string;providerId:string;model:string;approvalMode:'ask'|'auto'|'full';toolNames:string[];misfire:'skip'|'coalesce'|'catch_up';retryLimit:number;enabled:boolean;nextRunAt?:string|null}
+export interface ChannelGrant {id:string;platform:'telegram'|'lark'|'dingtalk'|'discord'|'slack';providerId:string;model:string;allowedUsers:string[];allowedChats:string[];toolNames:string[];enabled:boolean}
+export interface UpdateArtifact {platform:'win32'|'darwin'|'linux';arch:'x64'|'arm64';url:string;sha256:string;bytes:number;kind:'installer'|'portable'}
+export interface SignedUpdatePayload {schemaVersion:1;contractVersion:1;version:string;publishedAt:string;expiresAt:string;notes:string;assets:UpdateArtifact[]}

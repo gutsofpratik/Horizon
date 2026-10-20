@@ -1,7 +1,7 @@
 """Bounded Qwen XML tool protocol. Parse complete calls; never execute text."""
 import json,re
 
-NATIVE_POLICY='\nTool protocol: answer normally in plain text. To request a currently eligible tool, emit <tool_call>\n<function=tool_name>\n<parameter=argument_name>\nvalue\n</parameter>\n</function>\n</tool_call>. Use JSON values for object/array/number/boolean arguments and raw text for string arguments. Available schemas and any required-call constraint are in the latest application workspace context. For toolkit, action and name are raw strings; arguments is a complete JSON object, e.g. {"url":"https://example.com"}. Historical catalogs do not grant permissions.'
+NATIVE_POLICY='\nTool protocol: answer normally in plain text. To request a currently eligible tool, emit <tool_call>\n<function=tool_name>\n<parameter=argument_name>\nvalue\n</parameter>\n</function>\n</tool_call>. Use JSON values for object/array/number/boolean arguments and raw text for string arguments. Available schemas and any required-call constraint are in the latest application workspace context. Call the offered function directly. For example browser_open takes url as its own parameter. Do not add a toolkit, category, name or arguments wrapper. Historical catalogs do not grant permissions.'
 
 def detect_protocol(template):
     return 'qwen_xml' if all(marker in template for marker in ('<tool_call>','<function=','<parameter=')) else 'envelope'
@@ -64,7 +64,7 @@ def decode_native_calls(text,tools):
         if not name:raise
         # The provider carries argument_error into registry validation. This
         # placeholder must fail before any handler runs, allowing correction.
-        guidance='Emit a fresh complete <tool_call><function=NAME> with every <parameter=KEY> closed by </parameter>, then </function></tool_call>. Do not continue a truncated value.' if 'Incomplete' in str(error) else 'Use double-quoted JSON keys/strings, no comments or trailing commas; arguments must be one complete JSON object.'
+        guidance='Emit a fresh complete native call. XML format requires <tool_call><function=NAME><parameter=KEY>VALUE</parameter></function></tool_call>, closing EVERY parameter separately. Alternatively emit <tool_call>{"name":"NAME","arguments":{...actual fields...}}</tool_call>. Use the offered function name and real schema fields; arguments must be one complete object. Do not continue a truncated value or print a code example.'
         return [{'name':name,'arguments':{},'argument_error':str(error).removesuffix('; no tools executed')+'. No tool was executed. '+guidance}]
 
 def parse_native_calls(text,tools):
@@ -92,6 +92,14 @@ def parse_native_calls(text,tools):
         match=re.fullmatch(r'<function=([\w.-]+)>([\s\S]*)</function>',block)
         if not match or match[1] not in offered:raise ValueError('Invalid or unavailable native tool call; no tools executed')
         name,body=match.groups();args={};position=0;schema=offered[name]
+        # Explicit function wrappers may contain a complete JSON parameter map.
+        # Decode the whole map, never infer or discard malformed suffixes.
+        if body.lstrip().startswith('{'):
+            args=_json_value(body)
+            if not isinstance(args,dict):raise ValueError('Native function parameters must be an object')
+            calls.append({'name':name,'arguments':args})
+            if len(calls)>16:raise ValueError('Too many native tool calls')
+            offset=end+12;continue
         for param in re.finditer(r'<parameter=([\w.-]+)>([\s\S]*?)</parameter>',body):
             if body[position:param.start()].strip() or param[1] in args:raise ValueError('Invalid/duplicate native tool parameter')
             key,value=param.groups();value=value.strip('\r\n');kind=schema.get('properties',{}).get(key,{}).get('type')
@@ -100,6 +108,13 @@ def parse_native_calls(text,tools):
                 except ValueError as error:raise ValueError('Invalid JSON value for tool parameter '+key+': '+str(error)) from error
             elif kind is None:
                 try:value=_json_value(value)
+                except ValueError:pass
+            elif kind=='string' and value.strip().startswith('"'):
+                # Accept explicitly JSON-encoded strings as well as native raw
+                # strings; quoted "call" must not become a literal action name.
+                try:
+                    decoded=_json_value(value)
+                    if isinstance(decoded,str):value=decoded
                 except ValueError:pass
             if kind in ('object','array') and isinstance(value,str):
                 try:value=_json_value(value)

@@ -6,7 +6,7 @@ from unicode_text import clean_unicode
 from model_messages import normalize_system_messages,template_history
 from workspace_history import WorkspaceHistory
 from prompt_messages import prepare_messages
-from native_tools import detect_protocol,NativeToolStream,decode_native_calls
+from native_tools import detect_protocol,NativeToolStream,decode_native_calls,_json_decoder
 protocol=sys.stdout
 sys.stdout=sys.stderr
 os.environ['HF_HUB_DISABLE_TELEMETRY']='1'
@@ -226,15 +226,18 @@ def generate(args,id):
                 emit(id,event='chunk',data={'tool_calls':calls});finish='tool_calls'
         elif structured or args.get('json'):
 
-            try:parsed=clean_unicode(json.loads(output))
-            except json.JSONDecodeError as error:
+            try:parsed=clean_unicode(_json_decoder().decode(output))
+            except ValueError as error:
                 reason='The response reached its token limit' if finish=='length' else 'The model stopped before returning a complete structured response'
-                raise ValueError(f'{reason} ({error.msg} at character {error.pos}; response length {len(output)}). No tools were executed. The configured total context was not reduced.') from error
+                detail=f'{error.msg} at character {error.pos}' if isinstance(error,json.JSONDecodeError) else str(error)
+                raise ValueError(f'{reason} ({detail}; response length {len(output)}). No tools were executed. Return one complete object with the offered schema.') from error
             if not isinstance(parsed,dict):raise ValueError('Structured output must be an object')
             if structured:
                 calls=[];names={tool['function']['name'] for tool in tools}
-                for call in ([parsed['tool_call']] if required_call else parsed.get('tool_calls',[])):
-                    if call.get('name') not in names or not isinstance(call.get('arguments'),dict):raise ValueError('Invalid tool call; no action executed')
+                raw_calls=[parsed.get('tool_call')] if required_call else parsed.get('tool_calls',[])
+                if not isinstance(raw_calls,list):raise ValueError('Invalid tool call; no action executed')
+                for call in raw_calls:
+                    if not isinstance(call,dict) or call.get('name') not in names or not isinstance(call.get('arguments'),dict):raise ValueError('Invalid tool call; no action executed')
                     calls.append({'index':len(calls),'id':str(uuid.uuid4()),'type':'function','function':{'name':call['name'],'arguments':json.dumps(call['arguments'])}})
                 if calls:emit(id,event='chunk',data={'tool_calls':calls});finish='tool_calls'
             else:emit(id,event='chunk',data={'content':output})

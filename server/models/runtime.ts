@@ -1,3 +1,4 @@
+import {registerOwnedProcess} from '../runtime/managed-process.ts';
 import {inspectModelCapabilities} from './capabilities.ts';
 import {startInferenceHeartbeat} from './heartbeat.ts';
 import {workerExecutable} from './process.ts';
@@ -13,7 +14,7 @@ import {runtimePacks} from './packs.ts';
 export class ModelRuntime {
  private worker?:ChildProcessWithoutNullStreams;private pending=new Map<string,{resolve:(value:any)=>void;reject:(error:Error)=>void;event?:(event:any)=>void;cleanup:()=>void}>();
  loaded:any=null;status='idle';error='';private stderr='';
- private selection:Promise<any>=Promise.resolve();private selectedSignature='';private generations=0;private closed=false;
+ private selection:Promise<any>=Promise.resolve();private selectedSignature='';private stopping:Promise<void>=Promise.resolve();private generations=0;private closed=false;
  private balancer=new ModelBalancer({ready:entry=>this.isReady(entry),capacity:()=>this.loaded?.parallelPredictions??1,activate:entry=>this.activate(entry)});
  get balance(){return this.balancer.snapshot();}
  private signature(entry:any){return JSON.stringify([entry.id,entry.path,runtimeConfiguration(entry.path,entry.configuration,modelDefaults(this.defaults())),entry.ollama?.system]);}
@@ -23,9 +24,10 @@ export class ModelRuntime {
  select(entry:any){if(this.isReady(entry))return Promise.resolve(this.loaded);return this.balancer.run(entry,async()=>this.loaded);}
  generateFor(entry:any,args:any,event?:(event:any)=>void,signal?:AbortSignal){return this.balancer.run(entry,()=>this.dispatch('generate',args,event,signal),signal,()=>event?.({event:'chunk',data:{openclaude_phase:'queued'}}));}
  measureFor(entry:any,args:any,signal?:AbortSignal){return this.balancer.run(entry,()=>this.dispatch('measure',args,undefined,signal),signal);}
+ private workerEpoch='';private workerStarts=0;get continuity(){return {workerEpoch:this.workerEpoch||null,workerStarts:this.workerStarts,modelId:this.loaded?.modelId??null,contextTokens:this.loaded?.configuration?.contextTokens??null,state:this.status,error:this.error||null};}
  private workerFile='worker.py';private engine='transformers';private runtimeVariant='stock';private python=process.env.OPENCLAUDE_PYTHON??'python';private loading=false;readonly environment:EngineEnvironment;
- constructor(private root:string,workerFile='worker.py',private defaults:()=>any=()=>({})){this.workerFile=workerFile;this.environment=new EngineEnvironment(root);}
- private start(){if(this.worker)return;const child=spawn(workerExecutable(this.python),['-u',join(this.root,'runtime/models',this.workerFile)],{stdio:'pipe',windowsHide:true,env:{...process.env,PYTHONUNBUFFERED:'1',OPENCLAUDE_ENGINE:this.engine,OPENCLAUDE_LLAMA_VARIANT:this.runtimeVariant}});this.worker=child;
+ constructor(private root:string,workerFile='worker.py',private defaults:()=>any=()=>({}),private app?:AppContext){this.workerFile=workerFile;this.environment=new EngineEnvironment(root,app);}
+ private start(){if(this.worker)return;this.workerEpoch=randomUUID();this.workerStarts++;const child=spawn(workerExecutable(this.python),['-u',join(this.root,'runtime/models',this.workerFile)],{stdio:'pipe',windowsHide:true,detached:process.platform!=='win32',env:{...process.env,OPENCLAUDE_HOST_TOKEN:undefined,PYTHONUNBUFFERED:'1',OPENCLAUDE_ENGINE:this.engine,OPENCLAUDE_LLAMA_VARIANT:this.runtimeVariant}});this.worker=child;if(this.app)registerOwnedProcess(this.app,child,'inference-worker',workerExecutable(this.python),process.platform!=='win32');
   createInterface({input:child.stdout}).on('line',line=>{try{const message=JSON.parse(line);const pending=this.pending.get(message.id);if(!pending)return;if(message.event){pending.event?.(message);return;}this.pending.delete(message.id);pending.cleanup();message.error?pending.reject(new Error(message.error)):pending.resolve(message.result);}catch(error){this.error='Invalid response from model worker';}});
   child.stderr.on('data',data=>{this.stderr=(this.stderr+data.toString()).slice(-5000);});
   const failed=(error:Error)=>{if(this.worker!==child)return;this.worker=undefined;this.loaded=null;this.status='unavailable';this.error=error.message;for(const pending of this.pending.values()){pending.cleanup();pending.reject(error);}this.pending.clear();};
@@ -48,23 +50,23 @@ export class ModelRuntime {
    const config=validateModelSettings(applyRuntimeDefault(entry.path,entry.configuration??{},defaults));const engine=engineFor(entry.path,config);
    await checkLoadingGuardrail(entry.path,defaults,config);
    const effective=runtimeConfiguration(entry.path,config,defaults);
-   this.dispose();this.engine=engine;this.runtimeVariant=config.runtimeVariant??'stock';
+   await this.dispose();this.engine=engine;this.runtimeVariant=config.runtimeVariant??'stock';
    if(this.runtimeVariant==='prism'&&engine!=='llama.cpp')throw new Error('Prism requires a GGUF model and the llama.cpp engine');
    this.status='Preparing '+engine+' runtime';this.python=await this.environment.ensure(engine,config.device);this.workerFile=engine==='transformers'?'worker.py':'native_worker.py';
    if(this.closed)throw new Error('Model runtime closed');
    this.loaded=await this.call('load',{path:entry.path,configuration:effective,modelId:entry.id,engine,importedSystem:entry.ollama?.system,projectorLayers:entry.ollama?.layers},event=>{this.status=event.data.stage??'loading';});this.selectedSignature=this.signature(entry);this.status='loaded';return this.loaded;
-  }catch(error){const details=this.stderr.slice(-1800);this.dispose();this.status='failed';this.error=(error as Error).message+(details?'\nNative runtime details:\n'+details:'');throw new Error(this.error);}
+  }catch(error){const details=this.stderr.slice(-1800);await this.dispose();this.status='failed';this.error=(error as Error).message+(details?'\nNative runtime details:\n'+details:'');throw new Error(this.error);}
   finally{this.loading=false;}
  } async unload(){if(this.generations||this.loading)throw new Error('Stop the current response before releasing the model');if(this.loaded)await this.call('unload');this.loaded=null;this.selectedSignature='';this.status='idle';return {status:'unloaded'};}
- shutdown(){this.closed=true;this.balancer.close();this.dispose();}
- dispose(){const child=this.worker;this.worker=undefined;if(child){if(process.platform==='win32'&&child.pid)execFile('taskkill.exe',['/PID',String(child.pid),'/T','/F'],{windowsHide:true},()=>{child.kill();});else child.kill();}this.loaded=null;this.status='idle';for(const pending of this.pending.values()){pending.cleanup();pending.reject(new Error('Model runtime closed or loading cancelled'));}this.pending.clear();}
+ shutdown(){this.closed=true;this.balancer.close();return this.dispose();}
+ dispose(){const child=this.worker;this.worker=undefined;if(child){const supervisor=this.app?.ephemeral.get('processSupervisor');if(supervisor)this.stopping=supervisor.stopChild(child).catch((error:Error)=>{this.error=error.message;});else{child.kill('SIGTERM');this.stopping=Promise.resolve();}}this.loaded=null;this.status='idle';for(const pending of this.pending.values()){pending.cleanup();pending.reject(new Error('Model runtime closed or loading cancelled'));}this.pending.clear();return this.stopping;}
 }
 export function registerModelRuntime(app:any,context:AppContext){
- const runtime=new ModelRuntime(context.root,'worker.py',()=>context.store.get('settings','main')?.modelDefaults??{}),downloads=new ModelRuntime(context.root,'download_worker.py');context.ephemeral.set('modelRuntime',runtime);app.addHook('onClose',async()=>{runtime.shutdown();downloads.shutdown();});
- if(!context.store.get('providers','builtin'))context.store.put('providers',{id:'builtin',name:'OpenClaude built-in',type:'openai',baseUrl:'http://127.0.0.1:3001/api/builtin/v1'});
+ const runtime=new ModelRuntime(context.root,'worker.py',()=>context.store.get('settings','main')?.modelDefaults??{},context),downloads=new ModelRuntime(context.root,'download_worker.py',()=>({}),context);context.ephemeral.set('modelRuntime',runtime);app.addHook('onClose',async()=>{await Promise.all([runtime.shutdown(),downloads.shutdown()]);});
+ if(!context.store.get('providers','builtin'))context.store.put('providers',{id:'builtin',name:'OpenClaude built-in',type:'openai',baseUrl:'http://127.0.0.1:'+String(process.env.PORT??3001)+'/api/builtin/v1'});
  app.get('/api/model-library',async()=>({models:context.store.list('local_models'),loaded:runtime.loaded,status:runtime.status,error:runtime.error,balance:runtime.balance}));
- app.get('/api/model-library/runtime-packs',async()=>({packs:runtimePacks(),setup:{status:runtime.environment.status,log:runtime.environment.log,error:runtime.environment.error}}));
- app.post('/api/model-library/runtime-packs/:id/install',async(request:any)=>{const id=String(request.params.id);const pack=runtimePacks().find(pack=>pack.id===id);if(!pack?.installable)throw new Error(pack?.description??'Unknown runtime pack');if(id==='office')return context.runtime?.startSetup();if(runtime.loaded||runtime.balance.active||runtime.balance.activating)throw new Error('Restart the app before replacing an inference runtime; a model is currently loaded or loading.');await runtime.environment.ensure('llama.cpp',id==='llama-cuda'?'cuda':'cpu');return {status:runtime.environment.status};});
+ app.get('/api/model-library/runtime-packs',async()=>({packs:runtimePacks().map(pack=>pack.id==='office'?{...pack,status:context.ephemeral.get('documentRuntime')?.status??'idle'}:pack),documents:context.ephemeral.get('documentRuntime')?.snapshot(),setup:{status:runtime.environment.status,log:runtime.environment.log,error:runtime.environment.error}}));
+ app.post('/api/model-library/runtime-packs/:id/install',async(request:any)=>{const id=String(request.params.id);const pack=runtimePacks().find(pack=>pack.id===id);if(!pack?.installable)throw new Error(pack?.description??'Unknown runtime pack');if(id==='office'){const documents=context.ephemeral.get('documentRuntime');await documents.prepare();return documents.snapshot();}if(runtime.loaded||runtime.balance.active||runtime.balance.activating)throw new Error('Restart the app before replacing an inference runtime; a model is currently loaded or loading.');await runtime.environment.ensure('llama.cpp',id==='llama-cuda'?'cuda':'cpu');return {status:runtime.environment.status};});
  app.get('/api/model-library/ollama',async()=>({models:await listOllamaModels()}));
  app.post('/api/model-library/ollama/import',async(request:any)=>importOllamaModel(context,String(request.body.id??'')));
  app.post('/api/model-library/prepare',async(request:any)=>{const {providerId,model}=request.body;if(providerId!=='builtin')return runtime.unload();const entry=context.store.get('local_models',String(model));if(!entry)throw new Error('Model is not in the library');return runtime.select(entry);});

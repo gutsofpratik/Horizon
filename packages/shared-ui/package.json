@@ -1,0 +1,9 @@
+{
+  "name": "@openclaude/shared-ui",
+  "version": "0.1.2",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "node ../../scripts/build-component.mjs shared-ui"
+  }
+}

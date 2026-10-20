@@ -1,0 +1,175 @@
+name: Release
+
+on:
+  workflow_call:
+    inputs:
+      tag_name:
+        description: "Release tag to build and publish (e.g., v0.2.0)"
+        required: true
+        type: string
+  workflow_dispatch:
+    inputs:
+      tag_name:
+        description: "Release tag to build and publish (e.g., v0.2.0)"
+        required: true
+        type: string
+
+permissions:
+  contents: write
+
+env:
+  BINARY_NAME: aionrs
+  CARGO_TERM_COLOR: always
+  CARGO_HTTP_TIMEOUT: "600"
+  CARGO_NET_RETRY: "10"
+
+jobs:
+  prepare-release:
+    name: Prepare Release Metadata
+    runs-on: ubuntu-latest
+    outputs:
+      version: ${{ steps.metadata.outputs.version }}
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: refs/tags/${{ inputs.tag_name }}
+
+      - name: Extract version from tag
+        id: metadata
+        shell: bash
+        env:
+          RELEASE_TAG: ${{ inputs.tag_name }}
+        run: |
+          version="${RELEASE_TAG#v}"
+          echo "version=${version}" >> "$GITHUB_OUTPUT"
+
+  build:
+    name: Build ${{ matrix.target }}
+    runs-on: ${{ matrix.os }}
+    needs: prepare-release
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: ubuntu-latest
+            target: x86_64-unknown-linux-gnu
+            binary_name: aionrs
+          - os: ubuntu-latest
+            target: aarch64-unknown-linux-gnu
+            binary_name: aionrs
+            use_cross: true
+          - os: macos-latest
+            target: x86_64-apple-darwin
+            binary_name: aionrs
+          - os: macos-latest
+            target: aarch64-apple-darwin
+            binary_name: aionrs
+          - os: windows-latest
+            target: x86_64-pc-windows-msvc
+            binary_name: aionrs.exe
+          - os: windows-latest
+            target: aarch64-pc-windows-msvc
+            binary_name: aionrs.exe
+
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: refs/tags/${{ inputs.tag_name }}
+
+      - name: Setup vx (installs Rust from vx.toml)
+        uses: loonghao/vx@v0.9.26
+        with:
+          setup: 'true'
+          cache: 'true'
+
+      - name: Add cross-compile target
+        run: rustup target add ${{ matrix.target }}
+
+      - name: Fix MSVC linker (remove Git's link.exe)
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: Remove-Item 'C:\Program Files\Git\usr\bin\link.exe' -Force -ErrorAction SilentlyContinue
+
+      - name: Cache cargo
+        uses: Swatinem/rust-cache@v2
+        with:
+          shared-key: release-${{ matrix.target }}
+
+      - name: Install cross (Linux aarch64)
+        if: matrix.use_cross == true
+        run: cargo install cross --git https://github.com/cross-rs/cross
+
+      - name: Build release binary
+        shell: bash
+        run: |
+          if [[ "${{ matrix.use_cross }}" == "true" ]]; then
+            cross build --release --target ${{ matrix.target }} -p aion-cli
+          else
+            vx cargo build --release --target ${{ matrix.target }} -p aion-cli
+          fi
+
+      - name: Package binary (Unix)
+        if: runner.os != 'Windows'
+        shell: bash
+        env:
+          VERSION: ${{ needs.prepare-release.outputs.version }}
+        run: |
+          mkdir -p dist
+          ARCHIVE="aionrs-v${VERSION}-${{ matrix.target }}.tar.gz"
+          tar -C target/${{ matrix.target }}/release -czf "dist/${ARCHIVE}" ${{ matrix.binary_name }}
+          echo "ARCHIVE=${ARCHIVE}" >> "$GITHUB_ENV"
+
+      - name: Package binary (Windows)
+        if: runner.os == 'Windows'
+        shell: pwsh
+        env:
+          VERSION: ${{ needs.prepare-release.outputs.version }}
+        run: |
+          New-Item -ItemType Directory -Force -Path dist | Out-Null
+          $archive = "aionrs-v${env:VERSION}-${{ matrix.target }}.zip"
+          Compress-Archive -Path "target/${{ matrix.target }}/release/${{ matrix.binary_name }}" -DestinationPath "dist/${archive}" -Force
+          "ARCHIVE=${archive}" | Out-File -FilePath $env:GITHUB_ENV -Append
+
+      - name: Upload release artifact
+        uses: actions/upload-artifact@v7
+        with:
+          name: ${{ matrix.target }}
+          path: dist/${{ env.ARCHIVE }}
+          if-no-files-found: error
+
+  github-release:
+    name: Upload GitHub Release assets
+    runs-on: ubuntu-latest
+    needs:
+      - prepare-release
+      - build
+    steps:
+      - name: Download build artifacts
+        uses: actions/download-artifact@v8
+        with:
+          path: artifacts
+          merge-multiple: true
+
+      - name: Generate checksums
+        shell: bash
+        run: |
+          cd artifacts
+          sha256sum aionrs-* > aionrs-checksums.txt
+
+      - name: Upload release assets
+        shell: bash
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          RELEASE_TAG: ${{ inputs.tag_name }}
+          REPOSITORY: ${{ github.repository }}
+        run: |
+          release_url="https://github.com/${REPOSITORY}/releases/tag/${RELEASE_TAG}"
+          if gh release view "${RELEASE_TAG}" --repo "${REPOSITORY}" > /dev/null 2>&1; then
+            gh release upload "${RELEASE_TAG}" artifacts/* --repo "${REPOSITORY}" --clobber
+          else
+            gh release create "${RELEASE_TAG}" artifacts/* \
+              --repo "${REPOSITORY}" \
+              --title "${RELEASE_TAG}" \
+              --generate-notes
+          fi
+          echo "Uploaded assets to ${release_url}"

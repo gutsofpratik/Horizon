@@ -1,5 +1,5 @@
-const output=/\b(artifacts?|interactive|html|plans?|schedules?|guides?|concepts?|present+ations?|slides?|powerpoint|pptx|pdf|documents?|spreadsheets?|xlsx|websites?|web app)\b/i;
-const create=/\b(create|make|build|draft|turn|convert|design|improve|edit|update|revise)\b[\s\S]{0,240}/i;
+const output=/\b(roadmaps?|diagrams?|flowcharts?|mockups?|visuali[sz](?:e|ation)|artifacts?|interactive|html|plans?|schedules?|guides?|concepts?|present+ations?|slides?|powerpoint|pptx|pdf|documents?|spreadsheets?|xlsx|websites?|web app)\b/i;
+const create=/\b(create|make|build|draft|turn|convert|design|improve|edit|update|revise|draw|visuali[sz]e)\b[\s\S]{0,240}/i;
 const decline=/^\s*(?:stop|pause|cancel|never\s?mind|forget (?:it|that)|no thanks)\b/i;
 const proseOnly=/(?:no|don't|do not|without)[\s\S]{0,30}artifacts?|text only/i;
 const question=/^\s*(?:explain|teach|how (?:do|can|to|does)|what (?:is|are|does)|why (?:is|are|does))\b/i;

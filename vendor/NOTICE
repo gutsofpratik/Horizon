@@ -1,0 +1,3 @@
+OpenClaude includes modified AionCore and aionrs by iOfficeAI under Apache-2.0. Original copyright and license notices are retained. See upstream-lock.json for source revisions, archive checksums and modifications. OpenClaude is independent of iOfficeAI.
+
+2026-10-19 OpenClaude modification: paired channel requests relay through an authenticated host endpoint with explicit users/chats/tool grants, instead of upstream automatic approval. Platform transport source and licenses are retained. No new upstream revision is implied.

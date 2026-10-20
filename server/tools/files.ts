@@ -9,7 +9,8 @@ export function projectKey(ctx:Pick<ToolContext,'projectId'|'conversationId'>){
  if(encoded.length>240)throw new ToolError('INVALID_WORKSPACE_SCOPE','Workspace scope is too long');
  return encoded;
 }
-export const workspaceRoot=(ctx:ToolContext)=>join(ctx.app.dataDirectory,'workspaces',projectKey(ctx));
+export const workspaceRoot=(ctx:Pick<ToolContext,'app'|'conversationId'|'projectId'>)=>{const binding=ctx.app.store?.list('engine_sessions').find(row=>row.hostConversationId===ctx.conversationId&&row.engineConversationId);return binding?.workspace??join(ctx.app.dataDirectory,'workspaces',projectKey(ctx));};
+export function registeredFileRoot(app:AppContext,file:any){if(file.engineSessionId){const binding=app.store.get('engine_sessions',file.engineSessionId),chat=binding&&app.store.get('conversations',binding.hostConversationId);if(!binding||!chat||projectKey({conversationId:chat.id,projectId:chat.projectId})!==file.scope)throw new ToolError('FILE_SCOPE_INVALID','Engine file ownership no longer matches its conversation');return binding.workspace;}return join(app.dataDirectory,'workspaces');}
 export async function safePath(root:string,input:string){
  if(isAbsolute(input)||/^[a-z]:|^\\|^\//i.test(input))throw new ToolError('PATH_OUTSIDE_WORKSPACE','Use a relative workspace path');const target=resolve(root,input);const base=resolve(root);if(target!==base&&!target.startsWith(base+sep))throw new ToolError('PATH_OUTSIDE_WORKSPACE','Path escaped the workspace');
  await mkdir(base,{recursive:true});if((await lstat(base)).isSymbolicLink())throw new ToolError('PATH_OUTSIDE_WORKSPACE','Symbolic workspace roots are not allowed');let current=base;for(const part of relative(base,target).split(sep).filter(Boolean)){current=join(current,part);try{if((await lstat(current)).isSymbolicLink())throw new ToolError('PATH_OUTSIDE_WORKSPACE','Symbolic links are not allowed');}catch(error){if((error as any).code!=='ENOENT')throw error;}}
@@ -18,7 +19,7 @@ export async function safePath(root:string,input:string){
 export const digest=(value:string|Buffer)=>createHash('sha256').update(value).digest('hex');
 export function publicFile(file:any){const {absolutePath,...value}=file;return {...value,url:`/api/files/${file.id}`};}
 export async function registerFile(app:AppContext,absolutePath:string,scope:string,mediaType='application/octet-stream'){
- const info=await stat(absolutePath);const previous=app.store.list('files').find(file=>file.absolutePath===absolutePath);const file=app.store.put('files',{id:previous?.id??randomUUID(),absolutePath,scope,name:basename(absolutePath),size:info.size,mediaType});return publicFile(file);
+ const info=await stat(absolutePath);const previous=app.store.list('files').find(file=>file.absolutePath===absolutePath);const file=app.store.put('files',{...previous,id:previous?.id??randomUUID(),absolutePath,scope,name:basename(absolutePath),size:info.size,mediaType});const revisions=app.ephemeral.get('fileRevisions');if(revisions)try{await revisions.record(file);}catch(error){app.store.put('files',{...app.store.get('files',file.id),id:file.id,revisionError:(error as Error).message});}return publicFile(app.store.get('files',file.id)??file);
 }
 export function fileInContext(ctx:ToolContext,id:string){const file=ctx.app.store.get('files',id);if(!file||file.scope!==projectKey(ctx))throw new ToolError('FILE_NOT_FOUND','File is not in this workspace');return file;}
 export function registerFileTools(registry:ToolRegistry){

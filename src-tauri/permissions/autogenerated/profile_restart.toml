@@ -1,0 +1,11 @@
+# Automatically generated - DO NOT EDIT!
+
+[[permission]]
+identifier = "allow-profile-restart"
+description = "Enables the profile_restart command without any pre-configured scope."
+commands.allow = ["profile_restart"]
+
+[[permission]]
+identifier = "deny-profile-restart"
+description = "Denies the profile_restart command without any pre-configured scope."
+commands.deny = ["profile_restart"]

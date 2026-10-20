@@ -1,7 +1,11 @@
+import {lifecycle} from '../runtime/hooks.ts';
 import {randomUUID} from 'node:crypto';import type {ToolContext} from './registry.ts';import type {AppContext} from '../app.ts';
 export type ApprovalMode='ask'|'auto'|'full';
-const readOnly=/^(?:artifact_(?:read|list)|browser_(?:snapshot|screenshot|find|zoom|scroll)|computer_(?:screenshot|wait|windows)|terminal_read|document_extract|pdf_inspect|spreadsheet_inspect|web_search|web_fetch|plan_read|goal_read|goal_list|memory_search|chat_history_|conversation_|skills_list|skill_load|skill_read_resource|runtime_capabilities|clock_now|calculate|discover_tools)/;
+const readOnly=/^(?:artifact_(?:read|list)|browser_(?:snapshot|screenshot|find|zoom|scroll)|computer_(?:screenshot|wait|windows)|terminal_read|tool_output_read|document_(?:extract|inspect)|pdf_inspect|spreadsheet_inspect|web_search|web_fetch|plan_read|goal_read|goal_list|memory_search|chat_history_|conversation_|skills_list|skill_load|skill_read_resource|runtime_capabilities|clock_now|calculate|discover_tools)/;
 export function needsApproval(name:string,mode:ApprovalMode,args:any={}){
+ if(name==='team_read'||name==='team_message'||name==='team_progress')return false;
+ if(name==='terminal_resize'||name==='plan_create'||name==='plan_update')return false;
+ if(['browser_run_script','browser_site_call'].includes(name))return true;
  if(name==='browser_upload'||name==='shell_install_package')return true;
  if(name.startsWith('shell_'))return false; // Concrete terminal leaves enforce their own approval.
  if(name==='browser_download')return false; // Native confirmation or the web handler requests approval at the save boundary.
@@ -17,7 +21,8 @@ function publicArgs(value:any,depth=0):any {if(depth>5)return '[nested]';if(type
 const fault=(code:string,message:string)=>Object.assign(new Error(message),{code});
 export function pendingApprovals(app:AppContext,runId:string){return [...app.ephemeral.entries()].filter(([key])=>key.startsWith('approval:'+runId+':')).map(([,item])=>item.record);}
 export function resolveApproval(app:AppContext,runId:string,id:string,approved:boolean){const item=app.ephemeral.get('approval:'+runId+':'+id);if(!item||item.record.status!=='pending')throw fault('APPROVAL_NOT_PENDING','This action is no longer awaiting approval');item.finish(approved);return {ok:true};}
-export function requestApproval(name:string,args:any,ctx:ToolContext):Promise<void>{
+export async function requestApproval(name:string,args:any,ctx:ToolContext):Promise<void>{
+ if(ctx.app.ephemeral.has('lifecycleHooks'))await lifecycle(ctx,'PermissionRequest',{tool_name:name,tool_input:args});
  const record={id:randomUUID(),runId:ctx.runId,conversationId:ctx.conversationId,messageId:ctx.messageId,name,arguments:publicArgs(args),status:'pending',createdAt:new Date().toISOString()},key='approval:'+ctx.runId+':'+record.id;
  return new Promise((resolve,reject)=>{
   let done=false;

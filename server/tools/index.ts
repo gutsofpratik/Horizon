@@ -1,4 +1,18 @@
+import {registerTeamTools} from '../teams/service.ts';
+import {registerOutputTools} from '../agent/output-store.ts';
+import {registerRevisionTools} from '../files/revisions.ts';
+import {registerAiServiceTools} from './ai-services.ts';
+import {registerLifecycleTools} from '../runtime/hooks.ts';
+import {registerWorkflowTools} from './workflows.ts';
+import {registerTemplateTools} from './templates.ts';
+import {registerAnnotationTools} from '../browser/annotations.ts';
+import {registerSemanticBrowserTools} from '../browser/semantic-tools.ts';
+import {registerPluginHookTools} from '../skills/plugin-hooks.ts';
+import {registerBrowserGrants} from '../browser/grants.ts';
+import {registerAgentTemplateTools} from '../skills/plugin-workflows.ts';
 import {registerShellTools} from './shell.ts';
+import {registerDiffPatchTool} from './diff-patch.ts';
+import {registerExecutionTools} from './execution.ts';
 import {registerApiTools} from './api.ts';
 import {registerTriggerTools} from './triggers.ts';
 import {registerNotificationTools} from './notifications.ts';
@@ -25,5 +39,5 @@ import {registerHistoryTools} from './history.ts';
 import {registerQuestionTool} from './questions.ts';
 import {registerDiscoveryTool} from './discovery.ts';
 import {registerRuntimeTools} from '../runtime/tools.ts';
-export function createTools(app:AppContext){const registry=new ToolRegistry(app);registerFileTools(registry);registerExtendedFileTools(registry);registerDataTools(registry);registerApiTools(registry);registerTriggerTools(registry);registerNotificationTools(registry);registerGitTools(registry);registerSubagentTools(registry);registerCoreTools(registry);registerHttpTools(registry);registerMcpTools(registry);registerHistoryTools(registry);registerResearchTools(registry);registerQuestionTool(registry);registerArtifactTools(registry);registerDraftTools(registry);registerSkillTools(registry);registerWebTools(registry);registerRuntimeTools(registry,app);registerShellTools(registry);registerDiscoveryTool(registry);registerBrowserFileTools(registry);registerCapabilityTool(registry);registerAutomationTools(registry);registerTimeTools(registry);registerGateway(registry);registerCustomTools(registry,app);registerGoalTools(registry);registerToolGroups(registry);return registry;}
+export function createTools(app:AppContext){const registry=new ToolRegistry(app);registerFileTools(registry);registerExtendedFileTools(registry);registerDiffPatchTool(registry);registerAiServiceTools(registry);registerExecutionTools(registry);registerDataTools(registry);registerApiTools(registry);registerTriggerTools(registry);registerNotificationTools(registry);registerGitTools(registry);registerSubagentTools(registry);registerCoreTools(registry);registerHttpTools(registry);registerMcpTools(registry);registerHistoryTools(registry);registerResearchTools(registry);registerQuestionTool(registry);registerArtifactTools(registry);registerDraftTools(registry);registerSkillTools(registry);registerWebTools(registry);registerRuntimeTools(registry,app);registerShellTools(registry);registerDiscoveryTool(registry);registerBrowserFileTools(registry);registerCapabilityTool(registry);registerAutomationTools(registry);registerTimeTools(registry);registerGateway(registry);registerCustomTools(registry,app);registerGoalTools(registry);registerBrowserGrants(registry);registerAnnotationTools(registry);registerSemanticBrowserTools(registry);registerPluginHookTools(registry);registerAgentTemplateTools(registry);registerTemplateTools(registry);registerWorkflowTools(registry);registerLifecycleTools(registry,app);if(app.ephemeral.get('fileRevisions'))registerRevisionTools(registry,app.ephemeral.get('fileRevisions'));registerOutputTools(registry);registerTeamTools(registry);registerToolGroups(registry);return registry;}
 

@@ -1,0 +1,62 @@
+{
+  "schemaVersion": 1,
+  "verification": "Windows is the only active desktop package target. Automated checks do not establish live GUI/provider coverage.",
+  "windows": {
+    "browser": "WebView2 with owned-tab DOM/CDP operations",
+    "terminal": "PowerShell through portable-pty/ConPTY",
+    "computer": "Native Windows capture/input",
+    "containment": "Job Objects for backend and PTYs; process identity registry",
+    "packageEnabled": true
+  },
+  "macos": {
+    "minimumVersion": "14.0",
+    "browser": "In-app backend Chromium; separate native WebKit DOM adapter",
+    "terminal": "/bin/sh for agent scripts; configured interactive shell",
+    "computer": "Enigo input and XCap primary-monitor capture",
+    "permissions": [
+      "Accessibility",
+      "Screen Recording"
+    ],
+    "containment": "Owned process groups, start identities and bounded shutdown",
+    "packageEnabled": false
+  },
+  "linux": {
+    "browser": "In-app backend Chromium; separate WebKitGTK DOM adapter",
+    "terminal": "/bin/sh for agent scripts; configured interactive shell",
+    "computer": "Enigo X11 input and XCap primary-monitor capture",
+    "wayland": {
+      "browser": true,
+      "terminal": true,
+      "nativeInput": false
+    },
+    "nativeBuildLibraries": [
+      "WebKitGTK 4.1",
+      "GTK 3",
+      "xkbcommon",
+      "XCB with RandR",
+      "PipeWire 0.3",
+      "D-Bus"
+    ],
+    "containment": "Owned process groups, /proc boot/start identity and parent validation",
+    "packageEnabled": false
+  },
+  "dependencySources": [
+    {
+      "name": "enigo",
+      "version": "0.6.1",
+      "license": "MIT",
+      "source": "https://github.com/enigo-rs/enigo/tree/v0.6.1"
+    },
+    {
+      "name": "xcap",
+      "version": "0.7.1",
+      "license": "Apache-2.0",
+      "source": "https://github.com/nashaofu/xcap/tree/v0.7.1"
+    }
+  ],
+  "remaining": [
+    "Live Windows GUI/device/driver compatibility across user hardware.",
+    "macOS/Linux desktop packaging is deliberately disabled.",
+    "Linux Wayland remote-desktop portal input remains unsupported."
+  ]
+}

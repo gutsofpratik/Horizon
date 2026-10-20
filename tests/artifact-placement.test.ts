@@ -1,0 +1,2 @@
+import test from 'node:test';import assert from 'node:assert/strict';import {artifactAnchor} from '../src/chat/artifact-placement.ts';
+test('an updated artifact stays at its original creation response after follow-up messages',()=>{const messages=[{id:'original',role:'assistant',runId:'first'},{id:'followup',role:'user'},{id:'revision',role:'assistant',runId:'second'}];assert.equal(artifactAnchor({id:'artifact',creationRunId:'first',version:2},messages,messages),'original');});

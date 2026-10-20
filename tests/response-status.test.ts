@@ -1,0 +1,6 @@
+import test from 'node:test';import assert from 'node:assert/strict';import {responsePhaseLabel,prefillProgressLabel} from '../src/chat/response-status.ts';
+test('cached reads and automatic compaction have accurate live labels',()=>{assert.equal(responsePhaseLabel({status:'generating',engineStage:'compacting'}),'Compacting conversation…');assert.equal(responsePhaseLabel({status:'generating',engineStage:'prefill',generationProgress:{cachedTokens:900}}),'Thinking…');assert.equal(responsePhaseLabel({status:'generating',engineStage:'prefill',generationProgress:{cachedTokens:0}}),'Thinking…');});
+test('prefill progress distinguishes computed tokens from the reused prefix',()=>{assert.equal(prefillProgressLabel({processedTokens:1010,promptTokens:1030,cachedTokens:1000}),'10 / 30 new tokens · 1,000 reused');assert.equal(prefillProgressLabel({processedTokens:512,promptTokens:2048}),'512 / 2,048 prompt tokens');});
+
+test('live labels rotate and show the actual active tool without the gateway name',()=>{assert.equal(responsePhaseLabel({status:'generating',engineStage:'decoding'},false,undefined,1),'Cooking…');assert.equal(responsePhaseLabel({status:'generating'},true,'document_extract'),'Using Documents…');assert.equal(responsePhaseLabel({status:'generating'},true,'toolkit'),'Thinking…');});
+

@@ -1,0 +1,2 @@
+import {test,expect} from '@playwright/test';
+test('desktop workspace exposes agents, terminal, browser, computer and files',async({page})=>{await page.goto('http://127.0.0.1:3001/desktop/new');await page.getByRole('button',{name:'Open workspace'}).click();for(const name of ['agents','terminal','browser','Computer use','Generated files'])await expect(page.getByRole('button',{name,exact:true})).toBeVisible();});

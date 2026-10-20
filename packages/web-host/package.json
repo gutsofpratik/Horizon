@@ -1,0 +1,10 @@
+{
+  "name": "@openclaude/web-host",
+  "version": "0.1.2",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "node ../../scripts/component.mjs web-host",
+    "build": "node ../../scripts/build-component.mjs web-host"
+  }
+}

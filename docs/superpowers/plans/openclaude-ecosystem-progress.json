@@ -1,0 +1,637 @@
+{
+  "schemaVersion": 1,
+  "plan": "OpenClaude Ecosystem Upgrade",
+  "approved": true,
+  "status": "implementing",
+  "decisions": {
+    "engine": "AionCore/aionrs source adoption",
+    "providers": "full broad catalog",
+    "externalAgents": "full pinned upstream catalog",
+    "office": "OfficeCLI only; separate PDF worker",
+    "channels": [
+      "telegram",
+      "lark",
+      "dingtalk",
+      "discord",
+      "slack"
+    ],
+    "platformOrder": [
+      "windows"
+    ],
+    "background": "optional tray; full quit stops",
+    "publishing": "not authorized",
+    "verification": "No tests, builds, probes or app runs until explicit user authorization; screenshots from a current app build are consequently pending."
+  },
+  "rulings": [
+    "Work in existing claude-local-build checkout: substantial unpublished changes must remain intact. No blanket staging or resets.",
+    "Existing runtime remains default until new runtime passes migration, approvals and integration gates; source import is not a completed engine cutover.",
+    "User build-first verification order overrides per-edit TDD skill defaults.",
+    "Adopted backend HTTP must be protected even in embedded mode.",
+    "2026-10-19 user initially limited work to milestone 2, then explicitly resumed milestones 2â€“5. Office and history work already started by parallel workers is retained as unfinished preview, disabled by default. No further milestone 6â€“13 expansion.",
+    "Default engine cutover depends on approved migration and milestone 11 approval parity. Managed backend adoption, catalog and inference link may be verified now; do not silently switch existing or new chats while those gates remain incomplete.",
+    "Latest user instruction: do not run any further tests, typechecks, verification builds, live probes, or test-driven execution until the user explicitly requests testing. Continue source implementation only.",
+    "2026-10-19 user resumed milestones 5â€“8. OfficeCLI and paged history are now active implementation scope. Testing remains paused until explicit user instruction.",
+    "Milestones 5–8 source integration continued; remaining platform/migration limitations are recorded rather than treated as completed cutover.",
+    "2026-10-19 user resumed milestones 9 and 10 including macOS/Linux. Source only; no tests, builds, live probes, dependency installation, restarts, commits or publishing until instructed.",
+    "2026-10-19 user authorized milestones 11-13 and outstanding earlier work. Existing testing pause and no publishing remain in force. No production engine cutover or release can be called complete without those verification gates and real signing/account credentials.",
+    "Latest user instruction: exclude WeChat; current product channel set is Telegram, Lark, DingTalk, Discord and Slack. macOS/Linux desktop package workflows are disabled for now. Do not add signing/update work in this milestone pass."
+  ],
+  "milestones": [
+    {
+      "id": 1,
+      "key": "foundation",
+      "title": "Package boundaries and upstream foundation",
+      "status": "in_progress",
+      "requirements": [
+        "Separate desktop, web-host, UI, backend, inference and contracts targets",
+        "Vendor pinned AionCore + agent dependencies with notices and modifications",
+        "Preserve compatibility startup and APIs; isolate web native dependencies",
+        "Persist milestone/migration/verification ledger"
+      ],
+      "artifacts": [
+        "vendor/AionCore",
+        "vendor/aionrs",
+        "vendor/upstream-lock.json",
+        "packages/",
+        "scripts/build-component.mjs",
+        "server/engine/service.ts",
+        "server/runtime/process-supervisor.ts"
+      ],
+      "verification": [
+        "Pinned source engine built successfully (release, 2 build jobs)",
+        "Isolated private engine started and returned 44 catalog entries",
+        "Unauthenticated and browser-origin requests rejected with HTTP 401"
+      ],
+      "remaining": [
+        "Finish package source relocation and remove transitional imports",
+        "Complete normalized data migration and rollback acceptance before cutover"
+      ]
+    },
+    {
+      "id": 2,
+      "key": "providers",
+      "title": "Broad model-provider ecosystem",
+      "status": "building_verification_deferred",
+      "requirements": [
+        "Native OpenAI Chat/Responses, Anthropic, Gemini, Azure, Bedrock, Vertex",
+        "Loader, Ollama, LM Studio, broad regional/gateway catalog and custom profiles",
+        "Authentication, discovery, capabilities, connection tests and credential removal",
+        "Encrypted credentials, redacted diagnostics, no silent cloud fallback"
+      ],
+      "artifacts": [
+        "server/providers/catalog.ts",
+        "server/providers/native.ts",
+        "server/providers/enterprise.ts",
+        "server/providers/credentials.ts",
+        "src/settings/ModelConnections.tsx",
+        "server/providers/model-options.ts",
+        "src/settings/ProviderModelOptions.tsx"
+      ],
+      "verification": [
+        "19 provider protocol/SDK tests passed",
+        "API encryption/public-redaction tests passed",
+        "Native provider metadata persistence tested across turns"
+      ],
+      "remaining": [
+        "Live cloud authentication/generation checks require user accounts and credentials; not claimed verified",
+        "Vertex currently implements Gemini publisher models; Bedrock uses Converse-compatible model/inference-profile IDs",
+        "Verify per-model reasoning options against supported live models after user authorizes testing"
+      ],
+      "latestSourceChanges": [
+        "Per-model native reasoning contracts and Fast/Thinking parameter translation; explicit configuration provenance, image/tool support declarations and Azure Responses/Chat selection",
+        "Encrypted pre-migration provider snapshot; HTTPS enforcement for enterprise identity endpoints"
+      ],
+      "latestChangesVerified": false
+    },
+    {
+      "id": 3,
+      "key": "agents",
+      "title": "Built-in engine and full external-agent catalog",
+      "status": "building_verification_deferred",
+      "requirements": [
+        "Adopt engine executor and connect built-in inference",
+        "Pinned complete upstream external-agent catalog and custom ACP",
+        "Installation/authentication/readiness/verification lifecycle",
+        "Resume/cancel/restart/repair and backend models/modes/commands"
+      ],
+      "artifacts": [
+        "server/engine/routes.ts",
+        "server/engine/inference-link.ts",
+        "src/settings/AgentEcosystem.tsx",
+        "server/engine/sessions.ts"
+      ],
+      "verification": [
+        "Real pinned engine integration: 44 entries, exact 60000-context local inference link, actual custom ACP initialize/session handshake succeeded"
+      ],
+      "remaining": [
+        "Integrate adopted-engine sessions/events with main chat and OpenClaude tool bridge",
+        "Keep default executor cutover gated on migration and approval parity",
+        "Verify installed external agents with their own credentials; listed catalog is not live verification",
+        "Wire the engine session manager into the main chat executor and shared event UI; its service methods are not the default chat path",
+        "Complete native permission/approval parity and explicit migration before default cutover; restricted sessions currently fail closed",
+        "The new session facade is internal and read-management APIs only; it is not yet connected to the chat Send action"
+      ],
+      "latestSourceChanges": [
+        "Backend-owned session metadata, scoped local tool link, message dispatch, unknown-delivery protection, cancellation, reconnect, restart and native configuration methods",
+        "Management lifecycle distinguishes installation, explicit authentication evidence, connection readiness and unverified workflow status",
+        "Local inference links are model-specific, preserve independent context/vision metadata, and carry the configured total context into the adopted runtime instead of only saving it in its provider database",
+        "The session facade now exposes explicit workspace-file refresh for external-agent sessions; Teams surfaces completed files for review/download."
+      ],
+      "latestChangesVerified": false
+    },
+    {
+      "id": 4,
+      "key": "capabilities",
+      "title": "Backend-specific capability and execution contracts",
+      "status": "building_verification_deferred",
+      "requirements": [
+        "Preserve raw handshakes by backend/adapter/session/model",
+        "Separate permissions, host availability, vision and connection health",
+        "Validated native execution; remove migrated gateway/envelope paths",
+        "Malformed/stale/interrupted/unavailable recovery and repeated-failure circuit breakers",
+        "Preserve successes; never execute incomplete calls or replay uncertain writes"
+      ],
+      "artifacts": [
+        "packages/contracts/src/index.ts",
+        "server/engine/capabilities.ts",
+        "server/agent/tool-circuit-breaker.ts",
+        "server/engine/tool-bridge.ts",
+        "server/engine/diagnostics.ts",
+        "vendor/AionCore/crates/aionui-ai-agent/src/host_policy.rs",
+        "vendor/aionrs/crates/aion-mcp/src/manager.rs",
+        "vendor/aionrs/crates/aion-mcp/src/tool_proxy.rs"
+      ],
+      "verification": [
+        "14 circuit/recovery tests passed",
+        "Backend raw handshake/host/model/permission separation tested",
+        "No secret environment values returned by public agent management"
+      ],
+      "remaining": [
+        "Connect adopted engine native tool execution to OpenClaude policy/approval broker",
+        "Verify backend-specific session events and tool outcomes through the migrated chat path",
+        "Verify scoped bridge and session lifecycle when testing is authorized; current main chat still uses the existing executor",
+        "Rebuild the pinned engine only when user authorizes build/verification; the previously compiled binary predates these source changes"
+      ],
+      "latestSourceChanges": [
+        "Private authenticated MCP bridge with host-owned run context; registry validation, approval gates, progressive skill tools and bounded results",
+        "Idempotent request-ID handling, inactive-turn suspension, cancellation revocation, screenshot image blocks and no retired category/gateway execution in the adopted path",
+        "Unknown outcomes block matching replays immediately; unrelated successful actions no longer reset a repeatedly failed operation",
+        "Redacted actionable backend errors and command/environment diagnostics",
+        "Embedded engine native tools and inherited hooks/MCP paths are restricted by the upstream ToolPolicy allowlist; host-owned MCP and filtered read-only ToolSearch remain available",
+        "Versioned embedded host-policy contract prevents using the older compiled binary for managed built-in execution",
+        "Upstream MCP unique request IDs, actual tool-error propagation and validated image follow-up blocks preserve tool/vision semantics"
+      ],
+      "latestChangesVerified": false
+    },
+    {
+      "id": 5,
+      "key": "skills",
+      "title": "Layered skills and dedicated assistants",
+      "status": "building_verification_deferred",
+      "requirements": [
+        "Built-in/custom/extension provenance versions and qualified identities",
+        "Global installation with per-conversation auto/include/exclude",
+        "Visible active workflow and runtime requirements",
+        "Office/PDF/code/research/browser/general assistants, model/tool bindings",
+        "Progressive resources, official plugins and OpenClaude Skills; no privilege escalation"
+      ],
+      "artifacts": [
+        "server/skills/conversation-bindings.ts",
+        "server/skills/catalog.ts",
+        "src/chat/ConversationSkills.tsx",
+        "src/settings/AssistantLibrary.tsx",
+        "src/chat/AssistantEditor.tsx"
+      ],
+      "verification": [
+        "Conversation binding and exclusion tests passed",
+        "Assistant provider/model default, instruction injection and tool-narrowing test passed"
+      ],
+      "remaining": [
+        "Verify bindings, live exclusions, assistant controls and permissions when testing is authorized.",
+        "Main-chat Aion cutover remains dependent on milestone 3; controls currently operate on the existing chat path."
+      ],
+      "latestSourceChanges": [
+        "Live loaded-skill disclosure and runtime requirement details; exclusions remove loaded instructions immediately",
+        "Assistant tool-scope intersection expands category restrictions correctly, and current assistant restrictions are checked before each tool execution",
+        "Stale saved skill/assistant references remain preservable during unrelated legacy conversation saves",
+        "Conversation custom assistant create/edit/delete with skill bundles, provider/model defaults and registered tool restrictions.",
+        "Dedicated assistant runtime statuses; global installation and per-chat auto/include/exclude remain separate."
+      ],
+      "latestChangesVerified": false,
+      "notes": "Active milestones 5–8 source implementation. No tests, typechecks, builds, live probes, restarts, commits or publishing in this pass. Prior verification entries are historical."
+    },
+    {
+      "id": 6,
+      "key": "office",
+      "title": "OfficeCLI and PDF deliverables",
+      "status": "building_verification_deferred",
+      "requirements": [
+        "OfficeCLI-only Excel/Word/PowerPoint create/edit/inspect/style/preview/deliver",
+        "No Python Office fallback; unsupported operations explicit",
+        "Pinned packaged binary status/setup/version",
+        "Separate Python PDF editing and preview; preserve file IDs"
+      ],
+      "artifacts": [
+        "server/runtime/office.ts",
+        "server/runtime/documents.ts",
+        "server/runtime/tools.ts",
+        "src/settings/DocumentRuntimes.tsx",
+        "runtime/worker/pdf-requirements.txt"
+      ],
+      "verification": [],
+      "remaining": [
+        "Verify actual Office/PDF outputs and setup after test authorization.",
+        "Slide reorder remains explicitly unsupported; formulas are not certified as Excel recalculation.",
+        "PDF overlays do not redact; encrypted/signed PDF editing is unsupported.",
+        "Pinned runtime download/setup is implemented; offline release asset bundling is not completed."
+      ],
+      "notes": "Active milestones 5–8 source implementation. No tests, typechecks, builds, live probes, restarts, commits or publishing in this pass. Prior verification entries are historical.",
+      "latestChangesVerified": false,
+      "latestSourceChanges": [
+        "OfficeCLI is active by default and required for Office operations, including when a sandbox is selected; no Python Office fallback.",
+        "Word inspect/edit with actual node paths, expected-text checks and appended structured blocks. Existing Excel/PowerPoint create/edit/inspect/chart/style workflows remain.",
+        "Separate PDF Python dependencies and worker; real page/form/overlay editing. Runtime install/repair/version/status UI and linked previews.",
+        "Tool examples and built-in creation skills now identify OfficeCLI exclusively for Office."
+      ]
+    },
+    {
+      "id": 7,
+      "key": "previews",
+      "title": "File previews, tracked changes and artifacts",
+      "status": "building_verification_deferred",
+      "requirements": [
+        "Watch agent/Office/terminal/external file changes",
+        "Stable artifacts, draft streaming, linked saved source and versions",
+        "Preview tabs/source/diff/conflict/revert",
+        "Reject late revisions, preserve outputs on preview failure, auto reveal generated files"
+      ],
+      "artifacts": [
+        "server/files/revisions.ts",
+        "server/files/routes.ts",
+        "server/tools/files.ts",
+        "src/artifacts/FilePreviewPanel.tsx",
+        "server/tools/registry.ts"
+      ],
+      "verification": [],
+      "remaining": [
+        "Verify watch/restore races, external edits, preview failures and late events when authorized.",
+        "Snapshots limited to 50 MiB/file and 512 MiB/history; discovery depth 8 and 2000 entries/sweep.",
+        "Binary comparison shows metadata/hash, not semantic Office tracked changes.",
+        "Office preview refresh requires a ready runtime and existing preview link."
+      ],
+      "latestChangesVerified": false,
+      "latestSourceChanges": [
+        "Bounded immutable SHA-256 snapshots, serialized revisions, comparisons and current-hash-guarded restores.",
+        "Watch registered files; bounded workspace discovery registers terminal/external outputs.",
+        "Artifacts link to saved sources; external source edits add versions preserving artifact identity.",
+        "Generated files reveal preview tabs, source and history; Office preview refresh retains source on failure.",
+        "Late artifact events cannot overwrite newer versions; panels poll for external revisions.",
+        "Completed external-agent team runs return registered file identities to task review; source remains attached to its owned engine workspace."
+      ],
+      "notes": "Active milestones 5–8 source implementation. No tests, typechecks, builds, live probes, restarts, commits or publishing in this pass. Prior verification entries are historical."
+    },
+    {
+      "id": 8,
+      "key": "streaming",
+      "title": "Runtime state, cursor history and streaming",
+      "status": "building_verification_deferred",
+      "requirements": [
+        "Explicit session/turn lifecycle and reconnect hydration",
+        "50-message cursor pages, before/after/anchor, preserved branches/scroll",
+        "Indexed buffered updates, immediate terminal/approval events",
+        "Session/turn/sequence deduplication; no fabricated thinking"
+      ],
+      "artifacts": [
+        "server/storage/message-index.ts",
+        "server/storage/message-pages.ts",
+        "server/storage/database.ts",
+        "server/agent/turn-state.ts",
+        "server/agent/routes.ts",
+        "server/agent/orchestrator.ts",
+        "src/chat/message-pages.ts",
+        "src/app/App.tsx"
+      ],
+      "verification": [],
+      "remaining": [
+        "Verify paging, branches/anchors, duplicate/out-of-order streaming, reconnect and restart when authorized.",
+        "Legacy orchestrator still writes full conversation entities; normalized ownership cutover remains dependent on milestones 1/3.",
+        "Per-run event and snapshot retention policy remains unfinished.",
+        "Reconnect restores pending requests while backend lives; restart marks interrupted runs and does not replay uncertain actions."
+      ],
+      "notes": "Active milestones 5–8 source implementation. No tests, typechecks, builds, live probes, restarts, commits or publishing in this pass. Prior verification entries are historical.",
+      "latestChangesVerified": false,
+      "latestSourceChanges": [
+        "50-message cursor pages enabled by default; SQLite branch projection reads selected bodies and sibling identities.",
+        "Incremental projection upserts, idempotent legacy import and pre-index SQLite backup for existing conversations. Original entity records retained for rollback.",
+        "Backend-derived phases and session/turn/sequence identity; immediate permission/terminal transitions.",
+        "Reconnect snapshot hydrates current messages/actions/questions/approvals and resumes SSE after snapshot sequence without blanking/replaying all tokens.",
+        "Bounded terminal message page, 33 ms indexed delta buffers, older/newer/anchor loading, and tool-only event SQL filtering."
+      ]
+    },
+    {
+      "id": 9,
+      "key": "context",
+      "title": "Context and inference continuity",
+      "status": "building_verification_deferred",
+      "requirements": [
+        "Stable policy separated from changing data; engine bounded outputs",
+        "Full output persistence with bounded references",
+        "90% safe-boundary conversation compaction preserving policy/constraints/IDs",
+        "Configured context never silently reduced",
+        "Separate prefill/generation/cache/schema/worker diagnostics; deduplicated usage"
+      ],
+      "artifacts": [
+        "server/agent/output-store.ts",
+        "server/agent/inference-diagnostics.ts",
+        "server/agent/context.ts",
+        "server/agent/orchestrator.ts",
+        "server/agent/compaction.ts",
+        "server/models/runtime.ts",
+        "src/settings/RuntimeDiagnostics.tsx"
+      ],
+      "verification": [],
+      "remaining": [
+        "Consolidated context, compaction, streaming, latency and accounting verification deferred at user request.",
+        "Aion default-chat cutover still requires migration and approval parity; no competing default is switched here.",
+        "Provider timing/cache fields remain absent when not reported; no fabricated telemetry."
+      ],
+      "latestChangesVerified": false,
+      "implementedSource": [
+        "Persist full large tool results with workspace-scoped integrity-checked bounded retrieval; incognito excluded.",
+        "Stable policy precedes live observations; tool schemas are sorted; configured total context is preserved.",
+        "Conversation-only compaction at safe 90% continuation boundaries protects pending tool results and persistent IDs.",
+        "Per-round prompt/generation/cache timings and tokens, policy/schema hashes, compaction revisions and worker identity are deduplicated and exposed in collapsed diagnostics.",
+        "Worker replacement awaits disposal; current orchestrator integrated without claiming adopted-engine cutover."
+      ],
+      "notes": "Source implementation only; testing/builds deferred at user request. Not verified complete."
+    },
+    {
+      "id": 10,
+      "key": "native",
+      "title": "Browser/computer and process supervision",
+      "status": "building_verification_deferred",
+      "requirements": [
+        "Retain WebView2 + web backend browser, target-scoped authenticated loopback",
+        "Owned tabs only, no privileged app webview, services independent of panels",
+        "Browser profiles/logins/download consent; freshness and vision requirements",
+        "App-owned process registry, identity beyond PID, containment and orphan recovery",
+        "Graceful stop, crash handling; never kill unrelated process/replay uncertain action"
+      ],
+      "artifacts": [
+        "server/runtime/host-auth.ts",
+        "server/runtime/process-supervisor.ts",
+        "server/runtime/managed-process.ts",
+        "server/runtime/docker.ts",
+        "server/browser/egress.ts",
+        "server/browser/preview-tickets.ts",
+        "server/browser/web.ts",
+        "src/app/SessionGate.tsx",
+        "src/desktop/tauri.ts",
+        "src-tauri/src/backend.rs",
+        "src-tauri/src/process_job.rs",
+        "src-tauri/src/computer_portable.rs",
+        "src-tauri/src/control_indicator_portable.rs",
+        "src-tauri/src/browser_manage_portable.rs",
+        "src-tauri/platform-requirements.json"
+      ],
+      "verification": [],
+      "remaining": [
+        "Native dependencies are pinned in source but Cargo.lock resolution and advisory review are deferred; no native builds or runtime checks performed.",
+        "macOS 14+ requires Accessibility and Screen Recording permission. Linux Wayland input requires a remote-desktop portal implementation; browser and terminal use separate paths.",
+        "Verify auth bootstrap, existing browser profile migration, proxy egress, preview isolation, PTYs, Job Objects, POSIX cleanup and crash recovery when testing is authorized.",
+        "Legacy containers without owner plus exact-ID metadata are not automatically reaped.",
+        "New POSIX descendants after shutdown identity snapshot are not independently tracked if the leader exits; containment requires runtime verification.",
+        "Cross-platform packaging, signing and updates remain milestone 13. No restart or publishing performed."
+      ],
+      "latestChangesVerified": false,
+      "implementedSource": [
+        "Authenticated local sessions, trusted desktop credential bootstrap, inference-scoped tokens and sandboxed one-file preview tickets.",
+        "Privileged UI/browser profile isolation, owned browser targets, public-network DNS-pinned authenticated egress proxy.",
+        "Encrypted per-conversation browser login persistence, tab ownership, observation expiry, bounded screenshots, services independent of panels.",
+        "Windows WebView2 retained; macOS/Linux full browser automation uses in-app backend Chromium; portable WebKit adapter limits are explicit.",
+        "Native macOS and Linux X11 capture/input adapters, permission checks, fresh owner-bound observations, serialized operations and control indicator.",
+        "Real platform PTY session/resize routing; unavailable native computer tools do not silently use Docker.",
+        "OS creation and parent identities, registry recovery, graceful worker replacement, verified POSIX survivor cleanup and Windows backend/PTY Job containment.",
+        "Interrupted dispatched native mutations return unknown outcomes and are not replayed.",
+        "Sandbox shutdown matches exact container IDs plus owner labels; missing old containers permit fresh startup."
+      ],
+      "notes": "Source implementation only; testing/builds deferred at user request. Not verified complete."
+    },
+    {
+      "id": 11,
+      "key": "teams",
+      "title": "Planning, approvals, goals and teams",
+      "status": "building_verification_deferred",
+      "requirements": [
+        "Preserve UI plan gate across engine/OpenClaude/MCP tools",
+        "Restricted external modes only if enforceable",
+        "Persistent goals, leader/member teams and shared tasks/mailbox",
+        "Per-member backend/model/permissions/progress",
+        "File conflicts, failures/cancel/result collection/bounded concurrency; authorized work only"
+      ],
+      "artifacts": [
+        "server/teams/service.ts",
+        "server/teams/routes.ts",
+        "src/app/TeamsView.tsx",
+        "src/app/AttentionInbox.tsx",
+        "server/tools/policy.ts",
+        "packages/contracts/src/index.ts"
+      ],
+      "verification": [],
+      "remaining": [
+        "Shared-resource labels serialize declared team work; arbitrary external agents and unrelated external file changes are not a filesystem sandbox. Existing revision/hash conflicts remain a separate safeguard.",
+        "Restricted external native execution stays unavailable until each adapter proves enforceability; full-access external sessions are separate runtime-owned conversations.",
+        "External-agent native confirmation/question parity and default chat-engine cutover still require explicit runtime verification; the current ordinary chat path has not been switched."
+      ],
+      "implementedSource": [
+        "Persisted leader/member teams with per-member backend/model/assistant/tool permissions and real conversations.",
+        "Dependency-aware task dispatch, bounded concurrency, conservative resource serialization, results, asynchronous messages, cancellation and explicit retry after inspection.",
+        "Built-in read-only tasks and paused-team tool restrictions enforced in policy; external execution fails closed unless the adapter supports selected permissions.",
+        "Shared approvals/questions/plan inbox and team-level permission/question/plan cards; no chat-text approval shortcut."
+      ],
+      "latestChangesVerified": false,
+      "notes": "Source work only. Do not equate visible settings or registered services with verified phase completion.",
+      "latestSourceChanges": [
+        "Team task cards expose registered files produced by adopted external-agent sessions with direct download links."
+      ]
+    },
+    {
+      "id": 12,
+      "key": "automation",
+      "title": "Automation and messaging workspace",
+      "status": "building_verification_deferred",
+      "requirements": [
+        "Schedules/queue/webhooks/channels/delivery history/failure management",
+        "One-off/interval/timezone cron, fresh or existing conversations",
+        "Per-job assistant/backend/model/workspace/permission",
+        "Missed runs/dedup/retry/cancel/restart/sleep recovery",
+        "Telegram/Lark/DingTalk/Discord/Slack pairings/auth/users/chats/revocation/attachments",
+        "Optional tray background; full quit stops workers; no implicit remote computer access"
+      ],
+      "artifacts": [
+        "server/automation/calendar.ts",
+        "server/automation/service.ts",
+        "server/automation/routes.ts",
+        "server/automation/channels.ts",
+        "server/automation/attachments.ts",
+        "src/app/AutomationView.tsx",
+        "src-tauri/src/background.rs",
+        "vendor/AionCore/crates/aionui-channel/src/orchestrator.rs"
+      ],
+      "verification": [],
+      "remaining": [
+        "Rebuild the modified pinned backend and verify all five platform transports with actual credentials; current source has no live validation.",
+        "Some platform attachments require authenticated SDK retrieval; public media URL downloads are implemented, unsupported protected/file-ID resources return explicit warnings. Outgoing generated-file delivery requires further transport integration.",
+        "Scheduled restricted external-agent execution is intentionally unavailable until adapter permissions are enforceable. Built-in execution supports local/cloud providers.",
+        "Platform transports support text replies and inbound public-media attachment retrieval; outgoing generated-file uploads and protected SDK-only inbound attachments remain unsupported."
+      ],
+      "implementedSource": [
+        "Persisted once/interval/timezone-cron jobs, fresh/continued conversations, selected model/project/tool grants, deduplicated occurrences, misfire policies, bounded pre-dispatch retries and cancellation/history.",
+        "Queue and webhook management views; only known unstarted automation jobs recover automatically. In-flight unknown outcomes are interrupted, not replayed.",
+        "Pinned five-platform transports route paired messages through an authenticated host relay, explicit user/chat allowlists, expiring remote tool grants and Ask approval. Upstream automatic channel execution is bypassed.",
+        "Incoming public platform attachments use bounded public-DNS HTTPS downloads and permitted media hosts; authenticated/file-ID-only retrieval reports limitations rather than inventing files.",
+        "Optional native tray operation, explicit full quit stopping workers, desktop setting persistence and disabled background mode if tray cannot initialize."
+      ],
+      "latestChangesVerified": false,
+      "notes": "Source work only. Do not equate visible settings or registered services with verified phase completion.",
+      "latestSourceChanges": [
+        "Each due schedule now records its own error and does not stop unrelated due jobs in the same scheduler tick.",
+        "Channel transport listing filters upstream entries to OpenClaude’s five supported platforms; WeChat login/API code is excluded."
+      ]
+    },
+    {
+      "id": 13,
+      "key": "delivery",
+      "title": "Cross-platform delivery, documentation and onboarding",
+      "status": "building_verification_deferred",
+      "requirements": [
+        "Pinned checksum runtime manifests/setup/repair/update compatibility",
+        "Release commands/packages, PR quality/build checks, separate verification layers",
+        "Generated inventories/readme/screenshots/setup/models/troubleshooting/contributing/notices",
+        "First-run onboarding; no publishing without instruction",
+        "Windows-only desktop packaging and Windows-only native build jobs; macOS/Linux desktop packages disabled."
+      ],
+      "artifacts": [
+        "server/runtime/onboarding.ts",
+        "server/runtime/updates.ts",
+        "server/storage/migrations.ts",
+        "server/start.ts",
+        "server/desktop.ts",
+        "src/app/Onboarding.tsx",
+        "src/settings/Updates.tsx",
+        "src/settings/Migrations.tsx",
+        "scripts/package-native.mjs",
+        "scripts/check-boundaries.mjs",
+        ".github/workflows/quality.yml",
+        ".github/workflows/native-packages.yml",
+        "runtime/update-trust.json",
+        "README.md"
+      ],
+      "verification": [],
+      "remaining": [
+        "No tests, typechecks, builds, runtime probes, installs, migrations, app restarts, commits or publishing have run in this pass. Source changes are unverified.",
+        "Actual adopted-engine migration/default cutover remains gated by permission parity and consolidated migration/integration verification; normalized projection is not a new engine conversation writer.",
+        "Linux Wayland native input remains pending; current cross-platform source targets Windows, macOS 14+ and Linux X11.",
+        "Current README screenshot set remains from the earlier build; refreshed screenshots require a running current app, which was not started under the no-verification instruction."
+      ],
+      "implementedSource": [
+        "Separate web and desktop host startup; web does not register model loader/native broker services. Native release bundles use desktop entry point.",
+        "First-run provider/model and runtime status setup, passive diagnostics, explicit migration backup/history normalization and offline database-only rollback preparation. Original data retained.",
+        "Cross-platform native packaging source for Windows NSIS, macOS app/DMG, Linux DEB/AppImage and portable archives, resource allowlists, dependency payload requirements and checksum manifests.",
+        "Publisher-signing hooks with explicit unsigned-preview labeling; Ed25519 signed/expiring update metadata verification and platform-matching checksummed staging without automatic installer execution.",
+        "PR source/type/build and separate verification suite workflows; native source matrix; release workflows upload artifacts without publishing.",
+        "README distinguishes unreleased source from old releases; source inventory generator includes platform/channel/workspace metadata."
+      ],
+      "latestChangesVerified": false,
+      "notes": "Source work only. Do not equate visible settings or registered services with verified phase completion.",
+      "latestSourceChanges": [
+        "Native package script and CI native jobs are now Windows-only; package path no longer requires signing configuration. README platform/package guidance updated."
+      ]
+    }
+  ],
+  "activeScope": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13
+  ],
+  "testingPolicy": {
+    "state": "waiting_for_explicit_user_instruction",
+    "scope": "All subsequent ecosystem changes",
+    "checksRunAfterInstruction": false
+  },
+  "historicalVerification": {
+    "focusedTests": 43,
+    "realEngineTests": 1,
+    "assistantRuntimeTests": 2,
+    "typecheck": "passed before final UI build",
+    "liveCloud": "not performed",
+    "publish": "none",
+    "restart": "not performed"
+  },
+  "latestVerification": {
+    "state": "not_run_at_user_request",
+    "appliesTo": "Changes after the explicit no-testing instruction",
+    "publish": "none",
+    "commit": "none",
+    "restart": "not performed"
+  },
+  "sourceState": {
+    "engineBinary": "Older compiled backend exists; latest Rust policy, context and MCP changes have not been built",
+    "runningApplication": "Not restarted or switched",
+    "engineCutover": "Still gated",
+    "testExecution": "Paused by explicit user instruction",
+    "nativeSource": "Windows, macOS 14+, Linux X11 source adapters; Wayland input pending. Cargo.lock unresolved; no builds.",
+    "localApi": "After authorized restart, API clients require bearer/session authentication; desktop bootstraps through trusted IPC.",
+    "newWorkspaces": "Teams and Automations source integrated; five-channel relay and tray source added. WeChat excluded at user request. No runtime execution.",
+    "hostBoundaries": "Web server/index.ts and desktop server/desktop.ts share server/start.ts; desktop services are injected explicitly.",
+    "migration": "Explicit backup/normalization/offline rollback source exists; no migration performed; engine cutover is still gated."
+  },
+  "latestChangesVerified": false,
+  "currentPass": {
+    "date": "2026-10-19",
+    "scope": "Complete source work for milestones 11–13 and outstanding engine/file/team integration; Windows desktop only; exclude WeChat; no verification or app run.",
+    "status": "source_in_progress_unverified",
+    "screenshots": "not refreshed because current app was not run",
+    "publishing": "not authorized"
+  },
+  "releaseValidation": {
+    "version": "0.2.0",
+    "product": "Horizon",
+    "date": "2026-10-20",
+    "mainSuite": {
+      "passed": 360,
+      "failed": 0,
+      "cancelled": 0
+    },
+    "cleanSourceSuite": {
+      "passed": 359,
+      "failed": 0,
+      "cancelled": 0,
+      "skipped": 1,
+      "skipReason": "No prebuilt engine binary in the clean source tree"
+    },
+    "checks": {
+      "typescript": "passed",
+      "editionBoundaries": "passed",
+      "windowsCargoCheck": "passed",
+      "nativeBackendTests": "4 passed",
+      "rebuiltEngineIntegration": "passed"
+    },
+    "liveLimitations": [
+      "Optional Docker integration unavailable: Docker Linux engine is not running.",
+      "Cloud/channel credentials and hardware/model-specific workflows are not established by fixture tests."
+    ],
+    "packaging": "Windows installer and portable ZIP rebuilt; unsigned previews",
+    "screenshot": "Current native Horizon Windows profile onboarding captured with isolated demonstration data"
+  }
+}

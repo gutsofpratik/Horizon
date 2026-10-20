@@ -1,0 +1,9 @@
+import {useEffect,useState} from 'react';
+import {api} from '../app/api';
+
+export function DocumentRuntimes({onError}:{onError:(message:string)=>void}){
+ const [office,setOffice]=useState<any>(),[pdf,setPdf]=useState<any>(),[busy,setBusy]=useState('');
+ useEffect(()=>{let active=true,pending=false;const refresh=async()=>{if(pending)return;pending=true;try{const [a,b]=await Promise.all([api('/runtime/office'),api('/runtime/documents')]);if(active){setOffice(a);setPdf(b);}}catch(error){if(active)onError((error as Error).message);}finally{pending=false;}};void refresh();const timer=setInterval(()=>void refresh(),3000);return()=>{active=false;clearInterval(timer);};},[]);
+ const setup=async(kind:string)=>{setBusy(kind);try{const result=await api('/runtime/'+kind+'/setup',{method:'POST'});if(kind==='office')setOffice(result);else setPdf(result);}catch(error){onError((error as Error).message);}finally{setBusy('');}};
+ return <section className="section-gap"><h3>Document runtimes</h3><p className="form-note">OfficeCLI creates and edits Word, Excel and PowerPoint files. PDF operations use a separate local worker. Neither requires Docker.</p>{[{id:'office',name:'OfficeCLI',state:office},{id:'documents',name:'PDF worker',state:pdf}].map(({id,name,state})=><div key={id} style={{padding:'12px 0',borderBottom:'1px solid var(--border)'}}><strong>{name}</strong><p>{state?.status??'Loading status…'}{state?.version?' · '+state.version:''}{state?.pinned_version&&!state?.version?' · pinned '+state.pinned_version:''}</p>{state?.error&&<p role="alert">{state.error}</p>}<button disabled={!!busy||state?.status==='installing'||state?.ready} onClick={()=>void setup(id)}>{busy===id?'Setting up…':state?.ready?'Ready':state?.status==='failed'?'Repair runtime':'Install runtime'}</button>{state?.limitations?.map((limit:string)=><p className="form-note" key={limit}>{limit}</p>)}</div>)}</section>;
+}

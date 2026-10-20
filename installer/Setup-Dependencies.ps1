@@ -16,7 +16,7 @@ try{
   $taskWebViewReady=$false
   foreach($taskKey in $taskWebViewKeys){$taskVersion=(Get-ItemProperty -LiteralPath $taskKey -Name pv -ErrorAction SilentlyContinue).pv;if($taskVersion -and $taskVersion -ne '0.0.0.0'){$taskWebViewReady=$true}}
   if(!$taskWebViewReady){
-   $taskBootstrap=Join-Path ([IO.Path]::GetTempPath()) ('OpenClaude-WebView2-'+[guid]::NewGuid().ToString()+'.exe')
+   $taskBootstrap=Join-Path ([IO.Path]::GetTempPath()) ('Horizon-WebView2-'+[guid]::NewGuid().ToString()+'.exe')
    Invoke-WebRequest -Uri 'https://go.microsoft.com/fwlink/p/?LinkId=2124703' -OutFile $taskBootstrap -UseBasicParsing
    $taskSignature=Get-AuthenticodeSignature -LiteralPath $taskBootstrap
    if($taskSignature.Status -ne 'Valid' -or $taskSignature.SignerCertificate.Subject -notmatch 'O=Microsoft Corporation') {throw 'WebView2 bootstrapper signature verification failed.'}
@@ -34,7 +34,7 @@ try{
  }
  if($Docker -and !(Get-Command docker -ErrorAction SilentlyContinue)){
   Add-Type -AssemblyName System.Windows.Forms
-  $taskChoice=[System.Windows.Forms.MessageBox]::Show('Install Docker Desktop from its official Windows package? Docker has its own subscription/license requirements. Windows may request administrator approval, WSL installation or a reboot. Choose Yes to accept the Docker license and start setup.','OpenClaude optional Docker setup','YesNo','Question')
+  $taskChoice=[System.Windows.Forms.MessageBox]::Show('Install Docker Desktop from its official Windows package? Docker has its own subscription/license requirements. Windows may request administrator approval, WSL installation or a reboot. Choose Yes to accept the Docker license and start setup.','Horizon optional Docker setup','YesNo','Question')
   if($taskChoice -ne 'Yes'){Write-Host 'Docker setup skipped.';exit 0}
   $taskWinget=Get-Command winget -ErrorAction SilentlyContinue
   if(!$taskWinget){throw 'Windows App Installer (winget) is unavailable. Install Docker Desktop from https://docs.docker.com/desktop/setup/install/windows-install/ and rerun setup.'}
@@ -44,7 +44,7 @@ try{
  if($Docker -or $Worker){
   $taskDocker=Get-Command docker -ErrorAction SilentlyContinue
   if(!$taskDocker){$taskDockerPath=Join-Path $env:ProgramFiles 'Docker\Docker\resources\bin\docker.exe';if(Test-Path -LiteralPath $taskDockerPath){$taskDocker=Get-Item -LiteralPath $taskDockerPath}}
-  if(!$taskDocker){throw 'Docker CLI is not available yet. Restart Windows if setup requested it, then rerun OpenClaude dependency setup.'}
+  if(!$taskDocker){throw 'Docker CLI is not available yet. Restart Windows if setup requested it, then rerun Horizon dependency setup.'}
   $taskDockerExe=if($taskDocker.Source){$taskDocker.Source}else{$taskDocker.FullName}
   & $taskDockerExe info --format '{{.ServerVersion}}' 2>$null
   if($LASTEXITCODE -ne 0){
@@ -57,9 +57,9 @@ try{
   & $taskDockerExe compose -f (Join-Path $taskBackend 'runtime\compose.yml') up -d --build
   if($LASTEXITCODE -ne 0){throw 'Docker is installed but the optional document/search containers failed to build. Retry from Settings > Runtime packs.'}
  }
- Write-Host 'OpenClaude dependency setup completed.'
+ Write-Host 'Horizon dependency setup completed.'
 }catch{
  Add-Type -AssemblyName System.Windows.Forms
- [System.Windows.Forms.MessageBox]::Show($_.Exception.Message,'OpenClaude setup needs attention','OK','Warning')|Out-Null
+ [System.Windows.Forms.MessageBox]::Show($_.Exception.Message,'Horizon setup needs attention','OK','Warning')|Out-Null
  exit 1
 }

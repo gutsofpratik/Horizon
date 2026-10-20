@@ -1,0 +1,8 @@
+import {z} from 'zod';
+import type {FastifyInstance} from 'fastify';
+import type {AppContext} from '../app.ts';
+import {publicProvider} from '../providers/configuration.ts';
+export function registerOnboarding(app:FastifyInstance,context:AppContext){
+ app.get('/api/onboarding',async()=>({version:1,edition:process.env.OPENCLAUDE_DESKTOP_OWNED==='1'?'desktop':'web',platform:process.platform,arch:process.arch,providers:context.store.list('providers').map((provider:any)=>publicProvider(provider)),engine:await context.ephemeral.get('ecosystemEngine')?.snapshot(),office:await context.ephemeral.get('officeRuntime')?.snapshot(),pdf:await context.ephemeral.get('documentRuntime')?.snapshot(),modelRuntime:context.ephemeral.get('modelRuntime')?.continuity??null,completed:!!context.store.get('onboarding','main')?.completed,platformLimitations:process.platform==='linux'&&process.env.XDG_SESSION_TYPE==='wayland'?['Native computer input on Wayland is unavailable; browser and terminal use independent adapters.']:process.platform==='darwin'?['macOS computer control requires Accessibility and Screen Recording permission.']:[]}));
+ app.post('/api/onboarding/complete',(request)=>{const input=z.object({providerId:z.string().optional(),model:z.string().optional(),skipped:z.boolean().default(false)}).strict().parse(request.body);if(!input.skipped&&(!input.providerId||!context.store.get('providers',input.providerId)||!input.model))throw new Error('Choose a configured provider and model, or skip setup');return context.store.put('onboarding',{id:'main',...input,completed:true,completedAt:new Date().toISOString()});});
+}

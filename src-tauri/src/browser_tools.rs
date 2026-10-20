@@ -28,6 +28,7 @@ pub(super) async fn evaluate(window: tauri::Webview, script: String) -> Result<V
     Ok(parsed)
 }
 async fn snapshot(window: tauri::Webview, id: &str) -> Result<Value, String> {
+    window.eval(include_str!("../../runtime/worker/page-diagnostics.js")).map_err(|e|e.to_string())?;
     let nonce = Uuid::new_v4().to_string();
     let key = format!("__oc_{}", id.replace('-', ""));
     let script = format!(
@@ -54,8 +55,9 @@ pub async fn browser_tool(
     super::trusted(&view)?;
     let request = cancellations.begin(&request_id);
     request.check()?;
+    #[cfg(not(windows))]if name=="browser_capabilities"{return Ok(json!({"platform":std::env::consts::OS,"engine":"webkit","tools":["browser_open","browser_snapshot","browser_click","browser_fill","browser_scroll","browser_tabs","browser_press","browser_find","browser_print","browser_zoom","browser_back","browser_forward","browser_reload","browser_select_option","browser_check","browser_inspect_element","browser_wait_for_element","browser_downloads"],"limitations":["No WebView2 CDP on this platform; use DOM actions or backend Chromium."]}));}
     if name == "browser_capabilities" {
-        return Ok(json!({"tools":["browser_open","browser_snapshot","browser_click","browser_fill","browser_scroll","browser_tabs","browser_press","browser_find","browser_print","browser_zoom","browser_emulate_device","browser_back","browser_forward","browser_reload","browser_select_option","browser_check","browser_inspect_element","browser_wait_for_element","browser_hover","browser_double_click","browser_upload","browser_screenshot","browser_download","browser_downloads"]}));
+        return Ok(json!({"tools":["browser_scroll_to","browser_wait_for","browser_read_page_scoped","browser_click_at","browser_drag_path","browser_hold_keys","browser_hover_at","browser_read_diagnostics","browser_run_script","browser_crop","browser_site_tools","browser_site_call","browser_open","browser_snapshot","browser_click","browser_fill","browser_scroll","browser_tabs","browser_press","browser_find","browser_print","browser_zoom","browser_emulate_device","browser_back","browser_forward","browser_reload","browser_select_option","browser_check","browser_inspect_element","browser_wait_for_element","browser_hover","browser_double_click","browser_upload","browser_screenshot","browser_download","browser_downloads"]}));
     }
     if owner.is_empty() {
         return Err("Browser tools require a conversation owner".into());
@@ -129,6 +131,33 @@ pub async fn browser_tool(
         .get_webview(&id)
         .ok_or("Browser tab was closed")?;
     if name == "browser_downloads" {return Ok(super::browser_manage::downloads_for(&app,&id));}
+    if name=="browser_crop" {
+        let x=args["left"].as_f64().ok_or("left required")?;let y=args["top"].as_f64().ok_or("top required")?;let width=args["right"].as_f64().ok_or("right required")?-x;let height=args["bottom"].as_f64().ok_or("bottom required")?-y;
+        if x<0.0||y<0.0||width<=0.0||height<=0.0||width*height>8_000_000.0{return Err("Invalid screenshot crop".into());}
+        let result=super::browser_manage::protocol(window,"Page.captureScreenshot",json!({"format":"png","captureBeyondViewport":false,"clip":{"x":x,"y":y,"width":width,"height":height,"scale":1}})).await?;request.check()?;
+        return Ok(json!({"screenshot":{"width":width,"height":height,"image":result["data"]}}));
+    }
+    if matches!(name.as_str(),"browser_click_at"|"browser_hover_at"|"browser_drag_path") {
+        let modifiers=args["modifiers"].as_array().map(|keys|keys.iter().fold(0,|bits,key|bits|match key.as_str().unwrap_or(""){"Alt"=>1,"Control"=>2,"Meta"=>4,"Shift"=>8,_=>0})).unwrap_or(0);
+        let button=args["button"].as_str().unwrap_or("left");let mut points=vec![];
+        if name=="browser_drag_path"{points=args["path"].as_array().ok_or("path required")?.clone();}else{points.push(json!({"x":args["x"],"y":args["y"]}));}
+        if points.is_empty()||points.len()>100{return Err("Invalid pointer path".into());}for point in &points{let x=point["x"].as_f64().ok_or("x required")?;let y=point["y"].as_f64().ok_or("y required")?;if !(0.0..=10000.0).contains(&x)||!(0.0..=10000.0).contains(&y){return Err("Invalid pointer coordinates".into());}}
+        let first=&points[0];super::browser_manage::protocol(window.clone(),"Input.dispatchMouseEvent",json!({"type":"mouseMoved","x":first["x"],"y":first["y"],"modifiers":modifiers})).await?;
+        if name!="browser_hover_at" {let count=args["click_count"].as_u64().unwrap_or(1).min(3);for click in 1..=count{request.check()?;super::browser_manage::protocol(window.clone(),"Input.dispatchMouseEvent",json!({"type":"mousePressed","x":first["x"],"y":first["y"],"button":button,"clickCount":click,"modifiers":modifiers})).await?;
+            let dragged=async {for point in points.iter().skip(1){request.check()?;super::browser_manage::protocol(window.clone(),"Input.dispatchMouseEvent",json!({"type":"mouseMoved","x":point["x"],"y":point["y"],"button":button,"buttons":if button=="right"{2}else if button=="middle"{4}else{1},"modifiers":modifiers})).await?;}Ok::<(),String>(())}.await;
+            let last=points.last().unwrap();let released=super::browser_manage::protocol(window.clone(),"Input.dispatchMouseEvent",json!({"type":"mouseReleased","x":last["x"],"y":last["y"],"button":button,"clickCount":click,"modifiers":modifiers})).await;dragged?;released?;
+        }}return snapshot(window,&id).await;
+    }
+    if name=="browser_hold_keys" {
+        let keys=args["keys"].as_array().ok_or("keys required")?;if keys.is_empty()||keys.len()>5{return Err("Invalid held keys".into());}let mut held=vec![];
+        let result=async {for key in keys{request.check()?;let key=key.as_str().ok_or("Invalid key")?;super::browser_manage::protocol(window.clone(),"Input.dispatchKeyEvent",json!({"type":"keyDown","key":key})).await?;held.push(key.to_string());}let duration=args["duration_ms"].as_u64().unwrap_or(100).min(3000);tauri::async_runtime::spawn_blocking(move||std::thread::sleep(Duration::from_millis(duration))).await.map_err(|e|e.to_string())?;Ok::<(),String>(())}.await;
+        for key in held.iter().rev(){let _=super::browser_manage::protocol(window.clone(),"Input.dispatchKeyEvent",json!({"type":"keyUp","key":key})).await;}result?;request.check()?;return snapshot(window,&id).await;
+    }
+    if matches!(name.as_str(),"browser_scroll_to"|"browser_wait_for"|"browser_read_page_scoped"|"browser_read_diagnostics"|"browser_run_script"|"browser_site_tools"|"browser_site_call") {
+        let script=include_str!("../../runtime/worker/page-advanced.js").replace("__NAME__",&json!(name).to_string()).replace("__KEY__",&json!(format!("__oc_{}",id.replace('-',""))).to_string()).replace("__ARGS__",&args.to_string());
+        let result=super::browser_manage::protocol(window.clone(),"Runtime.evaluate",json!({"expression":script,"awaitPromise":true,"returnByValue":true,"timeout":args["timeout_ms"].as_u64().unwrap_or(10000)+1000})).await?;request.check()?;
+        if result.get("exceptionDetails").is_some(){return Err(result["exceptionDetails"]["exception"]["description"].as_str().unwrap_or("Browser script failed").into());}let value=result["result"]["value"].clone();if value["updated"]==true{return snapshot(window,&id).await;}return Ok(value);
+    }
     if name == "browser_screenshot" {
         let mut parameters=json!({"format":"png","captureBeyondViewport":false});
         if args["full_page"]==true {let metrics=super::browser_manage::protocol(window.clone(),"Page.getLayoutMetrics",json!({})).await?;let size=metrics.get("cssContentSize").unwrap_or(&metrics["contentSize"]);let width=size["width"].as_f64().ok_or("Page width unavailable")?;let height=size["height"].as_f64().ok_or("Page height unavailable")?;if width<=0.0||height<=0.0||width*height>8_000_000.0{return Err("Full-page screenshot exceeds eight million pixels; use a viewport screenshot".into());}parameters=json!({"format":"png","captureBeyondViewport":true,"clip":{"x":0,"y":0,"width":width,"height":height,"scale":1}});}

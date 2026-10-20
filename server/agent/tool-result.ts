@@ -9,5 +9,5 @@ export function serializeToolResult(result:any){
  const metadata=(artifact:any)=>{const {source,versions,...rest}=artifact;return {...rest,...(typeof source==='string'?{characters:source.length,source_hash:digest(source)}:{}),versions:versions?.map(({source,...version}:any)=>version)};};
  const {artifact,...data}=result.data??{};const compact={...result,data:{...data,...(artifact?{artifact:metadata(artifact)}:{})},artifacts:(result.artifacts??[]).map(metadata),truncated:true};
  if(JSON.stringify(compact).length<=30000)return JSON.stringify(compact);
- return JSON.stringify({...compact,data:{summary:result.summary,artifact:artifact?metadata(artifact):undefined,draft_id:data.draft_id,revision:data.revision,characters:data.characters,next_offset:data.next_offset,source_hash:data.source_hash,output:'Large result omitted; use bounded file or artifact read tools'}});
+ return JSON.stringify({...compact,data:{summary:result.summary,artifact:artifact?metadata(artifact):undefined,draft_id:data.draft_id,revision:data.revision,characters:data.characters,next_offset:data.next_offset,source_hash:data.source_hash,output:result.output_reference?'Full result is saved. Read output_reference.id with tool_output_read using bounded offsets.':'Large result omitted; use bounded file or artifact read tools'}});
 }

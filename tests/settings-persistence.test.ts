@@ -1,0 +1,7 @@
+import test from 'node:test';import assert from 'node:assert/strict';import {mkdtemp,rm} from 'node:fs/promises';import {tmpdir} from 'node:os';import {join} from 'node:path';import {createApp} from './helpers/authenticated-app.ts';
+test('invalid focus policy is rejected and private chats cannot be converted to saved chats',async()=>{const directory=await mkdtemp(join(tmpdir(),'settings-'));const app=await createApp({dataDirectory:directory,dbPath:':memory:'});try{
+ const invalid=await app.inject({method:'POST',url:'/api/entities/settings',payload:{id:'main',focusPolicy:{timeZone:'invalid-zone',dailyLimitMinutes:-1,quiet:[{day:8,start:'25:99',end:'16:00'}]}}});assert.equal(invalid.statusCode,400);
+ await app.inject({method:'POST',url:'/api/entities/conversations',payload:{id:'private-test',incognito:true,messages:[],title:'Private'}});
+ const converted=await app.inject({method:'POST',url:'/api/entities/conversations',payload:{id:'private-test',incognito:false,title:'Convert'}});assert.equal(converted.statusCode,400);assert.equal((await app.inject({url:'/api/entities/conversations'})).json().length,0);
+ for(const incognito of [null,0,'']){assert.equal((await app.inject({method:'POST',url:'/api/entities/conversations',payload:{id:'private-test',incognito}})).statusCode,400);assert.equal((await app.inject({url:'/api/entities/conversations'})).json().length,0);}
+ }finally{await app.close();await rm(directory,{recursive:true,force:true});}});

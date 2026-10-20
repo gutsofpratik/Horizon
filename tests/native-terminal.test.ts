@@ -1,0 +1,6 @@
+import test from 'node:test';import assert from 'node:assert/strict';import {mkdtemp,rm} from 'node:fs/promises';import {tmpdir} from 'node:os';import {join} from 'node:path';import {createRequire} from 'node:module';
+test('native terminal streams a real shell, receives input, resizes and closes only its owned session',async()=>{const require=createRequire(import.meta.url);const {NativeTerminals}=require('../desktop/terminal.cjs');const root=await mkdtemp(join(tmpdir(),'native-pty-'));const terminals=new NativeTerminals();try{const workspace=await terminals.grant(root,1);const opened=terminals.open(workspace.id,1);assert.throws(()=>terminals.write(opened.id,2,'wrong-owner'));terminals.resize(opened.id,1,90,30);terminals.write(opened.id,1,"Write-Output 'ACTUAL_PTY_MARKER'\r");const end=Date.now()+8000;let output='';while(Date.now()<end){output=terminals.read(opened.id,1,0).output;if(output.replace(/\x1b\[[0-?]*[ -\/]*[@-~]/g,'').includes('ACTUAL_PTY_MARKER\r\nPS '))break;await new Promise(resolve=>setTimeout(resolve,50));}assert.ok(output.replace(/\x1b\[[0-?]*[ -\/]*[@-~]/g,'').includes('ACTUAL_PTY_MARKER\r\nPS '),JSON.stringify(output.slice(-2000)));terminals.close(opened.id,1);assert.equal(terminals.read(opened.id,1,0).status,'closed');}finally{terminals.dispose();await rm(root,{recursive:true,force:true,maxRetries:15,retryDelay:100});}});
+
+
+
+

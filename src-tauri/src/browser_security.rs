@@ -1,6 +1,15 @@
 use std::{path::{Path,PathBuf},sync::atomic::{AtomicBool,Ordering}};
 use tauri::{Manager,Webview};
 
+pub fn allowed_navigation(url:&tauri::Url)->bool{
+    let local=matches!(url.host_str(),Some("127.0.0.1"|"localhost"|"[::1]"|"::1"|"0.0.0.0"));
+    if local&&matches!(url.port_or_known_default(),Some(3001|5173)){
+        let ticket=url.path().strip_prefix("/browser-preview/").is_some_and(|value|value.len()==64&&value.chars().all(|c|c.is_ascii_hexdigit()));
+        return ticket||url.path()=="/api/connectors/oauth/callback";
+    }
+    matches!(url.scheme(),"http"|"https"|"about")&&url.username().is_empty()&&url.password().is_none()
+}
+
 fn download_name(path:&Path)->String{
     let raw=path.file_name().unwrap_or_default().to_string_lossy();
     let name:String=raw.chars().filter(|c|!c.is_control()&&!matches!(*c,'/'|'\\'|':'|'*'|'?'|'"'|'<'|'>'|'|'|'\u{202a}'..='\u{202e}'|'\u{2066}'..='\u{2069}')).take(180).collect();
@@ -28,6 +37,7 @@ pub fn download(view:Webview,event:tauri::webview::DownloadEvent<'_>)->bool{
     true
 }
 
+#[cfg(windows)]
 pub fn configure(view:&Webview)->Result<(),String>{
     let app=view.app_handle().clone();
     let preferences=super::browser_manage::preferences(&app);
@@ -46,6 +56,9 @@ pub fn configure(view:&Webview)->Result<(),String>{
         if let Err(error)=result{eprintln!("Browser password/reputation settings unavailable: {error}");}
     }).map_err(|error|error.to_string())
 }
+
+#[cfg(not(windows))]
+pub fn configure(view:&Webview)->Result<(),String>{*view.app_handle().state::<super::Desktop>().browser_passwords.lock().map_err(|_|"Browser preferences unavailable")?=Some(false);Ok(())}
 
 #[cfg(test)]mod tests{
     use super::*;

@@ -1,0 +1,33 @@
+name: Windows desktop packages
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  package:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [windows-latest]
+    runs-on: ${{ matrix.os }}
+    env:
+      OPENCLAUDE_PYTHON_ROOT: ${{ vars.OPENCLAUDE_PYTHON_ROOT }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - run: npm ci
+      - run: npm run lint
+      - run: npm run typecheck
+      - run: npm run test:contract
+      - run: npm run package:native
+      - uses: actions/upload-artifact@v4
+        with:
+          name: OpenClaude-${{ runner.os }}-${{ runner.arch }}
+          path: |
+            release/*.zip
+            release/*.sha256
+            src-tauri/target/release/bundle/
+          if-no-files-found: error

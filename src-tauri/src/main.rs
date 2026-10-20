@@ -1,11 +1,16 @@
 #![cfg_attr(target_os = "windows", windows_subsystem = "windows")]
+#[cfg(windows)]mod process_job;
 mod backend;
+mod background;
 mod browser_security;
-mod browser_manage;
+#[cfg(windows)]mod browser_manage;
+#[cfg(not(windows))]#[path="browser_manage_portable.rs"]mod browser_manage;
 mod browser_tools;
 mod cancellation;
-mod computer;
-mod control_indicator;
+#[cfg(windows)]mod computer;
+#[cfg(not(windows))]#[path="computer_portable.rs"]mod computer;
+#[cfg(windows)]mod control_indicator;
+#[cfg(not(windows))]#[path="control_indicator_portable.rs"]mod control_indicator;
 mod models;
 use portable_pty::{native_pty_system, Child, CommandBuilder, MasterPty, PtySize};
 use serde::Serialize;
@@ -32,6 +37,7 @@ struct Desktop {
     browser_loaded: Mutex<HashMap<String,bool>>,
 }
 struct Terminal {
+    #[cfg(windows)]_job:process_job::Job,
     master: Option<Box<dyn MasterPty + Send>>,
     writer: Arc<Mutex<Box<dyn Write + Send>>>,
     child: Box<dyn Child + Send + Sync>,
@@ -53,7 +59,7 @@ impl Terminal {
         if self.child.try_wait().map_err(|e| e.to_string())?.is_some() {
             return Ok(());
         }
-        if let Some(id) = self.child.process_id() {
+        #[cfg(windows)]if let Some(id) = self.child.process_id() {
             use std::os::windows::process::CommandExt;
             let result = std::process::Command::new("taskkill.exe")
                 .args(["/PID", &id.to_string(), "/T", "/F"])
@@ -83,6 +89,10 @@ fn trusted(view: &Webview) -> Result<(), String> {
         return Err("Native commands are reserved for the application interface".into());
     }
     let url = view.url().map_err(|e| e.to_string())?;
+    let route=url.path().strip_prefix("/desktop").unwrap_or(url.path());
+    if !matches!(route,"/"|"/new"|"/projects"|"/artifacts"|"/skills"|"/settings"|"/models"|"/teams"|"/automations")&&!route.starts_with("/chat/"){
+        return Err("Native commands require an application route; generated files and browser pages are untrusted".into());
+    }
     if url.scheme() != "http"
         || url.host_str() != Some("127.0.0.1")
         || !matches!(url.port(), Some(3001 | 5173))
@@ -167,14 +177,17 @@ fn terminal_open(
             pixel_height: 0,
         })
         .map_err(|e| e.to_string())?;
-    let mut command = CommandBuilder::new("powershell.exe");
-    command.args(["-NoLogo", "-NoProfile"]);
-    if let Some(script)=encoded_command {command.args(["-NonInteractive","-EncodedCommand",&script]);}
+    #[cfg(windows)]let mut command = CommandBuilder::new("powershell.exe");
+    #[cfg(windows)]{command.args(["-NoLogo", "-NoProfile"]);if let Some(script)=encoded_command {command.args(["-NonInteractive","-EncodedCommand",&script]);}}
+    #[cfg(not(windows))]let shell=if encoded_command.is_some(){"/bin/sh".into()}else{std::env::var("SHELL").ok().filter(|shell|std::path::Path::new(shell).is_absolute()).unwrap_or_else(||"/bin/sh".into())};
+    #[cfg(not(windows))]let mut command=CommandBuilder::new(&shell);
+    #[cfg(not(windows))]{if let Some(script)=encoded_command{use base64::Engine;let bytes=base64::engine::general_purpose::STANDARD.decode(script).map_err(|e|e.to_string())?;let source=String::from_utf8(bytes).map_err(|e|e.to_string())?;command.args(["-c",&source]);}else{command.arg("-i");}}
     command.cwd(path);
-    let child = pair
+    let mut child = pair
         .slave
         .spawn_command(command)
         .map_err(|e| e.to_string())?;
+    #[cfg(windows)]let job=match process_job::Job::new().and_then(|job|{job.assign_pty(child.process_id().ok_or("PTY process ID is unavailable")?)?;Ok(job)}){Ok(job)=>job,Err(error)=>{let _=child.kill();return Err(format!("Native terminal containment failed: {error}"));}};
     let mut reader = pair.master.try_clone_reader().map_err(|e| e.to_string())?;
     let writer = Arc::new(Mutex::new(pair.master.take_writer().map_err(|e| e.to_string())?));
     let cursor_writer=writer.clone();
@@ -226,18 +239,22 @@ fn terminal_open(
         }
         log.lock().unwrap().drained=true;
     });
+    let pid=child.process_id();
     let id = Uuid::new_v4().to_string();
     state.terminals.lock().unwrap().insert(
         id.clone(),
         Terminal {
+            #[cfg(windows)]_job:job,
             master: Some(pair.master),
             writer,
             child,
             output,
         },
     );
+    #[cfg(windows)]let shell_name=String::from("PowerShell");
+    #[cfg(not(windows))]let shell_name=shell;
     Ok(
-        serde_json::json!({"id":id,"workspaceId":workspace_id,"shell":"PowerShell","status":"running"}),
+        serde_json::json!({"id":id,"workspaceId":workspace_id,"shell":shell_name,"pid":pid,"status":"running"}),
     )
 }
 #[tauri::command]
@@ -327,6 +344,8 @@ fn terminal_close(view: Webview, state: State<'_, Desktop>, id: String) -> Resul
     Ok(())
 }
 fn embedded_browser(app:&tauri::AppHandle,state:&Desktop,id:&str,url:tauri::Url)->Result<Webview,String>{
+    if !browser_security::allowed_navigation(&url){return Err("The privileged application interface cannot be opened inside an agent browser".into());}
+    if id=="main"||state.browser_tabs.lock().unwrap().len()>=20{return Err("Browser tab limit reached; close an unused tab".into());}
     let parent=app.get_window("main").ok_or("Main application window is unavailable")?;
     let bounds=state.browser_bounds.lock().unwrap().filter(|b|b.2>0.0&&b.3>0.0).unwrap_or((0.0,0.0,1280.0,800.0));
     state.browser_loaded.lock().unwrap().insert(id.into(),false);
@@ -334,13 +353,15 @@ fn embedded_browser(app:&tauri::AppHandle,state:&Desktop,id:&str,url:tauri::Url)
     let loading_handle=app.clone();let loading_label=id.to_string();
     let builder=tauri::webview::WebviewBuilder::new(id,WebviewUrl::External(url))
         .data_directory(app.path().app_local_data_dir().map_err(|error|error.to_string())?)
-        .browser_extensions_enabled(true)
+        .on_navigation(browser_security::allowed_navigation)
         .on_download(browser_security::download)
         .on_page_load(move |_,payload|{let finished=matches!(payload.event(),tauri::webview::PageLoadEvent::Finished);loading_handle.state::<Desktop>().browser_loaded.lock().unwrap().insert(loading_label.clone(),finished);if finished{browser_manage::visit(&loading_handle,payload.url());}})
         .on_new_window(move |url,_|{
             if matches!(url.scheme(),"http"|"https")&&url.username().is_empty()&&url.password().is_none(){if let Some(view)=handle.get_webview(&label){let _=view.navigate(url);}}
             tauri::webview::NewWindowResponse::Deny
         });
+    #[cfg(windows)]let builder=builder.browser_extensions_enabled(true);
+    #[cfg(target_os="macos")]let builder=builder.data_store_identifier([0x4f,0x70,0x65,0x6e,0x43,0x6c,0x61,0x75,0x64,0x65,0x42,0x72,0x6f,0x77,0x73,0x65]);
     let child=parent.add_child(builder,LogicalPosition::new(bounds.0,bounds.1),LogicalSize::new(bounds.2.max(1.0),bounds.3.max(1.0))).map_err(|error|error.to_string())?;
     browser_security::configure(&child)?;
     if state.browser_bounds.lock().unwrap().map(|b|b.2<=0.0||b.3<=0.0).unwrap_or(true){child.hide().map_err(|error|error.to_string())?;}
@@ -551,20 +572,32 @@ fn open_external(view:Webview,url:String)->Result<(),String>{
     trusted(&view)?;
     let address=tauri::Url::parse(&url).map_err(|error|error.to_string())?;
     if !matches!(address.scheme(),"http"|"https")||!address.username().is_empty()||address.password().is_some(){return Err("Use an HTTP(S) publisher URL".into());}
-    use std::os::windows::process::CommandExt;
-    std::process::Command::new("rundll32.exe").args(["url.dll,FileProtocolHandler",address.as_str()]).creation_flags(0x08000000).spawn().map_err(|error|error.to_string())?;
+    #[cfg(windows)]{use std::os::windows::process::CommandExt;std::process::Command::new("rundll32.exe").args(["url.dll,FileProtocolHandler",address.as_str()]).creation_flags(0x08000000).spawn().map_err(|error|error.to_string())?;}
+    #[cfg(target_os="macos")]std::process::Command::new("/usr/bin/open").arg(address.as_str()).spawn().map_err(|error|error.to_string())?;
+    #[cfg(target_os="linux")]std::process::Command::new("xdg-open").arg(address.as_str()).spawn().map_err(|error|error.to_string())?;
     Ok(())
 }
+#[tauri::command]
+fn host_credential(view:Webview,state:State<'_,backend::Backend>)->Result<String,String>{trusted(&view)?;Ok(state.credential())}
+#[tauri::command]
+fn profile_restart(view:Webview,app:tauri::AppHandle)->Result<(),String>{trusted(&view)?;app.restart()}
 fn main() {
-    let backend=match backend::Backend::start(){Ok(backend)=>backend,Err(error)=>{rfd::MessageDialog::new().set_title("OpenClaude could not start").set_description(&error).set_level(rfd::MessageLevel::Error).show();return;}};
     let app=tauri::Builder::default()
-        .manage(backend)
         .manage(Desktop::default())
+        .manage(background::Background::default())
         .manage(browser_tools::BrowserTools::default())
         .manage(computer::Computer::default())
-        .setup(|app| { if let Err(error) = control_indicator::prepare(app.handle()) { eprintln!("Computer control indicator could not initialize: {error}"); } Ok(()) })
+        .setup(|app| {
+            let resource=app.path().resource_dir().ok().map(|root|root.join("backend"));
+            let backend=backend::Backend::start(resource).map_err(std::io::Error::other)?;
+            app.manage(backend);
+            if let Some(window)=app.get_webview_window("main"){window.navigate(tauri::Url::parse("http://127.0.0.1:3001/desktop/new")?)?;}
+            if let Err(error)=background::prepare(app.handle()){eprintln!("System tray unavailable: {error}");} if let Err(error) = control_indicator::prepare(app.handle()) { eprintln!("Computer control indicator could not initialize: {error}"); } Ok(()) })
         .manage(cancellation::Cancellation::default())
         .invoke_handler(tauri::generate_handler![
+            host_credential,
+            profile_restart,
+            background::background_mode,
             cancellation::native_cancel,
             computer::computer_status,
             computer::computer_grant,
@@ -592,7 +625,7 @@ fn main() {
         ])
         .build(tauri::generate_context!())
         .expect("Native desktop runtime failed");
-    app.run(|app,event|{if let tauri::RunEvent::WindowEvent { label, event: tauri::WindowEvent::CloseRequested { .. }, .. } = &event { if label == "main" { app.exit(0); } } if matches!(event,tauri::RunEvent::Exit){app.state::<backend::Backend>().stop();}});
+    app.run(|app,event|{if let tauri::RunEvent::WindowEvent { label, event: tauri::WindowEvent::CloseRequested { api, .. }, .. } = &event { if label == "main" { if app.state::<background::Background>().enabled.load(std::sync::atomic::Ordering::SeqCst) { if let Some(window)=app.get_webview_window("main") { if window.hide().is_ok(){api.prevent_close();} } } else { app.exit(0); } } } if matches!(event,tauri::RunEvent::Exit){app.state::<backend::Backend>().stop();}});
 }
 
 

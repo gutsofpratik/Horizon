@@ -9,7 +9,7 @@ export function applyCompaction(branch:any[],checkpoint:any){
 }
 export function shouldCompact(tokens:number,context:number){return Number.isFinite(tokens)&&context>0&&tokens>=Math.floor(context*.9);}
 export function compactPartition(messages:any[],activeGeneration=false){
- const body=messages.slice(1);let lastUser=-1;for(let i=body.length-1;i>=0;i--)if(body[i].role==='user'){lastUser=i;break;}
+ const body=messages.filter(message=>message.role!=='system');for(let index=0;index<body.length;index++){const message=body[index];if(message.role!=='assistant'||!message.tool_calls?.length)continue;const results:any[]=[];for(let next=index+1;next<body.length&&body[next].role==='tool';next++)results.push(body[next]);if(!message.tool_calls.every((call:any)=>results.some(result=>result.tool_call_id===call.id)))return null;}let lastUser=-1;for(let i=body.length-1;i>=0;i--)if(body[i].role==='user'){lastUser=i;break;}
  if(activeGeneration&&lastUser>=0&&['assistant','tool'].includes(body.at(-1)?.role))return {older:body,recent:[body[lastUser]],boundaryOffset:body.length-1};
  if(lastUser<=0)return null;
  // Preserve the current request and every tool call/result after it intact.
@@ -23,7 +23,7 @@ export async function summarizeContext(older:any[],context:number,summarize:(sou
  const limit=Math.max(128,Math.min(1536,Math.floor(context*.12)));
  const chunkSize=Math.max(128,Math.floor(context*.35)-limit);
  // Structured roles and observed tool arguments/results are source data only.
- const source=JSON.stringify(older.map(({role,content,tool_calls,tool_call_id,tool_name})=>({role,content,tool_calls,tool_call_id,tool_name})));
+ const source=JSON.stringify(older.filter(message=>message.role!=='system').map(({role,content,tool_calls,tool_call_id,tool_name})=>({role,content,tool_calls,tool_call_id,tool_name})));
  let summary='';for(let offset=0;offset<source.length;offset+=chunkSize){summary=await summarize(JSON.stringify({previous_summary:summary,source_fragment:source.slice(offset,offset+chunkSize),more_fragments:offset+chunkSize<source.length}),limit);if(!summary.trim())throw new Error('Context compaction returned an empty summary; original messages were retained.');}
  return summary;
 }

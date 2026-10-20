@@ -51,3 +51,13 @@ not mirrored as OpenClaude-owned software. Installing a skill or extension does
 not change its license or grant permissions beyond the application's controls.
 
 See the pinned manifests and upstream license files for the controlling terms.
+
+## Adopted agent backend source
+
+AionCore and aionrs are included under Apache-2.0. Their original license files
+remain in `vendor/AionCore/LICENSE` and `vendor/aionrs/LICENSE`. Pinned revisions,
+source archive checksums and OpenClaude modifications are recorded in
+`vendor/upstream-lock.json`; `vendor/NOTICE` retains upstream attribution.
+The backend component build copies these notices into its output. The original
+OpenClaude code remains subject to the repository license.
+

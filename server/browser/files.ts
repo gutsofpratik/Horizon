@@ -1,3 +1,4 @@
+import {previewTicket} from './preview-tickets.ts';
 import {z} from 'zod';
 import {readFile,mkdir,writeFile,stat} from 'node:fs/promises';
 import {join,extname} from 'node:path';
@@ -18,7 +19,8 @@ export function registerBrowserFileTools(registry:ToolRegistry){
   if(!html){const url='/api/files/'+file.id;ctx.emit('browser.open_requested',{url,preview:true});return {file_id:file.id,url,viewer:'internal-file-preview',summary:'Opened '+file.name+' in the in-app file preview. Browser DOM tools apply to HTML tabs, not this file viewer.'};}
   if(stored.size>5*1024*1024)throw new ToolError('FILE_TOO_LARGE','HTML browser previews are limited to 5 MiB');
   let result:any,url:string;
-  if(ctx.edition==='desktop'&&nativeAvailable(ctx.app,'browser_open')){url='http://127.0.0.1:'+String(process.env.PORT??3001)+'/api/files/'+file.id+'/preview';result=await nativeRequest(ctx.app,'browser_open',{url},ctx);}
+  if(ctx.executionEnvironmentId){result=await ctx.app.runtime!.request('browser_open_document',{html:await readFile(stored.absolutePath,'utf8'),title:file.name},ctx);url=result.snapshot?.url??'about:blank';}
+  else if(ctx.edition==='desktop'&&nativeAvailable(ctx.app,'browser_open')){url=previewTicket(file.id,ctx);result=await nativeRequest(ctx.app,'browser_open',{url},ctx);}
   else{const browser=ctx.app.ephemeral.get('webBrowser');if(!browser)throw new ToolError('RUNTIME_UNAVAILABLE','The built-in browser is unavailable');result=await browser.openDocument(ctx.conversationId,await readFile(stored.absolutePath,'utf8'),file.name);url=result.snapshot.url;}
   ctx.emit('browser.open_requested',{url,alreadyOpen:true,preview:false});
   return {...result,file_id:file.id,url,summary:'Opened '+file.name+' in the embedded browser. Use the returned observation for DOM interaction; local previews have no network access.'};

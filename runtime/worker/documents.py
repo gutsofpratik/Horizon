@@ -1,29 +1,54 @@
-import sys,json,os,uuid,html,subprocess
+import sys,json,os,uuid,html,subprocess,shutil,zipfile
 from pathlib import Path
-ROOT=Path('/workspace')
+sys.path.insert(0,str(Path(__file__).resolve().parent))
+ROOT=Path(os.environ.get('OPENCLAUDE_DOCUMENT_ROOT','/workspace')).resolve()
 request=json.load(sys.stdin);op=request['operation'];a=request['args']
 def scoped(value):
     p=(ROOT/value).resolve()
     if not p.is_relative_to(ROOT): raise ValueError('Path escaped workspace')
+    if p.is_file() and p.stat().st_size>50*1024*1024: raise ValueError('Document input exceeds 50 MiB')
+    if p.is_file() and p.suffix.lower() in ('.docx','.xlsx','.pptx'):
+        with zipfile.ZipFile(p) as archive:
+            entries=archive.infolist()
+            if len(entries)>20000 or sum(item.file_size for item in entries)>256*1024*1024: raise ValueError('Expanded Office document exceeds safe processing limits')
     return p
 def output(name,extension):
     name=Path(name).name
     if not name.lower().endswith('.'+extension): name+='.'+extension
-    p=ROOT/'outputs'/name;p.parent.mkdir(parents=True,exist_ok=True)
+    p=scoped('outputs/'+name);p.parent.mkdir(parents=True,exist_ok=True)
     if p.exists(): p=p.with_name(p.stem+'-'+uuid.uuid4().hex[:6]+p.suffix)
     return p
 def record(path,mime): return {'path':str(path.relative_to(ROOT)),'mediaType':mime}
 def preview(path):
     files=[]
     try:
-        directory=ROOT/'previews'/uuid.uuid4().hex;directory.mkdir(parents=True)
+        directory=scoped('previews/'+uuid.uuid4().hex);directory.mkdir(parents=True)
         if path.suffix.lower()=='.pdf': pdf=path
         else:
-            subprocess.run(['libreoffice','-env:UserInstallation=file:///tmp/lo-'+uuid.uuid4().hex,'--headless','--convert-to','pdf','--outdir',str(directory),str(path)],capture_output=True,check=True,timeout=45)
+            office=shutil.which('libreoffice') or shutil.which('soffice')
+            if not office and os.name=='nt':
+                for base in (os.environ.get('ProgramFiles',r'C:\Program Files'),os.environ.get('ProgramFiles(x86)',r'C:\Program Files (x86)')):
+                    candidate=Path(base)/'LibreOffice/program/soffice.exe'
+                    if candidate.is_file(): office=str(candidate);break
+            if not office: return [],'The file was created successfully. Office thumbnail conversion is unavailable because LibreOffice is not installed; Docker is not required.'
+            profile=directory/'office-profile'
+            subprocess.run([office,'-env:UserInstallation='+profile.as_uri(),'--headless','--convert-to','pdf','--outdir',str(directory),str(path)],capture_output=True,check=True,timeout=45)
             pdf=directory/(path.stem+'.pdf')
         if not pdf.exists(): return [],'Preview converter did not create a PDF'
-        subprocess.run(['pdftoppm','-f','1','-singlefile','-scale-to','1400','-png',str(pdf),str(directory/'page')],capture_output=True,check=True,timeout=20)
         image=directory/'page.png'
+        try:
+            import pypdfium2 as pdfium
+            document=pdfium.PdfDocument(str(pdf))
+            try:
+                page=document[0]
+                try:
+                    bitmap=page.render(scale=min(2,1400/max(page.get_width(),page.get_height())))
+                    try: bitmap.to_pil().save(image)
+                    finally: bitmap.close()
+                finally: page.close()
+            finally: document.close()
+        except ImportError:
+            subprocess.run(['pdftoppm','-f','1','-singlefile','-scale-to','1400','-png',str(pdf),str(directory/'page')],capture_output=True,check=True,timeout=20)
         if image.exists(): files.append(record(image,'image/png'))
         return files,None
     except Exception as error: return [],str(error)
@@ -67,9 +92,12 @@ elif op=='document_create':
         from reportlab.lib.styles import getSampleStyleSheet
         from reportlab.pdfbase import pdfmetrics
         from reportlab.pdfbase.ttfonts import TTFont
-        pdfmetrics.registerFont(TTFont('DejaVu','/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf'))
+        import reportlab
+        fonts=[Path('/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf'),Path(os.environ.get('WINDIR',r'C:\Windows'))/'Fonts/arial.ttf',Path(reportlab.__file__).resolve().parent/'fonts/Vera.ttf']
+        font=next((path for path in fonts if path.is_file()),None)
+        if font: pdfmetrics.registerFont(TTFont('OpenClaudeDocument',str(font)))
         styles=getSampleStyleSheet()
-        for style in styles.byName.values(): style.fontName='DejaVu'
+        for style in styles.byName.values(): style.fontName='OpenClaudeDocument' if font else 'Helvetica'
         story=[Paragraph(html.escape(a['title']),styles['Title']),Spacer(1,18)]
         for block in a['blocks']:
             if block['type']=='table': story.append(Table([[Paragraph(html.escape(str(v)),styles['BodyText']) for v in row] for row in block.get('rows',[])],hAlign='LEFT'))

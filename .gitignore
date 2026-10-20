@@ -13,5 +13,4 @@ dist-desktop/
 src-tauri/target/
 src-tauri/gen/
 .rea/
-tests/
 test-results/

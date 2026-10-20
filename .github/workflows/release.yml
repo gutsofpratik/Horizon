@@ -38,7 +38,7 @@ jobs:
           }
       - uses: actions/upload-artifact@v4
         with:
-          name: OpenClaude-windows-x64
+          name: Horizon-windows-x64
           path: |
             release/*-setup.exe
             release/*-portable.zip

@@ -1,0 +1,546 @@
+// Configuration-driven provider compatibility layer.
+// Each provider type has default presets; users can override any field via config.
+
+use serde::{Deserialize, Serialize};
+use serde_json::Value;
+
+use aion_types::message::ImageInputCapability;
+
+/// Provider-level compatibility settings.
+/// Each child struct is flattened so on-disk TOML remains backward-compatible.
+#[derive(Debug, Clone, Deserialize, Serialize, Default)]
+pub struct ProviderCompat {
+    #[serde(flatten)]
+    pub transport: TransportCompat,
+    #[serde(flatten)]
+    pub messages: MessageCompat,
+    #[serde(flatten)]
+    pub tools: ToolCompat,
+    #[serde(flatten)]
+    pub schema: SchemaCompat,
+    #[serde(flatten)]
+    pub reasoning: ReasoningCompat,
+    /// Image-input support resolved for the concrete provider/model pair.
+    ///
+    /// `None` is treated as `Unknown`; provider presets intentionally do not
+    /// supply family-level defaults.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub image_input: Option<ImageInputCapability>,
+}
+
+#[derive(Debug, Clone, Deserialize, Serialize, Default)]
+pub struct TransportCompat {
+    /// OpenAI wire API used for request and response projection.
+    /// Default: chat_completions for backward compatibility.
+    pub openai_api_mode: Option<OpenAiApiMode>,
+
+    /// Field name for max tokens in request body.
+    /// Default: "max_tokens" for all providers.
+    pub max_tokens_field: Option<String>,
+
+    /// Default max_tokens when the request does not set one.
+    /// Default: provider-specific. None means omit the field if unset.
+    pub default_max_tokens: Option<u32>,
+
+    /// Model substring rules for default max_tokens.
+    /// The first matching pattern wins.
+    pub model_max_tokens: Option<Vec<ModelMaxTokensRule>>,
+
+    /// Custom API path appended to base_url for chat completions.
+    /// Default: "/chat/completions" for OpenAI-compatible providers.
+    pub api_path: Option<String>,
+
+    /// Maximum serialized provider request body size in bytes.
+    /// Default: None (no local preflight limit).
+    pub max_request_body_bytes: Option<usize>,
+
+    /// Whether OpenAI-compatible requests include stream_options.
+    /// Default: true for OpenAI-compatible providers.
+    pub include_stream_options: Option<bool>,
+}
+
+#[derive(Debug, Clone, Deserialize, Serialize, Eq, PartialEq)]
+pub struct ModelMaxTokensRule {
+    pub pattern: String,
+    pub max_tokens: u32,
+}
+
+#[derive(Debug, Clone, Deserialize, Serialize, Default)]
+pub struct MessageCompat {
+    /// Merge consecutive assistant messages (text concat + tool_calls merge).
+    /// Default: true for openai.
+    pub merge_assistant_messages: Option<bool>,
+
+    /// Remove tool_result blocks that have no corresponding tool_use.
+    /// Default: true for provider families that support tool results.
+    pub clean_orphan_tool_results: Option<bool>,
+
+    /// Deduplicate tool results with same tool_call_id (keep last).
+    /// Default: true for openai.
+    pub dedup_tool_results: Option<bool>,
+
+    /// Ensure messages alternate user/assistant (insert filler if needed).
+    /// Default: true for anthropic/bedrock/vertex.
+    pub ensure_alternation: Option<bool>,
+
+    /// Merge consecutive same-role messages into one.
+    /// Default: true for anthropic/bedrock/vertex.
+    pub merge_same_role: Option<bool>,
+
+    /// Text patterns to strip from message history before sending.
+    /// Default: empty.
+    pub strip_patterns: Option<Vec<String>>,
+}
+
+#[derive(Debug, Clone, Deserialize, Serialize, Default)]
+pub struct ToolCompat {
+    /// Remove tool_use blocks that have no corresponding tool_result.
+    /// Default: true for openai.
+    pub clean_orphan_tool_calls: Option<bool>,
+
+    /// Downgrade malformed tool_calls in the projected request body.
+    /// Default: true for all providers.
+    pub sanitize_malformed_tool_calls: Option<bool>,
+
+    /// Auto-generate tool IDs when missing.
+    /// Default: true for anthropic/bedrock/vertex.
+    pub auto_tool_id: Option<bool>,
+
+    /// Maximum number of tools allowed in the projected provider request.
+    /// Default: None (no local preflight limit).
+    pub max_tool_count: Option<usize>,
+
+    /// Whether OpenAI-compatible requests include outgoing tools.
+    /// Default: true for OpenAI-compatible providers.
+    pub emit_tools: Option<bool>,
+
+    /// Explicit tools declaration wire shape.
+    /// Default: native provider path shape.
+    pub tool_wire_shape: Option<ToolWireShape>,
+}
+
+#[derive(Debug, Clone, Copy, Deserialize, Serialize, Eq, PartialEq)]
+pub enum ToolWireShape {
+    #[serde(rename = "native")]
+    Native,
+    #[serde(rename = "openai_function")]
+    OpenAiFunction,
+    #[serde(rename = "anthropic_input_schema")]
+    AnthropicInputSchema,
+}
+
+#[derive(Debug, Clone, Deserialize, Serialize, Default)]
+pub struct SchemaCompat {
+    /// Sanitize JSON schemas for strict providers.
+    /// Default: true for bedrock.
+    pub sanitize_schema: Option<bool>,
+}
+
+#[derive(Debug, Clone, Deserialize, Serialize, Default)]
+pub struct ReasoningCompat {
+    /// Whether this provider supports extended thinking.
+    /// Default: true for anthropic/bedrock/vertex, false for openai.
+    pub supports_thinking: Option<bool>,
+
+    /// Whether this provider supports reasoning_effort.
+    /// Default: false for anthropic/bedrock/vertex, true for openai.
+    pub supports_effort: Option<bool>,
+
+    /// Available effort levels for this provider.
+    /// Only meaningful when supports_effort is true.
+    pub effort_levels: Option<Vec<String>>,
+}
+
+impl TransportCompat {
+    fn merge(defaults: Self, user: Self) -> Self {
+        Self {
+            openai_api_mode: user.openai_api_mode.or(defaults.openai_api_mode),
+            max_tokens_field: user.max_tokens_field.or(defaults.max_tokens_field),
+            default_max_tokens: user.default_max_tokens.or(defaults.default_max_tokens),
+            model_max_tokens: user.model_max_tokens.or(defaults.model_max_tokens),
+            api_path: user.api_path.or(defaults.api_path),
+            max_request_body_bytes: user.max_request_body_bytes.or(defaults.max_request_body_bytes),
+            include_stream_options: user.include_stream_options.or(defaults.include_stream_options),
+        }
+    }
+}
+
+#[derive(Debug, Clone, Copy, Default, Deserialize, Serialize, Eq, PartialEq)]
+#[serde(rename_all = "snake_case")]
+pub enum OpenAiApiMode {
+    #[default]
+    ChatCompletions,
+    Responses,
+}
+
+impl MessageCompat {
+    fn merge(defaults: Self, user: Self) -> Self {
+        Self {
+            merge_assistant_messages: user.merge_assistant_messages.or(defaults.merge_assistant_messages),
+            clean_orphan_tool_results: user.clean_orphan_tool_results.or(defaults.clean_orphan_tool_results),
+            dedup_tool_results: user.dedup_tool_results.or(defaults.dedup_tool_results),
+            ensure_alternation: user.ensure_alternation.or(defaults.ensure_alternation),
+            merge_same_role: user.merge_same_role.or(defaults.merge_same_role),
+            strip_patterns: user.strip_patterns.or(defaults.strip_patterns),
+        }
+    }
+}
+
+impl ToolCompat {
+    fn merge(defaults: Self, user: Self) -> Self {
+        Self {
+            clean_orphan_tool_calls: user.clean_orphan_tool_calls.or(defaults.clean_orphan_tool_calls),
+            sanitize_malformed_tool_calls: user
+                .sanitize_malformed_tool_calls
+                .or(defaults.sanitize_malformed_tool_calls),
+            auto_tool_id: user.auto_tool_id.or(defaults.auto_tool_id),
+            max_tool_count: user.max_tool_count.or(defaults.max_tool_count),
+            emit_tools: user.emit_tools.or(defaults.emit_tools),
+            tool_wire_shape: user.tool_wire_shape.or(defaults.tool_wire_shape),
+        }
+    }
+}
+
+impl SchemaCompat {
+    fn merge(defaults: Self, user: Self) -> Self {
+        Self {
+            sanitize_schema: user.sanitize_schema.or(defaults.sanitize_schema),
+        }
+    }
+}
+
+impl ReasoningCompat {
+    fn merge(defaults: Self, user: Self) -> Self {
+        Self {
+            supports_thinking: user.supports_thinking.or(defaults.supports_thinking),
+            supports_effort: user.supports_effort.or(defaults.supports_effort),
+            effort_levels: user.effort_levels.or(defaults.effort_levels),
+        }
+    }
+}
+
+impl ProviderCompat {
+    /// Defaults for Anthropic-family providers (Anthropic, Vertex)
+    pub fn anthropic_defaults() -> Self {
+        Self {
+            transport: TransportCompat {
+                default_max_tokens: Some(128_000),
+                model_max_tokens: Some(anthropic_model_max_tokens_rules()),
+                ..Default::default()
+            },
+            messages: MessageCompat {
+                ensure_alternation: Some(true),
+                merge_same_role: Some(true),
+                clean_orphan_tool_results: Some(true),
+                ..Default::default()
+            },
+            tools: ToolCompat {
+                auto_tool_id: Some(true),
+                sanitize_malformed_tool_calls: Some(true),
+                ..Default::default()
+            },
+            reasoning: ReasoningCompat {
+                supports_thinking: Some(true),
+                supports_effort: Some(false),
+                ..Default::default()
+            },
+            ..Default::default()
+        }
+    }
+
+    /// Defaults for Bedrock (Anthropic + schema sanitization)
+    pub fn bedrock_defaults() -> Self {
+        Self {
+            transport: TransportCompat {
+                default_max_tokens: Some(128_000),
+                model_max_tokens: Some(anthropic_model_max_tokens_rules()),
+                ..Default::default()
+            },
+            messages: MessageCompat {
+                ensure_alternation: Some(true),
+                merge_same_role: Some(true),
+                clean_orphan_tool_results: Some(true),
+                ..Default::default()
+            },
+            tools: ToolCompat {
+                auto_tool_id: Some(true),
+                sanitize_malformed_tool_calls: Some(true),
+                ..Default::default()
+            },
+            schema: SchemaCompat {
+                sanitize_schema: Some(true),
+            },
+            reasoning: ReasoningCompat {
+                supports_thinking: Some(true),
+                supports_effort: Some(false),
+                ..Default::default()
+            },
+            image_input: None,
+        }
+    }
+
+    /// Defaults for OpenAI-compatible providers
+    pub fn openai_defaults() -> Self {
+        Self {
+            transport: TransportCompat {
+                openai_api_mode: Some(OpenAiApiMode::ChatCompletions),
+                max_tokens_field: Some("max_tokens".into()),
+                api_path: Some("/chat/completions".into()),
+                include_stream_options: Some(true),
+                ..Default::default()
+            },
+            messages: MessageCompat {
+                merge_assistant_messages: Some(true),
+                clean_orphan_tool_results: Some(true),
+                dedup_tool_results: Some(true),
+                ..Default::default()
+            },
+            tools: ToolCompat {
+                clean_orphan_tool_calls: Some(true),
+                sanitize_malformed_tool_calls: Some(true),
+                auto_tool_id: Some(true),
+                emit_tools: Some(true),
+                ..Default::default()
+            },
+            reasoning: ReasoningCompat {
+                supports_thinking: Some(false),
+                supports_effort: Some(true),
+                effort_levels: Some(vec!["low".into(), "medium".into(), "high".into()]),
+            },
+            ..Default::default()
+        }
+    }
+
+    /// Defaults for the official OpenAI API (`api.openai.com`).
+    ///
+    /// Newer official models (o-series, gpt-5 family) reject the legacy
+    /// `max_tokens` parameter and require `max_completion_tokens`, which all
+    /// current official models accept. Third-party OpenAI-compatible
+    /// endpoints often support only `max_tokens`, so plain
+    /// [`openai_defaults`](Self::openai_defaults) keeps the legacy field and
+    /// this preset applies only to the official endpoint.
+    pub fn openai_official_defaults() -> Self {
+        let mut compat = Self::openai_defaults();
+        compat.transport.max_tokens_field = Some("max_completion_tokens".into());
+        compat
+    }
+
+    /// Merge user config over defaults (user wins on non-None fields)
+    pub fn merge(defaults: Self, user: Self) -> Self {
+        Self {
+            transport: TransportCompat::merge(defaults.transport, user.transport),
+            messages: MessageCompat::merge(defaults.messages, user.messages),
+            tools: ToolCompat::merge(defaults.tools, user.tools),
+            schema: SchemaCompat::merge(defaults.schema, user.schema),
+            reasoning: ReasoningCompat::merge(defaults.reasoning, user.reasoning),
+            image_input: user.image_input.or(defaults.image_input),
+        }
+    }
+
+    // --- Resolved accessors (Option<bool> → bool with false default) ---
+
+    pub fn max_tokens_field(&self) -> &str {
+        self.transport.max_tokens_field.as_deref().unwrap_or("max_tokens")
+    }
+
+    pub fn openai_api_mode(&self) -> OpenAiApiMode {
+        self.transport.openai_api_mode.unwrap_or_default()
+    }
+
+    /// Resolve the OpenAI endpoint path for the selected wire API.
+    ///
+    /// The historical `/chat/completions` preset remains the default for Chat
+    /// Completions. When Responses is selected, that inherited preset is
+    /// replaced with `/responses`; non-default custom paths remain honored.
+    pub fn openai_api_path(&self) -> &str {
+        match self.openai_api_mode() {
+            OpenAiApiMode::ChatCompletions => self.api_path(),
+            OpenAiApiMode::Responses => match self.transport.api_path.as_deref() {
+                Some(path) if path != "/chat/completions" => path,
+                _ => "/responses",
+            },
+        }
+    }
+
+    pub fn image_input(&self) -> ImageInputCapability {
+        self.image_input.unwrap_or_default()
+    }
+
+    pub fn default_max_tokens_for_model(&self, model: &str) -> Option<u32> {
+        let normalized = normalize_model_pattern(model);
+        self.transport
+            .model_max_tokens
+            .as_deref()
+            .and_then(|rules| {
+                rules.iter().find_map(|rule| {
+                    let pattern = normalize_model_pattern(&rule.pattern);
+                    normalized.contains(&pattern).then_some(rule.max_tokens)
+                })
+            })
+            .or(self.transport.default_max_tokens)
+    }
+
+    pub fn max_request_body_bytes(&self) -> Option<usize> {
+        self.transport.max_request_body_bytes
+    }
+
+    pub fn max_tool_count(&self) -> Option<usize> {
+        self.tools.max_tool_count
+    }
+
+    pub fn include_stream_options(&self) -> bool {
+        self.transport.include_stream_options.unwrap_or(true)
+    }
+
+    pub fn emit_tools(&self) -> bool {
+        self.tools.emit_tools.unwrap_or(true)
+    }
+
+    pub fn tool_wire_shape(&self) -> ToolWireShape {
+        self.tools.tool_wire_shape.unwrap_or(ToolWireShape::Native)
+    }
+
+    pub fn merge_assistant_messages(&self) -> bool {
+        self.messages.merge_assistant_messages.unwrap_or(false)
+    }
+
+    pub fn clean_orphan_tool_calls(&self) -> bool {
+        self.tools.clean_orphan_tool_calls.unwrap_or(false)
+    }
+
+    pub fn clean_orphan_tool_results(&self) -> bool {
+        self.messages.clean_orphan_tool_results.unwrap_or(false)
+    }
+
+    pub fn dedup_tool_results(&self) -> bool {
+        self.messages.dedup_tool_results.unwrap_or(false)
+    }
+
+    pub fn sanitize_malformed_tool_calls(&self) -> bool {
+        self.tools.sanitize_malformed_tool_calls.unwrap_or(false)
+    }
+
+    pub fn ensure_alternation(&self) -> bool {
+        self.messages.ensure_alternation.unwrap_or(false)
+    }
+
+    pub fn merge_same_role(&self) -> bool {
+        self.messages.merge_same_role.unwrap_or(false)
+    }
+
+    pub fn sanitize_schema(&self) -> bool {
+        self.schema.sanitize_schema.unwrap_or(false)
+    }
+
+    pub fn auto_tool_id(&self) -> bool {
+        self.tools.auto_tool_id.unwrap_or(false)
+    }
+
+    pub fn api_path(&self) -> &str {
+        self.transport.api_path.as_deref().unwrap_or("/chat/completions")
+    }
+
+    pub fn supports_thinking(&self) -> bool {
+        self.reasoning.supports_thinking.unwrap_or(false)
+    }
+
+    pub fn supports_effort(&self) -> bool {
+        self.reasoning.supports_effort.unwrap_or(false)
+    }
+
+    pub fn effort_levels(&self) -> &[String] {
+        self.reasoning.effort_levels.as_deref().unwrap_or(&[])
+    }
+}
+
+fn normalize_model_pattern(value: &str) -> String {
+    value.to_ascii_lowercase().replace('.', "-")
+}
+
+fn anthropic_model_max_tokens_rules() -> Vec<ModelMaxTokensRule> {
+    [
+        ("claude-fable", 128_000),
+        ("claude-opus-4-8", 128_000),
+        ("claude-opus-4-7", 128_000),
+        ("claude-opus-4-6", 128_000),
+        ("claude-sonnet-4-6", 128_000),
+        ("claude-opus-4-5", 64_000),
+        ("claude-sonnet-4-5", 64_000),
+        ("claude-haiku-4-5", 64_000),
+        ("claude-opus-4", 32_000),
+        ("claude-sonnet-4", 64_000),
+        ("claude-3-7-sonnet", 128_000),
+        ("claude-3-5-sonnet", 8_192),
+        ("claude-3-5-haiku", 8_192),
+        ("claude-3-opus", 4_096),
+        ("claude-3-sonnet", 4_096),
+        ("claude-3-haiku", 4_096),
+        ("minimax", 131_072),
+        ("qwen3", 65_536),
+    ]
+    .into_iter()
+    .map(|(pattern, max_tokens)| ModelMaxTokensRule {
+        pattern: pattern.to_string(),
+        max_tokens,
+    })
+    .collect()
+}
+
+/// Sanitize a JSON Schema for strict providers (e.g., Bedrock).
+/// - Root type must be "object" (wrap if not)
+/// - Recursively remove "additionalProperties"
+/// - Normalize array types: ["string", "null"] → "string"
+pub fn sanitize_json_schema(schema: &Value) -> Value {
+    let mut schema = schema.clone();
+
+    // Ensure root type is "object"
+    if schema.get("type").and_then(|t| t.as_str()) != Some("object") {
+        schema = serde_json::json!({
+            "type": "object",
+            "properties": {
+                "value": schema
+            },
+            "required": ["value"]
+        });
+    }
+
+    strip_additional_properties(&mut schema);
+    normalize_array_types(&mut schema);
+    schema
+}
+
+fn strip_additional_properties(val: &mut Value) {
+    if let Some(obj) = val.as_object_mut() {
+        obj.remove("additionalProperties");
+        for v in obj.values_mut() {
+            strip_additional_properties(v);
+        }
+    } else if let Some(arr) = val.as_array_mut() {
+        for v in arr.iter_mut() {
+            strip_additional_properties(v);
+        }
+    }
+}
+
+fn normalize_array_types(val: &mut Value) {
+    if let Some(obj) = val.as_object_mut() {
+        // Normalize ["string", "null"] → "string"
+        if let Some(arr) = obj.get("type").and_then(Value::as_array) {
+            let non_null: Vec<&Value> = arr.iter().filter(|v| v.as_str() != Some("null")).collect();
+            if non_null.len() == 1 {
+                obj.insert("type".to_string(), non_null[0].clone());
+            }
+        }
+        for v in obj.values_mut() {
+            normalize_array_types(v);
+        }
+    } else if let Some(arr) = val.as_array_mut() {
+        for v in arr.iter_mut() {
+            normalize_array_types(v);
+        }
+    }
+}
+
+#[cfg(test)]
+#[path = "compat_test.rs"]
+mod compat_test;

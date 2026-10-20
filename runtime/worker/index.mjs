@@ -1,8 +1,14 @@
 import http from 'node:http';import {existsSync} from 'node:fs';import {chromium} from 'playwright';import {terminal,cancelJobs} from './terminal.mjs';import {browser,closeBrowser} from './browser.mjs';import {computer,desktopSession} from './desktop.mjs';import {run,fault,scoped} from './common.mjs';
 const token=process.env.WORKER_TOKEN;if(!token)throw new Error('WORKER_TOKEN is required');const queues=new Map();
+import {workspace} from './workspace.mjs';
+import {python,closePython} from './python.mjs';
+import {program,closePrograms} from './program.mjs';
 async function perform(operation,args,session){
  if(operation==='health')return {status:'ready',browser:existsSync(chromium.executablePath()),desktop:existsSync('/usr/bin/Xvfb'),version:'0.1.0'};
- if(operation==='session_cancel'){cancelJobs(session);await closeBrowser(session);return {cancelled:true};}
+ if(operation==='session_cancel'){cancelJobs(session);closePython(session);closePrograms(session);await closeBrowser(session);return {cancelled:true};}
+ if(operation.startsWith('workspace_'))return workspace(operation,args);
+ if(operation.startsWith('python_'))return python(operation,args,session);
+ if(operation.startsWith('program_'))return program(operation,args,session);
  if(operation.startsWith('terminal_')){const desktop=await desktopSession(session);return terminal(operation,args,session,desktop.display);}
  if(operation.startsWith('browser_'))return browser(operation,args,session);
  if(operation.startsWith('computer_'))return computer(operation,args,session);

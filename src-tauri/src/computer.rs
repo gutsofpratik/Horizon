@@ -271,6 +271,16 @@ fn virtual_key(name: &str) -> Result<u16, String> {
         }
     })
 }
+struct PointerRelease { keys:Vec<u16>, button:Option<(u32,i32)> }
+unsafe extern "system" fn collect_app_text(handle:windows_sys::Win32::Foundation::HWND,data:isize)->i32 {
+    let items=&mut *(data as *mut Vec<String>);if items.len()>=100{return 0;}if IsWindowVisible(handle)==0{return 1;}
+    let mut class=[0u16;100];let count=GetClassNameW(handle,class.as_mut_ptr(),100);let class=String::from_utf16_lossy(&class[..count.max(0) as usize]);
+    // Standard password edits must never be read into the model context.
+    if class.eq_ignore_ascii_case("edit")&&GetWindowLongPtrW(handle,GWL_STYLE)&0x20!=0{return 1;}
+    let mut buffer=[0u16;1024];let mut result=0usize;let sent=SendMessageTimeoutW(handle,WM_GETTEXT,buffer.len(),buffer.as_mut_ptr() as isize,SMTO_ABORTIFHUNG,30,&mut result);
+    if sent!=0&&result>0{let text=String::from_utf16_lossy(&buffer[..result.min(buffer.len()-1)]).trim().to_string();if !text.is_empty(){items.push(text);}}1
+}
+impl Drop for PointerRelease {fn drop(&mut self){if let Some((flag,data))=self.button{let _=input(&[mouse(flag,data)]);}for code in self.keys.iter().rev(){let _=input(&[key(*code,true)]);}}}
 #[tauri::command]
 pub async fn computer_tool(
     view: Webview,
@@ -282,7 +292,7 @@ pub async fn computer_tool(
     cancellations: State<'_, super::cancellation::Cancellation>,
 ) -> Result<Value, String> {
     super::trusted(&view)?;
-    if name=="computer_capabilities" {return Ok(json!({"tools":["computer_screenshot","computer_click","computer_move","computer_drag","computer_scroll","computer_type","computer_key","computer_wait","computer_windows","computer_focus_window","computer_open_application"]}));}
+    if name=="computer_capabilities" {return Ok(json!({"tools":["computer_appshot","computer_pointer","computer_screenshot","computer_click","computer_move","computer_drag","computer_scroll","computer_type","computer_key","computer_wait","computer_windows","computer_focus_window","computer_open_application"]}));}
     let request = cancellations.begin(&request_id);
     request.check()?;
     if name!="computer_screenshot"&&view.state::<super::Desktop>().download_prompt.load(Ordering::Acquire){return Err("User download approval is pending. The agent cannot approve or interact with this save dialog.".into());}
@@ -295,6 +305,12 @@ pub async fn computer_tool(
     if name == "computer_screenshot" {
         let _desktop = DESKTOP_INPUT.lock().map_err(|_| "Desktop control lock is unavailable")?;
         return capture(&state, &owner);
+    }
+    if name=="computer_appshot" {
+        let _desktop=DESKTOP_INPUT.lock().map_err(|_|"Desktop control lock is unavailable")?;let mut result=capture(&state,&owner)?;let mut texts:Vec<String>=Vec::new();let mut title=[0u16;1024];let mut rectangle=windows_sys::Win32::Foundation::RECT{left:0,top:0,right:0,bottom:0};
+        unsafe{let active=GetForegroundWindow();if !active.is_null(){let count=GetWindowTextW(active,title.as_mut_ptr(),1024);texts.push(String::from_utf16_lossy(&title[..count.max(0) as usize]));GetWindowRect(active,&mut rectangle);EnumChildWindows(active,Some(collect_app_text),&mut texts as *mut _ as isize);}}
+        {let mut screens=state.screens.lock().unwrap();if let Some(screen)=screens.get_mut(&owner){let left=rectangle.left.max(screen.x);let top=rectangle.top.max(screen.y);let right=rectangle.right.min(screen.x+screen.width);let bottom=rectangle.bottom.min(screen.y+screen.height);if right>left&&bottom>top{if let Some(encoded)=result["screenshot"]["image"].as_str(){let bytes=STANDARD.decode(encoded).map_err(|e|e.to_string())?;let image=image::load_from_memory(&bytes).map_err(|e|e.to_string())?;let x=((left-screen.x) as f64/screen.width as f64*image.width() as f64).floor() as u32;let y=((top-screen.y) as f64/screen.height as f64*image.height() as f64).floor() as u32;let width=(((right-left) as f64/screen.width as f64*image.width() as f64).ceil() as u32).min(image.width()-x);let height=(((bottom-top) as f64/screen.height as f64*image.height() as f64).ceil() as u32).min(image.height()-y);if width>0&&height>0{let cropped=image.crop_imm(x,y,width,height).resize_exact(1280,800,image::imageops::FilterType::Lanczos3);let mut output=Cursor::new(Vec::new());cropped.write_to(&mut output,image::ImageFormat::Png).map_err(|e|e.to_string())?;result["screenshot"]["image"]=json!(STANDARD.encode(output.into_inner()));screen.x=left;screen.y=top;screen.width=right-left;screen.height=bottom-top;result["screenshot"]["note"]=json!("Foreground application screenshot, scaled to 1280x800. Current screen_id coordinates map to this application region.");}}}}}
+        result["application"]=json!({"text":texts.join("\n").chars().take(16000).collect::<String>(),"bounds":{"left":rectangle.left,"top":rectangle.top,"right":rectangle.right,"bottom":rectangle.bottom},"note":"Actual Windows control text where exposed; custom-rendered application content may require screenshot interpretation."});return Ok(result);
     }
     if name == "computer_wait" {
         let duration = args["duration_ms"].as_u64().unwrap_or(1000).min(5000);
@@ -346,6 +362,19 @@ pub async fn computer_tool(
         return Err("Screenshot is stale; capture the screen again".into());
     }
     let indicator = super::control_indicator::ActiveIndicator::show(view.app_handle())?;
+    if name=="computer_pointer" {
+        let codes=args["modifiers"].as_array().map(|items|items.iter().map(|value|virtual_key(value.as_str().unwrap_or(""))).collect::<Result<Vec<_>,_>>()).transpose()?.unwrap_or_default();
+        let mut release=PointerRelease{keys:vec![],button:None};for code in codes{input(&[key(code,false)])?;release.keys.push(code);}
+        let x=args["x"].as_f64().ok_or("x required")?;let y=args["y"].as_f64().ok_or("y required")?;pointer(&screen,x,y)?;
+        let (down,up,data)=match args["button"].as_str().unwrap_or("left"){"left"=>(MOUSEEVENTF_LEFTDOWN,MOUSEEVENTF_LEFTUP,0),"right"=>(MOUSEEVENTF_RIGHTDOWN,MOUSEEVENTF_RIGHTUP,0),"wheel"=>(MOUSEEVENTF_MIDDLEDOWN,MOUSEEVENTF_MIDDLEUP,0),"back"=>(MOUSEEVENTF_XDOWN,MOUSEEVENTF_XUP,1),"forward"=>(MOUSEEVENTF_XDOWN,MOUSEEVENTF_XUP,2),_=>return Err("Invalid pointer button".into())};
+        match args["action"].as_str().unwrap_or(""){
+            "move"=>{},
+            "click"|"double_click"=>{for _ in 0..if args["action"]=="double_click"{2}else{1}{request.check()?;input(&[mouse(down,data)])?;release.button=Some((up,data));input(&[mouse(up,data)])?;release.button=None;}},
+            "scroll"=>{let horizontal=args["scroll_x"].as_i64().unwrap_or(0).clamp(-20,20) as i32;let vertical=args["scroll_y"].as_i64().unwrap_or(0).clamp(-20,20) as i32;if horizontal!=0{input(&[mouse(MOUSEEVENTF_HWHEEL,horizontal*120)])?;}if vertical!=0{input(&[mouse(MOUSEEVENTF_WHEEL,vertical*120)])?;}},
+            "drag"=>{let points=args["path"].as_array().ok_or("Drag path required")?;if points.len()<2||points.len()>100{return Err("Drag path must contain 2 to 100 points".into());}let duration=args["duration_ms"].as_u64().unwrap_or(500).clamp(100,3000);for (index,point) in points.iter().enumerate(){request.check()?;pointer(&screen,point["x"].as_f64().ok_or("Path x required")?,point["y"].as_f64().ok_or("Path y required")?)?;if index==0{input(&[mouse(down,data)])?;release.button=Some((up,data));}std::thread::sleep(Duration::from_millis(duration/points.len() as u64));}},
+            _=>return Err("Unknown pointer operation".into())
+        }drop(release);drop(indicator);return capture(&state,&owner);
+    }
     match name.as_str() {
         "computer_move" => pointer(
             &screen,

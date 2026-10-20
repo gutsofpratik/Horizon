@@ -1,23 +1,31 @@
 [package]
 name = "claude-local-desktop"
-version = "0.1.2"
+version = "0.2.0"
 edition = "2021"
 
 [build-dependencies]
 tauri-build = { version = "2", features = [] }
 
 [dependencies]
-tauri = { version = "2", features = ["unstable"] }
+dunce = "1.0"
+tauri = { version = "2", features = ["unstable", "tray-icon"] }
 serde = { version = "1", features = ["derive"] }
 serde_json = "1"
 portable-pty = "0.9"
 rfd = "0.15"
 uuid = { version = "1", features = ["v4"] }
-windows-sys = { version = "0.61", features = ["Win32_Foundation", "Win32_Graphics_Gdi", "Win32_UI_WindowsAndMessaging", "Win32_UI_Input_KeyboardAndMouse"] }
 image = { version = "0.25", default-features = false, features = ["png"] }
 base64 = "0.22"
+
+[target.'cfg(windows)'.dependencies]
+windows-sys = { version = "0.61", features = ["Win32_Foundation", "Win32_Security", "Win32_System_JobObjects", "Win32_System_Threading", "Win32_Graphics_Gdi", "Win32_UI_WindowsAndMessaging", "Win32_UI_Input_KeyboardAndMouse"] }
 windows-core = "0.62"
 webview2-com = "0.39.1"
+
+[target.'cfg(not(windows))'.dependencies]
+libc = "0.2"
+enigo = "=0.6.1"
+xcap = "=0.7.1"
 
 [profile.release]
 strip = true

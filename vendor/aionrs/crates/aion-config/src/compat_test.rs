@@ -1,0 +1,685 @@
+use super::*;
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use serde_json::json;
+
+    #[test]
+    fn test_flattened_compat_deserializes_legacy_toml_keys() {
+        let toml_str = r#"
+max_tokens_field = "max_completion_tokens"
+default_max_tokens = 128000
+api_path = "/chat/completions"
+max_request_body_bytes = 1048576
+include_stream_options = false
+merge_assistant_messages = true
+clean_orphan_tool_results = false
+dedup_tool_results = true
+clean_orphan_tool_calls = true
+sanitize_malformed_tool_calls = false
+max_tool_count = 512
+emit_tools = false
+tool_wire_shape = "openai_function"
+ensure_alternation = true
+merge_same_role = true
+sanitize_schema = true
+strip_patterns = ["__REASONING__"]
+auto_tool_id = true
+supports_thinking = true
+supports_effort = false
+effort_levels = ["low", "medium"]
+
+[[model_max_tokens]]
+pattern = "claude-sonnet-4-6"
+max_tokens = 64000
+"#;
+
+        let compat: ProviderCompat = toml::from_str(toml_str).unwrap();
+
+        assert_eq!(
+            compat.transport.max_tokens_field.as_deref(),
+            Some("max_completion_tokens")
+        );
+        assert_eq!(compat.transport.default_max_tokens, Some(128_000));
+        assert_eq!(
+            compat.transport.model_max_tokens,
+            Some(vec![ModelMaxTokensRule {
+                pattern: "claude-sonnet-4-6".to_string(),
+                max_tokens: 64_000,
+            }])
+        );
+        assert_eq!(compat.transport.api_path.as_deref(), Some("/chat/completions"));
+        assert_eq!(compat.max_request_body_bytes(), Some(1_048_576));
+        assert_eq!(compat.transport.include_stream_options, Some(false));
+        assert!(!compat.include_stream_options());
+        assert_eq!(compat.messages.merge_assistant_messages, Some(true));
+        assert_eq!(compat.messages.clean_orphan_tool_results, Some(false));
+        assert_eq!(compat.messages.dedup_tool_results, Some(true));
+        assert_eq!(compat.messages.ensure_alternation, Some(true));
+        assert_eq!(compat.messages.merge_same_role, Some(true));
+        assert_eq!(compat.messages.strip_patterns, Some(vec!["__REASONING__".to_string()]));
+        assert_eq!(compat.tools.clean_orphan_tool_calls, Some(true));
+        assert_eq!(compat.tools.sanitize_malformed_tool_calls, Some(false));
+        assert_eq!(compat.tools.auto_tool_id, Some(true));
+        assert_eq!(compat.max_tool_count(), Some(512));
+        assert_eq!(compat.tools.emit_tools, Some(false));
+        assert!(!compat.emit_tools());
+        assert_eq!(compat.tool_wire_shape(), ToolWireShape::OpenAiFunction);
+        assert_eq!(compat.schema.sanitize_schema, Some(true));
+        assert_eq!(compat.reasoning.supports_thinking, Some(true));
+        assert_eq!(compat.reasoning.supports_effort, Some(false));
+        assert_eq!(
+            compat.reasoning.effort_levels,
+            Some(vec!["low".to_string(), "medium".to_string()])
+        );
+    }
+
+    #[test]
+    fn test_flattened_compat_serializes_to_legacy_toml_keys() {
+        let compat = ProviderCompat {
+            transport: TransportCompat {
+                openai_api_mode: None,
+                max_tokens_field: Some("max_completion_tokens".to_string()),
+                default_max_tokens: Some(128_000),
+                model_max_tokens: Some(vec![ModelMaxTokensRule {
+                    pattern: "claude-sonnet-4-6".to_string(),
+                    max_tokens: 64_000,
+                }]),
+                api_path: Some("/chat/completions".to_string()),
+                max_request_body_bytes: Some(1_048_576),
+                include_stream_options: Some(false),
+            },
+            messages: MessageCompat {
+                merge_assistant_messages: Some(true),
+                clean_orphan_tool_results: Some(false),
+                dedup_tool_results: Some(true),
+                ensure_alternation: Some(true),
+                merge_same_role: Some(true),
+                strip_patterns: Some(vec!["__REASONING__".to_string()]),
+            },
+            tools: ToolCompat {
+                clean_orphan_tool_calls: Some(true),
+                sanitize_malformed_tool_calls: Some(false),
+                auto_tool_id: Some(true),
+                max_tool_count: Some(512),
+                emit_tools: Some(false),
+                tool_wire_shape: Some(ToolWireShape::OpenAiFunction),
+            },
+            schema: SchemaCompat {
+                sanitize_schema: Some(true),
+            },
+            reasoning: ReasoningCompat {
+                supports_thinking: Some(true),
+                supports_effort: Some(false),
+                effort_levels: Some(vec!["low".to_string(), "medium".to_string()]),
+            },
+            image_input: Some(ImageInputCapability::Supported),
+        };
+
+        let toml = toml::to_string(&compat).unwrap();
+
+        assert!(toml.contains("max_tokens_field = \"max_completion_tokens\""));
+        assert!(toml.contains("default_max_tokens = 128000"));
+        assert!(toml.contains("[[model_max_tokens]]"));
+        assert!(toml.contains("pattern = \"claude-sonnet-4-6\""));
+        assert!(toml.contains("max_tokens = 64000"));
+        assert!(toml.contains("api_path = \"/chat/completions\""));
+        assert!(toml.contains("max_request_body_bytes = 1048576"));
+        assert!(toml.contains("include_stream_options = false"));
+        assert!(toml.contains("merge_assistant_messages = true"));
+        assert!(toml.contains("clean_orphan_tool_results = false"));
+        assert!(toml.contains("dedup_tool_results = true"));
+        assert!(toml.contains("clean_orphan_tool_calls = true"));
+        assert!(toml.contains("sanitize_malformed_tool_calls = false"));
+        assert!(toml.contains("max_tool_count = 512"));
+        assert!(toml.contains("emit_tools = false"));
+        assert!(toml.contains("tool_wire_shape = \"openai_function\""));
+        assert!(toml.contains("ensure_alternation = true"));
+        assert!(toml.contains("merge_same_role = true"));
+        assert!(toml.contains("sanitize_schema = true"));
+        assert!(toml.contains("strip_patterns = [\"__REASONING__\"]"));
+        assert!(toml.contains("auto_tool_id = true"));
+        assert!(toml.contains("supports_thinking = true"));
+        assert!(toml.contains("supports_effort = false"));
+        assert!(toml.contains("effort_levels = [\"low\", \"medium\"]"));
+        assert!(toml.contains("image_input = \"supported\""));
+        assert!(!toml.contains("[transport]"));
+        assert!(!toml.contains("[messages]"));
+        assert!(!toml.contains("[tools]"));
+        assert!(!toml.contains("[schema]"));
+        assert!(!toml.contains("[reasoning]"));
+    }
+
+    #[test]
+    fn test_domain_merge_preserves_user_overrides_and_defaults() {
+        let defaults = ProviderCompat::openai_defaults();
+        let user = ProviderCompat {
+            transport: TransportCompat {
+                max_tokens_field: Some("max_completion_tokens".to_string()),
+                api_path: Some("/chat/completions".to_string()),
+                max_request_body_bytes: Some(2_048),
+                include_stream_options: None,
+                ..Default::default()
+            },
+            messages: MessageCompat {
+                merge_assistant_messages: Some(false),
+                clean_orphan_tool_results: Some(false),
+                dedup_tool_results: None,
+                ensure_alternation: None,
+                merge_same_role: None,
+                strip_patterns: Some(vec!["strip-me".to_string()]),
+            },
+            tools: ToolCompat {
+                clean_orphan_tool_calls: Some(false),
+                sanitize_malformed_tool_calls: Some(false),
+                auto_tool_id: Some(false),
+                max_tool_count: Some(42),
+                emit_tools: None,
+                tool_wire_shape: None,
+            },
+            schema: SchemaCompat {
+                sanitize_schema: Some(true),
+            },
+            reasoning: ReasoningCompat {
+                supports_thinking: Some(true),
+                supports_effort: None,
+                effort_levels: Some(vec!["custom".to_string()]),
+            },
+            image_input: Some(ImageInputCapability::Unsupported),
+        };
+
+        let merged = ProviderCompat::merge(defaults, user);
+
+        assert_eq!(
+            merged.transport.max_tokens_field.as_deref(),
+            Some("max_completion_tokens")
+        );
+        assert!(merged.default_max_tokens_for_model("claude-sonnet-4-6").is_none());
+        assert_eq!(merged.transport.api_path.as_deref(), Some("/chat/completions"));
+        assert_eq!(merged.max_request_body_bytes(), Some(2_048));
+        assert!(merged.include_stream_options());
+        assert!(!merged.merge_assistant_messages());
+        assert!(!merged.clean_orphan_tool_calls());
+        assert!(!merged.clean_orphan_tool_results());
+        assert!(merged.dedup_tool_results());
+        assert!(!merged.sanitize_malformed_tool_calls());
+        assert_eq!(merged.max_tool_count(), Some(42));
+        assert!(merged.emit_tools());
+        assert_eq!(merged.tool_wire_shape(), ToolWireShape::Native);
+        assert!(merged.sanitize_schema());
+        assert!(!merged.auto_tool_id());
+        assert!(merged.supports_thinking());
+        assert!(merged.supports_effort());
+        assert_eq!(merged.effort_levels(), &["custom"]);
+        assert_eq!(merged.messages.strip_patterns, Some(vec!["strip-me".to_string()]));
+        assert_eq!(merged.reasoning.supports_thinking, Some(true));
+        assert_eq!(merged.reasoning.supports_effort, Some(true));
+        assert_eq!(merged.reasoning.effort_levels, Some(vec!["custom".to_string()]));
+        assert_eq!(merged.image_input(), ImageInputCapability::Unsupported);
+    }
+
+    #[test]
+    fn test_domain_merge_empty_user_keeps_all_defaults() {
+        let merged = ProviderCompat::merge(ProviderCompat::anthropic_defaults(), ProviderCompat::default());
+
+        assert!(merged.ensure_alternation());
+        assert!(merged.merge_same_role());
+        assert!(merged.auto_tool_id());
+        assert!(merged.sanitize_malformed_tool_calls());
+        assert!(merged.clean_orphan_tool_results());
+        assert!(merged.supports_thinking());
+        assert!(!merged.supports_effort());
+        assert!(merged.effort_levels().is_empty());
+        assert_eq!(merged.default_max_tokens_for_model("claude-sonnet-4-6"), Some(128_000));
+        assert_eq!(merged.default_max_tokens_for_model("unknown-model"), Some(128_000));
+    }
+
+    #[test]
+    fn test_anthropic_defaults() {
+        let compat = ProviderCompat::anthropic_defaults();
+        assert!(compat.ensure_alternation());
+        assert!(compat.merge_same_role());
+        assert!(compat.auto_tool_id());
+        assert!(!compat.sanitize_schema());
+        assert!(!compat.merge_assistant_messages());
+        assert!(!compat.clean_orphan_tool_calls());
+        assert_eq!(compat.default_max_tokens_for_model("claude-sonnet-4-6"), Some(128_000));
+        assert_eq!(compat.default_max_tokens_for_model("unknown-model"), Some(128_000));
+    }
+
+    #[test]
+    fn test_bedrock_defaults() {
+        let compat = ProviderCompat::bedrock_defaults();
+        assert!(compat.ensure_alternation());
+        assert!(compat.merge_same_role());
+        assert!(compat.auto_tool_id());
+        assert!(compat.sanitize_schema());
+        assert_eq!(
+            compat.default_max_tokens_for_model("anthropic.claude-sonnet-4-20250514-v1:0"),
+            Some(64_000)
+        );
+    }
+
+    #[test]
+    fn test_openai_defaults() {
+        let compat = ProviderCompat::openai_defaults();
+        assert!(compat.merge_assistant_messages());
+        assert!(compat.clean_orphan_tool_calls());
+        assert!(compat.clean_orphan_tool_results());
+        assert!(compat.dedup_tool_results());
+        assert_eq!(compat.transport.max_tokens_field.as_deref(), Some("max_tokens"));
+        assert!(!compat.ensure_alternation());
+        assert_eq!(compat.transport.include_stream_options, Some(true));
+        assert_eq!(compat.tools.emit_tools, Some(true));
+        assert!(compat.include_stream_options());
+        assert!(compat.emit_tools());
+        assert_eq!(compat.default_max_tokens_for_model("gpt-5"), None);
+    }
+
+    #[test]
+    fn openai_api_mode_defaults_to_chat_completions() {
+        let compat = ProviderCompat::openai_defaults();
+
+        assert_eq!(compat.openai_api_mode(), OpenAiApiMode::ChatCompletions);
+        assert_eq!(compat.openai_api_path(), "/chat/completions");
+    }
+
+    #[test]
+    fn responses_mode_replaces_inherited_chat_path() {
+        let user = ProviderCompat {
+            transport: TransportCompat {
+                openai_api_mode: Some(OpenAiApiMode::Responses),
+                ..Default::default()
+            },
+            ..Default::default()
+        };
+        let compat = ProviderCompat::merge(ProviderCompat::openai_defaults(), user);
+
+        assert_eq!(compat.openai_api_mode(), OpenAiApiMode::Responses);
+        assert_eq!(compat.openai_api_path(), "/responses");
+    }
+
+    #[test]
+    fn responses_mode_preserves_custom_api_path() {
+        let user = ProviderCompat {
+            transport: TransportCompat {
+                openai_api_mode: Some(OpenAiApiMode::Responses),
+                api_path: Some("/custom/responses".to_string()),
+                ..Default::default()
+            },
+            ..Default::default()
+        };
+        let compat = ProviderCompat::merge(ProviderCompat::openai_defaults(), user);
+
+        assert_eq!(compat.openai_api_path(), "/custom/responses");
+    }
+
+    #[test]
+    fn responses_mode_deserializes_from_compat_toml() {
+        let compat: ProviderCompat = toml::from_str("openai_api_mode = \"responses\"").unwrap();
+
+        assert_eq!(compat.openai_api_mode(), OpenAiApiMode::Responses);
+    }
+
+    #[test]
+    fn test_openai_field_controls_parse_flattened_compat() {
+        let toml_str = r#"
+include_stream_options = false
+emit_tools = false
+supports_effort = false
+"#;
+
+        let compat: ProviderCompat = toml::from_str(toml_str).unwrap();
+
+        assert_eq!(compat.transport.include_stream_options, Some(false));
+        assert_eq!(compat.tools.emit_tools, Some(false));
+        assert_eq!(compat.reasoning.supports_effort, Some(false));
+        assert!(!compat.include_stream_options());
+        assert!(!compat.emit_tools());
+        assert!(!compat.supports_effort());
+    }
+
+    #[test]
+    fn test_openai_field_controls_merge_user_overrides_defaults() {
+        let defaults = ProviderCompat::openai_defaults();
+        let user = ProviderCompat {
+            transport: TransportCompat {
+                include_stream_options: Some(false),
+                ..Default::default()
+            },
+            tools: ToolCompat {
+                emit_tools: Some(false),
+                ..Default::default()
+            },
+            reasoning: ReasoningCompat {
+                supports_effort: Some(false),
+                ..Default::default()
+            },
+            ..Default::default()
+        };
+
+        let merged = ProviderCompat::merge(defaults, user);
+
+        assert_eq!(merged.transport.include_stream_options, Some(false));
+        assert_eq!(merged.tools.emit_tools, Some(false));
+        assert_eq!(merged.reasoning.supports_effort, Some(false));
+        assert!(!merged.include_stream_options());
+        assert!(!merged.emit_tools());
+        assert!(!merged.supports_effort());
+    }
+
+    #[test]
+    fn test_tool_wire_shape_toml_round_trips_supported_values() {
+        for value in ["native", "openai_function", "anthropic_input_schema"] {
+            let compat: ProviderCompat = toml::from_str(&format!("tool_wire_shape = \"{value}\"")).unwrap();
+
+            let toml = toml::to_string(&compat).unwrap();
+
+            assert!(toml.contains(&format!("tool_wire_shape = \"{value}\"")));
+        }
+    }
+
+    #[test]
+    fn test_tool_wire_shape_toml_rejects_unknown_value() {
+        let result = toml::from_str::<ProviderCompat>(
+            r#"
+tool_wire_shape = "provider_guess"
+"#,
+        );
+
+        assert!(result.is_err());
+    }
+
+    #[test]
+    fn test_clean_orphan_tool_results_defaults() {
+        assert_eq!(
+            ProviderCompat::openai_defaults().messages.clean_orphan_tool_results,
+            Some(true)
+        );
+        assert_eq!(
+            ProviderCompat::anthropic_defaults().messages.clean_orphan_tool_results,
+            Some(true)
+        );
+        assert_eq!(
+            ProviderCompat::bedrock_defaults().messages.clean_orphan_tool_results,
+            Some(true)
+        );
+    }
+
+    #[test]
+    fn test_clean_orphan_tool_results_accessor_defaults_false() {
+        let compat = ProviderCompat::default();
+        assert!(!compat.clean_orphan_tool_results());
+    }
+
+    #[test]
+    fn test_merge_user_overrides_defaults() {
+        let defaults = ProviderCompat::openai_defaults();
+        let user = ProviderCompat {
+            transport: TransportCompat {
+                max_tokens_field: Some("max_completion_tokens".into()),
+                ..Default::default()
+            },
+            messages: MessageCompat {
+                merge_assistant_messages: Some(false),
+                ..Default::default()
+            },
+            ..Default::default()
+        };
+
+        let merged = ProviderCompat::merge(defaults, user);
+        assert_eq!(
+            merged.transport.max_tokens_field.as_deref(),
+            Some("max_completion_tokens")
+        );
+        assert!(!merged.merge_assistant_messages());
+        // Non-overridden fields keep defaults
+        assert!(merged.clean_orphan_tool_calls());
+        assert!(merged.clean_orphan_tool_results());
+        assert!(merged.dedup_tool_results());
+    }
+
+    #[test]
+    fn test_merge_clean_orphan_tool_results_user_overrides() {
+        let defaults = ProviderCompat::openai_defaults();
+        let user = ProviderCompat {
+            messages: MessageCompat {
+                clean_orphan_tool_results: Some(false),
+                ..Default::default()
+            },
+            ..Default::default()
+        };
+
+        let merged = ProviderCompat::merge(defaults, user);
+        assert_eq!(merged.messages.clean_orphan_tool_results, Some(false));
+        assert!(!merged.clean_orphan_tool_results());
+    }
+
+    #[test]
+    fn test_merge_empty_user_keeps_defaults() {
+        let defaults = ProviderCompat::anthropic_defaults();
+        let user = ProviderCompat::default();
+
+        let merged = ProviderCompat::merge(defaults, user);
+        assert!(merged.ensure_alternation());
+        assert!(merged.merge_same_role());
+        assert!(merged.auto_tool_id());
+    }
+
+    #[test]
+    fn test_sanitize_schema_wraps_non_object_root() {
+        let schema = json!({"type": "string"});
+        let sanitized = sanitize_json_schema(&schema);
+
+        assert_eq!(sanitized["type"], "object");
+        assert_eq!(sanitized["properties"]["value"]["type"], "string");
+    }
+
+    #[test]
+    fn test_sanitize_schema_removes_additional_properties() {
+        let schema = json!({
+            "type": "object",
+            "properties": {
+                "name": {"type": "string", "additionalProperties": false}
+            },
+            "additionalProperties": false
+        });
+        let sanitized = sanitize_json_schema(&schema);
+
+        assert!(sanitized.get("additionalProperties").is_none());
+        assert!(sanitized["properties"]["name"].get("additionalProperties").is_none());
+    }
+
+    #[test]
+    fn test_sanitize_schema_normalizes_array_types() {
+        let schema = json!({
+            "type": "object",
+            "properties": {
+                "name": {"type": ["string", "null"]}
+            }
+        });
+        let sanitized = sanitize_json_schema(&schema);
+
+        assert_eq!(sanitized["properties"]["name"]["type"], "string");
+    }
+
+    #[test]
+    fn test_sanitize_schema_no_change_for_valid_object() {
+        let schema = json!({
+            "type": "object",
+            "properties": {
+                "cmd": {"type": "string"}
+            },
+            "required": ["cmd"]
+        });
+        let sanitized = sanitize_json_schema(&schema);
+
+        assert_eq!(sanitized["type"], "object");
+        assert_eq!(sanitized["properties"]["cmd"]["type"], "string");
+    }
+
+    #[test]
+    fn test_anthropic_defaults_capability_fields() {
+        let compat = ProviderCompat::anthropic_defaults();
+        assert_eq!(compat.reasoning.supports_thinking, Some(true));
+        assert_eq!(compat.reasoning.supports_effort, Some(false));
+        assert!(compat.reasoning.effort_levels.is_none());
+    }
+
+    #[test]
+    fn test_openai_defaults_capability_fields() {
+        let compat = ProviderCompat::openai_defaults();
+        assert_eq!(compat.reasoning.supports_thinking, Some(false));
+        assert_eq!(compat.reasoning.supports_effort, Some(true));
+        assert_eq!(
+            compat.reasoning.effort_levels,
+            Some(vec!["low".to_string(), "medium".to_string(), "high".to_string()])
+        );
+    }
+
+    #[test]
+    fn test_bedrock_defaults_capability_fields() {
+        let compat = ProviderCompat::bedrock_defaults();
+        assert_eq!(compat.reasoning.supports_thinking, Some(true));
+        assert_eq!(compat.reasoning.supports_effort, Some(false));
+    }
+
+    #[test]
+    fn test_merge_capability_fields_user_overrides() {
+        let defaults = ProviderCompat::openai_defaults();
+        let user = ProviderCompat {
+            reasoning: ReasoningCompat {
+                supports_thinking: Some(true),
+                ..Default::default()
+            },
+            ..Default::default()
+        };
+        let merged = ProviderCompat::merge(defaults, user);
+        assert_eq!(merged.reasoning.supports_thinking, Some(true));
+        assert_eq!(merged.reasoning.supports_effort, Some(true));
+    }
+
+    #[test]
+    fn image_input_capability_is_model_scoped_and_has_no_provider_default() {
+        assert_eq!(
+            ProviderCompat::openai_defaults().image_input(),
+            ImageInputCapability::Unknown
+        );
+        assert_eq!(
+            ProviderCompat::anthropic_defaults().image_input(),
+            ImageInputCapability::Unknown
+        );
+        assert_eq!(
+            ProviderCompat::bedrock_defaults().image_input(),
+            ImageInputCapability::Unknown
+        );
+
+        let user = ProviderCompat {
+            image_input: Some(ImageInputCapability::Supported),
+            ..Default::default()
+        };
+        let merged = ProviderCompat::merge(ProviderCompat::openai_defaults(), user);
+        assert_eq!(merged.image_input(), ImageInputCapability::Supported);
+    }
+
+    #[test]
+    fn image_input_capability_deserializes_from_compat_toml() {
+        let compat: ProviderCompat = toml::from_str("image_input = \"unsupported\"").unwrap();
+        assert_eq!(compat.image_input(), ImageInputCapability::Unsupported);
+    }
+
+    #[test]
+    fn test_capability_accessors() {
+        let compat = ProviderCompat::anthropic_defaults();
+        assert!(compat.supports_thinking());
+        assert!(!compat.supports_effort());
+        assert!(compat.effort_levels().is_empty());
+
+        let compat2 = ProviderCompat::openai_defaults();
+        assert!(!compat2.supports_thinking());
+        assert!(compat2.supports_effort());
+        assert_eq!(compat2.effort_levels(), &["low", "medium", "high"]);
+    }
+
+    // D-1
+    #[test]
+    fn test_defaults_enable_sanitize_malformed_tool_calls() {
+        assert_eq!(
+            ProviderCompat::openai_defaults().tools.sanitize_malformed_tool_calls,
+            Some(true)
+        );
+        assert_eq!(
+            ProviderCompat::anthropic_defaults().tools.sanitize_malformed_tool_calls,
+            Some(true)
+        );
+        assert_eq!(
+            ProviderCompat::bedrock_defaults().tools.sanitize_malformed_tool_calls,
+            Some(true)
+        );
+    }
+
+    // D-2
+    #[test]
+    fn test_merge_preserves_sanitize_field() {
+        let defaults = ProviderCompat::openai_defaults();
+        let user = ProviderCompat {
+            tools: ToolCompat {
+                sanitize_malformed_tool_calls: Some(false),
+                ..Default::default()
+            },
+            ..Default::default()
+        };
+        let merged = ProviderCompat::merge(defaults, user);
+        assert_eq!(merged.tools.sanitize_malformed_tool_calls, Some(false)); // user wins
+        assert_eq!(merged.tools.clean_orphan_tool_calls, Some(true)); // default preserved
+    }
+
+    #[test]
+    fn test_deserialize_from_toml() {
+        let toml_str = r#"
+max_tokens_field = "max_completion_tokens"
+merge_assistant_messages = true
+clean_orphan_tool_results = false
+strip_patterns = ["__REASONING__"]
+"#;
+        let compat: ProviderCompat = toml::from_str(toml_str).unwrap();
+        assert_eq!(
+            compat.transport.max_tokens_field.as_deref(),
+            Some("max_completion_tokens")
+        );
+        assert_eq!(compat.messages.merge_assistant_messages, Some(true));
+        assert_eq!(compat.messages.clean_orphan_tool_results, Some(false));
+        assert_eq!(compat.messages.strip_patterns, Some(vec!["__REASONING__".to_string()]));
+        assert!(compat.tools.clean_orphan_tool_calls.is_none());
+    }
+
+    #[test]
+    fn test_openai_official_defaults_use_max_completion_tokens() {
+        let compat = ProviderCompat::openai_official_defaults();
+        assert_eq!(compat.max_tokens_field(), "max_completion_tokens");
+
+        // Everything except the max-tokens field matches the generic preset.
+        let generic = ProviderCompat::openai_defaults();
+        assert_eq!(compat.transport.api_path, generic.transport.api_path);
+        assert_eq!(compat.transport.openai_api_mode, generic.transport.openai_api_mode);
+        assert_eq!(
+            compat.messages.merge_assistant_messages,
+            generic.messages.merge_assistant_messages
+        );
+        assert_eq!(compat.reasoning.supports_effort, generic.reasoning.supports_effort);
+    }
+
+    #[test]
+    fn test_user_override_beats_openai_official_defaults() {
+        let user = ProviderCompat {
+            transport: TransportCompat {
+                max_tokens_field: Some("max_tokens".into()),
+                ..Default::default()
+            },
+            ..Default::default()
+        };
+        let merged = ProviderCompat::merge(ProviderCompat::openai_official_defaults(), user);
+        assert_eq!(merged.max_tokens_field(), "max_tokens");
+    }
+}
