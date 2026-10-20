@@ -1,3 +1,25 @@
+import {registerMigrations} from './storage/migrations.ts';
+import {registerUpdates} from './runtime/updates.ts';
+import {registerOnboarding} from './runtime/onboarding.ts';
+import {ProfileRegistry} from './runtime/profiles.ts';
+import {registerProfileRoutes} from './runtime/profile-routes.ts';
+import {registerAutomationWorkspace} from './automation/routes.ts';
+import {registerChannels} from './automation/channels.ts';
+import {registerTeams} from './teams/routes.ts';
+import {registerPreviewTickets} from './browser/preview-tickets.ts';
+import {registerHostAccess} from './runtime/host-auth.ts';
+import {ProcessSupervisor} from './runtime/process-supervisor.ts';
+import {FileRevisions} from './files/revisions.ts';
+import {OfficeRuntime} from './runtime/office.ts';
+import {registerEngineRoutes} from './engine/routes.ts';
+import {registerConversationSkillRoutes,validateConversationSkillConfiguration} from './skills/conversation-bindings.ts';
+import {registerMessagePageRoutes} from './storage/message-pages.ts';
+import {protectProvider,migrateProviderCredentials} from './providers/credentials.ts';
+import {validateProvider,publicProvider} from './providers/configuration.ts';
+import {DocumentRuntime} from './runtime/documents.ts';
+import {registerRemoteRoutes} from './runtime/remote.ts';
+import {registerEnvironmentRoutes} from './runtime/environments.ts';
+import {registerAnnotationRoutes} from './browser/annotations.ts';
 import {registerHttpRoutes} from './tools/http.ts';
 import {Triggers} from './tools/triggers.ts';
 import {registerNotificationRoutes} from './tools/notifications.ts';
@@ -6,8 +28,6 @@ import {registerGoalRoutes} from './goals/routes.ts';
 import {registerOfficialPluginRoutes} from './skills/official-plugins.ts';
 import {registerConnectors,type ConnectorManager} from './connectors/manager.ts';
 import {registerWebhooks} from './tools/webhooks.ts';
-import {registerNativeBroker} from './runtime/native-broker.ts';
-import {registerModelRuntime} from './models/runtime.ts';
 import {registerWebBrowser} from './browser/web.ts';
 import {validateSettings} from './settings/validation.ts';
 import {registerReflectRoutes} from './settings/reflect.ts';
@@ -25,50 +45,77 @@ import {registerPluginRoutes} from './skills/plugins.ts';
 import {registerRepositoryRoutes} from './skills/repository.ts';
 import {registerScheduleRoutes} from './tools/schedules.ts';
 export interface AppContext {store:Store;dataDirectory:string;root:string;ephemeral:Map<string,any>;runtime?:SandboxManager;connectors?:ConnectorManager}
-export async function createApp(options:{dataDirectory:string;dbPath?:string;root?:string}):Promise<FastifyInstance> {
+export async function createApp(options:{dataDirectory:string;dbPath?:string;root?:string;desktopServices?:(app:FastifyInstance,context:AppContext)=>void}):Promise<FastifyInstance> {
   const app=Fastify({logger:false,bodyLimit:12*1024*1024});
   mkdirSync(options.dataDirectory,{recursive:true});
   const store=new Store(options.dbPath??join(options.dataDirectory,'state.sqlite'));
   const context:AppContext={store,dataDirectory:options.dataDirectory,root:options.root??process.cwd(),ephemeral:new Map()};
-  app.decorate('context',context);
-  context.runtime=new SandboxManager(context);
+  // Fastify closes hooks in reverse registration order; register the DB first
+  // so every service can finish its shutdown work before SQLite closes.
   app.addHook('onClose',async()=>store.close());
+  const profiles=new ProfileRegistry(process.env.HORIZON_PROFILE_REGISTRY??join(options.dataDirectory,'horizon-profiles.json'),process.env.HORIZON_PROFILES_ROOT??join(options.dataDirectory,'profiles'),options.dataDirectory);
+  context.ephemeral.set('profiles',profiles);
+  const supervisor=new ProcessSupervisor(join(options.dataDirectory,'processes','host'));await supervisor.recover();context.ephemeral.set('processSupervisor',supervisor);
+  const access=registerHostAccess(app,context);
+  app.decorate('context',context);
+  context.runtime=new SandboxManager(context);app.addHook('onClose',async()=>context.runtime!.close());
+  const office=new OfficeRuntime(context);context.ephemeral.set('officeRuntime',office);app.addHook('onClose',async()=>office.close());
+  const documents=new DocumentRuntime(context);context.ephemeral.set('documentRuntime',documents);app.addHook('onClose',async()=>documents.close());
   app.addHook('onRequest',async(request,reply)=>{
+    const remotePath=/^\/api\/remote\/(?:pair(?:\?|$)|session(?:\?|$)|messages(?:\?|$)|events(?:\?|$)|cancel(?:\?|$)|approvals(?:\/|\?|$))/.test(request.url);
+    const publicOrigin=process.env.OPENCLAUDE_REMOTE_ORIGIN;
+    const safeRemoteRead=['GET','HEAD'].includes(request.method);const remoteAsset=safeRemoteRead&&/^\/(?:remote(?:\?|$)|assets\/)/.test(request.url);let trustedRemote=false;
+    if(publicOrigin&&(remotePath||remoteAsset))try{const trusted=new URL(publicOrigin);trustedRemote=trusted.protocol==='https:'&&trusted.origin===publicOrigin&&(request.headers.origin===trusted.origin||!request.headers.origin&&safeRemoteRead)&&(request.headers.host===trusted.host||request.headers['x-forwarded-host']===trusted.host)&&['127.0.0.1','::1','::ffff:127.0.0.1'].includes(request.socket.remoteAddress??'');}catch{}
+    if(trustedRemote)return; // Only paired routes; each still authenticates its grant or one-time code.
+    if((request.headers['x-forwarded-for']||request.headers['x-forwarded-host'])&&request.url.startsWith('/api/')&&!remotePath)return reply.code(403).send({error:'Forwarded connections may only use the paired remote interface'});
     let host:URL;
     try{host=new URL('http://'+request.headers.host);}catch{return reply.code(403).send({error:'Only local workspace hosts are allowed'});}
     if(!['localhost','127.0.0.1','[::1]'].includes(host.hostname)||host.username||host.password)return reply.code(403).send({error:'Only local workspace hosts are allowed'});
     const origin=request.headers.origin;
     if(origin){try{const source=new URL(origin);if(!['http:','https:'].includes(source.protocol)||source.host!==host.host||source.username||source.password)return reply.code(403).send({error:'Cross-origin requests are disabled'});}catch{return reply.code(403).send({error:'Cross-origin requests are disabled'});}}
+    const path=request.url.split('?')[0];const authExempt=path==='/api/health'||path==='/api/session'||/^\/api\/remote\/(?:pair|session|messages|events|cancel|approvals(?:\/[^/]+)?)$/.test(path)||/^\/api\/connectors\/oauth\/callback$/.test(path);if(path.startsWith('/api/internal/channels/')&&context.ephemeral.get('channels')?.accepts(String(request.headers['x-openclaude-channel-token']??'')))return;
+    const inferenceRequest=path.startsWith('/api/builtin/')&&access.acceptsInference(request);
+    if(path.startsWith('/api/')&&!authExempt&&!access.authenticated(request)&&!inferenceRequest)return reply.code(401).send({error:'Horizon host authentication required',code:'HOST_AUTH_REQUIRED'});
+    const profileExempt=path==='/api/profiles/status'||path==='/api/profiles/create'||path==='/api/profiles/login'||path==='/api/profiles/select'||path==='/api/profiles/session'||path==='/api/desktop/shutdown';
+    const profileToken=profiles.tokenFrom(request);
+    if(process.env.OPENCLAUDE_DESKTOP_OWNED==='1'&&path.startsWith('/api/')&&!profileExempt&&!inferenceRequest&&profiles.status(profileToken).initialized&&!profiles.authenticateSession(profileToken))return reply.code(401).send({error:'Unlock this Horizon profile to access its workspace',code:'PROFILE_AUTH_REQUIRED'});
   });
   app.setErrorHandler((error,request,reply)=>{const fault=error as any;reply.code(fault.statusCode??400).send({error:fault.message??'Request failed',code:fault.code??'REQUEST_FAILED'});});
   await app.register(multipart,{limits:{fileSize:10*1024*1024,files:8}});
   if(!store.get('providers','ollama'))store.put('providers',{id:'ollama',name:'Ollama',type:'ollama',baseUrl:'http://127.0.0.1:11434'});
   if(!store.get('settings','main'))store.put('settings',{id:'main',theme:'light',userName:'',model:'qwen3.5:9b-q4_K_M',providerId:'ollama',temperature:0.7,numCtx:8192,maxTokens:4096,thinking:true,toolsEnabled:true,searchProvider:'auto',searchUrl:'http://127.0.0.1:8081',searchLanguage:'en',safeSearch:1});
-  app.post('/api/native/connect',async(request:any)=>{const body=request.body;const endpoint=new URL(body.origin);if(endpoint.protocol!=='http:'||endpoint.hostname!=='127.0.0.1'||!/^\d+$/.test(endpoint.port)||typeof body.token!=='string'||!/^[a-f0-9]{64}$/.test(body.token))throw new Error('Invalid native bridge');const response=await fetch(endpoint.origin+'/status',{headers:{Authorization:'Bearer '+body.token},signal:AbortSignal.timeout(2000)});if(!response.ok)throw new Error('Native bridge authentication failed');const capabilities=await response.json();context.ephemeral.set('nativeBridge',{origin:endpoint.origin,token:body.token,terminal:!!capabilities.terminal,updated:Date.now()});return {connected:true};});
-  app.get('/api/health',async()=>({app:'OpenClaude',status:'ok',storage:'ready',version:'0.1.2',desktopOwned:process.env.OPENCLAUDE_DESKTOP_OWNED==='1'}));
-  registerNativeBroker(app,context);
-  registerModelRuntime(app,context);
+  if(options.desktopServices)app.post('/api/native/connect',async(request:any)=>{const body=request.body;const endpoint=new URL(body.origin);if(endpoint.protocol!=='http:'||endpoint.hostname!=='127.0.0.1'||!/^\d+$/.test(endpoint.port)||typeof body.token!=='string'||!/^[a-f0-9]{64}$/.test(body.token))throw new Error('Invalid native bridge');const response=await fetch(endpoint.origin+'/status',{headers:{Authorization:'Bearer '+body.token},signal:AbortSignal.timeout(2000)});if(!response.ok)throw new Error('Native bridge authentication failed');const capabilities=await response.json();context.ephemeral.set('nativeBridge',{origin:endpoint.origin,token:body.token,terminal:!!capabilities.terminal,updated:Date.now()});return {connected:true};});
+  app.get('/api/health',async()=>({app:'Horizon',status:'ok',storage:'ready',version:'0.2.0',desktopOwned:process.env.OPENCLAUDE_DESKTOP_OWNED==='1'}));
+  options.desktopServices?.(app,context);
   context.ephemeral.set('triggers',new Triggers(context));
   registerWebhooks(app,context);registerHttpRoutes(app,context);registerNotificationRoutes(app,context);
-  registerWebBrowser(app,context);
+  registerWebBrowser(app,context);registerPreviewTickets(app,context);
   app.get('/api/runtime/health',async()=>context.runtime!.health());
+  app.get('/api/runtime/office',async()=>office.snapshot());app.post('/api/runtime/office/setup',async()=>{await office.prepare();return office.snapshot();});
+  app.get('/api/runtime/documents',async()=>documents.snapshot());
+  app.post('/api/runtime/documents/setup',async()=>{await documents.prepare();return documents.snapshot();});
   app.post('/api/runtime/start',async()=>context.runtime!.startSetup());
   app.get('/api/runtime/setup',async()=>context.runtime!.setup);
   const buckets=new Set(['projects','conversations','artifacts','memories','plans','providers','settings','mcp']);
-  const sanitize=(bucket:string,entity:any)=>bucket==='providers'?{...entity,apiKey:undefined,hasApiKey:!!entity.apiKey}:bucket==='settings'?{...entity,searchApiKey:undefined,searchApiKeys:undefined,searchApiKeyProviders:Object.keys(entity.searchApiKeys??{}).filter(key=>entity.searchApiKeys[key])}:entity;
+  const sanitize=(bucket:string,entity:any)=>bucket==='providers'?publicProvider(entity):bucket==='settings'?{...entity,searchApiKey:undefined,searchApiKeys:undefined,searchApiKeyProviders:Object.keys(entity.searchApiKeys??{}).filter(key=>entity.searchApiKeys[key])}:entity;
   const bucketOf=(request:any)=>{const bucket=request.params.bucket;if(!buckets.has(bucket))throw new Error('Unknown resource');return bucket;};
   app.get('/api/entities/:bucket',async(request:any)=>{const bucket=bucketOf(request);const results=bucket==='mcp'?context.connectors!.list():request.query.q?store.search(bucket,String(request.query.q),request.query.summary==='true'):store.list(bucket,request.query.summary==='true');return results.map(entity=>sanitize(bucket,entity));});
   app.get('/api/entities/:bucket/:id',async(request:any,reply)=>{const bucket=bucketOf(request);const entity=bucket==='mcp'?context.connectors!.list().find(item=>item.id===request.params.id):store.get(bucket,request.params.id)??context.ephemeral.get(request.params.id);if(!entity)return reply.code(404).send({error:'Not found'});return sanitize(bucket,entity);});
-  app.post('/api/entities/:bucket',async(request:any)=>{const bucket=bucketOf(request);const body=request.body as Record<string,any>;if(!body||typeof body!=='object'||Array.isArray(body))throw new Error('Expected an object');if(bucket==='mcp')return context.connectors!.save(body);const id=String(body.id??randomUUID());const privatePrevious=bucket==='conversations'?context.ephemeral.get(id):undefined;const previous=store.get(bucket,id)??privatePrevious??{};if(privatePrevious?.incognito&&Object.hasOwn(body,'incognito')&&body.incognito!==true)throw new Error('Private conversations cannot be converted to saved chats');const entity:Record<string,any>&{id:string}={...previous,...body,id};if(bucket==='settings')validateSettings(entity);if(bucket==='providers'){if(previous.baseUrl&&previous.baseUrl!==entity.baseUrl&&!Object.hasOwn(body,'apiKey'))entity.apiKey='';if(entity.modelIds!==undefined&&(!Array.isArray(entity.modelIds)||entity.modelIds.length>200||entity.modelIds.some((id:any)=>typeof id!=='string'||!id.trim()||id.length>300)))throw new Error('Model IDs must be a list of up to 200 nonempty strings');if(entity.apiKey!==undefined&&(typeof entity.apiKey!=='string'||entity.apiKey.length>4096||/[\r\n]/.test(entity.apiKey)))throw new Error('Invalid provider API key');if(!['ollama','openai'].includes(entity.type))throw new Error('Unknown provider type');const url=new URL(entity.baseUrl);if(!['http:','https:'].includes(url.protocol)||url.username||url.password)throw new Error('Invalid provider URL');if(entity.apiKey&&url.protocol!=='https:'&&!['localhost','127.0.0.1','[::1]'].includes(url.hostname))throw new Error('Use HTTPS for remote providers with API keys');}if(bucket==='conversations'&&entity.incognito){context.ephemeral.set(id,entity);return entity;}return sanitize(bucket,store.put(bucket,entity));});
+  app.post('/api/entities/:bucket',async(request:any)=>{const bucket=bucketOf(request);const body=request.body as Record<string,any>;if(!body||typeof body!=='object'||Array.isArray(body))throw new Error('Expected an object');if(bucket==='mcp')return context.connectors!.save(body);const id=String(body.id??randomUUID());const privatePrevious=bucket==='conversations'?context.ephemeral.get(id):undefined;const previous=store.get(bucket,id)??privatePrevious??{};if(privatePrevious?.incognito&&Object.hasOwn(body,'incognito')&&body.incognito!==true)throw new Error('Private conversations cannot be converted to saved chats');const entity:Record<string,any>&{id:string}={...previous,...body,id};if(bucket==='settings')validateSettings(entity);if(bucket==='providers'){if((previous.baseUrl&&previous.baseUrl!==entity.baseUrl)||(previous.type&&previous.type!==entity.type)){if(!Object.hasOwn(body,'apiKey'))entity.apiKey='';if(!Object.hasOwn(body,'apiKeyEnv'))entity.apiKeyEnv='';}validateProvider(entity as any);Object.assign(entity,await protectProvider(context,entity as any,previous));}if(bucket==='conversations')Object.assign(entity,await validateConversationSkillConfiguration(context,entity));if(bucket==='conversations'&&entity.incognito){context.ephemeral.set(id,entity);return entity;}return sanitize(bucket,store.put(bucket,entity));});
   app.delete('/api/entities/:bucket/:id',async(request:any)=>{const bucket=bucketOf(request);if(bucket==='mcp'){await context.connectors!.remove(request.params.id);return {ok:true};}store.delete(bucket,request.params.id);context.ephemeral.delete(request.params.id);return {ok:true};});
-  registerProviderRoutes(app,context);
-  const tools=createTools(context);app.decorate('tools',tools);registerConnectors(app,context,tools);registerAgentRoutes(app,context,tools);registerGoalRoutes(app,context);
+  migrateProviderCredentials(context);registerProviderRoutes(app,context);registerConversationSkillRoutes(app,context);registerMessagePageRoutes(app,context);
+  const revisions=new FileRevisions(context);context.ephemeral.set('fileRevisions',revisions);app.addHook('onClose',async()=>{await revisions.close();});
+  const tools=createTools(context);void revisions.start().catch(error=>context.ephemeral.set('fileRevisionError',String(error)));app.decorate('tools',tools);registerEngineRoutes(app,context,tools);registerConnectors(app,context,tools);registerAgentRoutes(app,context,tools);registerRemoteRoutes(app,context,tools);registerEnvironmentRoutes(app,context);registerAnnotationRoutes(app,context,tools);registerGoalRoutes(app,context);
+  context.ephemeral.set('tools',tools);registerMigrations(app,context);registerUpdates(app,context);registerOnboarding(app,context);registerProfileRoutes(app,context);registerTeams(app,context);registerAutomationWorkspace(app,context);registerChannels(app,context);
   registerSkillRoutes(app,context);registerFileRoutes(app,context,tools);
   registerPluginRoutes(app,context);registerReflectRoutes(app,context);
   registerRepositoryRoutes(app,context);registerOfficialPluginRoutes(app,context);registerScheduleRoutes(app,context);
   app.get('/api/runs/:id/approvals',async(request:any)=>({approvals:pendingApprovals(context,request.params.id)}));
   app.post('/api/runs/:id/approvals/:approval',async(request:any)=>{if(typeof request.body?.approved!=='boolean')throw new Error('Choose approve or deny');return resolveApproval(context,request.params.id,request.params.approval,request.body.approved);});
   app.post('/api/search/credentials',async(request:any)=>{const body=request.body;if(!body||!['brave','tavily','custom'].includes(body.provider)||typeof body.apiKey!=='string'||body.apiKey.length>4096||/[\r\n]/.test(body.apiKey))throw new Error('Invalid search credentials');const settings=store.get('settings','main')!;const searchApiKeys={...settings.searchApiKeys,[body.provider]:body.apiKey};store.put('settings',{...settings,searchApiKeys});return {providers:Object.keys(searchApiKeys).filter(key=>searchApiKeys[key])};});
-  app.post('/api/search/test',async()=>{try{const result=await searchWeb(context,'OpenClaude',1);return {status:'connected',provider:result.provider,fallback:result.fallback,results:result.sources.length,engineWarnings:result.engineWarnings};}catch(error){context.ephemeral.set('searchHealth',{ready:false,error:(error as Error).message});throw error;}});
+  app.post('/api/search/test',async()=>{try{const result=await searchWeb(context,'Horizon',1);return {status:'connected',provider:result.provider,fallback:result.fallback,results:result.sources.length,engineWarnings:result.engineWarnings};}catch(error){context.ephemeral.set('searchHealth',{ready:false,error:(error as Error).message});throw error;}});
+  app.get('/api/runtime/continuity',async()=>({inference:context.ephemeral.get('modelRuntime')?.continuity??null,browserProfileError:context.ephemeral.get('browserProfileError')??null,native:context.ephemeral.get('nativeBridge')?{platform:context.ephemeral.get('nativeBridge').platform,shell:context.ephemeral.get('nativeBridge').shell,computer:context.ephemeral.get('nativeBridge').computer,browser:context.ephemeral.get('nativeBridge').browser,terminal:context.ephemeral.get('nativeBridge').terminal}:null}));
+  app.get('/api/runtime/processes',async()=>({processes:supervisor.snapshot(),registrationError:context.ephemeral.get('processRegistrationError')??null}));
+  app.addHook('onClose',async()=>supervisor.close());
   return app;
 }
