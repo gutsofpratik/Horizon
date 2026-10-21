@@ -31,7 +31,7 @@ const targets=platform==='win32'?['nsis']:platform==='darwin'?['app','dmg']:['de
 const config={bundle:{active:true,targets,icon:[resolve('src-tauri/icons/32x32.png'),resolve('src-tauri/icons/128x128.png'),resolve('src-tauri/icons/128x128@2x.png'),resolve('src-tauri/icons/icon.icns'),resolve('src-tauri/icons/icon.ico')],resources:{[backend+'/']:'backend/',[resolve('LICENSE')]:'LICENSE',[resolve('THIRD_PARTY_NOTICES.md')]:'THIRD_PARTY_NOTICES.md'}}};
 if(platform==='win32'&&(process.env.OPENCLAUDE_SIGN_CERT_SHA1||process.env.OPENCLAUDE_SIGN_DLIB))config.bundle.windows={allowDowngrades:false,digestAlgorithm:'sha256',signCommand:{cmd:'powershell.exe',args:['-NoProfile','-NonInteractive','-File',resolve('scripts/release/Sign-Release.ps1'),'-Path','%1']}};
 
-const configFile=join(stage,'bundle.json');await writeFile(configFile,JSON.stringify(config));await run(process.execPath,[cli,'build','--config',configFile,'--locked'],{env:{...process.env,OPENCLAUDE_EDITION:'desktop'}});
+const configFile=join(stage,'bundle.json');await writeFile(configFile,JSON.stringify(config));await run(process.execPath,[cli,'build','--ci','--config',configFile,'--','--locked'],{env:{...process.env,OPENCLAUDE_EDITION:'desktop'}});
 const zip=new JSZip();for(const file of files){const mode=(await stat(join(stage,file.path))).mode;zip.file(file.path,await readFile(join(stage,file.path)),{unixPermissions:mode});}zip.file('backend/runtime-manifest.json',await readFile(join(backend,'runtime-manifest.json')));
 // Installer binaries are emitted by Tauri; portable archives include the native executable or app bundle.
 const targetRoot=resolve(process.env.CARGO_TARGET_DIR??'src-tauri/target','release');

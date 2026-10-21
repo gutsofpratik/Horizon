@@ -10,6 +10,7 @@ jobs:
       matrix:
         os: [windows-latest, macos-14, ubuntu-22.04]
     runs-on: ${{ matrix.os }}
+    timeout-minutes: 90
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -17,6 +18,12 @@ jobs:
           node-version: '22'
           cache: npm
       - uses: dtolnay/rust-toolchain@stable
+      - uses: Swatinem/rust-cache@v2
+        with:
+          workspaces: |
+            vendor/AionCore -> ../../.local/engine-target
+            src-tauri -> target
+          cache-on-failure: true
       - name: Linux native dependencies
         if: runner.os == 'Linux'
         run: sudo apt-get update && sudo apt-get install -y libwebkit2gtk-4.1-dev build-essential curl wget file libxdo-dev libssl-dev librsvg2-dev libayatana-appindicator3-dev libxkbcommon-dev libxcb-randr0-dev libpipewire-0.3-dev libdbus-1-dev
