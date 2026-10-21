@@ -20,7 +20,7 @@ test('tool operating guide exposes actionable categories and defers schema disco
  try{
   const initial=relevantDefinitions(registry.definitions(undefined,false,ctx),'Open the saved HTML in the browser','chat'),guide=toolGuide(registry.tools.values(),ctx,initial);
   for(const tool of initial)assert.ok(guide.includes(tool.function.name+': Required arguments:'),tool.function.name+' is missing its operating schema');
-  assert.match(guide,/Available on demand/);assert.match(guide,/browser: Required arguments:/);assert.match(guide,/Native terminal and computer control are available in OpenClaude Desktop/);
+  assert.match(guide,/Available on demand/);assert.match(guide,/browser: Required arguments:/);assert.match(guide,/Native terminal and computer control are available in Horizon Desktop/);
   assert.ok(!guide.includes('browser_open_file:'));assert.ok(!guide.includes('artifact_create:'));
   const browser=initial.find(tool=>tool.function.name==='browser')!;assert.ok(browser);assert.match(JSON.stringify(browser.function.parameters),/OPEN an existing file\/artifact/);assert.ok(initial.some(tool=>tool.function.name==='discover_tools'));
   const prompt=buildContext(app,{id:'chat',messages:[{role:'user',content:'Open the saved HTML'}]},guide,150000)[0].content;assert.match(prompt,/browser: Required arguments:/);assert.ok(!prompt.includes('browser_open_file:'));
