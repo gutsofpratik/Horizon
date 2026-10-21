@@ -2,7 +2,7 @@
 
 A local-first AI workspace with its own model loader, an embedded browser, Windows terminal and computer tools, versioned artifacts, documents, skills, teams, and automations.
 
-**Windows preview · 0.2.0 · formerly OpenClaude**
+**Horizon workspace preview · formerly OpenClaude**
 
 [Releases](https://github.com/gutsofpratik/OpenClaude/releases) · [Models and hardware guidance](https://github.com/gutsofpratik/OpenCloud-Models) · [Skills library](https://github.com/gutsofpratik/OpenClaude-Skills) · [Issues](https://github.com/gutsofpratik/OpenClaude/issues)
 
@@ -10,11 +10,11 @@ A local-first AI workspace with its own model loader, an embedded browser, Windo
 
 | Package | Use |
 | --- | --- |
-| [Windows installer](https://github.com/gutsofpratik/OpenClaude/releases/download/v0.2.0/Horizon-0.2.0-windows-x64-setup.exe) | Installs Horizon and Start-menu shortcuts. Includes the backend, Node and Python base runtimes. |
-| [Portable ZIP](https://github.com/gutsofpratik/OpenClaude/releases/download/v0.2.0/Horizon-0.2.0-windows-x64-portable.zip) | Extract the entire folder and run Horizon.exe. Keep the backend folder beside it. |
-| [SHA-256 checksums](https://github.com/gutsofpratik/OpenClaude/releases/download/v0.2.0/SHA256SUMS.txt) | Verify downloaded assets against the release checksums. |
+| [Windows installer](https://github.com/gutsofpratik/OpenClaude/releases/download/v0.3.0/Horizon-0.3.0-windows-x64-setup.exe) | Installs Horizon and Start-menu shortcuts. Includes the backend, Node and Python base runtimes. |
+| [Portable ZIP](https://github.com/gutsofpratik/OpenClaude/releases/download/v0.3.0/Horizon-0.3.0-windows-x64-portable.zip) | Extract the entire folder and run Horizon.exe. Keep the backend folder beside it. |
+| [SHA-256 checksums](https://github.com/gutsofpratik/OpenClaude/releases/download/v0.3.0/SHA256SUMS.txt) | Verify downloaded assets against the release checksums. |
 
-This preview is **unsigned**; it does not establish a verified Windows publisher. macOS and Linux desktop packages are disabled. Models, API subscriptions, account credentials and GPU drivers are not bundled.
+This preview is **unsigned**; it does not establish a verified Windows publisher. macOS and Linux packaging targets are enabled as previews; native builds and live platform checks are required before claiming verified support. Models, API subscriptions, account credentials and GPU drivers are not bundled.
 
 ## Windows desktop preview
 
@@ -55,6 +55,28 @@ Import, create and add skills from the top actions. Yours contains installed ski
 These are actual Windows desktop captures. Setup screens show configuration, not evidence of completed autonomous tasks. Workflow captures are added only after their tools and outputs have been observed.
 
 ## First run
+
+### Updated workspace controls
+
+Click your profile name for Settings and profile switching. Model defaults open separately from All Models and connections. Inference sessions shows the loaded model, device and context, with an Eject action.
+
+Capabilities are grouped by purpose. Agents separates assistant workflows, external agents and local inference. Teams focuses on assigned members and their tasks. Memory lists saved facts and provides Add, Edit and Delete controls.
+
+Plus selects a workflow inside the composer. Its matching creation guidance loads automatically, and the chip clears after sending. The project picker lists saved projects and provides Create new project.
+
+Model downloads show byte progress and support pause, resume and cancellation. Interrupted downloads remain resumable. Publisher SHA-256 checks are applied when available.
+
+### Local inference API
+
+Open Settings → API endpoints, create a key, choose a port (default 1234), and start the endpoint. Configure an OpenAI-compatible client with `http://127.0.0.1:1234/v1` and the generated key. `GET /v1/models` lists the loaded model; `POST /v1/chat/completions` supports ordinary and streamed responses.
+
+The inference-only listener accepts loopback connections. It does not expose workspace routes, execute client tools, switch models automatically or fall back to a cloud provider. Keys and the listener reset when Horizon exits.
+
+### Remote pairing
+
+Save the HTTPS origin of a private tunnel forwarding to local port 3001 in Settings → Remote control. Choose a saved conversation and explicitly granted tools, then create a pairing QR/link. Scan it from the other device and confirm pairing. Codes expire after five minutes and can be used once. Revoke a device to stop its access.
+
+Horizon does not provision a tunnel. The host must remain available. Remote pairing uses a limited interface without requiring the host's local profile password; full workspace routes stay blocked through forwarded connections.
 
 1. Install the Windows package, or extract the portable folder and launch Horizon.exe.
 2. Create a local profile: choose an icon, enter your own name, a unique login ID and a password of at least eight characters.
@@ -172,7 +194,7 @@ The 0.2.0 main automated run passed **360 tests, with zero failures and zero can
 
 The main automated suite covers API authentication, profiles, provider contracts, tool validation/recovery, approvals, skills, memory/privacy, context/compaction, paging, streams, schedules, lifecycle and artifact/file behavior. Release tests cover payload isolation, checksums and signing configuration. Passing mocked/contract tests does not establish live cloud, messaging, every local model, or every native GUI workflow support.
 
-Runtime integration tests require actual configured dependencies and accounts. Docker tests require a running Docker engine and prepared worker image; GGUF tests require OPENCLAUDE_TEST_GGUF; OfficeCLI tests require OFFICECLI_TEST_BINARY. These checks are reported separately and must not be counted as live passes when skipped. macOS/Linux desktop release workflows stay disabled.
+Runtime integration tests require actual configured dependencies and accounts. Docker tests require a running Docker engine and prepared worker image; GGUF tests require OPENCLAUDE_TEST_GGUF; OfficeCLI tests require OFFICECLI_TEST_BINARY. These checks are reported separately and must not be counted as live passes when skipped. Native packaging workflows now target Windows, macOS and Linux; native GUI verification is required separately for each platform.
 
 The package builder uses a fresh isolated stage, pinned dependency hashes and payload validation, then emits the Windows installer, portable ZIP and SHA256SUMS.txt. Code signing requires a publisher-controlled certificate or Microsoft Artifact Signing configuration; the --unsigned flag explicitly builds a preview without claiming a verified publisher.
 
