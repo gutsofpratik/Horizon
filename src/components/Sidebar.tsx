@@ -17,9 +17,6 @@ export function Sidebar({view,conversations,selectedId,onView,onNew,onOpen,onSea
    <button className={`nav-item ${view==='projects'?'selected':''}`} onClick={()=>onView('projects')}><Folder size={18}/>Projects</button>
    <button className={`nav-item ${view==='artifacts'?'selected':''}`} onClick={()=>onView('artifacts')}><Shapes size={18}/>Artifacts</button>
    <button className={`nav-item ${view==='skills'?'selected':''}`} onClick={()=>onView('skills')}><SlidersHorizontal size={18}/>Customize</button>
-   <div className="sidebar-nav-label">Workspaces</div>
-   <button className={`nav-item ${view==='teams'?'selected':''}`} onClick={()=>onView('teams')}><Users size={18}/>Teams</button>
-   <button className={`nav-item ${view==='automations'?'selected':''}`} onClick={()=>onView('automations')}><CalendarClock size={18}/>Automations</button>
   </nav>
   <div className="recents-label"><span>Recents</span><button className="icon-button" aria-label="Search history" onClick={onSearch}><Search size={16}/></button></div>
   <div className="conversation-list">{conversations.length===0?<div className="history-empty">Your conversations will appear here.</div>:conversations.map((conversation:any)=><div className={`history-row ${selectedId===conversation.id?'active':''}`} key={conversation.id}><button className="history-name" onClick={()=>onOpen(conversation.id)}>{conversation.pinned&&<Pin size={12}/>}<span>{conversation.title||'New conversation'}</span></button><div className="history-actions"><button aria-label={`Pin ${conversation.title}`} onClick={()=>onPin(conversation)}><Pin size={12}/></button><button aria-label={`Delete ${conversation.title}`} onClick={()=>onDelete(conversation)}><Trash2 size={12}/></button></div></div>)}</div>
