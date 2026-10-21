@@ -61,9 +61,11 @@ export async function createApp(options:{dataDirectory:string;dbPath?:string;roo
   context.runtime=new SandboxManager(context);app.addHook('onClose',async()=>context.runtime!.close());
   const office=new OfficeRuntime(context);context.ephemeral.set('officeRuntime',office);app.addHook('onClose',async()=>office.close());
   const documents=new DocumentRuntime(context);context.ephemeral.set('documentRuntime',documents);app.addHook('onClose',async()=>documents.close());
+  app.get('/api/runtime/readiness',async()=>({ready:office.ready&&documents.ready,office:office.snapshot(),pdf:documents.snapshot()}));
+  app.post('/api/runtime/readiness/repair',async()=>{void Promise.allSettled([office.prepare(),documents.prepare()]);return {preparing:true};});
   app.addHook('onRequest',async(request,reply)=>{
     const remotePath=/^\/api\/remote\/(?:pair(?:\?|$)|session(?:\?|$)|messages(?:\?|$)|events(?:\?|$)|cancel(?:\?|$)|approvals(?:\/|\?|$))/.test(request.url);
-    const publicOrigin=process.env.OPENCLAUDE_REMOTE_ORIGIN;
+    const publicOrigin=store.get('remote_config','main')?.origin??process.env.OPENCLAUDE_REMOTE_ORIGIN;
     const safeRemoteRead=['GET','HEAD'].includes(request.method);const remoteAsset=safeRemoteRead&&/^\/(?:remote(?:\?|$)|assets\/)/.test(request.url);let trustedRemote=false;
     if(publicOrigin&&(remotePath||remoteAsset))try{const trusted=new URL(publicOrigin);trustedRemote=trusted.protocol==='https:'&&trusted.origin===publicOrigin&&(request.headers.origin===trusted.origin||!request.headers.origin&&safeRemoteRead)&&(request.headers.host===trusted.host||request.headers['x-forwarded-host']===trusted.host)&&['127.0.0.1','::1','::ffff:127.0.0.1'].includes(request.socket.remoteAddress??'');}catch{}
     if(trustedRemote)return; // Only paired routes; each still authenticates its grant or one-time code.
