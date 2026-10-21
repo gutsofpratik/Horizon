@@ -436,6 +436,8 @@ async fn browser_status(
 ) -> Result<serde_json::Value, String> {
     trusted(&view)?;
     let mut value = browser_state(&app, &state);
+    #[cfg(windows)]
+    {
     let id = state.browser.lock().unwrap().clone();
     if let Some(window) = id.and_then(|id| app.get_webview(&id)) {
         let (sender, receiver) = std::sync::mpsc::channel();
@@ -463,6 +465,15 @@ async fn browser_status(
         value["canGoBack"] = serde_json::json!(flags.0);
         value["canGoForward"] = serde_json::json!(flags.1);
         value["zoom"] = serde_json::json!(flags.2);
+    }
+    }
+    #[cfg(not(windows))]
+    {
+        value["historyStatusAvailable"] = serde_json::json!(false);
+        if let Some(window) = state.browser.lock().unwrap().clone().and_then(|id| app.get_webview(&id)) {
+            let zoom = browser_tools::evaluate(window, "({zoom:Number.parseFloat(document.documentElement.style.zoom)||1})".into()).await?;
+            value["zoom"] = zoom["zoom"].clone();
+        }
     }
     Ok(value)
 }
