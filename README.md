@@ -13,8 +13,8 @@ Choose the package for your operating system from the release assets. Models, su
 | Platform | Package | Installation |
 | --- | --- | --- |
 | Windows x64 | Installer or portable ZIP | Run the installer, or extract the entire portable folder and launch `Horizon.exe`. Keep its backend folder beside it. WebView2 is required. |
-| macOS 14+ | DMG or application ZIP | Open the DMG and move Horizon to Applications, or extract the application ZIP. Native computer interaction requires Screen Recording and Accessibility permissions. |
-| Linux x64 | Debian package or AppImage | Install the `.deb` on a compatible Debian/Ubuntu system, or make the AppImage executable and run it. Native computer input currently targets X11; Wayland input is unsupported. |
+| macOS 14+ Apple Silicon | DMG or application ZIP | Open the DMG and move Horizon to Applications, or extract the application ZIP. Native computer interaction requires Screen Recording and Accessibility permissions. |
+| Linux x64 (Ubuntu 24.04 baseline) | Debian package or AppImage | Install the `.deb` on Ubuntu 24.04 or a system with compatible native libraries, or make the AppImage executable and run it. Native computer input currently targets X11; Wayland input is unsupported. |
 
 ### Windows
 
@@ -22,7 +22,7 @@ Use the installer for shortcuts and a managed installation. The portable ZIP run
 
 ### macOS
 
-Install Horizon in Applications, launch it and create a local profile. Choose the package matching your processor. Approve operating-system permissions only for features you intend to use. Unsigned packages may be restricted by your security policy; verified publisher signing is not claimed. Source-build instructions are below.
+Install Horizon in Applications, launch it and create a local profile. The bundled macOS package targets Apple Silicon (arm64); an Intel build is not included. Approve operating-system permissions only for features you intend to use. Unsigned packages may be restricted by your security policy; verified publisher signing is not claimed. Source-build instructions are below.
 
 ### Linux
 
