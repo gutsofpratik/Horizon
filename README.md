@@ -1,20 +1,57 @@
 # Horizon
 
-A local-first AI workspace with its own model loader, an embedded browser, Windows terminal and computer tools, versioned artifacts, documents, skills, teams, and automations.
+An AI workspace for creating files, building software, researching ideas and getting work done—with local models or a provider you choose.
 
-**Horizon workspace preview · formerly OpenClaude**
+Horizon brings conversations, editable artifacts, Office and PDF files, browser interaction, a real terminal, computer tools, reusable skills, agents and automations into one workspace. Work stays visible through previews, generated files, task progress and approval requests.
 
-[Releases](https://github.com/gutsofpratik/OpenClaude/releases) · [Models and hardware guidance](https://github.com/gutsofpratik/OpenCloud-Models) · [Skills library](https://github.com/gutsofpratik/OpenClaude-Skills) · [Issues](https://github.com/gutsofpratik/OpenClaude/issues)
+[Download releases](https://github.com/gutsofpratik/OpenClaude/releases) · [Model recommendations](https://github.com/gutsofpratik/OpenCloud-Models) · [Skills library](https://github.com/gutsofpratik/OpenClaude-Skills) · [Report an issue](https://github.com/gutsofpratik/OpenClaude/issues)
 
-## Downloads
+## Install Horizon
 
-| Package | Use |
+Choose the package for your operating system from the release assets. Models, subscriptions and GPU drivers are downloaded separately. Packages are previews: build success and live device verification are reported separately. Unsigned packages do not establish a verified publisher.
+
+| Platform | Package | Installation |
+| --- | --- | --- |
+| Windows x64 | Installer or portable ZIP | Run the installer, or extract the entire portable folder and launch `Horizon.exe`. Keep its backend folder beside it. WebView2 is required. |
+| macOS 14+ | DMG or application ZIP | Open the DMG and move Horizon to Applications, or extract the application ZIP. Native computer interaction requires Screen Recording and Accessibility permissions. |
+| Linux x64 | Debian package or AppImage | Install the `.deb` on a compatible Debian/Ubuntu system, or make the AppImage executable and run it. Native computer input currently targets X11; Wayland input is unsupported. |
+
+### Windows
+
+Use the installer for shortcuts and a managed installation. The portable ZIP runs from its extracted folder; launching its executable without the bundled backend will fail. Docker is optional for isolated workloads and is not required for local Office/PDF generation.
+
+### macOS
+
+Install Horizon in Applications, launch it and create a local profile. Choose the package matching your processor. Approve operating-system permissions only for features you intend to use. Unsigned previews may be restricted by your security policy; verified publisher signing is not claimed. Source-build instructions are below.
+
+### Linux
+
+Install a Debian package with `sudo apt install ./Horizon-<version>-linux-x64.deb`. For an AppImage, run `chmod +x Horizon-<version>-linux-x64.AppImage`, then launch it. AppImage/FUSE and desktop libraries must be available on your distribution; use a native package where AppImage execution is restricted. Computer tools require a supported graphical session. Browser and terminal availability are listed separately.
+
+### First run
+
+1. Create a profile with your name, local login ID and password. Additional profiles keep separate conversations, memories and settings.
+2. Allow required Office/PDF services to prepare. Setup shows progress and repair actions when dependencies cannot be installed.
+3. Connect a provider or download/import a supported model. Desktop includes model management; web uses configured model connections.
+4. Choose a model and send a message. Select a workflow from Plus for a particular output, attach reference files or choose a project.
+5. Review generated files and previews in the workspace. Choose which actions require approval through the permission selector.
+
+Click your profile name for Settings and profile switching. A profile password gates application access; it is not database/disk encryption, and there is no cloud password-recovery service.
+
+## Examples of work you can do
+
+| Start with | Work toward |
 | --- | --- |
-| [Windows installer](https://github.com/gutsofpratik/OpenClaude/releases/download/v0.3.1/Horizon-0.3.1-windows-x64-setup.exe) | Installs Horizon and Start-menu shortcuts. Includes the backend, Node and Python base runtimes. |
-| [Portable ZIP](https://github.com/gutsofpratik/OpenClaude/releases/download/v0.3.1/Horizon-0.3.1-windows-x64-portable.zip) | Extract the entire folder and run Horizon.exe. Keep the backend folder beside it. |
-| [SHA-256 checksums](https://github.com/gutsofpratik/OpenClaude/releases/download/v0.3.1/SHA256SUMS.txt) | Verify downloaded assets against the release checksums. |
+| A brief, notes or reference documents | A Word document, presentation or PDF you can inspect, revise and download. |
+| Figures or an existing spreadsheet | A structured workbook with sheets, formatting, formulas and supported charts; inspect resulting values and formulas. |
+| An idea for a page, app or diagram | An editable artifact with preview/source views and revisions, or a workspace code project. |
+| A research question | Web searches, fetched sources and a sourced answer, with deeper search/research workflows when selected. |
+| A repository or folder | Code inspection, actual shell commands, changes and file organization within granted permissions. |
+| A website task | Navigation and interaction in owned browser tabs, plus desktop interaction where model/host support it. |
+| A larger objective | An approval-gated plan, persistent goal, delegated team tasks or a scheduled workflow. |
 
-This preview is **unsigned**; it does not establish a verified Windows publisher. macOS and Linux packaging targets are enabled as previews; native builds and live platform checks are required before claiming verified support. Models, API subscriptions, account credentials and GPU drivers are not bundled.
+Results depend on the chosen model, enabled tools and ready runtimes. Horizon reports unavailable operations. Installing a skill does not make its required tool executable.
+
 
 ## Windows desktop preview
 
@@ -54,38 +91,6 @@ Import, create and add skills from the top actions. Yours contains installed ski
 
 These are actual Windows desktop captures. Setup screens show configuration, not evidence of completed autonomous tasks. Workflow captures are added only after their tools and outputs have been observed.
 
-## First run
-
-### Updated workspace controls
-
-Click your profile name for Settings and profile switching. Model defaults open separately from All Models and connections. Inference sessions shows the loaded model, device and context, with an Eject action.
-
-Capabilities are grouped by purpose. Agents separates assistant workflows, external agents and local inference. Teams focuses on assigned members and their tasks. Memory lists saved facts and provides Add, Edit and Delete controls.
-
-Plus selects a workflow inside the composer. Its matching creation guidance loads automatically, and the chip clears after sending. The project picker lists saved projects and provides Create new project.
-
-Model downloads show byte progress and support pause, resume and cancellation. Interrupted downloads remain resumable. Publisher SHA-256 checks are applied when available.
-
-### Local inference API
-
-Open Settings → API endpoints, create a key, choose a port (default 1234), and start the endpoint. Configure an OpenAI-compatible client with `http://127.0.0.1:1234/v1` and the generated key. `GET /v1/models` lists the loaded model; `POST /v1/chat/completions` supports ordinary and streamed responses.
-
-The inference-only listener accepts loopback connections. It does not expose workspace routes, execute client tools, switch models automatically or fall back to a cloud provider. Keys and the listener reset when Horizon exits.
-
-### Remote pairing
-
-Save the HTTPS origin of a private tunnel forwarding to local port 3001 in Settings → Remote control. Choose a saved conversation and explicitly granted tools, then create a pairing QR/link. Scan it from the other device and confirm pairing. Codes expire after five minutes and can be used once. Revoke a device to stop its access.
-
-Horizon does not provision a tunnel. The host must remain available. Remote pairing uses a limited interface without requiring the host's local profile password; full workspace routes stay blocked through forwarded connections.
-
-1. Install the Windows package, or extract the portable folder and launch Horizon.exe.
-2. Create a local profile: choose an icon, enter your own name, a unique login ID and a password of at least eight characters.
-3. Configure a provider in Settings, or import/download a supported local model in the desktop model library.
-4. Select the model in chat and send a message. A local model loads when needed and remains available until switched or released by the runtime.
-5. Use Plus to attach files, choose a workflow or access skills. Use the workspace control to open browser, terminal, computer and generated-file panels where supported.
-
-The first profile adopts the previous OpenClaude data directory. Additional profiles have their own data folders, conversations, memories and settings. The profile button in the sidebar opens the profile manager. Switching profiles restarts the desktop host into the selected store. Passwords are salted and scrypt-hashed; a profile password gates application access, **it is not full-disk/database encryption**. There is no cloud account or password-recovery service.
-
 ## What you can do
 
 ### Chat, context and memory
@@ -100,7 +105,7 @@ The first profile adopts the previous OpenClaude data directory. Additional prof
 
 ### Models and providers
 
-The desktop loader remains independent of the agent engine. GGUF models use llama.cpp, including configured Prism runtime variants. Supported safetensors models use the Transformers runtime. MLX is represented for compatible Apple Silicon environments but **no Mac desktop package is supported in this release**. A format alone does not guarantee that its architecture, quantization, vision projector or chat template is supported.
+The desktop loader remains independent of the agent engine. GGUF models use llama.cpp, including configured Prism runtime variants. Supported safetensors models use the Transformers runtime. MLX is available to compatible Apple Silicon runtimes; check model architecture and runtime support separately from application packaging. A format alone does not guarantee that its architecture, quantization, vision projector or chat template is supported.
 
 The model library provides discovery/downloads from upstream sources, local-file import, Ollama import, context configuration, GPU placement controls, flash attention where supported and loading guardrails. Runtime downloads are explicit and checksummed where the runtime manifest supplies checksums. Memory use includes KV cache and runtime buffers in addition to weight-file size.
 
@@ -142,13 +147,15 @@ Explicit Plan mode is read-only until the user approves the exact plan through i
 
 Teams provides leader/member roles, shared tasks, member backend/model configuration, progress and member-specific permissions. Shared-file conflict handling, cancellation and bounded concurrency are part of the execution contracts. Starting team work still requires user authorization.
 
-### Automations and messaging
+### Automations and connected applications
 
 The automation workspace manages schedules, queues, webhooks, channels, run history and errors. Jobs can target existing or fresh conversations with an assistant/backend/model, workspace and permission scope. Timezone-aware schedules, missed-run handling, bounded retries and deduplication are represented in persistent records.
 
 Channel adapters include **Telegram, Lark, DingTalk, Discord and Slack**. WeChat is excluded. Each channel requires its own account/configuration, authorized users/chats and supported transport. A bot credential does not grant unrestricted desktop access. Optional tray operation keeps local automation running; fully quitting stops local jobs. Hosted execution while the computer is off is not provided.
 
-### Agent ecosystem status
+Local inference endpoints let other applications use your loaded model. Optional remote access connects a paired device to a permitted conversation through your configured private HTTPS connection. Regular chat, creation and local work do not require these integrations.
+
+### Built-in and external agents
 
 The pinned AionCore/aionrs backend and external-agent catalog are included behind an authenticated private loopback boundary. Settings exposes installation, authentication, reported models/modes, session capabilities and diagnostics. Catalog entries are not automatically installed, signed in or live-verified.
 
@@ -165,7 +172,7 @@ The pinned AionCore/aionrs backend and external-agent catalog are included behin
 
 ## Build from source
 
-Prerequisites: Windows x64, Node.js 22.22 or newer, Rust/Cargo, MSVC C++ build tools, and WebView2. A compatible Python base interpreter is needed for local runtime setup when not using the bundled release. CUDA requires a compatible NVIDIA driver. The engine build uses pinned upstream source and its Cargo lockfiles.
+Prerequisites: Node.js 22.22 or newer and Rust/Cargo. Windows needs MSVC C++ build tools and WebView2; macOS needs Xcode command-line tools; Linux needs WebKitGTK 4.1/GTK 3 and the native libraries listed in the packaging workflow. A compatible Python base interpreter is needed for local runtime setup when not using the bundled release. CUDA requires a compatible NVIDIA driver. The engine build uses pinned upstream source and its Cargo lockfiles.
 
 ~~~powershell
 npm ci
@@ -190,7 +197,7 @@ npm run test:runtime
 npm run release:package -- --unsigned
 ~~~
 
-The 0.2.0 main automated run passed **360 tests, with zero failures and zero cancellations**. Type checking and edition-boundary checks passed. Optional live Docker/model/Office checks are not included in this count.
+The 0.3.1 main automated run passed **366 tests, with zero failures and zero cancellations**. Type checking and edition-boundary checks passed. Optional live Docker/model/Office checks are not included in this count.
 
 The main automated suite covers API authentication, profiles, provider contracts, tool validation/recovery, approvals, skills, memory/privacy, context/compaction, paging, streams, schedules, lifecycle and artifact/file behavior. Release tests cover payload isolation, checksums and signing configuration. Passing mocked/contract tests does not establish live cloud, messaging, every local model, or every native GUI workflow support.
 
@@ -211,12 +218,6 @@ The package builder uses a fresh isolated stage, pinned dependency hashes and pa
 | Docker runtime unavailable | Start Docker and prepare the optional sandbox; ordinary chat/local documents remain separate. |
 | Profile switch fails | Keep the whole portable folder together; profile switching needs the desktop native restart permission. |
 | Model is slow | Inspect prompt-processing versus generation metrics, GPU offload, KV cache and available RAM/VRAM. Weight-file size is not total runtime memory. |
-
-## Contributing and licensing
-
-Use a branch, describe the problem and resulting behavior, and include focused regression coverage for behavior changes. Run consolidated checks before a release. Report actual runtime/provider/platform details and redact credentials and personal chat contents from logs/screenshots.
-
-Horizon application code is MIT-licensed; see [LICENSE](LICENSE). Third-party components retain their licenses; see [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md) and vendored notices. Model licenses are separate. Horizon is independent and is not an official Anthropic product or client. The existing GitHub repository and skills/model repository slugs are retained during the product rename.
 
 ## Full callable tool inventory
 
@@ -743,3 +744,10 @@ The list below is generated from the application's registered tool metadata. It 
 | <code>workflow_replay</code> | Replay a recorded non-interactive workflow through normal tool permissions. Interactive recordings require fresh browser/computer observations and are returned for guided replay in |
 
 </details>
+
+## Contributing and licensing
+
+Use a branch, describe the problem and resulting behavior, and include focused regression coverage for behavior changes. Run consolidated checks before a release. Report actual runtime/provider/platform details and redact credentials and personal chat contents from logs/screenshots.
+
+Horizon application code is MIT-licensed; see [LICENSE](LICENSE). Third-party components retain their licenses; see [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md) and vendored notices. Model licenses are separate. Horizon is independent and is not an official Anthropic product or client. The existing GitHub repository and skills/model repository slugs are retained during the product rename.
+
