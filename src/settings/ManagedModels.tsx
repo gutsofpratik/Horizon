@@ -5,6 +5,7 @@ import {FolderOpen,Download,Settings2,Trash2} from 'lucide-react';
 import {invoke} from '@tauri-apps/api/core';import {api} from '../app/api';
 export function ManagedModels({settings,onChange,onRefresh,onError}:any){
  const [library,setLibrary]=useState<any>({models:[],status:'idle'}),[runtime,setRuntime]=useState<any>(null),[busy,setBusy]=useState(''),[editing,setEditing]=useState<any>(null),[format,setFormat]=useState('gguf'),[path,setPath]=useState('');
+ const [defaultsOpen,setDefaultsOpen]=useState(false);
  const [ollama,setOllama]=useState<any[]|null>(null);const [modelError,setModelError]=useState('');
  const refresh=async()=>{const [models,engines]=await Promise.all([api('/model-library'),api('/model-library/runtime')]);setLibrary(models);setRuntime(engines);};
  useEffect(()=>{void refresh().catch(error=>onError(error.message));},[]);
@@ -13,7 +14,7 @@ export function ManagedModels({settings,onChange,onRefresh,onError}:any){
  const add=()=>action('Adding model',async()=>{let selected=path;if(window.claudeDesktop)selected=await invoke<string>('model_pick',{format});if(selected)await api('/model-library/import',{method:'POST',body:JSON.stringify({path:selected,configuration:{engine:'auto'}})});});
  const editField=(key:string,value:any)=>setEditing({...editing,configuration:{...editing.configuration,[key]:value}});
  return <section>
-  <ModelDefaults settings={settings} onChange={onChange}/><h3>All Models</h3><p className="form-note">Add model files and configure them here. Choose a model in chat; it loads automatically when you send a prompt and stays ready between messages.</p>
+  <div className="settings-section-heading"><h3>All models</h3><button className="secondary-button" onClick={()=>setDefaultsOpen(true)}><Settings2 size={14}/>Model defaults</button></div>{defaultsOpen&&<div className="modal-backdrop"><div className="dialog model-defaults-dialog" role="dialog" aria-modal="true" aria-label="Model defaults"><div className="dialog-heading"><h2>Model defaults</h2><button className="secondary-button" onClick={()=>setDefaultsOpen(false)}>Done</button></div><ModelDefaults settings={settings} onChange={onChange}/></div></div>}<p className="form-note">Add model files and configure them here. Choose a model in chat; it loads automatically when you send a prompt and stays ready between messages.</p>
   {runtime&&<p className="form-note">Engines: llama.cpp · Transformers{runtime.engines?.find((engine:any)=>engine.id==='mlx')?.supported?' · MLX (Apple Silicon)':''}. No inference server is started.</p>}
   <div className="model-load-toolbar"><select aria-label="Local model format" value={format} onChange={event=>setFormat(event.target.value)}><option value="gguf">GGUF file</option><option value="safetensors">Safetensors / MLX folder</option></select>
    {!window.claudeDesktop&&<input aria-label="Local model path" placeholder="Model file or folder path" value={path} onChange={event=>setPath(event.target.value)}/>}
