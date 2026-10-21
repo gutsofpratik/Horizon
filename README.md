@@ -10,9 +10,9 @@ A local-first AI workspace with its own model loader, an embedded browser, Windo
 
 | Package | Use |
 | --- | --- |
-| [Windows installer](https://github.com/gutsofpratik/OpenClaude/releases/download/v0.3.0/Horizon-0.3.0-windows-x64-setup.exe) | Installs Horizon and Start-menu shortcuts. Includes the backend, Node and Python base runtimes. |
-| [Portable ZIP](https://github.com/gutsofpratik/OpenClaude/releases/download/v0.3.0/Horizon-0.3.0-windows-x64-portable.zip) | Extract the entire folder and run Horizon.exe. Keep the backend folder beside it. |
-| [SHA-256 checksums](https://github.com/gutsofpratik/OpenClaude/releases/download/v0.3.0/SHA256SUMS.txt) | Verify downloaded assets against the release checksums. |
+| [Windows installer](https://github.com/gutsofpratik/OpenClaude/releases/download/v0.3.1/Horizon-0.3.1-windows-x64-setup.exe) | Installs Horizon and Start-menu shortcuts. Includes the backend, Node and Python base runtimes. |
+| [Portable ZIP](https://github.com/gutsofpratik/OpenClaude/releases/download/v0.3.1/Horizon-0.3.1-windows-x64-portable.zip) | Extract the entire folder and run Horizon.exe. Keep the backend folder beside it. |
+| [SHA-256 checksums](https://github.com/gutsofpratik/OpenClaude/releases/download/v0.3.1/SHA256SUMS.txt) | Verify downloaded assets against the release checksums. |
 
 This preview is **unsigned**; it does not establish a verified Windows publisher. macOS and Linux packaging targets are enabled as previews; native builds and live platform checks are required before claiming verified support. Models, API subscriptions, account credentials and GPU drivers are not bundled.
 
