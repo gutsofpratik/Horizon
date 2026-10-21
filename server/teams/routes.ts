@@ -8,6 +8,7 @@ export function registerTeams(app:FastifyInstance,context:AppContext){const serv
  app.post('/api/teams',(request)=>service.create(request.body));
  app.get('/api/teams/:id',(request:any)=>service.snapshot(request.params.id));
  app.post('/api/teams/:id/tasks',(request:any)=>service.addTask(request.params.id,request.body));
+ app.patch('/api/teams/:id/members/:member',(request:any)=>service.updateMember(request.params.id,request.params.member,request.body));
  app.post('/api/teams/:id/start',(request:any)=>service.start(request.params.id));
  app.post('/api/teams/:id/pause',(request:any)=>service.pause(request.params.id));
  app.post('/api/teams/:id/cancel',(request:any)=>service.pause(request.params.id,true));
