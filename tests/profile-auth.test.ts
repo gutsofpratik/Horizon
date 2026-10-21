@@ -7,7 +7,7 @@ import {createApp} from '../server/app.ts';
 
 test('desktop profile password gates workspace APIs after host authentication',async()=>{
  const root=await mkdtemp(join(tmpdir(),'horizon-profile-auth-'));
- const previous={owned:process.env.OPENCLAUDE_DESKTOP_OWNED,token:process.env.OPENCLAUDE_HOST_TOKEN,registry:process.env.HORIZON_PROFILE_REGISTRY,profiles:process.env.HORIZON_PROFILES_ROOT};
+ const previous={OPENCLAUDE_DESKTOP_OWNED:process.env.OPENCLAUDE_DESKTOP_OWNED,OPENCLAUDE_HOST_TOKEN:process.env.OPENCLAUDE_HOST_TOKEN,HORIZON_PROFILE_REGISTRY:process.env.HORIZON_PROFILE_REGISTRY,HORIZON_PROFILES_ROOT:process.env.HORIZON_PROFILES_ROOT};
  process.env.OPENCLAUDE_DESKTOP_OWNED='1';process.env.OPENCLAUDE_HOST_TOKEN='a'.repeat(64);process.env.HORIZON_PROFILE_REGISTRY=join(root,'profiles.json');process.env.HORIZON_PROFILES_ROOT=join(root,'profiles');
  let app:any;
  try{
@@ -19,6 +19,9 @@ test('desktop profile password gates workspace APIs after host authentication',a
   assert.match(cookie,/^HorizonProfileSession=/);
   const locked=await app.inject({method:'GET',url:'/api/entities/settings',headers});
   assert.equal(locked.statusCode,401);
+  assert.equal((await app.inject('/api/health')).statusCode,200,'native readiness must work while a profile is locked');
+  assert.equal((await app.inject({method:'POST',url:'/api/session',headers})).statusCode,200,'host sign-in must precede profile unlock');
+  assert.equal((await app.inject({method:'POST',url:'/api/session',headers:{authorization:'Bearer '+'b'.repeat(64)}})).statusCode,401,'host sign-in still requires its own credential');
   const unlocked=await app.inject({method:'GET',url:'/api/entities/settings',headers:{...headers,cookie}});
   assert.equal(unlocked.statusCode,200,unlocked.body);
   const inferenceHeaders={authorization:'Bearer '+app.context.ephemeral.get('hostAccess').inferenceToken()};

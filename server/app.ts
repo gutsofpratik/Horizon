@@ -78,7 +78,7 @@ export async function createApp(options:{dataDirectory:string;dbPath?:string;roo
     if(path.startsWith('/api/')&&!authExempt&&!access.authenticated(request)&&!inferenceRequest)return reply.code(401).send({error:'Horizon host authentication required',code:'HOST_AUTH_REQUIRED'});
     const profileExempt=path==='/api/profiles/status'||path==='/api/profiles/create'||path==='/api/profiles/login'||path==='/api/profiles/select'||path==='/api/profiles/session'||path==='/api/desktop/shutdown';
     const profileToken=profiles.tokenFrom(request);
-    if(process.env.OPENCLAUDE_DESKTOP_OWNED==='1'&&path.startsWith('/api/')&&!profileExempt&&!inferenceRequest&&profiles.status(profileToken).initialized&&!profiles.authenticateSession(profileToken))return reply.code(401).send({error:'Unlock this Horizon profile to access its workspace',code:'PROFILE_AUTH_REQUIRED'});
+    if(process.env.OPENCLAUDE_DESKTOP_OWNED==='1'&&path.startsWith('/api/')&&!authExempt&&!profileExempt&&!inferenceRequest&&profiles.status(profileToken).initialized&&!profiles.authenticateSession(profileToken))return reply.code(401).send({error:'Unlock this Horizon profile to access its workspace',code:'PROFILE_AUTH_REQUIRED'});
   });
   app.setErrorHandler((error,request,reply)=>{const fault=error as any;reply.code(fault.statusCode??400).send({error:fault.message??'Request failed',code:fault.code??'REQUEST_FAILED'});});
   await app.register(multipart,{limits:{fileSize:10*1024*1024,files:8}});
