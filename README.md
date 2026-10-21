@@ -4,9 +4,20 @@ An AI workspace for creating files, building software, researching ideas and get
 
 Horizon brings conversations, editable artifacts, Office and PDF files, browser interaction, a real terminal, computer tools, reusable skills, agents and automations into one workspace. Work stays visible through previews, generated files, task progress and approval requests.
 
-[Download releases](https://github.com/gutsofpratik/OpenClaude/releases) · [Model recommendations](https://github.com/gutsofpratik/OpenCloud-Models) · [Skills library](https://github.com/gutsofpratik/OpenClaude-Skills) · [Report an issue](https://github.com/gutsofpratik/OpenClaude/issues)
+[Download releases](https://github.com/gutsofpratik/Horizon/releases/latest) · [Model recommendations and benchmarks](https://github.com/gutsofpratik/Horizon-Models) · [Skills library](https://github.com/gutsofpratik/Horizon-Skills) · [Report an issue](https://github.com/gutsofpratik/Horizon/issues)
 
 ## Install Horizon
+
+### Download version 0.3.2
+
+| Platform | Installer | ZIP download |
+| --- | --- | --- |
+| Windows x64 | [Windows installer](https://github.com/gutsofpratik/Horizon/releases/download/v0.3.2/Horizon-0.3.2-windows-x64-setup.exe) | [Portable ZIP](https://github.com/gutsofpratik/Horizon/releases/download/v0.3.2/Horizon-0.3.2-windows-x64-portable.zip) |
+| macOS 14+ Apple Silicon | [DMG installer](https://github.com/gutsofpratik/Horizon/releases/download/v0.3.2/Horizon-0.3.2-macos-arm64.dmg) | [Application ZIP](https://github.com/gutsofpratik/Horizon/releases/download/v0.3.2/Horizon-0.3.2-darwin-arm64.zip) |
+| Linux x64, Ubuntu 24.04 baseline | [Debian package](https://github.com/gutsofpratik/Horizon/releases/download/v0.3.2/Horizon-0.3.2-linux-x64.deb) · [AppImage](https://github.com/gutsofpratik/Horizon/releases/download/v0.3.2/Horizon-0.3.2-linux-x64.AppImage) | [Portable ZIP](https://github.com/gutsofpratik/Horizon/releases/download/v0.3.2/Horizon-0.3.2-linux-x64.zip) |
+| Source | [Horizon source ZIP](https://github.com/gutsofpratik/Horizon/releases/download/v0.3.2/Horizon-0.3.2-source.zip) | [Horizon source tar.gz](https://github.com/gutsofpratik/Horizon/releases/download/v0.3.2/Horizon-0.3.2-source.tar.gz) |
+
+[SHA-256 checksums](https://github.com/gutsofpratik/Horizon/releases/download/v0.3.2/SHA256SUMS.txt) cover all nine downloads. Use the named Horizon source archives above for the packaged source snapshot; GitHub also automatically displays tag-generated “Source code” archives, which are separate from our uploaded assets.
 
 Choose the package for your operating system from the release assets. Models, subscriptions and GPU drivers are downloaded separately. Build success and live device verification are reported separately. Unsigned packages do not establish a verified publisher.
 
