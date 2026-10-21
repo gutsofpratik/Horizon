@@ -1,4 +1,4 @@
-name: Windows desktop packages
+name: Horizon native packages
 on:
   workflow_dispatch:
 permissions:
@@ -8,24 +8,31 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [windows-latest]
+        os: [windows-latest, macos-14, ubuntu-22.04]
     runs-on: ${{ matrix.os }}
-    env:
-      OPENCLAUDE_PYTHON_ROOT: ${{ vars.OPENCLAUDE_PYTHON_ROOT }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
           cache: npm
+      - uses: actions/setup-go@v5
+        with:
+          go-version-file: vendor/AionCore/go.mod
+      - uses: dtolnay/rust-toolchain@stable
+      - name: Linux native dependencies
+        if: runner.os == 'Linux'
+        run: sudo apt-get update && sudo apt-get install -y libwebkit2gtk-4.1-dev build-essential curl wget file libxdo-dev libssl-dev librsvg2-dev libayatana-appindicator3-dev libxkbcommon-dev libxcb-randr0-dev libpipewire-0.3-dev libdbus-1-dev
       - run: npm ci
       - run: npm run lint
       - run: npm run typecheck
       - run: npm run test:contract
+      - name: Prepare pinned standalone Python
+        run: node scripts/release/prepare-python.mjs
       - run: npm run package:native
       - uses: actions/upload-artifact@v4
         with:
-          name: OpenClaude-${{ runner.os }}-${{ runner.arch }}
+          name: Horizon-${{ runner.os }}-${{ runner.arch }}-preview
           path: |
             release/*.zip
             release/*.sha256
