@@ -15,7 +15,7 @@
   ],
   "platforms": {
     "schemaVersion": 1,
-    "verification": "Windows is the only active desktop package target. Automated checks do not establish live GUI/provider coverage.",
+    "verification": "Native packaging targets Windows, macOS and Linux. Non-Windows builds require native CI and live platform verification before stable release.",
     "windows": {
       "browser": "WebView2 with owned-tab DOM/CDP operations",
       "terminal": "PowerShell through portable-pty/ConPTY",
@@ -33,7 +33,7 @@
         "Screen Recording"
       ],
       "containment": "Owned process groups, start identities and bounded shutdown",
-      "packageEnabled": false
+      "packageEnabled": true
     },
     "linux": {
       "browser": "In-app backend Chromium; separate WebKitGTK DOM adapter",
@@ -53,7 +53,7 @@
         "D-Bus"
       ],
       "containment": "Owned process groups, /proc boot/start identity and parent validation",
-      "packageEnabled": false
+      "packageEnabled": true
     },
     "dependencySources": [
       {
@@ -71,8 +71,8 @@
     ],
     "remaining": [
       "Live Windows GUI/device/driver compatibility across user hardware.",
-      "macOS/Linux desktop packaging is deliberately disabled.",
-      "Linux Wayland remote-desktop portal input remains unsupported."
+      "Linux Wayland remote-desktop portal input remains unsupported.",
+      "macOS/Linux builds and native permissions require platform-specific verification."
     ]
   },
   "providerProfiles": [
