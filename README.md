@@ -18,9 +18,41 @@ This preview is **unsigned**; it does not establish a verified Windows publisher
 
 ## Windows desktop preview
 
-![Horizon Windows desktop](docs/images/horizon-desktop.png)
+![Horizon Windows workspace](docs/images/features/06-workspace-home.png)
 
-The native Windows desktop shows Horizon’s first-run profile setup, captured with isolated demonstration data. Earlier interface references: [model library](docs/images/models.png), [skills](docs/images/skills.png), [browser workspace](docs/images/workspace.png). Those references predate the Horizon rename.
+The native Windows workspace after profile and model setup. Teams and Automations live in Settings; the main sidebar stays focused on chats and creations.
+
+## First-run walkthrough
+
+### 1. Create a local profile
+
+![Create a Horizon demonstration profile](docs/images/features/01-create-profile.png)
+
+Choose an avatar, a display name, a unique local login ID and a password. These captures use a separate demonstration profile named Alex; the masked password is not published.
+
+### 2. Connect a model and check runtimes
+
+![Horizon model and runtime onboarding](docs/images/features/05-ready-onboarding.png)
+
+The next screen shows the desktop edition, agent-engine status, Office/PDF readiness and model selection. Open settings to configure a provider or import a local model. A skill being installed does not mean its runtime is ready.
+
+![Imported GGUF model with its saved context setting](docs/images/features/04-local-model.png)
+
+This example imports an existing Qwen GGUF file and saves a 32,768-token context for the demonstration profile. Model settings are separate from choosing the active chat model.
+
+### 3. Open the full workspace
+
+![Horizon desktop after completing profile and model onboarding](docs/images/features/06-workspace-home.png)
+
+After onboarding, the desktop opens the personalized chat workspace, with Projects, Artifacts and Customize in the sidebar. Teams and Automations are managed from Settings. Plus selects workflows and attachments; the workspace control opens the available native tool panels.
+
+### 4. Manage workflow skills
+
+![Compact installed skills with search and top actions](docs/images/features/07-installed-skills.png)
+
+Import, create and add skills from the top actions. Yours contains installed skills; Discover shows installable workflows, with full descriptions in a details dialog.
+
+These are actual Windows desktop captures. Setup screens show configuration, not evidence of completed autonomous tasks. Workflow captures are added only after their tools and outputs have been observed.
 
 ## First run
 
