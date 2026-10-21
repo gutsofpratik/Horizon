@@ -470,7 +470,8 @@ async fn browser_status(
     #[cfg(not(windows))]
     {
         value["historyStatusAvailable"] = serde_json::json!(false);
-        if let Some(window) = state.browser.lock().unwrap().clone().and_then(|id| app.get_webview(&id)) {
+        let active_id = state.browser.lock().unwrap().clone();
+        if let Some(window) = active_id.and_then(|id| app.get_webview(&id)) {
             let zoom = browser_tools::evaluate(window, "({zoom:Number.parseFloat(document.documentElement.style.zoom)||1})".into()).await?;
             value["zoom"] = zoom["zoom"].clone();
         }
