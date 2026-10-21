@@ -8,7 +8,7 @@ Horizon brings conversations, editable artifacts, Office and PDF files, browser 
 
 ## Install Horizon
 
-Choose the package for your operating system from the release assets. Models, subscriptions and GPU drivers are downloaded separately. Packages are previews: build success and live device verification are reported separately. Unsigned packages do not establish a verified publisher.
+Choose the package for your operating system from the release assets. Models, subscriptions and GPU drivers are downloaded separately. Build success and live device verification are reported separately. Unsigned packages do not establish a verified publisher.
 
 | Platform | Package | Installation |
 | --- | --- | --- |
@@ -22,7 +22,7 @@ Use the installer for shortcuts and a managed installation. The portable ZIP run
 
 ### macOS
 
-Install Horizon in Applications, launch it and create a local profile. Choose the package matching your processor. Approve operating-system permissions only for features you intend to use. Unsigned previews may be restricted by your security policy; verified publisher signing is not claimed. Source-build instructions are below.
+Install Horizon in Applications, launch it and create a local profile. Choose the package matching your processor. Approve operating-system permissions only for features you intend to use. Unsigned packages may be restricted by your security policy; verified publisher signing is not claimed. Source-build instructions are below.
 
 ### Linux
 
