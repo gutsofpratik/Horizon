@@ -16,9 +16,6 @@ jobs:
         with:
           node-version: '22'
           cache: npm
-      - uses: actions/setup-go@v5
-        with:
-          go-version-file: vendor/AionCore/go.mod
       - uses: dtolnay/rust-toolchain@stable
       - name: Linux native dependencies
         if: runner.os == 'Linux'
