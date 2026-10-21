@@ -1,5 +1,5 @@
 import {useEffect,useState} from 'react';
-import {browserNavigationEvent,openInBrowser,type BrowserNavigation} from './navigation';
+import {browserNavigationEvent,openInBrowser,registeredFileId,type BrowserNavigation} from './navigation';
 export function useBrowserNavigation(openPanel:()=>void,onError:(message:string)=>void){
  const [navigation,setNavigation]=useState<BrowserNavigation|null>(null);
  useEffect(()=>{
@@ -9,6 +9,8 @@ export function useBrowserNavigation(openPanel:()=>void,onError:(message:string)
    if(!target||target.hasAttribute('download')||event.button>1)return;
    const href=target.getAttribute('href');if(!href||href.startsWith('#'))return;
    const url=new URL(href,location.href);
+   const fileId=registeredFileId(url.href);
+   if(fileId){event.preventDefault();window.dispatchEvent(new CustomEvent('horizon:open-file',{detail:{id:fileId,url:'/api/files/'+fileId}}));return;}
    if(!['http:','https:'].includes(url.protocol)){event.preventDefault();onError('This link type cannot be opened in the app browser.');return;}
    // In-app navigation continues to use the application's own router.
    if(url.origin===location.origin&&/^\/(?:desktop\/)?(?:new|chat\/|projects|skills|artifacts)(?:\/|$)/.test(url.pathname))return;
