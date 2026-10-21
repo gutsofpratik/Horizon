@@ -23,12 +23,18 @@ export function registerModelDownloads(app:any,context:AppContext){
     const target=join(job.directory,file),partial=target+'.horizon-part';await mkdir(dirname(target),{recursive:true});
     const finished=await stat(target).catch(()=>null);if(finished&&expected&&finished.size===expected){completedBytes+=finished.size;continue;}
     let offset=(await stat(partial).catch(()=>null))?.size??0;
+    if(expected&&offset>expected){await rm(partial,{force:true});offset=0;}
+    let received=offset,last=0;
+    // A pause/crash can occur after the final byte but before checksum/publish.
+    // Verify that complete partial locally instead of requesting an invalid range.
+    if(!expected||offset!==expected){
     const response=await fetch(`https://huggingface.co/${job.repo}/resolve/${job.revision}/${file.split('/').map(encodeURIComponent).join('/')}`,{headers:offset?{Range:`bytes=${offset}-`}:{},signal:controller.signal});
     if(!response.ok||!response.body)throw new Error(`Download ${file} returned HTTP ${response.status}`);
     if(offset&&response.status!==206)offset=0;
     if(offset&&!(response.headers.get('content-range')??'').startsWith(`bytes ${offset}-`))throw new Error('Publisher returned an unexpected resume range');
-    const handle=await open(partial,offset?'a':'w');let received=offset,last=0;
-    try{for await(const chunk of response.body as any){controller.signal.throwIfAborted();await handle.write(chunk);received+=chunk.length;if(Date.now()-last>350){last=Date.now();job.progress={file,completedFiles:index,totalFiles:job.files.length,bytes:completedBytes+received,totalBytes:total,fileBytes:received,fileTotalBytes:expected??null};write(job);}}}finally{await handle.close();}
+    received=offset;const handle=await open(partial,offset?'a':'w');
+    try{for await(const chunk of response.body as any){controller.signal.throwIfAborted();await handle.writeFile(chunk);received+=chunk.length;if(Date.now()-last>350){last=Date.now();job.progress={file,completedFiles:index,totalFiles:job.files.length,bytes:completedBytes+received,totalBytes:total,fileBytes:received,fileTotalBytes:expected??null};write(job);}}}finally{await handle.close();}
+    }
     if(expected&&received!==expected)throw new Error('Incomplete download: '+file);
     if(hash&&/^[a-f0-9]{64}$/.test(hash)){const checksum=createHash('sha256');for await(const chunk of createReadStream(partial))checksum.update(chunk);if(checksum.digest('hex')!==hash){await rm(partial,{force:true});throw new Error('Publisher checksum did not match: '+file);}}
     controller.signal.throwIfAborted();await rename(partial,target);completedBytes+=received;

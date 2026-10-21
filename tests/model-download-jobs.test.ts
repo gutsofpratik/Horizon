@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import Fastify from 'fastify';
-import {mkdtemp,rm,readFile} from 'node:fs/promises';
+import {mkdtemp,rm,readFile,mkdir,writeFile} from 'node:fs/promises';
 import {tmpdir} from 'node:os';
 import {join} from 'node:path';
 import {createHash} from 'node:crypto';
@@ -22,5 +22,11 @@ test('download jobs reject traversal, verify weights and retain resumable state'
   const model=store.list('local_models')[0];assert.deepEqual(await readFile(model.path),bytes);
   assert.equal((await app.inject({method:'POST',url:'/api/model-library/downloads/'+job.id+'/cancel'})).statusCode,500,'cancelling must not remove completed model files');
   assert.equal((await app.inject('/api/model-library/downloads')).json().downloads.length,1);
+  const resumedId='resume-complete',directory=join(dataDirectory,'models/downloads',resumedId);await mkdir(directory,{recursive:true});await writeFile(join(directory,'model.gguf.horizon-part'),bytes);
+  store.put('model_downloads',{id:resumedId,...payload,directory,status:'paused'});
+  const previousFetch=globalThis.fetch;globalThis.fetch=(async(url:any)=>{if(!String(url).includes('/api/models/'))throw new Error('A complete partial must not request another byte range');return previousFetch(url);}) as any;
+  await app.inject({method:'POST',url:'/api/model-library/downloads/'+resumedId+'/resume'});
+  for(let i=0;i<100;i++){state=(await app.inject('/api/model-library/downloads/'+resumedId)).json();if(state.status!=='downloading')break;await new Promise(resolve=>setTimeout(resolve,10));}
+  assert.equal(state.status,'completed',state.error);assert.deepEqual(await readFile(join(directory,'model.gguf')),bytes);
  }finally{await app.close();globalThis.fetch=original;await rm(dataDirectory,{recursive:true,force:true});}
 });
