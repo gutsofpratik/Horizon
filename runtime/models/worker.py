@@ -1,4 +1,4 @@
-"""OpenClaude-owned Transformers worker. JSON lines over private stdin/stdout."""
+"""Horizon-owned Transformers worker. JSON lines over private stdin/stdout."""
 import os, sys, json, threading, traceback, gc, uuid
 from pathlib import Path
 from unicode_text import clean_unicode

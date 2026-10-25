@@ -177,7 +177,7 @@ def generate(args,id):
             # Stop inside the policy text, before the system closing token.
             # Otherwise adding tool schemas changes that closing-token position
             # and invalidates a checkpoint a few tokens beyond the real prefix.
-            policy_prompt=formatter(messages=[{'role':'system','content':policy_content+'\nOpenClaude policy checkpoint boundary.'},{'role':'user','content':''}],enable_thinking=native_thinking)
+            policy_prompt=formatter(messages=[{'role':'system','content':policy_content+'\nHorizon policy checkpoint boundary.'},{'role':'user','content':''}],enable_thinking=native_thinking)
             policy_tokens=model.tokenize(clean_unicode(policy_prompt.prompt).encode('utf-8'),add_bos=not policy_prompt.added_special,special=True)
             policy_boundary=common_prefix(prompt,policy_tokens)
         from context_limits import generation_budget

@@ -12,7 +12,7 @@ def prepare(directory,package):
     lib=ctypes.CDLL(str(dll))
     source=(package/'llama_cpp.py').read_text(encoding='utf-8')
     tree=ast.parse(source)
-    # These newer APIs are not used by OpenClaude's decoder. Calling one fails explicitly.
+    # These newer APIs are not used by Horizon's decoder. Calling one fails explicitly.
     optional={'llama_adapter_lora_init_from_file_ptr','llama_process','llama_get_causal_attn'}
     optional.update('llama_batch_ext_'+name for name in ('init','free','clear','add','add_token','add_embd','add_seq','set_embd_token','set_embd_state','set_output_embd','set_output_logits','set_pos'))
     missing=[]

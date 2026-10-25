@@ -1,4 +1,4 @@
-"""Supervised OpenClaude adapter training for a pinned Qwen3.5 checkpoint."""
+"""Supervised Horizon adapter training for a pinned Qwen3.5 checkpoint."""
 import argparse,json,random,time,math
 from pathlib import Path
 from train_lora import encode_example
@@ -55,6 +55,6 @@ def main():
  if best_state is None:raise ValueError('No held-out improvement was measured; no trained adapter was published')
  set_peft_model_state_dict(model,best_state);output.mkdir(parents=True);model.save_pretrained(str(output),safe_serialization=True);(output/'README.md').unlink(missing_ok=True)
  source=json.loads((base/'source.json').read_text());config=json.loads((output/'adapter_config.json').read_text());config.update(base_model_name_or_path=source['repo'],revision=source['revision']);(output/'adapter_config.json').write_text(json.dumps(config,indent=2),encoding='utf-8')
- report={'status':'trained-awaiting-behavior-evaluation','base':source,'dataset':json.loads((data/'dataset.json').read_text()),'quantization':'NF4 double quantization','rank':args.rank,'targets':targets,'trainableParameters':trainable,'completedSteps':step+1,'bestStep':best_step,'holdoutLossBefore':before,'holdoutLossAfter':best_loss,'validation':history,'trainingSeconds':round(time.monotonic()-started,1),'peakAllocatedMiB':torch.cuda.max_memory_allocated()//1024**2,'trainingSequenceLimit':args.sequence,'inferenceContextUnchanged':True,'scope':'Synthetic OpenClaude workflows. Does not establish general reliability or 150K-context quality.'}
+ report={'status':'trained-awaiting-behavior-evaluation','base':source,'dataset':json.loads((data/'dataset.json').read_text()),'quantization':'NF4 double quantization','rank':args.rank,'targets':targets,'trainableParameters':trainable,'completedSteps':step+1,'bestStep':best_step,'holdoutLossBefore':before,'holdoutLossAfter':best_loss,'validation':history,'trainingSeconds':round(time.monotonic()-started,1),'peakAllocatedMiB':torch.cuda.max_memory_allocated()//1024**2,'trainingSequenceLimit':args.sequence,'inferenceContextUnchanged':True,'scope':'Synthetic Horizon workflows. Does not establish general reliability or 150K-context quality.'}
  (output/'training-report.json').write_text(json.dumps(report,indent=2),encoding='utf-8');print(json.dumps(report),flush=True)
 if __name__=='__main__':main()
