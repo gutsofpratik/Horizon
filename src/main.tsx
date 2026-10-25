@@ -9,6 +9,7 @@ import './styles/chat-detail.css';import './styles/tokens.css';
 import './styles/research.css';
 import './styles/creative.css';
 import './styles/workspace-controls.css';
+import './styles/settings-layout.css';
 import {ComputerIndicator} from './chat/ComputerIndicator';
 import {Notifications} from './app/Notifications';
 

@@ -1,3 +1,4 @@
+import {SettingsDialog} from '../settings/SettingsDialog';
 import {useState,useEffect} from 'react';
 import {Plug,Plus,Trash2,ExternalLink,Pencil,Loader2} from 'lucide-react';
 import {openExternal} from '#desktop-ui';
@@ -8,7 +9,7 @@ export async function openConnectorAuthorization(url:string){
  await openExternal(url);
 }
 const labels:Record<string,string>={disconnected:'Not connected',connecting:'Connecting…',authorization_required:'Authorization required',connected:'Connected',error:'Connection failed'};
-export function ConnectorsView({onError}:any){
+export function ConnectorsView({onError,showHttp=false}:any){
  const [items,setItems]=useState<any[]>([]),[editing,setEditing]=useState<any>(null),[busy,setBusy]=useState(''),[error,setError]=useState('');
  const refresh=()=>api('/connectors').then(setItems);
  const fail=(error:any)=>{setError(error.message);onError?.(error.message);};
@@ -26,15 +27,15 @@ export function ConnectorsView({onError}:any){
  <button className="icon-button" disabled={busy===item.id||item.status==='connecting'} aria-label={'Remove connector '+item.name} onClick={async()=>{try{await api('/connectors/'+encodeURIComponent(item.id),{method:'DELETE'});await refresh();}catch(error){fail(error);}}}><Trash2 size={16}/></button></div>
  {item.status==='authorization_required'&&<p className="form-note">Complete sign-in and consent in the browser. This page updates automatically when authorization finishes.</p>}</div>)}
  {!items.length&&<div className="library-empty"><Plug size={40}/><h2>Your connected tools</h2><p>Add an MCP server to connect its tools.</p></div>}
- {editing&&<div className="modal-backdrop"><form className="dialog connector-editor" onSubmit={async event=>{event.preventDefault();setBusy('save');setError('');try{const body={...editing};if(!body.apiKey)delete body.apiKey;if(!body.clientSecret)delete body.clientSecret;await api('/connectors',{method:'POST',body:JSON.stringify(body)});setEditing(null);await refresh();}catch(error){fail(error);}finally{setBusy('');}}}>
- <div className="dialog-heading"><h2>{editing.id?'Edit':'Add'} connector</h2><button type="button" aria-label="Close connector editor" onClick={()=>setEditing(null)}>×</button></div>
+ {editing&&<SettingsDialog title={editing.id?'Edit connector':'Add connector'} onClose={()=>setEditing(null)}><form className="settings-edit-form connector-editor" onSubmit={async event=>{event.preventDefault();setBusy('save');setError('');try{const body={...editing};if(!body.apiKey)delete body.apiKey;if(!body.clientSecret)delete body.clientSecret;await api('/connectors',{method:'POST',body:JSON.stringify(body)});setEditing(null);await refresh();}catch(error){fail(error);}finally{setBusy('');}}}>
+ 
  <label>Name<input value={editing.name} onChange={event=>setEditing({...editing,name:event.target.value})} required/></label>
  <label>MCP server URL<input value={editing.url} onChange={event=>setEditing({...editing,url:event.target.value})} placeholder="https://example.com/mcp" required/></label>
  <label>Authentication<select value={editing.authMode} onChange={event=>setEditing({...editing,authMode:event.target.value})}><option value="oauth">Browser authorization (OAuth)</option><option value="bearer">API key / bearer token</option><option value="none">No authentication</option></select></label>
  {editing.authMode==='bearer'&&<label>API key<input type="password" autoComplete="off" value={editing.apiKey??''} onChange={event=>setEditing({...editing,apiKey:event.target.value})} placeholder={editing.hasApiKey?'Saved — leave blank to keep':'Enter access token'}/></label>}
  {editing.authMode==='oauth'&&<details><summary>Advanced OAuth settings</summary><p className="form-note">Most servers register automatically. If the service requires your own OAuth app, enter its client ID and register this redirect URL:</p><code className="connector-callback">{window.location.origin}/api/connectors/oauth/callback</code><label>Client ID<input value={editing.clientId??''} onChange={event=>setEditing({...editing,clientId:event.target.value})}/></label><label>Client secret (if required)<input type="password" autoComplete="off" value={editing.clientSecret??''} onChange={event=>setEditing({...editing,clientSecret:event.target.value})}/></label></details>}
  {error&&<p role="alert" className="connector-error">{error}</p>}
- <div className="dialog-actions"><button type="button" className="secondary-button" onClick={()=>setEditing(null)}>Cancel</button><button className="primary-button" disabled={busy==='save'}>{busy==='save'?'Saving…':'Save connector'}</button></div></form></div>}
- <HttpConnectionsView onError={onError}/>
+ <div className="dialog-actions"><button type="button" className="secondary-button" onClick={()=>setEditing(null)}>Cancel</button><button className="primary-button" disabled={busy==='save'}>{busy==='save'?'Saving…':'Save connector'}</button></div></form></SettingsDialog>}
+ {showHttp&&<HttpConnectionsView onError={onError}/>}
  </div>;
 }

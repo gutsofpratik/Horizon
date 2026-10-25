@@ -1,3 +1,5 @@
+#[path = "computer_advanced.rs"]
+mod advanced;
 use base64::{engine::general_purpose::STANDARD, Engine};
 use serde_json::{json, Value};
 use std::{
@@ -33,12 +35,13 @@ struct Screen {
 static DESKTOP_INPUT: Mutex<()> = Mutex::new(());
 pub struct Computer {
     enabled: AtomicBool,
+    accessibility: Mutex<HashMap<String,advanced::Observation>>,
     screens: Mutex<HashMap<String, Screen>>,
     windows: Mutex<HashMap<String,HashMap<String,WindowRef>>>,
 }
 struct WindowRef {handle:isize,pid:u32,time:Instant}
 impl Default for Computer {
-    fn default()->Self{Self{enabled:AtomicBool::new(true),screens:Mutex::new(HashMap::new()),windows:Mutex::new(HashMap::new())}}
+    fn default()->Self{Self{accessibility:Mutex::new(HashMap::new()),enabled:AtomicBool::new(true),screens:Mutex::new(HashMap::new()),windows:Mutex::new(HashMap::new())}}
 }
 unsafe extern "system" fn collect_window(handle:windows_sys::Win32::Foundation::HWND,data:isize)->i32 {if IsWindowVisible(handle)==0{return 1;}let length=GetWindowTextLengthW(handle);if length<=0{return 1;}let mut text=vec![0u16;(length as usize+1).min(1024)];let read=GetWindowTextW(handle,text.as_mut_ptr(),text.len() as i32);if read<=0{return 1;}let mut pid=0;GetWindowThreadProcessId(handle,&mut pid);let entries=&mut *(data as *mut Vec<(isize,u32,String)>);if entries.len()<200{entries.push((handle as isize,pid,String::from_utf16_lossy(&text[..read as usize])));}1}
 fn list_windows(state:&Computer,owner:&str)->Result<Value,String>{let mut entries:Vec<(isize,u32,String)>=Vec::new();unsafe{if EnumWindows(Some(collect_window),&mut entries as *mut _ as isize)==0{return Err("Cannot enumerate visible Windows applications".into());}}let mut references=HashMap::new();let mut items=Vec::new();for(handle,pid,title)in entries{let id=Uuid::new_v4().to_string();references.insert(id.clone(),WindowRef{handle,pid,time:Instant::now()});items.push(json!({"window_id":id,"title":title,"process_id":pid}));}state.windows.lock().unwrap().insert(owner.into(),references);Ok(json!({"windows":items}))}
@@ -292,7 +295,7 @@ pub async fn computer_tool(
     cancellations: State<'_, super::cancellation::Cancellation>,
 ) -> Result<Value, String> {
     super::trusted(&view)?;
-    if name=="computer_capabilities" {return Ok(json!({"tools":["computer_appshot","computer_pointer","computer_screenshot","computer_click","computer_move","computer_drag","computer_scroll","computer_type","computer_key","computer_wait","computer_windows","computer_focus_window","computer_open_application"]}));}
+    if name=="computer_capabilities" {return Ok(json!({"tools":["computer_appshot","computer_pointer","computer_screenshot","computer_click","computer_move","computer_drag","computer_scroll","computer_type","computer_key","computer_wait","computer_windows","computer_focus_window","computer_open_application","computer_clipboard_read","computer_clipboard_write","computer_window_move","computer_window_resize","computer_window_close","computer_ui_tree","computer_ui_element_action"]}));}
     let request = cancellations.begin(&request_id);
     request.check()?;
     if name!="computer_screenshot"&&view.state::<super::Desktop>().download_prompt.load(Ordering::Acquire){return Err("User download approval is pending. The agent cannot approve or interact with this save dialog.".into());}
@@ -302,6 +305,7 @@ pub async fn computer_tool(
     if owner.is_empty() {
         return Err("Computer tools require a conversation owner".into());
     }
+    if matches!(name.as_str(), "computer_clipboard_read"|"computer_clipboard_write"|"computer_window_move"|"computer_window_resize"|"computer_window_close"|"computer_ui_tree"|"computer_ui_element_action") { return advanced::execute(&state,&name,&args,&owner,&request); }
     if name == "computer_screenshot" {
         let _desktop = DESKTOP_INPUT.lock().map_err(|_| "Desktop control lock is unavailable")?;
         return capture(&state, &owner);

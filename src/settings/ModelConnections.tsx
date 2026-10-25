@@ -1,3 +1,4 @@
+import {SettingsDialog} from './SettingsDialog';
 import {useState} from 'react';
 import {Plus,Server,Settings2,Trash2} from 'lucide-react';
 import {api,save,remove} from '../app/api';
@@ -12,7 +13,7 @@ export function ModelConnections({providers,onRefresh,onError}:any){
  return <section><h3>Model connections</h3><p className="form-note">Connect local models, native cloud APIs, regional providers, gateways, or enterprise identities. Remote providers receive messages and tool results. Enter exact model IDs when discovery is unavailable.</p>
  {providers.filter((p:any)=>p.id!=='builtin').map((p:any)=><div className="provider-row" key={p.id}><Server size={18}/><div><strong>{p.name}</strong><small>{p.baseUrl||[p.type,p.region||p.projectId,p.location].filter(Boolean).join(' · ')}</small></div><button className="secondary-button compact" disabled={!!busy} onClick={()=>act(p.id,async()=>{const r=await api('/providers/'+p.id+'/test',{method:'POST'});setMessage(r.verified===false?'Model IDs configured. Send a message to verify identity, permissions, and generation.':'Connected · '+r.models.length+' models');onRefresh();})}>Test</button><button className="icon-button" aria-label={'Edit '+p.name} onClick={()=>setEditing({...p,apiKey:'',modelIdsText:(p.modelIds??[]).join('\n')})}><Settings2 size={15}/></button><button className="icon-button" aria-label={'Delete connection '+p.name} disabled={!!busy} onClick={()=>act(p.id,async()=>{await remove('providers',p.id);onRefresh();})}><Trash2 size={15}/></button></div>)}
  <button className="secondary-button" onClick={()=>setEditing({...providerProfiles[0],id:undefined,profileId:'ollama',apiKey:'',apiKeyEnv:'',modelIdsText:''})}><Plus size={14}/>Add connection</button>
- {editing&&<form className="inline-form" onSubmit={event=>{event.preventDefault();void act('save',async()=>{
+ {editing&&<SettingsDialog title={editing.id?'Edit connection':'Add connection'} onClose={()=>setEditing(null)}><form className="inline-form settings-edit-form" onSubmit={event=>{event.preventDefault();void act('save',async()=>{
   const {modelIdsText,hasApiKey,credentialSource,auth,category,note,...body}=editing;
   if(!body.apiKey)delete body.apiKey;
   body.modelIds=[...new Set(String(modelIdsText??'').split(/[\n,]/).map(id=>id.trim()).filter(Boolean))];
@@ -28,5 +29,5 @@ export function ModelConnections({providers,onRefresh,onError}:any){
  {editing.type!=='ollama'&&<label>Model IDs {identity||editing.type==='azure'?'(required, one per line)':'(optional, one per line)'}<textarea required={identity||editing.type==='azure'} rows={3} value={editing.modelIdsText} placeholder={editing.type==='azure'?'Your Azure deployment name':'Exact model or inference profile IDs'} onChange={event=>setEditing({...editing,modelIdsText:event.target.value})}/></label>}
  {editing.type==='azure'&&<label>Azure inference API<select value={editing.azureApi??'responses'} onChange={event=>setEditing({...editing,azureApi:event.target.value,modelOptions:{}})}><option value="responses">Responses</option><option value="chat">Chat Completions</option></select></label>}
  <ProviderModelOptions provider={editing} onChange={setEditing}/>
- <div className="button-group"><button type="button" className="secondary-button" onClick={()=>setEditing(null)}>Cancel</button><button type="submit" className="primary-button" disabled={!!busy||!editing.name||(!identity&&!editing.baseUrl)}>Save connection</button></div></form>}{message&&<p role="status">{message}</p>}</section>;
+ <div className="button-group"><button type="button" className="secondary-button" onClick={()=>setEditing(null)}>Cancel</button><button type="submit" className="primary-button" disabled={!!busy||!editing.name||(!identity&&!editing.baseUrl)}>Save connection</button></div></form></SettingsDialog>}{message&&<p role="status">{message}</p>}</section>;
 }
