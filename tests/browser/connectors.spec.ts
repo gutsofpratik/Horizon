@@ -1,4 +1,4 @@
-import {test,expect} from '@playwright/test';
+import {test,expect} from './test-fixture';
 
 test('editing a connector exposes Connect and browser authorization, then updates connected status',async({page,context})=>{
  let item:any={id:'ui-auth',name:'Calendar service',url:'https://connector.test/mcp',authMode:'oauth',status:'disconnected',toolCount:0};

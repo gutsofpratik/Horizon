@@ -1,4 +1,4 @@
-import {test,expect} from '@playwright/test';
+import {test,expect} from './test-fixture';
 test('catalog source and download actions show visible details and honor the GGUF choice',async({page})=>{
  let download:any;const source={repo:'publisher/model',revision:'a'.repeat(40),engine:'auto',license:'apache-2.0',ggufFiles:[{name:'model-Q4.gguf',size:100},{name:'model-Q8.gguf',size:200}],resources:['tokenizer.json'],safetensorsFiles:['config.json','model.safetensors'],files:[{name:'model-Q4.gguf'},{name:'model-Q8.gguf'}]};
  await page.route('**/api/model-library/catalog?*',route=>route.fulfill({json:{models:[{id:source.repo,name:'Example model',publisher:'publisher',downloads:10,likes:2}]}}));

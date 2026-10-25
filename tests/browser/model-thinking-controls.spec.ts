@@ -1,4 +1,4 @@
-import {test,expect} from '@playwright/test';
+import {test,expect} from './test-fixture';
 
 test('thinking appears under effort in the model menu and persisted into the next request',async({page})=>{
  const runs:any[]=[];const saved:any[]=[];

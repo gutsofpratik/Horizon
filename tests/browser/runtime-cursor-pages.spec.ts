@@ -1,11 +1,11 @@
-import {test,expect} from '@playwright/test';
+import {test,expect} from './test-fixture';
 
 test('history opens a bounded page and loads older messages without losing the active head',async({page})=>{
  const messages=Array.from({length:120},(_,index)=>({id:'m'+index,parentId:index?'m'+(index-1):null,role:index%2?'assistant':'user',status:'completed',content:'History entry '+index}));
  const conversation={id:'paged-fixture',title:'Paged history',headId:'m119',messages,model:'fixture',providerId:'fixture'};
  const requested:string[]=[];
  await page.route('**/api/**',route=>{
-  const url=new URL(route.request().url()),path=url.pathname;let result:any=[];
+  const url=new URL(route.request().url()),path=url.pathname;let result:any=[];if(path==='/api/session')return route.fulfill({json:{authenticated:true}});if(path==='/api/onboarding')return route.fulfill({json:{completed:true}});if(path==='/api/workspace/attention')return route.fulfill({json:{approvals:[],questions:[],plans:[]}});if(path==='/api/profiles/status')return route.fulfill({json:{authenticated:true,profiles:[]}});
   if(path==='/api/entities/settings')result=[{id:'main',model:'fixture',providerId:'fixture'}];
   else if(path==='/api/entities/conversations')result=[{...conversation,messages:undefined,updatedAt:'2026-10-19T00:00:00Z'}];
   else if(path==='/api/entities/providers')result=[{id:'fixture',name:'Fixture',type:'openai'}];

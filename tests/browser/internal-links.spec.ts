@@ -1,7 +1,8 @@
-import {test,expect} from '@playwright/test';
+import {conversationRoute,conversationResponse,runState} from './fixtures';
+import {test,expect} from './test-fixture';
 test('chat links open the embedded browser and HTML files stay in an isolated internal preview',async({page,context})=>{
  const chat={id:'internal-links',title:'Links',headId:'a',messages:[{id:'u',role:'user',parentId:null,content:'Show links'},{id:'a',role:'assistant',parentId:'u',status:'completed',content:'[Website](https://example.com/page) and [HTML file](/api/files/demo-html)'}]};
- await page.route('**/api/entities/conversations/internal-links',route=>route.fulfill({json:chat}));
+ await page.route(conversationRoute('internal-links'),route=>route.fulfill({json:conversationResponse(route,chat)}));
  await page.route('**/api/artifact-drafts?**',route=>route.fulfill({json:{drafts:[]}}));
  let opened='';await page.route('**/api/browser/**',async route=>{if(route.request().method()==='POST')opened=route.request().postDataJSON().url;await route.fulfill({json:{tabs:opened?[{id:'test',url:opened,title:'Example'}]:[],activeId:opened?'test':null,url:opened}});});
  await page.route('**/api/files/demo-html/info',route=>route.fulfill({json:{name:'demo.html',mediaType:'text/html',previewable:true,url:'/api/files/demo-html',previewUrl:'/api/files/demo-html/preview'}}));

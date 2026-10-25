@@ -1,4 +1,4 @@
-import {test,expect} from '@playwright/test';
+import {test,expect} from './test-fixture';
 
 test('runtime settings expose scoped environments, lifecycle hooks, remote pairing and tool selection',async({page})=>{
  let settings:any={id:'main',theme:'light'};await page.route('**/api/entities/settings',route=>{if(route.request().method()==='GET')return route.fulfill({json:[settings]});settings={...settings,...route.request().postDataJSON()};return route.fulfill({json:settings});});

@@ -1,4 +1,4 @@
-import {test,expect} from '@playwright/test';
+import {test,expect} from './test-fixture';
 test('workspace width responds to dragging and keyboard, persists and resets',async({page})=>{
  await page.setViewportSize({width:1440,height:950});await page.addInitScript(()=>localStorage.removeItem('openclaude.workspace.width'));await page.goto(process.env.OPENCLAUDE_RESIZE_TEST_URL??'/new',{waitUntil:'domcontentloaded'});
  await page.getByRole('button',{name:'Open workspace'}).click();

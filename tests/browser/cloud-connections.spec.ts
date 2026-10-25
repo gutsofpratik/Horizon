@@ -1,7 +1,7 @@
-import {test,expect} from '@playwright/test';
+import {test,expect} from './test-fixture';
 test('cloud connection and external search settings are usable in the web edition',async({page})=>{
  let settings:any={id:'main',userName:'',model:'vendor/model',providerId:'router'},providers:any[]=[{id:'router',name:'OpenRouter',type:'openai',baseUrl:'https://openrouter.ai/api/v1',hasApiKey:true}],saved:any;
- await page.route(url=>url.pathname.startsWith('/api/'),async route=>{const url=new URL(route.request().url()),path=url.pathname;let data:any=[];
+ await page.route(url=>url.pathname.startsWith('/api/'),async route=>{const url=new URL(route.request().url()),path=url.pathname;let data:any=[];if(path==='/api/session')return route.fulfill({json:{authenticated:true}});if(path==='/api/onboarding')return route.fulfill({json:{completed:true}});if(path==='/api/workspace/attention')return route.fulfill({json:{approvals:[],questions:[],plans:[]}});if(path==='/api/profiles/status')return route.fulfill({json:{authenticated:true,profiles:[]}});
   if(path==='/api/entities/settings'){if(route.request().method()==='POST'){settings={...settings,...route.request().postDataJSON()};data=settings;}else data=[settings];}
   else if(path==='/api/entities/providers'){if(route.request().method()==='POST'){saved=route.request().postDataJSON();providers=[{...saved,id:'router',hasApiKey:true}];data=providers[0];}else data=providers;}
   else if(path==='/api/models')data={models:[{id:'vendor/model',name:'Cloud Test Model',providerId:'router',providerName:'OpenRouter'}],providers:[]};

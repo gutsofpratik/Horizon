@@ -1,4 +1,4 @@
-import {test,expect} from '@playwright/test';
+import {test,expect} from './test-fixture';
 test('welcome categories rotate relevant suggestions without changing or sending the draft',async({page})=>{
  let sends=0;page.on('request',request=>{if(request.method()==='POST'&&request.url().endsWith('/api/runs'))sends++;});
  await page.goto('http://127.0.0.1:3001/desktop/new');

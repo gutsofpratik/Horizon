@@ -1,4 +1,4 @@
-import {test,expect} from '@playwright/test';
+import {test,expect} from './test-fixture';
 test('webhook settings create a real configuration, preserve saved secrets on edit and display delivery states',async({page})=>{
  let hooks:any[]=[],lastBody:any;
  await page.route('**/api/webhooks',route=>{if(route.request().method()==='POST'){lastBody=route.request().postDataJSON();hooks=[{...lastBody,id:'hook',hasBearerToken:true}];return route.fulfill({json:{...hooks[0],...(!lastBody.id?{inboundToken:'new-inbound-token'}:{}),inboundPath:'/api/hooks/inbound/hook'}});}return route.fulfill({json:{hooks,deliveries:[{id:'delivery',hookId:'hook',status:'unknown',attempts:1,error:'Check the receiver before retrying.'}]}});});

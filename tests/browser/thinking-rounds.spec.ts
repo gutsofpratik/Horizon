@@ -1,4 +1,4 @@
-import {test,expect} from '@playwright/test';
+import {test,expect} from './test-fixture';
 test('tool rounds share one collapsible thinking section and one answer toolbar',async({page,request})=>{
  const id='thinking-rounds-'+crypto.randomUUID();const messages=[{id:'u',role:'user',content:'Research a topic',parentId:null},{id:'a1',role:'assistant',runId:'research',reasoning:'Search first',content:'',status:'completed',parentId:'u'},{id:'t1',role:'tool',content:'{}',parentId:'a1'},{id:'a2',role:'assistant',runId:'research',reasoning:'Read source',content:'',status:'completed',parentId:'t1'},{id:'t2',role:'tool',content:'{}',parentId:'a2'},{id:'a3',role:'assistant',runId:'research',reasoning:'Summarize',content:'The final answer is here.',status:'completed',parentId:'t2'}];
  messages.push({id:'alternative',role:'assistant',runId:'other-branch',reasoning:'',content:'Alternative branch answer',status:'completed',parentId:'u'});

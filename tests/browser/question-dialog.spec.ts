@@ -1,4 +1,4 @@
-import {test,expect} from '@playwright/test';
+import {test,expect} from './test-fixture';
 test('a pending clarification reloads, offers options/free text and sends the real answer',async({page,request})=>{
  const id='question-ui-'+crypto.randomUUID(),runId='question-run-'+crypto.randomUUID();const question={id:'q',runId,status:'pending',questions:[{id:'goal',question:'Choose your plan goal',options:[{label:'Muscle gain',description:'Build strength'},{label:'Maintenance'}]}]};let answer:any;
  await request.post('/api/entities/conversations',{data:{id,title:'Question test',activeRunId:runId,headId:'u',messages:[{id:'u',role:'user',content:'Create a plan',parentId:null}]}});

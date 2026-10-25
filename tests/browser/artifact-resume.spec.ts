@@ -1,4 +1,4 @@
-import {test,expect} from '@playwright/test';
+import {test,expect} from './test-fixture';
 test('reopening a stopped chat restores checkpoint source without executing the draft',async({page,request})=>{
  const id='resume-ui-'+crypto.randomUUID();
  await request.post('/api/entities/conversations',{data:{id,title:'Stopped artifact',messages:[]}});

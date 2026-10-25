@@ -1,4 +1,4 @@
-import {test,expect} from '@playwright/test';
+import {test,expect} from './test-fixture';
 test('model menu search toggles retain exclusive research behavior',async({page})=>{
  await page.route('**/api/entities/settings',async route=>{if(route.request().method()==='POST')return route.fulfill({json:route.request().postDataJSON()});const response=await route.fetch();return route.fulfill({json:{...await response.json(),researchStrategy:'standard',researchTarget:100}});});
  await page.goto('/new');

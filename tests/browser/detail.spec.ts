@@ -1,4 +1,4 @@
-import {test,expect} from '@playwright/test';
+import {test,expect} from './test-fixture';
 import JSZip from 'jszip';
 test('artifact revisions update the original card and reopen from a preview link',async({page,request})=>{
  const id='ui-revision-'+crypto.randomUUID();let artifactId='';const runId='manual:'+id;

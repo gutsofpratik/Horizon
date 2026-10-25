@@ -1,4 +1,4 @@
-import {test,expect} from '@playwright/test';
+import {test,expect} from './test-fixture';
 test('slash lists tools, at lists installed skills, and keyboard selection inserts without sending',async({page})=>{
  await page.route('**/api/tools',route=>route.fulfill({json:[{name:'calculate',description:'Calculate a numeric expression',available:true},{name:'web_search',description:'Search the web',available:true},{name:'slides_create',description:'Create a presentation',available:false,unavailableReason:'Document runtime unavailable'}]}));
  await page.route('**/api/skills',route=>route.fulfill({json:[{id:'front',name:'frontend-design',description:'Design a frontend',installed:true,available:true,enabled:true},{id:'not-installed',name:'uninstalled-skill',installed:false,available:true,enabled:true}]}));

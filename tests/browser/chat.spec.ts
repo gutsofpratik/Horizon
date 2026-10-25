@@ -1,4 +1,4 @@
-import {test,expect} from '@playwright/test';
+import {test,expect} from './test-fixture';
 test('UI can save through the development proxy while foreign origins are rejected',async({page,request})=>{
  await page.goto('/new');
  const result=await page.evaluate(async()=>{

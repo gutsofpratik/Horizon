@@ -1,3 +1,4 @@
+import {localFixture} from './local-fixture.ts';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {mkdtemp,rm,writeFile} from 'node:fs/promises';
@@ -7,7 +8,7 @@ import {createApp} from '../../server/app.ts';
 import {docker} from '../../server/runtime/docker.ts';
 import {workspaceRoot} from '../../server/tools/files.ts';
 
-test('real Docker worker retains Python state, dispatches tool RPC, serves browser controls and starts a persistent PTY',{timeout:180000},async()=>{
+test('optional isolated sandbox retains Python state, dispatches tool RPC, browser and PTY',{skip:process.env.HORIZON_TEST_SANDBOX!=='1'?'Optional isolated sandbox: set HORIZON_TEST_SANDBOX=1 with the prepared worker; this does not verify native desktop terminal/computer interaction.':false,timeout:180000},async()=>{
  const directory=await mkdtemp(join(tmpdir(),'openclaude-expanded-worker-')),app:any=await createApp({dataDirectory:directory,dbPath:':memory:'});const context=app.context;const ctx:any={app:context,conversationId:'expanded',runId:'expanded',edition:'desktop',vision:true,signal:AbortSignal.timeout(150000),emit:()=>{},loadedSkills:new Map(),approvalMode:'full'};
  const raw=(name:string,args:any={})=>context.runtime.request(name,args,ctx);const call=async(name:string,args:any)=>{const result=await app.tools.execute({id:crypto.randomUUID(),name,arguments:args},ctx);assert.equal(result.status,'succeeded',JSON.stringify(result.error));return result.data;};
  try{assert.equal((await context.runtime.health()).worker.ready,true);const py=await call('python_session',{action:'create'});const first=await call('python_session',{action:'execute',session_id:py.session_id,code:'value=41\nprint("persistent")'});assert.equal(first.stdout,'persistent\n');const second=await call('python_session',{action:'execute',session_id:py.session_id,code:'value+1'});assert.equal(second.result,'42');await call('python_session',{action:'close',session_id:py.session_id});
@@ -17,4 +18,14 @@ test('real Docker worker retains Python state, dispatches tool RPC, serves brows
  const terminal=await raw('terminal_open');assert.equal(terminal.job.status,'running');await raw('terminal_stdin',{job_id:terminal.job.id,text:"printf 'PTY_READY\\n'\r"});await raw('terminal_resize',{job_id:terminal.job.id,cols:110,rows:32});let output='';for(let attempt=0;attempt<15;attempt++){const read=await raw('terminal_read',{job_id:terminal.job.id,offset:0,wait_ms:200});output=read.job.output;if(output.includes('PTY_READY'))break;await new Promise(resolve=>setTimeout(resolve,100));}assert.ok(output.includes('PTY_READY'));const resumed=await raw('terminal_open');assert.equal(resumed.job.id,terminal.job.id);await raw('terminal_cancel',{job_id:terminal.job.id});
  await raw('session_cancel');
  }finally{for(const session of context.runtime.sessions.values())await docker(['rm','-f',session.container]);await app.close();await rm(directory,{recursive:true,force:true,maxRetries:5,retryDelay:100});}
+});
+
+// This exercises the host contract only. Native PTY/input needs the live desktop binary.
+test('web edition rejects native desktop input without starting a sandbox',async()=>{
+ const fixture=await localFixture();
+ try{for(const [name,args] of [['terminal_run',{command:'echo NATIVE_MUST_NOT_RUN'}],['computer_screenshot',{}]] as const){
+ const result=await fixture.app.tools.execute({id:crypto.randomUUID(),name,arguments:args},fixture.ctx);
+ assert.equal(result.status,'failed');assert.match(JSON.stringify(result.error),/unavailable|not available|not supported|desktop|runtime|disabled/i);
+ }assert.equal(fixture.context.runtime.sessions.size,0);
+ }finally{await fixture.close();}
 });

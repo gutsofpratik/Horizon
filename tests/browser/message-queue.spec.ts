@@ -1,11 +1,12 @@
-import {test,expect} from '@playwright/test';
+import {conversationRoute,conversationResponse,runState} from './fixtures';
+import {test,expect} from './test-fixture';
 test('sending while busy queues, edits and cancels follow-ups, then connects the next run',async({page})=>{
  let chat:any={id:'queue-ui',title:'Queue',headId:'u',messages:[{id:'u',role:'user',content:'First',parentId:null}]},jobs:any[]=[];let posts=0;
  await page.addInitScript(()=>{(window as any).sources=[];(window as any).EventSource=class{onmessage:any;onerror:any;constructor(){(window as any).sources.push(this);}close(){}};});
  await page.route('**/api/entities/*',route=>{const bucket=new URL(route.request().url()).pathname.split('/').at(-1);return route.fulfill({json:bucket==='settings'?[{id:'main',model:'a',providerId:'ollama',theme:'dark'}]:bucket==='providers'?[{id:'ollama',type:'ollama'}]:[]});});
  await page.route('**/api/models',route=>route.fulfill({json:{models:[{id:'a',name:'Test model',providerId:'ollama'}]}}));
  await page.route('**/api/skills',route=>route.fulfill({json:[]}));await page.route('**/api/tools',route=>route.fulfill({json:[]}));
- await page.route('**/api/entities/conversations/queue-ui',route=>route.fulfill({json:chat}));
+ await page.route(conversationRoute('queue-ui'),route=>route.fulfill({json:conversationResponse(route,chat)}));
  await page.route('**/api/runs',route=>{const input=route.request().postDataJSON();posts++;if(posts===1)return route.fulfill({json:{id:'run-1',conversationId:chat.id}});const job={id:'job-'+posts,content:input.content,status:'queued',conversationId:chat.id};jobs.push(job);return route.fulfill({json:{queued:true,queueId:job.id,conversationId:chat.id}});});
  await page.route('**/api/conversations/queue-ui/queue**',async route=>{const request=route.request(),id=new URL(request.url()).pathname.split('/').at(-1);if(request.method()==='PATCH')jobs=jobs.map(job=>job.id===id?{...job,content:request.postDataJSON().content}:job);if(request.method()==='DELETE')jobs=jobs.filter(job=>job.id!==id);return route.fulfill({json:{messages:jobs}});});
  await page.route('**/api/runs/run-2',route=>route.fulfill({json:{status:'running',conversationId:chat.id}}));

@@ -1,4 +1,4 @@
-import {test,expect} from '@playwright/test';
+import {test,expect} from './test-fixture';
 test('welcome and conversation have distinct compact composers and the workspace stays behind its control',async({page,request})=>{
  const id='composer-ref-'+crypto.randomUUID();await request.post('/api/entities/conversations',{data:{id,title:'Composer reference',messages:[{id:'u',role:'user',content:'hi'},{id:'a',role:'assistant',content:'Hello',parentId:'u'}],headId:'a'} });
  await page.route('**/api/skills',route=>route.fulfill({json:[{id:'learn',name:'learn',description:'Learn a concept',installed:true,available:true}]}));

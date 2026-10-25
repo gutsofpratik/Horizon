@@ -1,4 +1,4 @@
-import {test,expect} from '@playwright/test';
+import {test,expect} from './test-fixture';
 test('repository discovery installs through the repository endpoint and lists official plugins',async({page})=>{
  let installed=false,downloads=0,pluginInstalled=false;
  await page.route('**/api/extensions/catalog',route=>route.fulfill({json:{skills:[{id:'source-example',name:'Example workflow',description:'A published skill',sourceFamily:'Claude skills collection',installed},{id:'other-source',name:'Already owned',description:'Existing copy under another source ID',installed:false}],entries:[{id:'plugin-example',kind:'plugin',name:'Official example',description:'Official marketplace entry',family:'Claude plugins official',skillIds:['source-example'],components:[]}]}}));

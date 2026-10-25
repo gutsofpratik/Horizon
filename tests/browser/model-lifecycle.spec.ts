@@ -1,4 +1,4 @@
-import {test,expect} from '@playwright/test';
+import {test,expect} from './test-fixture';
 test('choosing does not load a model; sending posts the prompt without waiting for preparation',async({page})=>{
  const prepared:any[]=[];const runs:any[]=[];const models=[{id:'a',name:'Model A',providerId:'builtin',providerName:'OpenClaude',local:true,loaded:true},{id:'b',name:'Model B',providerId:'builtin',providerName:'OpenClaude',local:true,loaded:false}];
  await page.route('**/api/models',route=>route.fulfill({json:{models}}));

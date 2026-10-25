@@ -1,11 +1,12 @@
-import {test,expect} from '@playwright/test';
+import {conversationRoute,conversationResponse,runState} from './fixtures';
+import {test,expect} from './test-fixture';
 test('prompt posts immediately and the response changes from loading to visible thinking',async({page})=>{
  const id='loading-ui',chat={id,title:'Loading UI',headId:'u',messages:[{id:'u',role:'user',content:'Hi',parentId:null}]};
  await page.addInitScript(()=>{(window as any).EventSource=class{onmessage:any;onerror:any;constructor(){(window as any).testSource=this;}close(){}};});
  await page.route('**/api/entities/settings',route=>route.fulfill({json:route.request().method()==='GET'?[{id:'main',providerId:'builtin',model:'a',theme:'dark'}]:route.request().postDataJSON()}));
  await page.route('**/api/models',route=>route.fulfill({json:{models:[{id:'a',name:'Local model',providerId:'builtin',local:true,loaded:false,capabilities:['thinking'],reasoningMode:'summary'}]}}));
  await page.route('**/api/runs',route=>route.fulfill({json:{id:'loading-run',conversationId:id}}));
- await page.route('**/api/entities/conversations/'+id,route=>route.fulfill({json:chat}));
+ await page.route(conversationRoute(id),route=>route.fulfill({json:conversationResponse(route,chat)}));
  await page.goto('http://127.0.0.1:3001/desktop/new');await page.getByRole('textbox',{name:'Message',exact:true}).fill('Hi');await page.getByRole('button',{name:'Send message',exact:true}).click();
  await expect.poll(()=>page.evaluate(()=>!!(window as any).testSource)).toBe(true);
  const emit=async(type:string,data:any)=>page.evaluate(({type,data})=>(window as any).testSource.onmessage({data:JSON.stringify({type,data})}),{type,data});

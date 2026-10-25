@@ -1,4 +1,4 @@
-import {test,expect} from '@playwright/test';
+import {test,expect} from './test-fixture';
 test('desktop model settings persist exact context and expose engine hardware controls',async({page})=>{
  let saved:any;const model={id:'engine-settings',name:'Portable GGUF',path:'C:/models/model.gguf',configuration:{contextTokens:4096,outputTokens:512}};
  await page.route('**/api/model-library',route=>route.fulfill({json:{models:[model],status:'idle',loaded:null}}));

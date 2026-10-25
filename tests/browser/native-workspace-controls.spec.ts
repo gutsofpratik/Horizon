@@ -1,4 +1,4 @@
-import {test,expect} from '@playwright/test';
+import {test,expect} from './test-fixture';
 test('desktop controls auto-start terminal and navigate without popups or an enable button',async({page})=>{
  await page.route('**/api/native/tauri/**',route=>route.fulfill({json:route.request().url().endsWith('/commands')?[]:{connected:true}}));
  await page.route('**/api/tools/call',route=>route.fulfill({json:{status:'succeeded',data:{screenshot:{image:'iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+aE1cAAAAASUVORK5CYII='}}}}));
