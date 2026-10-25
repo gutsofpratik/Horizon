@@ -16,7 +16,7 @@ export function backendDescriptor(row:any,host:BackendDescriptor['host'],permiss
 }
 export function publicAgent(row:any):any{
  const {env,env_override,api_key,apiKey,token,secret,...safe}=row;
- return {...publicDiagnostic(safe),...(row.args?{args:publicCommandArguments(row.args)}:{}),lifecycle:publicDiagnostic(backendLifecycle(row)),...(row.agent_type==='aionrs'?{name:'OpenClaude engine',upstreamName:row.name}:{}),...(env?{env:env.map((item:any)=>({name:item.name,description:item.description,configured:!!item.value}))}:{}),...(env_override?{env_override:env_override.map((item:any)=>({name:item.name,configured:!!item.value}))}:{})};
+ return {...publicDiagnostic(safe),...(row.args?{args:publicCommandArguments(row.args)}:{}),lifecycle:publicDiagnostic(backendLifecycle(row)),...(row.agent_type==='aionrs'?{name:'Horizon engine',upstreamName:row.name}:{}),...(env?{env:env.map((item:any)=>({name:item.name,description:item.description,configured:!!item.value}))}:{}),...(env_override?{env_override:env_override.map((item:any)=>({name:item.name,configured:!!item.value}))}:{})};
 }
 
 /** Session reports augment their backend contract; they never replace host/policy/model layers. */

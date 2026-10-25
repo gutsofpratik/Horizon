@@ -47,7 +47,7 @@ export class EngineToolBridge {
    binding.context=next;binding.active=true;next.signal.addEventListener('abort',suspend,{once:true});
   };
   this.bindings.set(token,binding);context.signal.addEventListener('abort',suspend,{once:true});
-  return {server:{id:'openclaude-tools',name:'OpenClaude tools',transport:{type:'streamable_http',url:this.origin+'/mcp',headers:{Authorization:'Bearer '+token}}},activate,suspend,dispose};
+  return {server:{id:'openclaude-tools',name:'Horizon tools',transport:{type:'streamable_http',url:this.origin+'/mcp',headers:{Authorization:'Bearer '+token}}},activate,suspend,dispose};
  }
  private json(response:ServerResponse,status:number,body:unknown){response.writeHead(status,{'Content-Type':'application/json','Cache-Control':'no-store','X-Content-Type-Options':'nosniff'});response.end(JSON.stringify(body));}
  private error(response:ServerResponse,id:RequestId,code:number,message:string){this.json(response,200,{jsonrpc:'2.0',id,error:{code,message}});}
@@ -77,7 +77,7 @@ export class EngineToolBridge {
   if(!call||Array.isArray(call)||call.jsonrpc!=='2.0'||typeof call.method!=='string'||Object.hasOwn(call,'id')&&!validId){this.error(response,null,-32600,'Invalid JSON-RPC request');return;}
   if(!Object.hasOwn(call,'id')){response.writeHead(202);response.end();return;}
   const result=(value:unknown)=>this.json(response,200,{jsonrpc:'2.0',id:call.id,result:value});
-  if(call.method==='initialize'){result({protocolVersion:'2025-03-26',capabilities:{tools:{listChanged:false}},serverInfo:{name:'OpenClaude tools',version:'1.0.0'},instructions:'Call the exact offered function with object arguments. Host permissions and approval buttons remain authoritative. Failed calls include correction guidance; do not replay completed actions.'});return;}
+  if(call.method==='initialize'){result({protocolVersion:'2025-03-26',capabilities:{tools:{listChanged:false}},serverInfo:{name:'Horizon tools',version:'1.0.0'},instructions:'Call the exact offered function with object arguments. Host permissions and approval buttons remain authoritative. Failed calls include correction guidance; do not replay completed actions.'});return;}
   if(call.method==='ping'){result({});return;}
   if(call.method==='tools/list'){result({tools:directToolCatalog(this.registry,binding.context).map(item=>({name:item.function.name,description:item.function.description,inputSchema:item.function.parameters}))});return;}
   if(call.method!=='tools/call'){this.error(response,call.id,-32601,'Unsupported MCP method');return;}

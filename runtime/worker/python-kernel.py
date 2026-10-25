@@ -42,9 +42,9 @@ for request in sys.stdin:
         with contextlib.redirect_stdout(stdout), contextlib.redirect_stderr(stderr):
             tree = ast.parse(data["code"], mode="exec")
             last = tree.body.pop() if tree.body and isinstance(tree.body[-1], ast.Expr) else None
-            exec(compile(tree, "<OpenClaude Python>", "exec"), namespace)
+            exec(compile(tree, "<Horizon Python>", "exec"), namespace)
             if last is not None:
-                value = eval(compile(ast.Expression(last.value), "<OpenClaude Python>", "eval"), namespace)
+                value = eval(compile(ast.Expression(last.value), "<Horizon Python>", "eval"), namespace)
                 if value is not None:
                     result = repr(value)[:20000]
             if "matplotlib.pyplot" in sys.modules:

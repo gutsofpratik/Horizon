@@ -1,0 +1,9 @@
+import {z} from 'zod';
+import {readFile,stat} from 'node:fs/promises';
+import {relative} from 'node:path';
+import {ToolError,type ToolRegistry} from './registry.ts';
+import {connection,serviceRequest} from './ai-services.ts';
+import {fileInContext,safePath,workspaceRoot} from './files.ts';
+export function registerTranscriptionTool(registry:ToolRegistry){
+ registry.register({name:'audio_transcribe',capability:'document-job',requires:'A transcription provider and model selected in Settings → Capabilities',description:'Transcribe a registered audio/video file using the explicitly configured compatible transcription provider. Sends this file to that saved provider only. Max 25 MiB. This is separate from the chat model and never silently falls back to another provider.',input:z.object({file_id:z.string(),language:z.string().regex(/^[a-z]{2}$/).optional()}).strict(),handler:async(args,ctx)=>{const service=connection(ctx,'transcription'),file=fileInContext(ctx,args.file_id),path=await safePath(workspaceRoot(ctx),relative(workspaceRoot(ctx),file.absolutePath));if(!/\.(mp3|mp4|mpeg|mpga|m4a|wav|webm|ogg|flac)$/i.test(file.name)||(await stat(path)).size>25*1024*1024)throw new ToolError('AUDIO_INPUT_LIMIT','Use a supported audio/video file under 25 MiB');const form=new FormData();form.set('model',service.model);form.set('file',new Blob([new Uint8Array(await readFile(path))],{type:file.mediaType??'application/octet-stream'}),file.name);if(args.language)form.set('language',args.language);form.set('response_format','json');const result=await serviceRequest(ctx,service,'/audio/transcriptions',form,true);if(typeof result.text!=='string')throw new ToolError('INVALID_TRANSCRIPTION','The selected provider returned no transcription text');return {file_id:file.id,text:result.text.slice(0,60000),truncated:result.text.length>60000,provider:service.provider.name,model:service.model};}});
+}

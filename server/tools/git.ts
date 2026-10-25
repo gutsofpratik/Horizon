@@ -36,6 +36,7 @@ export function registerGitTools(registry:ToolRegistry){
  add('stash_pop','Reapply the latest local stash.',no,()=>({program:'git',args:['stash','pop']}),true);
  add('branch','List branches, create a branch, or safely delete a merged branch. Deletion requires its exact name and user approval.',z.object({name:ref.optional(),delete:z.boolean().default(false)}).strict(),args=>{if(args.delete&&!args.name)throw new ToolError('INVALID_ARGUMENTS','Branch deletion requires name');return {program:'git',args:args.name?['branch',...(args.delete?['-d']:[]),args.name]:['branch','--list']};},true);
  add('switch','Switch to an existing local branch.',branch,args=>({program:'git',args:['switch',args.name]}),true);
+ add('checkout','Check out a revision, or restore a workspace path from that revision. Git rejects conflicts; no force/reset flags are accepted.',z.object({revision:ref,path:path.optional()}).strict(),async(args,ctx)=>({program:'git',args:['checkout',args.revision,...(args.path?['--',await scoped(ctx,args.path,args.cwd)]:[])]}),true);
  add('merge','Merge another branch into the current branch.',branch,args=>({program:'git',args:['merge','--no-edit',args.name]}),true);
  add('rebase','Rebase the current branch onto a selected branch.',branch,args=>({program:'git',args:['rebase',args.name]}),true);
  add('worktree_list','List repository worktrees.',no,()=>({program:'git',args:['worktree','list','--porcelain']}));

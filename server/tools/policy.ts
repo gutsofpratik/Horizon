@@ -1,3 +1,4 @@
+import {scopeAllows} from './task-routing.ts';
 import {planningLocked,isPlanReadTool} from '../agent/plan-approval.ts';
 import {isToolGroup,groupForLeaf} from './groups.ts';
 import type {Tool,ToolContext} from './registry.ts';
@@ -12,6 +13,7 @@ export function capabilityOf(tool:Tool):Capability|null{
  if(/^(document_|pdf_|spreadsheet_|slides_|chart_|image_)/.test(tool.name))return 'document-job';
  if(/^(memory_|chat_history_|plan_|skill_|skills_)/.test(tool.name)||['calculate','project_search'].includes(tool.name))return 'conversation';return null;
 }
+export function requiresComputerVision(name:string){return name.startsWith('computer_')&&!/^computer_(?:windows$|focus_window$|open_application$|clipboard_|window_|ui_)/.test(name);}
 export function decideTool(tool:Tool,ctx:ToolContext,settings:any){
  const teamChat=ctx.app.store.get('conversations',ctx.conversationId);
  if(teamChat?.teamId&&!isToolGroup(tool.name)&&tool.name!=='toolkit'){
@@ -29,9 +31,10 @@ export function decideTool(tool:Tool,ctx:ToolContext,settings:any){
  if(/^(memory_|chat_history_)/.test(tool.name)&&(ctx.incognito||settings.memoryEnabled===false||conversation?.useMemory===false))return {allowed:false,code:'MEMORY_DISABLED',reason:'Memory and past-chat retrieval are disabled for this conversation'};
  if(tool.name!=='toolkit'&&!isToolGroup(tool.name)&&settings.enabledToolNames&&!settings.enabledToolNames.includes(tool.name)&&!settings.enabledToolNames.includes(groupForLeaf(tool.name)??''))return {allowed:false,code:'TOOL_DISABLED',reason:'This tool is disabled in Settings'};
  if(tool.name!=='toolkit'&&!isToolGroup(tool.name)&&ctx.enabledToolNames&&!ctx.enabledToolNames.includes(tool.name)&&!ctx.enabledToolNames.includes(groupForLeaf(tool.name)??''))return {allowed:false,code:'TOOL_DISABLED',reason:'This tool is disabled for this run'};
- if(capability==='computer'&&ctx.vision===false)return {allowed:false,code:'VISION_REQUIRED',reason:ctx.visionUnavailableReason??'Computer use requires a model with screenshot vision support'};
+ if(capability==='computer'&&requiresComputerVision(tool.name)&&ctx.vision===false)return {allowed:false,code:'VISION_REQUIRED',reason:ctx.visionUnavailableReason??'Computer use requires a model with screenshot vision support'};
  const taskMode=ctx.taskMode??settings.composerMode;
  if(!isToolGroup(tool.name)&&(taskMode==='browser'&&['web-search','web-fetch','computer','terminal'].includes(capability)||taskMode==='computer'&&['web-search','web-fetch','browser','terminal'].includes(capability)))return {allowed:false,code:'WORKFLOW_TOOL_REQUIRED',reason:'The user selected '+taskMode+' mode. Use the '+taskMode+' category for this interaction instead of '+capability+'. Discover its actions with toolkit if needed. If unavailable, explain the actual limitation; do not substitute another interaction channel.'};
+ if(!scopeAllows(tool.name,ctx))return {allowed:false,code:'TASK_TOOL_OUT_OF_SCOPE',reason:'This tool is outside the current user task. Use the available task tools; ask the user before starting unrelated work.'};
  if(planningLocked(ctx,settings)&&!isToolGroup(tool.name)&&!isPlanReadTool(tool.name))return {allowed:false,code:'PLAN_APPROVAL_REQUIRED',reason:'Read-only planning is active. Inspect relevant information, ask questions with ask_user and propose a plan with plan_create. Only the user approval button unlocks execution; chat text, Full access or another tool cannot approve the plan.'};
  const desktop=ctx.app.ephemeral?.get('nativeBridge');
  if(!ctx.executionEnvironmentId&&capability==='browser'&&tool.name!=='browser_open_file'&&ctx.edition==='desktop'&&desktop?.kind==='tauri'&&desktop.browser&&Date.now()-desktop.updated<12000&&desktop.tools&&!desktop.tools.includes(tool.name))return {allowed:false,code:'NATIVE_TOOL_UNAVAILABLE',reason:'This tool is not implemented for the embedded desktop browser; use the available browser DOM tools or computer screenshot with a vision model'};

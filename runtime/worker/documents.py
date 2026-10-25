@@ -53,7 +53,10 @@ def preview(path):
         return files,None
     except Exception as error: return [],str(error)
 result={}
-if op=='document_extract':
+if op in ('image_metadata','image_open','document_ocr'):
+    from document_advanced import run
+    result=run(op,scoped(a['file_path']),a,output,record)
+elif op=='document_extract':
     p=scoped(a['file_path']);ext=p.suffix.lower();text=''
     if ext=='.pdf':
         import pypdf

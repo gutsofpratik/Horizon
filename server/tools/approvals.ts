@@ -3,6 +3,8 @@ import {randomUUID} from 'node:crypto';import type {ToolContext} from './registr
 export type ApprovalMode='ask'|'auto'|'full';
 const readOnly=/^(?:artifact_(?:read|list)|browser_(?:snapshot|screenshot|find|zoom|scroll)|computer_(?:screenshot|wait|windows)|terminal_read|tool_output_read|document_(?:extract|inspect)|pdf_inspect|spreadsheet_inspect|web_search|web_fetch|plan_read|goal_read|goal_list|memory_search|chat_history_|conversation_|skills_list|skill_load|skill_read_resource|runtime_capabilities|clock_now|calculate|discover_tools)/;
 export function needsApproval(name:string,mode:ApprovalMode,args:any={}){
+ if(isAdvancedReadTool(name))return false;
+ if(name==='network_upload'||name==='web_download_file'||name==='mcp_connect'||name==='mcp_disconnect'||name==='audio_transcribe'||name==='git_checkout')return true;
  if(name==='team_read'||name==='team_message'||name==='team_progress')return false;
  if(name==='terminal_resize'||name==='plan_create'||name==='plan_update')return false;
  if(['browser_run_script','browser_site_call'].includes(name))return true;
@@ -32,3 +34,4 @@ export async function requestApproval(name:string,args:any,ctx:ToolContext):Prom
   ctx.signal.addEventListener('abort',abort,{once:true});ctx.emit('approval.requested',record);ctx.emit('model.status',{messageId:ctx.messageId,phase:'approval'});if(ctx.signal.aborted)abort();
  });
 }
+import {isAdvancedReadTool} from './advanced-access.ts';

@@ -51,5 +51,7 @@ export function planApprovalContext(ctx:ToolContext,settings:any){
 }
 
 export function isPlanReadTool(name:string){
+ if(isAdvancedReadTool(name))return true;
  return ['toolkit','discover_tools','ask_user','skills_list','skill_load','skill_read_resource','runtime_capabilities','tool_output_read','clock_now','calculate','project_search','plan_create','plan_read'].includes(name)||/^(?:memory_(?:search|read)|conversation_(?:search|read)|chat_history_(?:search|read)|research_(?:read|source_read)|files_(?:read|list|search|metadata|detect_type|compare|compare_versions|versions|read_range|search_name)|directory_list|git_(?:status|diff|log|show|blame|ls_files|remotes|reflog)|artifact_(?:read|list|versions|draft_read)|browser_(?:snapshot|screenshot|list_tabs|get_page_text|read_page|read_page_scoped|find|inspect_element)|computer_(?:screenshot|appshot|windows|history)|terminal_read|document_(?:extract|inspect)|pdf_inspect|spreadsheet_inspect|slides_inspect|web_(?:search|search_documents|fetch|parse_html|parse_json|extract_text|extract_links|find_text|compare_sources)|data_(?:read_csv|read_json|filter|sort|aggregate|join|clean|validate|calculate))$/.test(name);
 }
+import {isAdvancedReadTool} from '../tools/advanced-access.ts';

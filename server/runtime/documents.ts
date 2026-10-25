@@ -7,7 +7,7 @@ import {ToolError,type ToolContext} from '../tools/registry.ts';
 import {workspaceRoot,safePath,fileInContext,registerFile,projectKey} from '../tools/files.ts';
 import {officeDocumentOperations,type OfficeRuntime} from './office.ts';
 
-export const localDocumentOperations=new Set(['document_inspect','document_edit','document_create','document_extract','pdf_inspect','pdf_edit','spreadsheet_create','spreadsheet_inspect','spreadsheet_edit','spreadsheet_chart','slides_create','slides_inspect','slides_edit','chart_create','image_transform']);
+export const localDocumentOperations=new Set(['document_inspect','document_edit','document_create','document_extract','pdf_inspect','pdf_edit','spreadsheet_create','spreadsheet_inspect','spreadsheet_edit','spreadsheet_chart','slides_create','slides_inspect','slides_edit','chart_create','image_transform','image_metadata','image_open','document_ocr']);
 const fail=(code:string,message:string)=>new ToolError(code,message);
 function setupEnvironment(){const env:Record<string,string>={PYTHONUTF8:'1',PYTHONIOENCODING:'utf-8',PIP_CONFIG_FILE:process.platform==='win32'?'NUL':'/dev/null'};for(const key of ['PATH','Path','SystemRoot','WINDIR','TEMP','TMP','HOME','USERPROFILE','LOCALAPPDATA','APPDATA','ProgramFiles','ProgramFiles(x86)','HTTP_PROXY','HTTPS_PROXY','NO_PROXY','SSL_CERT_FILE','REQUESTS_CA_BUNDLE'])if(process.env[key])env[key]=process.env[key]!;return env;}
 export class DocumentRuntime {

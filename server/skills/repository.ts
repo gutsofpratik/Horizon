@@ -6,7 +6,7 @@ import type {FastifyInstance} from 'fastify';
 import type {AppContext} from '../app.ts';
 import {safePath,digest} from '../tools/files.ts';
 import {loadCatalog} from './catalog.ts';
-export const SKILL_REPOSITORY='gutsofpratik/OpenClaude-Skills';
+export const SKILL_REPOSITORY='gutsofpratik/Horizon-Skills';
 const base='https://raw.githubusercontent.com/'+SKILL_REPOSITORY+'/main/';
 export async function boundedDownload(url:string,limit:number){const response=await fetch(url,{signal:AbortSignal.timeout(60000),redirect:'error'});if(!response.ok)throw new Error('Skill repository returned HTTP '+response.status);const chunks:Uint8Array[]=[];let length=0;for await(const chunk of response.body as any){length+=chunk.length;if(length>limit)throw new Error('Repository download exceeds size limit');chunks.push(chunk);}return Buffer.concat(chunks);}
 export function validateRepositoryCatalog(value:any){if(value?.schemaVersion!==1||!Array.isArray(value.skills)||!Array.isArray(value.entries)||value.skills.length>10000||value.entries.length>10000)throw new Error('Invalid skill repository catalog');const ids=new Set();for(const item of value.skills){if(typeof item.id!=='string'||!/^[a-z0-9_-]{1,100}$/i.test(item.id)||ids.has(item.id)||typeof item.name!=='string'||typeof item.description!=='string'||!/^packages\/[a-z0-9_-]+\.zip$/i.test(item.packagePath)||!/^[a-f0-9]{64}$/.test(item.sha256))throw new Error('Invalid repository package metadata');ids.add(item.id);}return value;}

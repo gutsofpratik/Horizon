@@ -55,7 +55,7 @@ export class ConnectorManager {
  private provider(id:string,redirectUrl:string):OAuthClientProvider {
   return {
    redirectUrl,
-   clientMetadata:{client_name:'OpenClaude',redirect_uris:[redirectUrl],grant_types:['authorization_code','refresh_token'],response_types:['code'],token_endpoint_auth_method:this.secret(id).client?.client_secret?'client_secret_post':'none'},
+   clientMetadata:{client_name:'Horizon',redirect_uris:[redirectUrl],grant_types:['authorization_code','refresh_token'],response_types:['code'],token_endpoint_auth_method:this.secret(id).client?.client_secret?'client_secret_post':'none'},
    state:()=>{this.clearStates(id);const state=randomBytes(32).toString('hex');this.states.set(state,{id,expires:Date.now()+10*60_000});return state;},
    clientInformation:()=>this.secret(id).client,
    saveClientInformation:client=>this.persist(id,{client}),
@@ -72,6 +72,14 @@ export class ConnectorManager {
   if(this.pending.has(id))return this.pending.get(id)!;
   const operation=this.establish(id,callback,code).finally(()=>this.pending.delete(id));this.pending.set(id,operation);return operation;
  }
+ async reconnectSaved(id:string){
+  if(!this.app.store.get('mcp',id))throw new ToolError('CONNECTOR_NOT_FOUND','Choose a saved connector');
+  const callback=this.secret(id).callback;
+  if(typeof callback!=='string'||!callback)throw new ToolError('CONNECTOR_SETUP_REQUIRED','Connect and authorize this saved connector once in Settings before the agent can reconnect it');
+  await this.connect(id,callback);
+  const view=this.view(id);
+  return {status:view.status,toolCount:view.toolCount,...(view.status==='authorization_required'?{next:'Complete authorization in Settings → Connectors. The agent cannot grant itself authorization.'}:{})};
+ }
  private async establish(id:string,callback:string,code?:string){
   const item=this.app.store.get('mcp',id);if(!item)throw new Error('Connector not found');
   const previous=this.sessions.get(id);this.unregister(id);if(previous?.client)await previous.client.close().catch(()=>{});
@@ -87,7 +95,7 @@ export class ConnectorManager {
     fetch:async(input,init)=>fetch(input,{...init,signal:AbortSignal.any([...(init?.signal?[init.signal]:[]),AbortSignal.timeout(120_000)])})
    });
    if(code)await transport.finishAuth(code);
-   client=new Client({name:'OpenClaude',version:'0.1.0'},{capabilities:{}});
+   client=new Client({name:'Horizon',version:'0.1.0'},{capabilities:{}});
    await client.connect(transport,{timeout:30_000});
    const remote:any[]=[];let cursor:string|undefined;const cursors=new Set<string>();
    if(client.getServerCapabilities()?.tools)do{const page=await client.listTools(cursor?{cursor}:undefined,{timeout:30_000});remote.push(...page.tools);cursor=page.nextCursor;if(cursor&&cursors.has(cursor))throw new Error('Connector returned repeated tool pages');if(cursor)cursors.add(cursor);if(remote.length>256)throw new Error('Connector exposes too many tools (maximum 256)');}while(cursor);
@@ -118,7 +126,7 @@ export class ConnectorManager {
   const url=new URL(value),state=url.searchParams.get('state')??'',pending=this.states.get(state);
   if(!pending)return null;const expected=new URL(this.secret(pending.id).callback);
   if(url.origin!==expected.origin||url.pathname!==expected.pathname)return null;
-  try{await this.complete(state,url.searchParams.get('code')??undefined,url.searchParams.get('error')??undefined);return {status:200,body:'<!doctype html><h1>Connected to OpenClaude</h1><p>You can return to your chat.</p>'};}
+  try{await this.complete(state,url.searchParams.get('code')??undefined,url.searchParams.get('error')??undefined);return {status:200,body:'<!doctype html><h1>Connected to Horizon</h1><p>You can return to your chat.</p>'};}
   catch{return {status:400,body:'<!doctype html><h1>Authorization did not complete</h1><p>Return to Connectors for the status and try again.</p>'};}
  }
  async restore(){for(const item of this.app.store.list('mcp')){const credentials=this.secret(item.id);if(credentials.enabled&&credentials.callback)await this.connect(item.id,credentials.callback);}}
@@ -134,8 +142,8 @@ export function registerConnectors(app:FastifyInstance,context:AppContext,tools:
  app.delete('/api/connectors/:id',async(request:any)=>{await manager.remove(request.params.id);return {ok:true};});
  app.get('/api/connectors/oauth/callback',async(request:any,reply)=>{
   reply.header('Cache-Control','no-store').header('Referrer-Policy','no-referrer').header('Content-Security-Policy',"default-src 'none'; style-src 'unsafe-inline'");
-  try{await manager.complete(String(request.query.state??''),request.query.code,request.query.error);return reply.type('text/html').send('<!doctype html><title>Connected · OpenClaude</title><h1>Connector connected</h1><p>You can close this tab and return to OpenClaude.</p>');}
-  catch{return reply.code(400).type('text/html').send('<!doctype html><title>Connection failed · OpenClaude</title><h1>Authorization could not be completed</h1><p>Return to OpenClaude to see the connection status and try again.</p>');}
+  try{await manager.complete(String(request.query.state??''),request.query.code,request.query.error);return reply.type('text/html').send('<!doctype html><title>Connected · Horizon</title><h1>Connector connected</h1><p>You can close this tab and return to Horizon.</p>');}
+  catch{return reply.code(400).type('text/html').send('<!doctype html><title>Connection failed · Horizon</title><h1>Authorization could not be completed</h1><p>Return to Horizon to see the connection status and try again.</p>');}
  });
  app.addHook('onReady',()=>{void manager.restore();});app.addHook('onClose',async()=>manager.close());return manager;
 }

@@ -21,10 +21,10 @@ export class ProcessSupervisor {
  constructor(private directory:string){}
  private persist(){const snapshot=JSON.stringify({version:2,host:{pid:process.pid,identity:this.hostIdentity},processes:this.records},null,2);this.writeQueue=this.writeQueue.catch(()=>{}).then(async()=>{await mkdir(this.directory,{recursive:true});const file=join(this.directory,'processes.json'),temp=file+'.'+randomUUID();await writeFile(temp,snapshot,{mode:0o600});await rename(temp,file);});return this.writeQueue;}
  async recover(){let old:ProcessRecord[]=[],host:any;try{const registry=JSON.parse(await readFile(join(this.directory,'processes.json'),'utf8'));old=registry.processes??[];host=registry.host;}catch(error){if((error as NodeJS.ErrnoException).code!=='ENOENT')throw new Error('Process registry is unreadable; recovery stopped without terminating anything');}
-  if(host?.identity&&host.pid!==process.pid&&await processIdentity(host.pid)===host.identity)throw new Error('Another live OpenClaude host owns this process registry');this.hostIdentity=await processIdentity(process.pid);
+  if(host?.identity&&host.pid!==process.pid&&await processIdentity(host.pid)===host.identity)throw new Error('Another live Horizon host owns this process registry');this.hostIdentity=await processIdentity(process.pid);
   const retained:ProcessRecord[]=[];for(const record of old){if(!record.identity||record.pid===process.pid||await processIdentity(record.pid)!==record.identity)continue;
    // Another live host may share this data directory. Never reap its workers.
-   const parent=await processIdentity(record.parentPid);if(record.kind==='native-terminal'&&process.env.OPENCLAUDE_DESKTOP_OWNED==='1'&&record.parentPid===process.ppid&&parent===record.parentIdentity){retained.push(record);continue;}if(record.parentPid!==process.pid&&parent&&(!record.parentIdentity||parent===record.parentIdentity))throw new Error('Another OpenClaude host owns registered workers. Close that host before starting another.');
+   const parent=await processIdentity(record.parentPid);if(record.kind==='native-terminal'&&process.env.OPENCLAUDE_DESKTOP_OWNED==='1'&&record.parentPid===process.ppid&&parent===record.parentIdentity){retained.push(record);continue;}if(record.parentPid!==process.pid&&parent&&(!record.parentIdentity||parent===record.parentIdentity))throw new Error('Another Horizon host owns registered workers. Close that host before starting another.');
    await this.terminate(record);}
   this.records=retained;await this.persist();
  }
