@@ -1,6 +1,6 @@
 ---
 name: openclaude-data-and-creative-workflows
-description: Produce and revise real documents, spreadsheets, presentations, visual artifacts and data-analysis outputs in OpenClaude.
+description: Produce and revise real documents, spreadsheets, presentations, visual artifacts and data-analysis outputs in Horizon.
 ---
 
 Choose the actual output format and load matching installed design/format skills. Use artifact actions for interactive HTML/SVG, documents for PDF/DOCX, sheets for XLSX, slides for PPTX, pdf for existing PDF edits, and image for actual configured image generation/editing. Do not rename text to an Office extension or claim a concept is a compiled app.

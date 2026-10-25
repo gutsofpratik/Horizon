@@ -1,6 +1,6 @@
 ---
 name: openclaude-browser-and-computer
-description: Operate OpenClaude browser tabs and desktop applications using actual observations, current references and scoped files.
+description: Operate Horizon browser tabs and desktop applications using actual observations, current references and scoped files.
 ---
 
 Respect the selected Browser or Computer workflow. Browser DOM actions do not require vision; interpreting desktop screenshots does. Panels need not be open. Read runtime_capabilities when uncertain; do not invent a privacy restriction.

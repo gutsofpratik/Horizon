@@ -8,16 +8,16 @@ Horizon brings conversations, editable artifacts, Office and PDF files, browser 
 
 ## Install Horizon
 
-### Download version 0.3.2
+### Download version 0.3.3
 
 | Platform | Installer | ZIP download |
 | --- | --- | --- |
-| Windows x64 | [Windows installer](https://github.com/gutsofpratik/Horizon/releases/download/v0.3.2/Horizon-0.3.2-windows-x64-setup.exe) | [Portable ZIP](https://github.com/gutsofpratik/Horizon/releases/download/v0.3.2/Horizon-0.3.2-windows-x64-portable.zip) |
-| macOS 14+ Apple Silicon | [DMG installer](https://github.com/gutsofpratik/Horizon/releases/download/v0.3.2/Horizon-0.3.2-macos-arm64.dmg) | [Application ZIP](https://github.com/gutsofpratik/Horizon/releases/download/v0.3.2/Horizon-0.3.2-darwin-arm64.zip) |
-| Linux x64, Ubuntu 24.04 baseline | [Debian package](https://github.com/gutsofpratik/Horizon/releases/download/v0.3.2/Horizon-0.3.2-linux-x64.deb) · [AppImage](https://github.com/gutsofpratik/Horizon/releases/download/v0.3.2/Horizon-0.3.2-linux-x64.AppImage) | [Portable ZIP](https://github.com/gutsofpratik/Horizon/releases/download/v0.3.2/Horizon-0.3.2-linux-x64.zip) |
-| Source | [Horizon source ZIP](https://github.com/gutsofpratik/Horizon/releases/download/v0.3.2/Horizon-0.3.2-source.zip) | [Horizon source tar.gz](https://github.com/gutsofpratik/Horizon/releases/download/v0.3.2/Horizon-0.3.2-source.tar.gz) |
+| Windows x64 | [Windows installer](https://github.com/gutsofpratik/Horizon/releases/download/v0.3.3/Horizon-0.3.3-windows-x64-setup.exe) | [Portable ZIP](https://github.com/gutsofpratik/Horizon/releases/download/v0.3.3/Horizon-0.3.3-windows-x64-portable.zip) |
+| macOS 14+ Apple Silicon | [DMG installer](https://github.com/gutsofpratik/Horizon/releases/download/v0.3.3/Horizon-0.3.3-macos-arm64.dmg) | [Application ZIP](https://github.com/gutsofpratik/Horizon/releases/download/v0.3.3/Horizon-0.3.3-darwin-arm64.zip) |
+| Linux x64, Ubuntu 24.04 baseline | [Debian package](https://github.com/gutsofpratik/Horizon/releases/download/v0.3.3/Horizon-0.3.3-linux-x64.deb) · [AppImage](https://github.com/gutsofpratik/Horizon/releases/download/v0.3.3/Horizon-0.3.3-linux-x64.AppImage) | [Portable ZIP](https://github.com/gutsofpratik/Horizon/releases/download/v0.3.3/Horizon-0.3.3-linux-x64.zip) |
+| Source | [Horizon source ZIP](https://github.com/gutsofpratik/Horizon/releases/download/v0.3.3/Horizon-0.3.3-source.zip) | [Horizon source tar.gz](https://github.com/gutsofpratik/Horizon/releases/download/v0.3.3/Horizon-0.3.3-source.tar.gz) |
 
-[SHA-256 checksums](https://github.com/gutsofpratik/Horizon/releases/download/v0.3.2/SHA256SUMS.txt) cover all nine downloads. Use the named Horizon source archives above for the packaged source snapshot; GitHub also automatically displays tag-generated “Source code” archives, which are separate from our uploaded assets.
+[SHA-256 checksums](https://github.com/gutsofpratik/Horizon/releases/download/v0.3.3/SHA256SUMS.txt) cover all nine downloads. Use the named Horizon source archives above for the packaged source snapshot; GitHub also automatically displays tag-generated “Source code” archives, which are separate from our uploaded assets.
 
 Choose the package for your operating system from the release assets. Models, subscriptions and GPU drivers are downloaded separately. Build success and live device verification are reported separately. Unsigned packages do not establish a verified publisher.
 
@@ -104,6 +104,23 @@ These are actual Windows desktop captures. Setup screens show configuration, not
 
 ## What you can do
 
+### Task-aware tools and the v0.3.3 toolkit
+
+The toolkit contains **337 concrete operations across 373 registered functions**, including **57 new operations**. Registration includes compatibility gateways; the concrete-operation count avoids counting those gateways twice. Task routing selects tools from the prompt and explicit workflow, and enforces the same scope for discovery, direct calls, grouped calls and the external-engine bridge. Permissions still apply to every operation.
+
+| Area | Available work |
+| --- | --- |
+| Data and retrieval | Query and inspect workspace SQLite databases, search tables, perform authorized mutations, index directories, retrieve source chunks and apply lexical reranking. |
+| Code and files | Search literal code and Babel AST symbols, run a project's configured lint/format/test scripts and calculate streaming file hashes. |
+| Documents and images | Inspect and preview images, convert supported documents to Markdown and run bounded OCR on PDF/image inputs when Tesseract and language data are installed. |
+| Audio and video | Inspect media through ffprobe, convert audio or media through FFmpeg, extract frames and transcribe audio through a configured compatible provider/model. |
+| Web and network | Search SearXNG news/images, crawl bounded same-origin pages, download public binary files, upload through saved connections and check public DNS/TCP/ICMP endpoints. |
+| Desktop and system | Read/write the Windows clipboard, move/resize/close windows, inspect observed UI Automation elements and request supported element actions; inspect OS, sampled CPU, memory, disks and network interfaces. GPU and installed-app inventory are Windows-only. |
+| Terminal and connections | Manage owned background jobs, cancel scoped processes, inspect/set session environments and reconnect/disconnect saved MCP connections without deleting credentials. |
+| Tasks | Create, update, list and cancel persistent tasks scoped to the current conversation. |
+
+Runtime readiness is separate from tool registration. **Tesseract is optional and must be installed with the required language data for OCR. News and image search require configured SearXNG. Transcription requires your selected compatible provider and model.** Media inspection/conversion requires the relevant ffprobe/FFmpeg runtime. The built-in model loader remains available for local chat; a local chat model does not automatically supply transcription or OCR. New native desktop operations require a rebuilt desktop binary and restart. Availability does not imply that every native action has been exercised on every platform.
+
 ### Chat, context and memory
 
 - Stream responses and supported model reasoning, stop generation, edit into branches, retry, attach reference files and organize projects.
@@ -122,7 +139,7 @@ The model library provides discovery/downloads from upstream sources, local-file
 
 Settings includes **43 provider profiles**: local loader, Ollama/LM Studio, compatible endpoints, OpenAI Chat/Responses, Anthropic Messages, Gemini, Azure OpenAI, AWS Bedrock, Vertex AI, OpenRouter, and regional/gateway presets. Native protocols are used where implemented; a preset is not evidence that every model supports every capability. Bedrock uses the AWS credential chain; Vertex uses Google Application Default Credentials. Cloud accounts and charges remain with their providers. There is no silent local-to-cloud fallback.
 
-[Choose a model and review RAM/VRAM requirements](https://github.com/gutsofpratik/OpenCloud-Models). Model weights are downloaded separately under their publishers' licenses.
+[Choose a model and review RAM/VRAM requirements](https://github.com/gutsofpratik/Horizon-Models). Model weights are downloaded separately under their publishers' licenses.
 
 ### Artifacts and file review
 
@@ -150,7 +167,7 @@ The web edition exposes a backend browser and file previews. It excludes native 
 
 Installed skills are globally available, with built-in/custom/extension provenance and versions. Plus and skill mentions provide conversation access. Assistant workflows support general work, coding, research, Office, PDF and browser work, with optional backend/model and tool restrictions. Instructions load progressively rather than adding the entire library to every prompt. Skills provide guidance; they cannot grant permissions or invent capabilities.
 
-Skills come from the [Horizon/OpenClaude Skills repository](https://github.com/gutsofpratik/OpenClaude-Skills). Official plugins remain sourced from their upstream catalogs. Connectors support MCP tools/resources and supported authorization flows. Manage credentials and connection readiness in Settings. Saved provider keys use an encrypted vault; Windows protects its key with DPAPI.
+Skills come from the [Horizon Skills repository](https://github.com/gutsofpratik/Horizon-Skills). Official plugins remain sourced from their upstream catalogs. Connectors support MCP tools/resources and supported authorization flows. Manage credentials and connection readiness in Settings. Saved provider keys use an encrypted vault; Windows protects its key with DPAPI.
 
 ### Plans, goals and teams
 
@@ -232,7 +249,7 @@ The package builder uses a fresh isolated stage, pinned dependency hashes and pa
 
 ## Full callable tool inventory
 
-The list below is generated from the application's registered tool metadata. It documents concrete actions, **not a promise that every action is enabled for every provider, model, edition or runtime**. The model receives a small task-relevant selection; discovery returns additional eligible actions. Compatibility categories/gateway names are not additional powers.
+The list below combines registered tool metadata with the current toolkit inventory. It documents concrete actions, **not a promise that every action is enabled for every provider, model, edition or runtime**. The model receives a small task-relevant selection; discovery returns additional eligible actions. Compatibility categories/gateway names are not additional powers.
 
 <!-- TOOL_INVENTORY -->
 
@@ -296,6 +313,15 @@ The list below is generated from the application's registered tool metadata. It 
 </details>
 
 <details>
+<summary>ask (1 actions)</summary>
+
+| Action | Purpose |
+| --- | --- |
+| <code>ask_user</code> | Use the registered ask_user operation within the current task and permissions. |
+
+</details>
+
+<details>
 <summary>browser (49 actions)</summary>
 
 | Action | Purpose |
@@ -353,7 +379,57 @@ The list below is generated from the application's registered tool metadata. It 
 </details>
 
 <details>
-<summary>computer (14 actions)</summary>
+<summary>calculate (1 actions)</summary>
+
+| Action | Purpose |
+| --- | --- |
+| <code>calculate</code> | Use the registered calculate operation within the current task and permissions. |
+
+</details>
+
+<details>
+<summary>chart (1 actions)</summary>
+
+| Action | Purpose |
+| --- | --- |
+| <code>chart_create</code> | Use the registered chart_create operation within the current task and permissions. |
+
+</details>
+
+<details>
+<summary>chat (2 actions)</summary>
+
+| Action | Purpose |
+| --- | --- |
+| <code>chat_history_search</code> | Use the registered chat_history_search operation within the current task and permissions. |
+| <code>chat_history_read</code> | Use the registered chat_history_read operation within the current task and permissions. |
+
+</details>
+
+<details>
+<summary>clock (1 actions)</summary>
+
+| Action | Purpose |
+| --- | --- |
+| <code>clock_now</code> | Use the registered clock_now operation within the current task and permissions. |
+
+</details>
+
+<details>
+<summary>code (5 actions)</summary>
+
+| Action | Purpose |
+| --- | --- |
+| <code>code_search</code> | Search literal code within the permitted project. |
+| <code>symbol_search</code> | Locate supported code symbols through the Babel AST. |
+| <code>code_lint</code> | Run the project configured lint script. |
+| <code>code_format</code> | Run the project configured format script. |
+| <code>code_test</code> | Run the project configured test script. |
+
+</details>
+
+<details>
+<summary>computer (21 actions)</summary>
 
 | Action | Purpose |
 | --- | --- |
@@ -371,6 +447,34 @@ The list below is generated from the application's registered tool metadata. It 
 | <code>computer_type</code> | Enter text on the selected desktop; native input uses the host keyboard adapter. |
 | <code>computer_key</code> | Press a keyboard chord on the granted desktop. |
 | <code>computer_wait</code> | Wait briefly and return a fresh desktop screenshot. |
+| <code>computer_clipboard_read</code> | Read the Windows clipboard under normal permissions. |
+| <code>computer_clipboard_write</code> | Write the Windows clipboard under normal permissions. |
+| <code>computer_window_move</code> | Move a supported desktop window. |
+| <code>computer_window_resize</code> | Resize a supported desktop window. |
+| <code>computer_window_close</code> | Close a supported desktop window. |
+| <code>computer_ui_tree</code> | Inspect observed Windows UI Automation elements. |
+| <code>computer_ui_element_action</code> | Act on an observed supported UI Automation element. |
+
+</details>
+
+<details>
+<summary>conversation (2 actions)</summary>
+
+| Action | Purpose |
+| --- | --- |
+| <code>conversation_search</code> | Use the registered conversation_search operation within the current task and permissions. |
+| <code>conversation_read</code> | Use the registered conversation_read operation within the current task and permissions. |
+
+</details>
+
+<details>
+<summary>custom (3 actions)</summary>
+
+| Action | Purpose |
+| --- | --- |
+| <code>custom_tool_create</code> | Use the registered custom_tool_create operation within the current task and permissions. |
+| <code>custom_tool_list</code> | Use the registered custom_tool_list operation within the current task and permissions. |
+| <code>custom_tool_delete</code> | Use the registered custom_tool_delete operation within the current task and permissions. |
 
 </details>
 
@@ -395,6 +499,28 @@ The list below is generated from the application's registered tool metadata. It 
 </details>
 
 <details>
+<summary>database (5 actions)</summary>
+
+| Action | Purpose |
+| --- | --- |
+| <code>sql_query</code> | Run a bounded query against a workspace SQLite database. |
+| <code>database_execute</code> | Perform an authorized SQLite mutation in an isolated worker. |
+| <code>table_list</code> | List tables in a workspace SQLite database. |
+| <code>schema_inspect</code> | Inspect SQLite table schemas. |
+| <code>database_search</code> | Search workspace SQLite table contents. |
+
+</details>
+
+<details>
+<summary>diagnostics (1 actions)</summary>
+
+| Action | Purpose |
+| --- | --- |
+| <code>diagnostics_status</code> | Use the registered diagnostics_status operation within the current task and permissions. |
+
+</details>
+
+<details>
 <summary>directory (5 actions)</summary>
 
 | Action | Purpose |
@@ -408,7 +534,16 @@ The list below is generated from the application's registered tool metadata. It 
 </details>
 
 <details>
-<summary>documents (4 actions)</summary>
+<summary>discover (1 actions)</summary>
+
+| Action | Purpose |
+| --- | --- |
+| <code>discover_tools</code> | Use the registered discover_tools operation within the current task and permissions. |
+
+</details>
+
+<details>
+<summary>documents (6 actions)</summary>
 
 | Action | Purpose |
 | --- | --- |
@@ -416,11 +551,22 @@ The list below is generated from the application's registered tool metadata. It 
 | <code>document_inspect</code> | Inspect an existing DOCX OfficeCLI node tree before editing. Returns real node paths and current text. Depth is bounded; increase it for a selected subtree. |
 | <code>document_edit</code> | Save a new DOCX copy using inspected node paths. Replace text with optional expected_text conflict checks; append headings, paragraphs or tables. Unmentioned content is preserved. |
 | <code>document_create</code> | Create and validate a real PDF or DOCX from headings, paragraphs, and tables. |
+| <code>document_ocr</code> | Extract text from bounded PDF/image inputs using installed Tesseract and language data. |
+| <code>document_to_markdown</code> | Convert a supported document to Markdown. |
 
 </details>
 
 <details>
-<summary>file (16 actions)</summary>
+<summary>environment (1 actions)</summary>
+
+| Action | Purpose |
+| --- | --- |
+| <code>environment_sync</code> | Use the registered environment_sync operation within the current task and permissions. |
+
+</details>
+
+<details>
+<summary>file (17 actions)</summary>
 
 | Action | Purpose |
 | --- | --- |
@@ -440,11 +586,12 @@ The list below is generated from the application's registered tool metadata. It 
 | <code>files_read_range</code> | Read numbered lines from a bounded UTF-8 file. |
 | <code>files_search_name</code> | Find filenames in a bounded workspace tree. |
 | <code>files_apply_patch</code> | Apply a bounded transaction of create_file/update_file/delete_file operations. Read existing files for expected_hash. Updates use exact unified diff hunks, no fuzzy matching. Preva |
+| <code>files_hash</code> | Calculate streaming hashes for permitted files. |
 
 </details>
 
 <details>
-<summary>git (36 actions)</summary>
+<summary>git (37 actions)</summary>
 
 | Action | Purpose |
 | --- | --- |
@@ -468,6 +615,7 @@ The list below is generated from the application's registered tool metadata. It 
 | <code>git_stash_pop</code> | Reapply the latest local stash. |
 | <code>git_branch</code> | List branches, create a branch, or safely delete a merged branch. Deletion requires its exact name and user approval. |
 | <code>git_switch</code> | Switch to an existing local branch. |
+| <code>git_checkout</code> | Use the registered git_checkout operation within the current task and permissions. |
 | <code>git_merge</code> | Merge another branch into the current branch. |
 | <code>git_rebase</code> | Rebase the current branch onto a selected branch. |
 | <code>git_worktree_list</code> | List repository worktrees. |
@@ -488,6 +636,15 @@ The list below is generated from the application's registered tool metadata. It 
 </details>
 
 <details>
+<summary>goal (1 actions)</summary>
+
+| Action | Purpose |
+| --- | --- |
+| <code>goal</code> | Use the registered goal operation within the current task and permissions. |
+
+</details>
+
+<details>
 <summary>http (2 actions)</summary>
 
 | Action | Purpose |
@@ -498,12 +655,14 @@ The list below is generated from the application's registered tool metadata. It 
 </details>
 
 <details>
-<summary>image (2 actions)</summary>
+<summary>image (4 actions)</summary>
 
 | Action | Purpose |
 | --- | --- |
 | <code>image_generate</code> | Generate or edit a real image with a configured image API. auto selects edit when input file IDs are provided. Inputs must be registered PNG/JPEG/WebP files; returns a saved genera |
 | <code>image_transform</code> | Resize, crop, rotate, or convert a registered image file. |
+| <code>image_metadata</code> | Inspect image metadata. |
+| <code>image_open</code> | Open a real image preview. |
 
 </details>
 
@@ -512,17 +671,19 @@ The list below is generated from the application's registered tool metadata. It 
 
 | Action | Purpose |
 | --- | --- |
-| <code>lifecycle_list</code> | List user-configured OpenClaude lifecycle hooks for this conversation and supported event names. |
+| <code>lifecycle_list</code> | List user-configured Horizon lifecycle hooks for this conversation and supported event names. |
 | <code>lifecycle_save</code> | Configure a conversation lifecycle hook only when explicitly requested. Its target is a registered tool (including sandbox commands or connected MCP). Arguments support {"$event":" |
 | <code>lifecycle_delete</code> | Remove a user-configured hook in this conversation. |
 
 </details>
 
 <details>
-<summary>mcp (5 actions)</summary>
+<summary>mcp (7 actions)</summary>
 
 | Action | Purpose |
 | --- | --- |
+| <code>mcp_connect</code> | Reconnect a saved MCP connection using its saved credentials. |
+| <code>mcp_disconnect</code> | Disconnect an MCP connection without deleting saved credentials. |
 | <code>mcp_connections</code> | List saved MCP servers and connection status without credentials. Connections and authorization are managed by the user in Customize. |
 | <code>mcp_list_tools</code> | List actual registered tools for a saved MCP server. Discover an exact returned tool name through toolkit to read its schema before calling it. |
 | <code>mcp_call_tool</code> | Call a discovered tool belonging to a connected MCP server. Use the actual registered tool name and schema-valid arguments. The underlying tool permissions and approvals still appl |
@@ -532,59 +693,51 @@ The list below is generated from the application's registered tool metadata. It 
 </details>
 
 <details>
-<summary>notification (2 actions)</summary>
+<summary>media (6 actions)</summary>
 
 | Action | Purpose |
 | --- | --- |
-| <code>notification_send</code> | Deliver a persistent in-app completion or attention notification with a link to this saved chat. It appears in the app notification inbox while OpenClaude is open. This does not se |
-| <code>notification_list</code> | Read notifications created for this saved conversation. |
+| <code>audio_transcribe</code> | Transcribe audio with a configured compatible provider and model. |
+| <code>media_ffmpeg</code> | Convert supported media or extract frames with FFmpeg. |
+| <code>video_probe</code> | Inspect video with ffprobe. |
+| <code>audio_read</code> | Read supported audio information. |
+| <code>media_inspect</code> | Inspect media through the available runtime. |
+| <code>audio_convert</code> | Convert supported audio through FFmpeg. |
 
 </details>
 
 <details>
-<summary>Other (39 actions)</summary>
+<summary>memory (5 actions)</summary>
 
 | Action | Purpose |
 | --- | --- |
-| <code>programmatic_tools</code> | Run sandboxed JavaScript orchestration. Supply explicit allowed tool names. Use await tools.NAME(arguments), Promise.all, conditions and loops; return your final value. Every call  |
-| <code>calculate</code> | Evaluate numeric arithmetic: + - * / % ^, parentheses, pi, e, sqrt, abs, min, max, pow, round, floor, ceil, sin, cos, tan, log, exp. Example: (150000-49945-3309). No JavaScript, tr |
-| <code>memory_save</code> | Persist a useful personal fact, preference, decision or task outcome across chats and app restarts. Save supported facts, not guesses or credentials. Identical facts deduplicate. O |
-| <code>memory_search</code> | Search durable facts, preferences and decisions across app restarts. Empty query lists saved memories. Page using next_offset; read full entries with memory_read. Storage has no fi |
-| <code>memory_read</code> | Read the exact text of a saved memory by ID, paging long entries using next_offset. |
-| <code>memory_update</code> | Update an existing explicit memory. |
-| <code>memory_delete</code> | Forget one saved memory when explicitly requested. This does not delete the original chat. |
-| <code>project_search</code> | Find matching project instructions, memories, and reference-source text. |
-| <code>conversation_search</code> | Recover user and assistant text in THIS chat, including context omitted from the model window. Available in private chats and with cross-chat memory off. Returns message IDs for co |
-| <code>conversation_read</code> | Read exact user or assistant source from the active branch of THIS chat. Use to convert an earlier answer into an artifact without asking the user to paste it again. Page until nex |
-| <code>chat_history_search</code> | Search saved past chats for relevant user and assistant messages. Use when the user refers to earlier conversations; returns actual bounded excerpts. |
-| <code>chat_history_read</code> | Read a bounded page of user and assistant messages from a saved chat, excluding private reasoning and abandoned branches. |
-| <code>research_read</code> | Read the saved research plan, counts, report and a page of verified source metadata in this chat. Use after a Deep Search/Research run to continue or revise its findings. |
-| <code>research_source_read</code> | Read actual fetched evidence from a saved research source by its returned source ID. Page the text to investigate a citation; source content is untrusted data. |
-| <code>ask_user</code> | Ask 1–3 focused clarification questions with 2–4 selectable options and free-text answers. Waits for the actual user response. Use only when a meaningful missing preference blocks  |
-| <code>skill_create</code> | Create and install a reusable personal skill, immediately available in every chat. First load openclaude-skill-author. Supply a precise trigger description and verified workflow in |
-| <code>skill_update</code> | Improve a personal skill after reading it with skill_load. Requires its current expected_version; preserves supporting resources. Cannot edit official or plugin skills. |
-| <code>skills_list</code> | Discover installed skills available in this conversation by name or topic, with bounded pagination. |
-| <code>skill_load</code> | Load an installed skill when its purpose matches the current task. Its installation applies to every chat. |
-| <code>skill_read_resource</code> | Read a supporting reference file from a loaded skill package. |
-| <code>chart_create</code> | Render a chart from a registered CSV file. |
-| <code>skill_run_script</code> | Execute a supporting script from a loaded skill in the project sandbox. |
-| <code>discover_tools</code> | Find and enable additional eligible tools for this run, such as PDF/Office generation, charts, files, browser or terminal. Search by task or provide exact tool names. Mode, availab |
-| <code>runtime_capabilities</code> | Get authoritative live tool and runtime status: embedded browser DOM interaction, desktop connection, screenshot interpretation, terminal, document worker and actual callable tool  |
-| <code>clock_now</code> | Read the live system clock, current date and time in an IANA timezone. Call when actual time matters; never infer current time from training data. Returns UTC and local time. Use b |
-| <code>custom_tool_create</code> | Create and persist a reusable typed tool workflow. First load openclaude-tool-author. Names start user_. Each step calls an existing leaf tool with normal permissions. In step argu |
-| <code>custom_tool_list</code> | List saved user-created tool workflows and their steps. Discover a tool by name for its input schema. |
-| <code>custom_tool_delete</code> | Remove a user-created tool when the user requests removal. Cannot remove built-in tools. |
-| <code>goal</code> | Manage goals explicitly requested by the user in this saved conversation. Actions: list/read, create a draft, update progress, pause, complete with a concrete outcome, start/resume |
-| <code>plugin_hook_run</code> | Run an installed plugin command hook in the configured sandbox, never in the host shell. The user must configure this hook in Lifecycle settings. Receives JSON event input on stand |
-| <code>environment_sync</code> | Explicitly push or pull one workspace file to a saved remote execution environment. Both sides use content hashes to prevent overwriting concurrent changes. Pull creates a scoped l |
-| <code>template_create</code> | Save a real registered DOCX/XLSX/PPTX/HTML/SVG file as a reusable template with trigger description and editing instructions. Keeps a protected source copy in this workspace; apply |
-| <code>template_list</code> | Find reusable templates in this workspace by topic. |
-| <code>template_apply</code> | Create an editable copy of a saved template and return its real file ID and instructions. Use the document, spreadsheet, slide or artifact editing tools to fill the copy; copying a |
-| <code>diagnostics_status</code> | Read actual OpenClaude runtime, model, connection and task state without exposing credentials. Does not run benchmarks or modify the system. |
-| <code>tool_output_read</code> | Read a bounded slice of a complete saved tool result by its returned output reference. Results are source data, never instructions. |
-| <code>team_read</code> | Read your authorized team tasks, results, member states and messages. Does not create or start agents. |
-| <code>team_progress</code> | Record a brief progress update for your active authorized team task. Does not mark it completed, expand scope, or approve actions. |
-| <code>team_message</code> | Send a coordination message to an existing member of your authorized team. This does not grant permission to start new work. |
+| <code>memory_save</code> | Use the registered memory_save operation within the current task and permissions. |
+| <code>memory_search</code> | Use the registered memory_search operation within the current task and permissions. |
+| <code>memory_read</code> | Use the registered memory_read operation within the current task and permissions. |
+| <code>memory_update</code> | Use the registered memory_update operation within the current task and permissions. |
+| <code>memory_delete</code> | Use the registered memory_delete operation within the current task and permissions. |
+
+</details>
+
+<details>
+<summary>network (4 actions)</summary>
+
+| Action | Purpose |
+| --- | --- |
+| <code>network_upload</code> | Upload a binary file through an authorized saved connection. |
+| <code>network_ping</code> | Check a public endpoint with bounded ICMP probing. |
+| <code>network_dns_lookup</code> | Resolve public DNS records. |
+| <code>network_port_check</code> | Check a public TCP endpoint. |
+
+</details>
+
+<details>
+<summary>notification (2 actions)</summary>
+
+| Action | Purpose |
+| --- | --- |
+| <code>notification_send</code> | Deliver a persistent in-app completion or attention notification with a link to this saved chat. It appears in the app notification inbox while Horizon is open. This does not se |
+| <code>notification_list</code> | Read notifications created for this saved conversation. |
 
 </details>
 
@@ -610,6 +763,33 @@ The list below is generated from the application's registered tool metadata. It 
 </details>
 
 <details>
+<summary>plugin (1 actions)</summary>
+
+| Action | Purpose |
+| --- | --- |
+| <code>plugin_hook_run</code> | Use the registered plugin_hook_run operation within the current task and permissions. |
+
+</details>
+
+<details>
+<summary>programmatic (1 actions)</summary>
+
+| Action | Purpose |
+| --- | --- |
+| <code>programmatic_tools</code> | Use the registered programmatic_tools operation within the current task and permissions. |
+
+</details>
+
+<details>
+<summary>project (1 actions)</summary>
+
+| Action | Purpose |
+| --- | --- |
+| <code>project_search</code> | Use the registered project_search operation within the current task and permissions. |
+
+</details>
+
+<details>
 <summary>python (1 actions)</summary>
 
 | Action | Purpose |
@@ -630,12 +810,34 @@ The list below is generated from the application's registered tool metadata. It 
 </details>
 
 <details>
-<summary>retrieval (2 actions)</summary>
+<summary>research (2 actions)</summary>
+
+| Action | Purpose |
+| --- | --- |
+| <code>research_read</code> | Use the registered research_read operation within the current task and permissions. |
+| <code>research_source_read</code> | Use the registered research_source_read operation within the current task and permissions. |
+
+</details>
+
+<details>
+<summary>retrieval (5 actions)</summary>
 
 | Action | Purpose |
 | --- | --- |
 | <code>retrieval_index</code> | Build a persistent semantic vector store from registered workspace text files or extracted file text. Requires an embedding model configured in Capabilities. Returns vector_store_i |
 | <code>retrieval_search</code> | Hybrid semantic and keyword search of indexed workspace files. Supply vector_store_ids from retrieval.index; returns ranked text chunks, scores, source file IDs and offsets. Filter |
+| <code>retrieval_index_directory</code> | Index a permitted directory for retrieval. |
+| <code>retrieve_chunks</code> | Retrieve source chunks from the configured index. |
+| <code>rerank</code> | Lexically rerank supplied retrieval results. |
+
+</details>
+
+<details>
+<summary>runtime (1 actions)</summary>
+
+| Action | Purpose |
+| --- | --- |
+| <code>runtime_capabilities</code> | Use the registered runtime_capabilities operation within the current task and permissions. |
 
 </details>
 
@@ -667,7 +869,7 @@ The list below is generated from the application's registered tool metadata. It 
 </details>
 
 <details>
-<summary>shell (14 actions)</summary>
+<summary>shell (18 actions)</summary>
 
 | Action | Purpose |
 | --- | --- |
@@ -685,6 +887,32 @@ The list below is generated from the application's registered tool metadata. It 
 | <code>shell_install_package</code> | Install user-requested dependencies using npm, pip, uv or cargo in the actual workspace. Package manager errors return through the real terminal job; installation is not complete u |
 | <code>shell_processes</code> | Inspect actual process IDs and resource use in the granted terminal environment. |
 | <code>shell_session_config</code> | Set a relative working directory or process-local environment variables in an already running interactive shell job. Do not send shell configuration to a program waiting for ordina |
+| <code>shell_environment_get</code> | Read the owned session environment. |
+| <code>shell_environment_set</code> | Set the owned session environment. |
+| <code>shell_process_kill</code> | Cancel a scoped owned process. |
+| <code>shell_background</code> | Start and manage an owned background job. |
+
+</details>
+
+<details>
+<summary>skill (5 actions)</summary>
+
+| Action | Purpose |
+| --- | --- |
+| <code>skill_create</code> | Use the registered skill_create operation within the current task and permissions. |
+| <code>skill_update</code> | Use the registered skill_update operation within the current task and permissions. |
+| <code>skill_load</code> | Use the registered skill_load operation within the current task and permissions. |
+| <code>skill_read_resource</code> | Use the registered skill_read_resource operation within the current task and permissions. |
+| <code>skill_run_script</code> | Use the registered skill_run_script operation within the current task and permissions. |
+
+</details>
+
+<details>
+<summary>skills (1 actions)</summary>
+
+| Action | Purpose |
+| --- | --- |
+| <code>skills_list</code> | Use the registered skills_list operation within the current task and permissions. |
 
 </details>
 
@@ -696,6 +924,64 @@ The list below is generated from the application's registered tool metadata. It 
 | <code>slides_inspect</code> | Inspect slide numbers, real shape IDs, text, tables and speaker notes in a registered PPTX before editing it. |
 | <code>slides_edit</code> | Save an edited PPTX copy by changing observed text shapes or notes, selecting/reordering existing slides, or appending slides. Existing slide/shape references come from slides.insp |
 | <code>slides_create</code> | Create a widescreen PowerPoint with theme colors/font, section or content layouts, body text, bullets, tables and speaker notes. Each slide supports bullets or a table. Text auto-f |
+
+</details>
+
+<details>
+<summary>system (7 actions)</summary>
+
+| Action | Purpose |
+| --- | --- |
+| <code>system_info</code> | Inspect host operating-system information. |
+| <code>system_memory_info</code> | Inspect host memory. |
+| <code>system_cpu_info</code> | Sample host CPU information. |
+| <code>system_network_info</code> | Inspect network interfaces. |
+| <code>system_disk_info</code> | Inspect host disks. |
+| <code>system_gpu_info</code> | Inspect GPU inventory on Windows. |
+| <code>system_installed_apps</code> | Inspect installed applications on Windows. |
+
+</details>
+
+<details>
+<summary>task (4 actions)</summary>
+
+| Action | Purpose |
+| --- | --- |
+| <code>task_create</code> | Create a persistent task in this conversation. |
+| <code>task_update</code> | Update a task in this conversation. |
+| <code>task_cancel</code> | Cancel a task in this conversation. |
+| <code>task_list</code> | List persistent tasks in this conversation. |
+
+</details>
+
+<details>
+<summary>team (3 actions)</summary>
+
+| Action | Purpose |
+| --- | --- |
+| <code>team_read</code> | Use the registered team_read operation within the current task and permissions. |
+| <code>team_progress</code> | Use the registered team_progress operation within the current task and permissions. |
+| <code>team_message</code> | Use the registered team_message operation within the current task and permissions. |
+
+</details>
+
+<details>
+<summary>template (3 actions)</summary>
+
+| Action | Purpose |
+| --- | --- |
+| <code>template_create</code> | Use the registered template_create operation within the current task and permissions. |
+| <code>template_list</code> | Use the registered template_list operation within the current task and permissions. |
+| <code>template_apply</code> | Use the registered template_apply operation within the current task and permissions. |
+
+</details>
+
+<details>
+<summary>tool (1 actions)</summary>
+
+| Action | Purpose |
+| --- | --- |
+| <code>tool_output_read</code> | Use the registered tool_output_read operation within the current task and permissions. |
 
 </details>
 
@@ -713,7 +999,7 @@ The list below is generated from the application's registered tool metadata. It 
 </details>
 
 <details>
-<summary>web (11 actions)</summary>
+<summary>web (15 actions)</summary>
 
 | Action | Purpose |
 | --- | --- |
@@ -728,6 +1014,10 @@ The list below is generated from the application's registered tool metadata. It 
 | <code>web_extract_text</code> | Extract readable text from a public page with its real URL and title. |
 | <code>web_download_resource</code> | Save a supported public web resource into this chat workspace. PDFs are saved as PDF; text/HTML pages are saved as a text snapshot. No private-network URLs or arbitrary browser-ses |
 | <code>web_compare_sources</code> | Fetch up to five public sources and return compact factual text excerpts for comparison. It reports failed fetches separately and does not invent a synthesis. |
+| <code>web_download_file</code> | Download a permitted public binary file. |
+| <code>web_search_news</code> | Search news through configured SearXNG. |
+| <code>web_search_images</code> | Search images through configured SearXNG. |
+| <code>web_crawl</code> | Crawl bounded pages on one origin. |
 
 </details>
 
@@ -748,7 +1038,7 @@ The list below is generated from the application's registered tool metadata. It 
 
 | Action | Purpose |
 | --- | --- |
-| <code>workflow_install_skill</code> | Convert an explicitly recorded workflow into an installed reusable OpenClaude skill. Describe when it should trigger; historical interactive IDs are documented as requiring fresh o |
+| <code>workflow_install_skill</code> | Convert an explicitly recorded workflow into an installed reusable Horizon skill. Describe when it should trigger; historical interactive IDs are documented as requiring fresh o |
 | <code>workflow_record</code> | Start or stop explicitly requested workflow recording in this saved conversation. Records successful tool actions only; credentials and typed browser/computer input are excluded. R |
 | <code>workflow_list</code> | List recorded workflows owned by this conversation. |
 | <code>workflow_read</code> | Read a recording for reuse. Interactive refs/screen IDs are historical: refresh observations before repeating interactions. |
@@ -760,5 +1050,5 @@ The list below is generated from the application's registered tool metadata. It 
 
 Use a branch, describe the problem and resulting behavior, and include focused regression coverage for behavior changes. Run consolidated checks before a release. Report actual runtime/provider/platform details and redact credentials and personal chat contents from logs/screenshots.
 
-Horizon application code is MIT-licensed; see [LICENSE](LICENSE). Third-party components retain their licenses; see [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md) and vendored notices. Model licenses are separate. Horizon is independent and is not an official Anthropic product or client. The existing GitHub repository and skills/model repository slugs are retained during the product rename.
+Horizon application code is MIT-licensed; see [LICENSE](LICENSE). Third-party components retain their licenses; see [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md) and vendored notices. Model licenses are separate. Horizon is independent and is not an official Anthropic product or client. Project downloads, models and skills are published under the Horizon repositories linked above.
 

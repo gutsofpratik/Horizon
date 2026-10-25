@@ -1,6 +1,6 @@
 ---
 name: openclaude-terminal-workflow
-description: Execute commands and scripts in OpenClaude's real native or sandbox terminal, retaining jobs and inspecting completion.
+description: Execute commands and scripts in Horizon's real native or sandbox terminal, retaining jobs and inspecting completion.
 ---
 
 Use shell.run for a command, shell.script for source in an explicit language, and shell.session/read/stdin/resize for a persistent interactive session. Use the actual function schemas already supplied. Discover only a missing operation. Panels do not need to be open for tool execution.

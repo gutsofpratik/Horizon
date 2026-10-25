@@ -1,0 +1,19 @@
+{
+  "product": "Horizon",
+  "capturePolicy": "Native Windows screenshots from real executions using synthetic data. Do not represent seeded conversations, mock results or settings screens as completed agent workflows.",
+  "scenarios": [
+    {"id":"excel","prompt":"Create a polished Excel balance sheet for Northstar Studio using synthetic figures: cash 68000, receivables 22000, equipment 45000, payables 15000, loan 40000, equity 80000. Use formulas for totals and a balance check. Save the XLSX and show its preview.","evidence":"Successful OfficeCLI tool result, saved XLSX, visible formatted worksheet, balanced totals."},
+    {"id":"pdf","prompt":"Create a polished two-page PDF executive brief for Northstar Studio. Q1 revenue was 146000 and costs were 85500. Include a summary, a financial table and three recommended next steps. Use synthetic data and open the saved PDF preview.","evidence":"Successful PDF tool result, saved PDF, rendered pages."},
+    {"id":"slides","prompt":"Create a five-slide PowerPoint for Northstar Studio's Q1 review. Use synthetic data: revenue 146000, costs 85500, profit 60500. Include an overview, results, priorities, risks and next steps. Save the PPTX and show the preview.","evidence":"Successful OfficeCLI result, saved PPTX with five slides, preview."},
+    {"id":"word","prompt":"Create a Word project proposal for Northstar Studio with scope, three milestones, deliverables and a budget table. Clearly label the example data as synthetic. Save the DOCX and show its preview.","evidence":"Successful OfficeCLI result, saved DOCX and preview."},
+    {"id":"files","prompt":"Organize only the supplied demonstration inbox into data, briefs and src folders. Preserve all contents, then list the resulting structure.","evidence":"Real file operations, before/after paths, preserved content hashes."},
+    {"id":"coding-terminal","prompt":"In the demonstration workspace, add validation to totals.js, write a focused Node test, and run it using the terminal. Do not install dependencies or modify any files outside this workspace.","evidence":"Saved code diff, actual terminal command and successful exit status."},
+    {"id":"artifact","prompt":"Create an interactive Q1 dashboard artifact for Northstar Studio, then revise it to add a quarterly goal progress indicator. Use synthetic data.","evidence":"Working preview and two revisions of the same artifact identity."},
+    {"id":"browser","prompt":"Use the embedded browser to open https://example.com and inspect its heading. Do not use web search as a substitute.","evidence":"Embedded browser page and successful browser inspection."},
+    {"id":"plan","prompt":"In plan mode, propose a three-step plan for a Northstar Studio dashboard. Ask one clarifying question if useful. Wait for the UI approval before creating or changing files.","evidence":"Pending approval button and no mutations before approval; progress after approval."},
+    {"id":"team","prompt":"Use a team to review the demonstration dashboard: one member reviews accessibility and another reviews data calculations. Collect their findings without changing files.","evidence":"Actual member runs, per-member progress and collected findings."},
+    {"id":"automation","prompt":"Create a one-time local demonstration reminder to review the Northstar dashboard. Keep it in this demo profile and do not message external services.","evidence":"Saved schedule and actual local execution history."},
+    {"id":"memory","prompt":"Remember that this demonstration workspace uses the fictional company Northstar Studio. Then retrieve that saved preference.","evidence":"Persistent memory write and subsequent retrieval in the demo profile."}
+  ],
+  "status": "awaiting_demo_profile_and_local_model"
+}

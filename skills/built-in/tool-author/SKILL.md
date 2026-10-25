@@ -1,6 +1,6 @@
 ---
 name: openclaude-tool-author
-description: Create a reusable typed tool from a verified sequence of existing OpenClaude tools when no existing leaf tool already does the job.
+description: Create a reusable typed tool from a verified sequence of existing Horizon tools when no existing leaf tool already does the job.
 ---
 
 Discover existing tools before adding one; prefer a direct tool call for one-off work. custom_tool_list finds saved workflows. Use custom_tool_create for a named reusable sequence. Names start user_. Describe its precise purpose and define typed parameters with names, types, descriptions and required flags. Supported types are string, number, boolean, object and array.

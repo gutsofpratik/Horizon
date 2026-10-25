@@ -1,8 +1,8 @@
 # Third-party notices
 
-The MIT license at the repository root covers original OpenClaude code. It does
+The MIT license at the repository root covers original Horizon code. It does
 not replace licenses for third-party software, fonts, skills, plugins, models or
-services. OpenClaude is independent of Anthropic and does not include its private
+services. Horizon is independent of Anthropic and does not include its private
 system prompts or restricted desktop skill packs.
 
 ## Source and desktop releases
@@ -26,7 +26,7 @@ system prompts or restricted desktop skill packs.
 - Mermaid and its diagram dependencies retain their original licenses. Any ELK
   dependency is covered by the Eclipse Public License; corresponding-source
   information accompanies the release notices. No claim is made that an
-  upstream dependency is authored by OpenClaude.
+  upstream dependency is authored by Horizon.
 - Windows desktop functionality uses Microsoft WebView2 and Windows APIs.
   WebView2 Runtime is Microsoft software subject to Microsoft's terms, not the
   application's MIT license. The dependency helper installs the official runtime
@@ -44,10 +44,10 @@ packages. Those packages retain their own licenses. Docker Desktop installation
 is optional and requires acceptance of Docker's license; commercial subscription
 requirements may apply.
 
-Only original OpenClaude skills are bundled in this application repository.
-Skills installed from OpenClaude-Skills include their upstream license file.
+Only original Horizon skills are bundled in this application repository.
+Skills installed from Horizon-Skills include their upstream license file.
 Official Claude plugins are retrieved from their official upstream repository,
-not mirrored as OpenClaude-owned software. Installing a skill or extension does
+not mirrored as Horizon-owned software. Installing a skill or extension does
 not change its license or grant permissions beyond the application's controls.
 
 See the pinned manifests and upstream license files for the controlling terms.
@@ -56,8 +56,8 @@ See the pinned manifests and upstream license files for the controlling terms.
 
 AionCore and aionrs are included under Apache-2.0. Their original license files
 remain in `vendor/AionCore/LICENSE` and `vendor/aionrs/LICENSE`. Pinned revisions,
-source archive checksums and OpenClaude modifications are recorded in
+source archive checksums and Horizon modifications are recorded in
 `vendor/upstream-lock.json`; `vendor/NOTICE` retains upstream attribution.
 The backend component build copies these notices into its output. The original
-OpenClaude code remains subject to the repository license.
+Horizon code remains subject to the repository license.
 

@@ -1,6 +1,6 @@
 ---
 name: openclaude-presentation-workflow
-description: Create and revise real PowerPoint decks using OpenClaude slides tools with clear stories and readable slide designs.
+description: Create and revise real PowerPoint decks using Horizon slides tools with clear stories and readable slide designs.
 ---
 
 Determine the audience, objective and requested slide count from the conversation. Make a useful first deck with stated assumptions when optional details are missing. Use a narrative: context, core points, evidence and conclusion/action. Each slide should communicate one central point.

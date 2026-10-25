@@ -1,6 +1,6 @@
 ---
 name: openclaude-spreadsheet-workflow
-description: Create and revise designed Excel workbooks using OpenClaude sheets actions, formulas and supported cell formatting.
+description: Create and revise designed Excel workbooks using Horizon sheets actions, formulas and supported cell formatting.
 ---
 
 Use for Excel, XLSX, financial statements, budgets and trackers. Use the directly supplied spreadsheet_create function; do not discover it again. Create accepts output_name and an array of sheets, each with name and rows. Rows are cell arrays; numbers stay numbers, formulas are strings beginning with =, and empty cells use null. Do not put an extra arguments wrapper into a directly supplied sheets function.

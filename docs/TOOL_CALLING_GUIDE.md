@@ -1,4 +1,4 @@
-# OpenClaude tool operating reference
+# Horizon tool operating reference
 
 Generated from the registered tool schemas. Examples are templates, not executed operations. Live guidance applies current permissions, installed skills and runtime availability; this document does not grant access.
 
@@ -34,7 +34,7 @@ Prerequisites: Normal workspace permissions and the configured runtime/connectio
 
 - openclaude-terminal-workflow (`openclaude-terminal-workflow`): Run programs and commands in the actual terminal, track jobs and inspect exit status.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-terminal-workflow"}}`
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: path.
@@ -86,7 +86,7 @@ Prerequisites: Normal workspace permissions and the configured runtime/connectio
 
 - openclaude-terminal-workflow (`openclaude-terminal-workflow`): Run programs and commands in the actual terminal, track jobs and inspect exit status.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-terminal-workflow"}}`
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: path, offset, limit.
@@ -142,7 +142,7 @@ Prerequisites: Normal workspace permissions and the configured runtime/connectio
 
 - openclaude-terminal-workflow (`openclaude-terminal-workflow`): Run programs and commands in the actual terminal, track jobs and inspect exit status.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-terminal-workflow"}}`
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: path, text.
@@ -197,7 +197,7 @@ Prerequisites: Normal workspace permissions and the configured runtime/connectio
 
 - openclaude-terminal-workflow (`openclaude-terminal-workflow`): Run programs and commands in the actual terminal, track jobs and inspect exit status.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-terminal-workflow"}}`
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: path, expected_hash, find, replace.
@@ -255,7 +255,7 @@ Prerequisites: Normal workspace permissions and the configured runtime/connectio
 
 - openclaude-terminal-workflow (`openclaude-terminal-workflow`): Run programs and commands in the actual terminal, track jobs and inspect exit status.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-terminal-workflow"}}`
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: query, path.
@@ -309,7 +309,7 @@ Prerequisites: Normal workspace permissions and the configured runtime/connectio
 
 - openclaude-terminal-workflow (`openclaude-terminal-workflow`): Run programs and commands in the actual terminal, track jobs and inspect exit status.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-terminal-workflow"}}`
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: path, text.
@@ -364,7 +364,7 @@ Prerequisites: Normal workspace permissions and the configured runtime/connectio
 
 - openclaude-terminal-workflow (`openclaude-terminal-workflow`): Run programs and commands in the actual terminal, track jobs and inspect exit status.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-terminal-workflow"}}`
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: from, to.
@@ -418,7 +418,7 @@ Prerequisites: Normal workspace permissions and the configured runtime/connectio
 
 - openclaude-terminal-workflow (`openclaude-terminal-workflow`): Run programs and commands in the actual terminal, track jobs and inspect exit status.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-terminal-workflow"}}`
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: from, to.
@@ -472,7 +472,7 @@ Prerequisites: Normal workspace permissions and the configured runtime/connectio
 
 - openclaude-terminal-workflow (`openclaude-terminal-workflow`): Run programs and commands in the actual terminal, track jobs and inspect exit status.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-terminal-workflow"}}`
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: path.
@@ -524,7 +524,7 @@ Prerequisites: Normal workspace permissions and the configured runtime/connectio
 
 - openclaude-terminal-workflow (`openclaude-terminal-workflow`): Run programs and commands in the actual terminal, track jobs and inspect exit status.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-terminal-workflow"}}`
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: path.
@@ -576,7 +576,7 @@ Prerequisites: Normal workspace permissions and the configured runtime/connectio
 
 - openclaude-terminal-workflow (`openclaude-terminal-workflow`): Run programs and commands in the actual terminal, track jobs and inspect exit status.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-terminal-workflow"}}`
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: path.
@@ -628,7 +628,7 @@ Prerequisites: Normal workspace permissions and the configured runtime/connectio
 
 - openclaude-terminal-workflow (`openclaude-terminal-workflow`): Run programs and commands in the actual terminal, track jobs and inspect exit status.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-terminal-workflow"}}`
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: edits.
@@ -687,7 +687,7 @@ Prerequisites: Normal workspace permissions and the configured runtime/connectio
 
 - openclaude-terminal-workflow (`openclaude-terminal-workflow`): Run programs and commands in the actual terminal, track jobs and inspect exit status.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-terminal-workflow"}}`
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: left, right.
@@ -741,7 +741,7 @@ Prerequisites: Normal workspace permissions and the configured runtime/connectio
 
 - openclaude-terminal-workflow (`openclaude-terminal-workflow`): Run programs and commands in the actual terminal, track jobs and inspect exit status.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-terminal-workflow"}}`
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: path, start_line, line_count.
@@ -797,7 +797,7 @@ Prerequisites: Normal workspace permissions and the configured runtime/connectio
 
 - openclaude-terminal-workflow (`openclaude-terminal-workflow`): Run programs and commands in the actual terminal, track jobs and inspect exit status.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-terminal-workflow"}}`
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: path, query.
@@ -853,7 +853,7 @@ Prerequisites: Normal workspace permissions and the configured runtime/connectio
 
 - openclaude-terminal-workflow (`openclaude-terminal-workflow`): Run programs and commands in the actual terminal, track jobs and inspect exit status.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-terminal-workflow"}}`
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: path.
@@ -907,7 +907,7 @@ Prerequisites: Normal workspace permissions and the configured runtime/connectio
 
 - openclaude-terminal-workflow (`openclaude-terminal-workflow`): Run programs and commands in the actual terminal, track jobs and inspect exit status.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-terminal-workflow"}}`
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: path.
@@ -961,7 +961,7 @@ Prerequisites: Normal workspace permissions and the configured runtime/connectio
 
 - openclaude-terminal-workflow (`openclaude-terminal-workflow`): Run programs and commands in the actual terminal, track jobs and inspect exit status.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-terminal-workflow"}}`
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: from, to.
@@ -1017,7 +1017,7 @@ Prerequisites: Normal workspace permissions and the configured runtime/connectio
 
 - openclaude-terminal-workflow (`openclaude-terminal-workflow`): Run programs and commands in the actual terminal, track jobs and inspect exit status.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-terminal-workflow"}}`
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: from, to.
@@ -1073,7 +1073,7 @@ Prerequisites: Normal workspace permissions and the configured runtime/connectio
 
 - openclaude-terminal-workflow (`openclaude-terminal-workflow`): Run programs and commands in the actual terminal, track jobs and inspect exit status.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-terminal-workflow"}}`
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: path.
@@ -1125,7 +1125,7 @@ Prerequisites: Normal workspace permissions and the configured runtime/connectio
 
 ### Related skills
 
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: paths, output_path.
@@ -1181,7 +1181,7 @@ Prerequisites: Normal workspace permissions and the configured runtime/connectio
 
 ### Related skills
 
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: path, destination.
@@ -1235,7 +1235,7 @@ Prerequisites: Normal workspace permissions and the configured runtime/connectio
 
 - openclaude-terminal-workflow (`openclaude-terminal-workflow`): Run programs and commands in the actual terminal, track jobs and inspect exit status.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-terminal-workflow"}}`
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: operations.
@@ -1418,7 +1418,7 @@ Prerequisites: Normal workspace permissions and the configured runtime/connectio
 
 - openclaude-data-and-creative-workflows (`openclaude-data-and-creative-workflows`): Create real Office, PDF, artifact and Python outputs; reuse file templates and semantic retrieval.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-data-and-creative-workflows"}}`
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: action, prompt, file_ids, size, quality, background, format.
@@ -1484,7 +1484,7 @@ Prerequisites: Normal workspace permissions and the configured runtime/connectio
 
 - openclaude-data-and-creative-workflows (`openclaude-data-and-creative-workflows`): Create real Office, PDF, artifact and Python outputs; reuse file templates and semantic retrieval.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-data-and-creative-workflows"}}`
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: action, timeout_ms.
@@ -1569,7 +1569,7 @@ Prerequisites: Normal workspace permissions and the configured runtime/connectio
 
 ### Related skills
 
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: code, tools, timeout_ms.
@@ -1628,7 +1628,7 @@ Prerequisites: Normal workspace permissions and the configured runtime/connectio
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-spreadsheet-workflow"}}`
 - openclaude-data-and-creative-workflows (`openclaude-data-and-creative-workflows`): Create real Office, PDF, artifact and Python outputs; reuse file templates and semantic retrieval.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-data-and-creative-workflows"}}`
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: path.
@@ -1682,7 +1682,7 @@ Prerequisites: Normal workspace permissions and the configured runtime/connectio
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-spreadsheet-workflow"}}`
 - openclaude-data-and-creative-workflows (`openclaude-data-and-creative-workflows`): Create real Office, PDF, artifact and Python outputs; reuse file templates and semantic retrieval.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-data-and-creative-workflows"}}`
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: path.
@@ -1736,7 +1736,7 @@ Prerequisites: Normal workspace permissions and the configured runtime/connectio
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-spreadsheet-workflow"}}`
 - openclaude-data-and-creative-workflows (`openclaude-data-and-creative-workflows`): Create real Office, PDF, artifact and Python outputs; reuse file templates and semantic retrieval.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-data-and-creative-workflows"}}`
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: path, rows.
@@ -1796,7 +1796,7 @@ Prerequisites: Normal workspace permissions and the configured runtime/connectio
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-spreadsheet-workflow"}}`
 - openclaude-data-and-creative-workflows (`openclaude-data-and-creative-workflows`): Create real Office, PDF, artifact and Python outputs; reuse file templates and semantic retrieval.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-data-and-creative-workflows"}}`
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: path, value.
@@ -1852,7 +1852,7 @@ Prerequisites: Normal workspace permissions and the configured runtime/connectio
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-spreadsheet-workflow"}}`
 - openclaude-data-and-creative-workflows (`openclaude-data-and-creative-workflows`): Create real Office, PDF, artifact and Python outputs; reuse file templates and semantic retrieval.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-data-and-creative-workflows"}}`
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: path, field, operator, value.
@@ -1912,7 +1912,7 @@ Prerequisites: Normal workspace permissions and the configured runtime/connectio
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-spreadsheet-workflow"}}`
 - openclaude-data-and-creative-workflows (`openclaude-data-and-creative-workflows`): Create real Office, PDF, artifact and Python outputs; reuse file templates and semantic retrieval.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-data-and-creative-workflows"}}`
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: path, field, direction, numeric.
@@ -1972,7 +1972,7 @@ Prerequisites: Normal workspace permissions and the configured runtime/connectio
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-spreadsheet-workflow"}}`
 - openclaude-data-and-creative-workflows (`openclaude-data-and-creative-workflows`): Create real Office, PDF, artifact and Python outputs; reuse file templates and semantic retrieval.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-data-and-creative-workflows"}}`
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: path, group_by, operation.
@@ -2031,7 +2031,7 @@ Prerequisites: Normal workspace permissions and the configured runtime/connectio
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-spreadsheet-workflow"}}`
 - openclaude-data-and-creative-workflows (`openclaude-data-and-creative-workflows`): Create real Office, PDF, artifact and Python outputs; reuse file templates and semantic retrieval.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-data-and-creative-workflows"}}`
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: left, right, key, kind.
@@ -2091,7 +2091,7 @@ Prerequisites: Normal workspace permissions and the configured runtime/connectio
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-spreadsheet-workflow"}}`
 - openclaude-data-and-creative-workflows (`openclaude-data-and-creative-workflows`): Create real Office, PDF, artifact and Python outputs; reuse file templates and semantic retrieval.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-data-and-creative-workflows"}}`
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: path, trim, blank_to_null, deduplicate.
@@ -2151,7 +2151,7 @@ Prerequisites: Normal workspace permissions and the configured runtime/connectio
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-spreadsheet-workflow"}}`
 - openclaude-data-and-creative-workflows (`openclaude-data-and-creative-workflows`): Create real Office, PDF, artifact and Python outputs; reuse file templates and semantic retrieval.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-data-and-creative-workflows"}}`
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: path, required, types.
@@ -2209,7 +2209,7 @@ Prerequisites: Normal workspace permissions and the configured runtime/connectio
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-spreadsheet-workflow"}}`
 - openclaude-data-and-creative-workflows (`openclaude-data-and-creative-workflows`): Create real Office, PDF, artifact and Python outputs; reuse file templates and semantic retrieval.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-data-and-creative-workflows"}}`
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: expression.
@@ -2263,7 +2263,7 @@ Prerequisites: Normal workspace permissions and the configured runtime/connectio
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-spreadsheet-workflow"}}`
 - openclaude-data-and-creative-workflows (`openclaude-data-and-creative-workflows`): Create real Office, PDF, artifact and Python outputs; reuse file templates and semantic retrieval.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-data-and-creative-workflows"}}`
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: source, output, format.
@@ -2317,7 +2317,7 @@ Prerequisites: Normal workspace permissions and the configured runtime/connectio
 
 ### Related skills
 
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: text.
@@ -2367,7 +2367,7 @@ Prerequisites: Normal workspace permissions and the configured runtime/connectio
 
 ### Related skills
 
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: value, schema.
@@ -2422,7 +2422,7 @@ Prerequisites: Normal workspace permissions and the configured runtime/connectio
 
 ### Related skills
 
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: value, condition.
@@ -2457,7 +2457,7 @@ Examples are templates, not executed operations. Replace every angle-bracket pla
 
 Callable function: `trigger_create`.
 
-Create a user-requested event-triggered task in this saved chat. Supports this chat run.completed or an existing authorized webhook.received event. Optional JSON condition filters events. Runs only while OpenClaude is running, defaults to one execution, and never reacts recursively to triggered runs. The fixed prompt executes with normal action approvals; event payload is not used as instructions.
+Create a user-requested event-triggered task in this saved chat. Supports this chat run.completed or an existing authorized webhook.received event. Optional JSON condition filters events. Runs only while Horizon is running, defaults to one execution, and never reacts recursively to triggered runs. The fixed prompt executes with normal action approvals; event payload is not used as instructions.
 
 Prerequisites: Normal workspace permissions and the configured runtime/connection for this action.
 
@@ -2478,7 +2478,7 @@ Prerequisites: Normal workspace permissions and the configured runtime/connectio
 
 ### Related skills
 
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: name, event, prompt, cooldown_seconds, max_runs.
@@ -2539,7 +2539,7 @@ Prerequisites: Normal workspace permissions and the configured runtime/connectio
 
 ### Related skills
 
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: none.
@@ -2587,7 +2587,7 @@ Prerequisites: Normal workspace permissions and the configured runtime/connectio
 
 ### Related skills
 
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: trigger_id, enabled.
@@ -2640,7 +2640,7 @@ Prerequisites: Normal workspace permissions and the configured runtime/connectio
 
 ### Related skills
 
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: trigger_id.
@@ -2670,7 +2670,7 @@ Examples are templates, not executed operations. Replace every angle-bracket pla
 
 Callable function: `notification_send`.
 
-Deliver a persistent in-app completion or attention notification with a link to this saved chat. It appears in the app notification inbox while OpenClaude is open. This does not send email, SMS or a system push. Unavailable in incognito.
+Deliver a persistent in-app completion or attention notification with a link to this saved chat. It appears in the app notification inbox while Horizon is open. This does not send email, SMS or a system push. Unavailable in incognito.
 
 Prerequisites: Normal workspace permissions and the configured runtime/connection for this action.
 
@@ -2691,7 +2691,7 @@ Prerequisites: Normal workspace permissions and the configured runtime/connectio
 
 ### Related skills
 
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: title, message.
@@ -2744,7 +2744,7 @@ Prerequisites: Normal workspace permissions and the configured runtime/connectio
 
 ### Related skills
 
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: none.
@@ -2793,7 +2793,7 @@ Prerequisites: Normal workspace permissions and the configured runtime/connectio
 
 - openclaude-terminal-workflow (`openclaude-terminal-workflow`): Run programs and commands in the actual terminal, track jobs and inspect exit status.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-terminal-workflow"}}`
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: cwd.
@@ -2845,7 +2845,7 @@ Prerequisites: Normal workspace permissions and the configured runtime/connectio
 
 - openclaude-terminal-workflow (`openclaude-terminal-workflow`): Run programs and commands in the actual terminal, track jobs and inspect exit status.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-terminal-workflow"}}`
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: staged, cwd.
@@ -2900,7 +2900,7 @@ Prerequisites: Normal workspace permissions and the configured runtime/connectio
 
 - openclaude-terminal-workflow (`openclaude-terminal-workflow`): Run programs and commands in the actual terminal, track jobs and inspect exit status.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-terminal-workflow"}}`
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: limit, cwd.
@@ -2954,7 +2954,7 @@ Prerequisites: Normal workspace permissions and the configured runtime/connectio
 
 - openclaude-terminal-workflow (`openclaude-terminal-workflow`): Run programs and commands in the actual terminal, track jobs and inspect exit status.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-terminal-workflow"}}`
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: revision, cwd.
@@ -3008,7 +3008,7 @@ Prerequisites: Normal workspace permissions and the configured runtime/connectio
 
 - openclaude-terminal-workflow (`openclaude-terminal-workflow`): Run programs and commands in the actual terminal, track jobs and inspect exit status.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-terminal-workflow"}}`
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: path, cwd.
@@ -3062,7 +3062,7 @@ Prerequisites: Normal workspace permissions and the configured runtime/connectio
 
 - openclaude-terminal-workflow (`openclaude-terminal-workflow`): Run programs and commands in the actual terminal, track jobs and inspect exit status.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-terminal-workflow"}}`
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: cwd.
@@ -3114,7 +3114,7 @@ Prerequisites: Normal workspace permissions and the configured runtime/connectio
 
 - openclaude-terminal-workflow (`openclaude-terminal-workflow`): Run programs and commands in the actual terminal, track jobs and inspect exit status.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-terminal-workflow"}}`
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: cwd.
@@ -3166,7 +3166,7 @@ Prerequisites: Normal workspace permissions and the configured runtime/connectio
 
 - openclaude-terminal-workflow (`openclaude-terminal-workflow`): Run programs and commands in the actual terminal, track jobs and inspect exit status.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-terminal-workflow"}}`
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: limit, cwd.
@@ -3220,7 +3220,7 @@ Prerequisites: Normal workspace permissions and the configured runtime/connectio
 
 - openclaude-terminal-workflow (`openclaude-terminal-workflow`): Run programs and commands in the actual terminal, track jobs and inspect exit status.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-terminal-workflow"}}`
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: cwd.
@@ -3272,7 +3272,7 @@ Prerequisites: Normal workspace permissions and the configured runtime/connectio
 
 - openclaude-terminal-workflow (`openclaude-terminal-workflow`): Run programs and commands in the actual terminal, track jobs and inspect exit status.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-terminal-workflow"}}`
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: url, destination, cwd.
@@ -3328,7 +3328,7 @@ Prerequisites: Normal workspace permissions and the configured runtime/connectio
 
 - openclaude-terminal-workflow (`openclaude-terminal-workflow`): Run programs and commands in the actual terminal, track jobs and inspect exit status.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-terminal-workflow"}}`
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: paths, cwd.
@@ -3384,7 +3384,7 @@ Prerequisites: Normal workspace permissions and the configured runtime/connectio
 
 - openclaude-terminal-workflow (`openclaude-terminal-workflow`): Run programs and commands in the actual terminal, track jobs and inspect exit status.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-terminal-workflow"}}`
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: message, cwd.
@@ -3438,7 +3438,7 @@ Prerequisites: Normal workspace permissions and the configured runtime/connectio
 
 - openclaude-terminal-workflow (`openclaude-terminal-workflow`): Run programs and commands in the actual terminal, track jobs and inspect exit status.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-terminal-workflow"}}`
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: path, cwd.
@@ -3492,7 +3492,7 @@ Prerequisites: Normal workspace permissions and the configured runtime/connectio
 
 - openclaude-terminal-workflow (`openclaude-terminal-workflow`): Run programs and commands in the actual terminal, track jobs and inspect exit status.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-terminal-workflow"}}`
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: mode, revision, cwd.
@@ -3548,7 +3548,7 @@ Prerequisites: Normal workspace permissions and the configured runtime/connectio
 
 - openclaude-terminal-workflow (`openclaude-terminal-workflow`): Run programs and commands in the actual terminal, track jobs and inspect exit status.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-terminal-workflow"}}`
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: revision, cwd.
@@ -3602,7 +3602,7 @@ Prerequisites: Normal workspace permissions and the configured runtime/connectio
 
 - openclaude-terminal-workflow (`openclaude-terminal-workflow`): Run programs and commands in the actual terminal, track jobs and inspect exit status.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-terminal-workflow"}}`
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: revision, cwd.
@@ -3656,7 +3656,7 @@ Prerequisites: Normal workspace permissions and the configured runtime/connectio
 
 - openclaude-terminal-workflow (`openclaude-terminal-workflow`): Run programs and commands in the actual terminal, track jobs and inspect exit status.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-terminal-workflow"}}`
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: cwd.
@@ -3708,7 +3708,7 @@ Prerequisites: Normal workspace permissions and the configured runtime/connectio
 
 - openclaude-terminal-workflow (`openclaude-terminal-workflow`): Run programs and commands in the actual terminal, track jobs and inspect exit status.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-terminal-workflow"}}`
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: cwd.
@@ -3760,7 +3760,7 @@ Prerequisites: Normal workspace permissions and the configured runtime/connectio
 
 - openclaude-terminal-workflow (`openclaude-terminal-workflow`): Run programs and commands in the actual terminal, track jobs and inspect exit status.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-terminal-workflow"}}`
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: delete, cwd.
@@ -3815,7 +3815,7 @@ Prerequisites: Normal workspace permissions and the configured runtime/connectio
 
 - openclaude-terminal-workflow (`openclaude-terminal-workflow`): Run programs and commands in the actual terminal, track jobs and inspect exit status.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-terminal-workflow"}}`
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: name, cwd.
@@ -3869,7 +3869,7 @@ Prerequisites: Normal workspace permissions and the configured runtime/connectio
 
 - openclaude-terminal-workflow (`openclaude-terminal-workflow`): Run programs and commands in the actual terminal, track jobs and inspect exit status.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-terminal-workflow"}}`
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: name, cwd.
@@ -3923,7 +3923,7 @@ Prerequisites: Normal workspace permissions and the configured runtime/connectio
 
 - openclaude-terminal-workflow (`openclaude-terminal-workflow`): Run programs and commands in the actual terminal, track jobs and inspect exit status.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-terminal-workflow"}}`
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: name, cwd.
@@ -3977,7 +3977,7 @@ Prerequisites: Normal workspace permissions and the configured runtime/connectio
 
 - openclaude-terminal-workflow (`openclaude-terminal-workflow`): Run programs and commands in the actual terminal, track jobs and inspect exit status.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-terminal-workflow"}}`
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: cwd.
@@ -4029,7 +4029,7 @@ Prerequisites: Normal workspace permissions and the configured runtime/connectio
 
 - openclaude-terminal-workflow (`openclaude-terminal-workflow`): Run programs and commands in the actual terminal, track jobs and inspect exit status.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-terminal-workflow"}}`
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: path, branch, cwd.
@@ -4085,7 +4085,7 @@ Prerequisites: Normal workspace permissions and the configured runtime/connectio
 
 - openclaude-terminal-workflow (`openclaude-terminal-workflow`): Run programs and commands in the actual terminal, track jobs and inspect exit status.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-terminal-workflow"}}`
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: path, cwd.
@@ -4139,7 +4139,7 @@ Prerequisites: Normal workspace permissions and the configured runtime/connectio
 
 - openclaude-terminal-workflow (`openclaude-terminal-workflow`): Run programs and commands in the actual terminal, track jobs and inspect exit status.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-terminal-workflow"}}`
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: cwd.
@@ -4191,7 +4191,7 @@ Prerequisites: Normal workspace permissions and the configured runtime/connectio
 
 - openclaude-terminal-workflow (`openclaude-terminal-workflow`): Run programs and commands in the actual terminal, track jobs and inspect exit status.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-terminal-workflow"}}`
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: remote, cwd.
@@ -4245,7 +4245,7 @@ Prerequisites: Normal workspace permissions and the configured runtime/connectio
 
 - openclaude-terminal-workflow (`openclaude-terminal-workflow`): Run programs and commands in the actual terminal, track jobs and inspect exit status.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-terminal-workflow"}}`
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: remote, branch, cwd.
@@ -4301,7 +4301,7 @@ Prerequisites: Normal workspace permissions and the configured runtime/connectio
 
 - openclaude-terminal-workflow (`openclaude-terminal-workflow`): Run programs and commands in the actual terminal, track jobs and inspect exit status.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-terminal-workflow"}}`
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: remote, branch, cwd.
@@ -4357,7 +4357,7 @@ Prerequisites: Normal workspace permissions and the configured runtime/connectio
 
 - openclaude-terminal-workflow (`openclaude-terminal-workflow`): Run programs and commands in the actual terminal, track jobs and inspect exit status.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-terminal-workflow"}}`
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: cwd.
@@ -4409,7 +4409,7 @@ Prerequisites: Normal workspace permissions and the configured runtime/connectio
 
 - openclaude-terminal-workflow (`openclaude-terminal-workflow`): Run programs and commands in the actual terminal, track jobs and inspect exit status.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-terminal-workflow"}}`
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: number, cwd.
@@ -4463,7 +4463,7 @@ Prerequisites: Normal workspace permissions and the configured runtime/connectio
 
 - openclaude-terminal-workflow (`openclaude-terminal-workflow`): Run programs and commands in the actual terminal, track jobs and inspect exit status.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-terminal-workflow"}}`
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: number, cwd.
@@ -4517,7 +4517,7 @@ Prerequisites: Normal workspace permissions and the configured runtime/connectio
 
 - openclaude-terminal-workflow (`openclaude-terminal-workflow`): Run programs and commands in the actual terminal, track jobs and inspect exit status.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-terminal-workflow"}}`
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: title, body, cwd.
@@ -4574,7 +4574,7 @@ Prerequisites: Normal workspace permissions and the configured runtime/connectio
 
 - openclaude-terminal-workflow (`openclaude-terminal-workflow`): Run programs and commands in the actual terminal, track jobs and inspect exit status.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-terminal-workflow"}}`
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: number, cwd.
@@ -4628,7 +4628,7 @@ Prerequisites: Normal workspace permissions and the configured runtime/connectio
 
 - openclaude-terminal-workflow (`openclaude-terminal-workflow`): Run programs and commands in the actual terminal, track jobs and inspect exit status.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-terminal-workflow"}}`
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: number, decision, body, cwd.
@@ -4686,7 +4686,7 @@ Prerequisites: Normal workspace permissions and the configured runtime/connectio
 
 - openclaude-terminal-workflow (`openclaude-terminal-workflow`): Run programs and commands in the actual terminal, track jobs and inspect exit status.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-terminal-workflow"}}`
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: number, method, cwd.
@@ -4742,7 +4742,7 @@ Prerequisites: Normal workspace permissions and the configured runtime/connectio
 
 - openclaude-runtime-orchestration (`openclaude-runtime-orchestration`): Coordinate multi-step work with deferred discovery, sandboxed tool programs and isolated agents.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-runtime-orchestration"}}`
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: agent_ids, timeout_ms.
@@ -4798,7 +4798,7 @@ Prerequisites: Normal workspace permissions and the configured runtime/connectio
 
 - openclaude-runtime-orchestration (`openclaude-runtime-orchestration`): Coordinate multi-step work with deferred discovery, sandboxed tool programs and isolated agents.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-runtime-orchestration"}}`
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: agent_id.
@@ -4850,7 +4850,7 @@ Prerequisites: Normal workspace permissions and the configured runtime/connectio
 
 - openclaude-runtime-orchestration (`openclaude-runtime-orchestration`): Coordinate multi-step work with deferred discovery, sandboxed tool programs and isolated agents.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-runtime-orchestration"}}`
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: task, files.
@@ -4906,7 +4906,7 @@ Prerequisites: Normal workspace permissions and the configured runtime/connectio
 
 - openclaude-runtime-orchestration (`openclaude-runtime-orchestration`): Coordinate multi-step work with deferred discovery, sandboxed tool programs and isolated agents.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-runtime-orchestration"}}`
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: none.
@@ -4955,7 +4955,7 @@ Prerequisites: Normal workspace permissions and the configured runtime/connectio
 
 - openclaude-runtime-orchestration (`openclaude-runtime-orchestration`): Coordinate multi-step work with deferred discovery, sandboxed tool programs and isolated agents.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-runtime-orchestration"}}`
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: agent_id, after.
@@ -5009,7 +5009,7 @@ Prerequisites: Normal workspace permissions and the configured runtime/connectio
 
 - openclaude-runtime-orchestration (`openclaude-runtime-orchestration`): Coordinate multi-step work with deferred discovery, sandboxed tool programs and isolated agents.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-runtime-orchestration"}}`
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: agent_id.
@@ -5061,7 +5061,7 @@ Prerequisites: Normal workspace permissions and the configured runtime/connectio
 
 - openclaude-runtime-orchestration (`openclaude-runtime-orchestration`): Coordinate multi-step work with deferred discovery, sandboxed tool programs and isolated agents.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-runtime-orchestration"}}`
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: agent_id, message, delivery.
@@ -5117,7 +5117,7 @@ Prerequisites: Normal workspace permissions and the configured runtime/connectio
 
 - openclaude-runtime-orchestration (`openclaude-runtime-orchestration`): Coordinate multi-step work with deferred discovery, sandboxed tool programs and isolated agents.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-runtime-orchestration"}}`
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: agent_id.
@@ -5169,7 +5169,7 @@ Prerequisites: Normal workspace permissions and the configured runtime/connectio
 
 - openclaude-runtime-orchestration (`openclaude-runtime-orchestration`): Coordinate multi-step work with deferred discovery, sandboxed tool programs and isolated agents.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-runtime-orchestration"}}`
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: agent_id, task.
@@ -5222,7 +5222,7 @@ Prerequisites: Normal workspace permissions and the configured runtime/connectio
 
 ### Related skills
 
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: expression.
@@ -5272,7 +5272,7 @@ Prerequisites: Normal workspace permissions and the configured runtime/connectio
 
 ### Related skills
 
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: text, global.
@@ -5325,7 +5325,7 @@ Prerequisites: Normal workspace permissions and the configured runtime/connectio
 
 ### Related skills
 
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: query, offset, limit.
@@ -5379,7 +5379,7 @@ Prerequisites: Normal workspace permissions and the configured runtime/connectio
 
 ### Related skills
 
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: memory_id, offset, length.
@@ -5433,7 +5433,7 @@ Prerequisites: Normal workspace permissions and the configured runtime/connectio
 
 ### Related skills
 
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: memory_id, text.
@@ -5485,7 +5485,7 @@ Prerequisites: Normal workspace permissions and the configured runtime/connectio
 
 ### Related skills
 
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: memory_id.
@@ -5535,7 +5535,7 @@ Prerequisites: Normal workspace permissions and the configured runtime/connectio
 
 ### Related skills
 
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: query.
@@ -5587,7 +5587,7 @@ Prerequisites: Normal workspace permissions and the configured runtime/connectio
 
 - openclaude-runtime-orchestration (`openclaude-runtime-orchestration`): Coordinate multi-step work with deferred discovery, sandboxed tool programs and isolated agents.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-runtime-orchestration"}}`
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: title, tasks.
@@ -5643,7 +5643,7 @@ Prerequisites: Normal workspace permissions and the configured runtime/connectio
 
 - openclaude-runtime-orchestration (`openclaude-runtime-orchestration`): Coordinate multi-step work with deferred discovery, sandboxed tool programs and isolated agents.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-runtime-orchestration"}}`
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: none.
@@ -5692,7 +5692,7 @@ Prerequisites: Normal workspace permissions and the configured runtime/connectio
 
 - openclaude-runtime-orchestration (`openclaude-runtime-orchestration`): Coordinate multi-step work with deferred discovery, sandboxed tool programs and isolated agents.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-runtime-orchestration"}}`
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: plan_id, task_id, status.
@@ -5747,7 +5747,7 @@ Prerequisites: Normal workspace permissions and the configured runtime/connectio
 
 ### Related skills
 
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: none.
@@ -5795,7 +5795,7 @@ Prerequisites: Normal workspace permissions and the configured runtime/connectio
 
 ### Related skills
 
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: connection_id, method, path, query.
@@ -5853,7 +5853,7 @@ Prerequisites: Normal workspace permissions and the configured runtime/connectio
 
 ### Related skills
 
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: none.
@@ -5901,7 +5901,7 @@ Prerequisites: Normal workspace permissions and the configured runtime/connectio
 
 ### Related skills
 
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: connection_id, offset, limit.
@@ -5956,7 +5956,7 @@ Prerequisites: Normal workspace permissions and the configured runtime/connectio
 
 ### Related skills
 
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: connection_id, name, arguments.
@@ -6013,7 +6013,7 @@ Prerequisites: Normal workspace permissions and the configured runtime/connectio
 
 ### Related skills
 
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: connection_id.
@@ -6065,7 +6065,7 @@ Prerequisites: Normal workspace permissions and the configured runtime/connectio
 
 ### Related skills
 
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: connection_id, uri.
@@ -6117,7 +6117,7 @@ Prerequisites: Normal workspace permissions and the configured runtime/connectio
 
 ### Related skills
 
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: query, limit.
@@ -6169,7 +6169,7 @@ Prerequisites: Normal workspace permissions and the configured runtime/connectio
 
 ### Related skills
 
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: message_id, offset, length.
@@ -6223,7 +6223,7 @@ Prerequisites: Normal workspace permissions and the configured runtime/connectio
 
 ### Related skills
 
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: query, limit.
@@ -6275,7 +6275,7 @@ Prerequisites: Normal workspace permissions and the configured runtime/connectio
 
 ### Related skills
 
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: conversation_id, offset, limit.
@@ -6329,7 +6329,7 @@ Prerequisites: Normal workspace permissions and the configured runtime/connectio
 
 ### Related skills
 
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: research_id, offset, limit.
@@ -6383,7 +6383,7 @@ Prerequisites: Normal workspace permissions and the configured runtime/connectio
 
 ### Related skills
 
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: research_id, source_id, offset, length.
@@ -6440,7 +6440,7 @@ Prerequisites: Normal workspace permissions and the configured runtime/connectio
 
 ### Related skills
 
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: questions.
@@ -6508,7 +6508,7 @@ Prerequisites: Normal workspace permissions and the configured runtime/connectio
 
 - openclaude-data-and-creative-workflows (`openclaude-data-and-creative-workflows`): Create real Office, PDF, artifact and Python outputs; reuse file templates and semantic retrieval.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-data-and-creative-workflows"}}`
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: title, type, source.
@@ -6570,7 +6570,7 @@ Prerequisites: Normal workspace permissions and the configured runtime/connectio
 
 - openclaude-data-and-creative-workflows (`openclaude-data-and-creative-workflows`): Create real Office, PDF, artifact and Python outputs; reuse file templates and semantic retrieval.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-data-and-creative-workflows"}}`
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: title, type, source.
@@ -6630,7 +6630,7 @@ Prerequisites: Normal workspace permissions and the configured runtime/connectio
 
 - openclaude-data-and-creative-workflows (`openclaude-data-and-creative-workflows`): Create real Office, PDF, artifact and Python outputs; reuse file templates and semantic retrieval.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-data-and-creative-workflows"}}`
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: artifact_id, expected_version, source.
@@ -6689,7 +6689,7 @@ Prerequisites: Normal workspace permissions and the configured runtime/connectio
 
 - openclaude-data-and-creative-workflows (`openclaude-data-and-creative-workflows`): Create real Office, PDF, artifact and Python outputs; reuse file templates and semantic retrieval.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-data-and-creative-workflows"}}`
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: artifact_id, expected_version, expected_hash, find, replace.
@@ -6752,7 +6752,7 @@ Prerequisites: Normal workspace permissions and the configured runtime/connectio
 
 - openclaude-data-and-creative-workflows (`openclaude-data-and-creative-workflows`): Create real Office, PDF, artifact and Python outputs; reuse file templates and semantic retrieval.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-data-and-creative-workflows"}}`
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: query.
@@ -6807,7 +6807,7 @@ Prerequisites: Normal workspace permissions and the configured runtime/connectio
 
 - openclaude-data-and-creative-workflows (`openclaude-data-and-creative-workflows`): Create real Office, PDF, artifact and Python outputs; reuse file templates and semantic retrieval.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-data-and-creative-workflows"}}`
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: artifact_id, offset, limit, include_versions.
@@ -6867,7 +6867,7 @@ Prerequisites: Normal workspace permissions and the configured runtime/connectio
 
 - openclaude-data-and-creative-workflows (`openclaude-data-and-creative-workflows`): Create real Office, PDF, artifact and Python outputs; reuse file templates and semantic retrieval.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-data-and-creative-workflows"}}`
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: artifact_id.
@@ -6922,7 +6922,7 @@ Prerequisites: Normal workspace permissions and the configured runtime/connectio
 
 - openclaude-data-and-creative-workflows (`openclaude-data-and-creative-workflows`): Create real Office, PDF, artifact and Python outputs; reuse file templates and semantic retrieval.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-data-and-creative-workflows"}}`
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: artifact_id.
@@ -6977,7 +6977,7 @@ Prerequisites: Normal workspace permissions and the configured runtime/connectio
 
 - openclaude-data-and-creative-workflows (`openclaude-data-and-creative-workflows`): Create real Office, PDF, artifact and Python outputs; reuse file templates and semantic retrieval.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-data-and-creative-workflows"}}`
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: draft_id, offset, limit.
@@ -7036,7 +7036,7 @@ Prerequisites: Normal workspace permissions and the configured runtime/connectio
 
 - openclaude-data-and-creative-workflows (`openclaude-data-and-creative-workflows`): Create real Office, PDF, artifact and Python outputs; reuse file templates and semantic retrieval.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-data-and-creative-workflows"}}`
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: draft_id.
@@ -7091,7 +7091,7 @@ Prerequisites: Normal workspace permissions and the configured runtime/connectio
 
 - openclaude-data-and-creative-workflows (`openclaude-data-and-creative-workflows`): Create real Office, PDF, artifact and Python outputs; reuse file templates and semantic retrieval.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-data-and-creative-workflows"}}`
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: title, type.
@@ -7151,7 +7151,7 @@ Prerequisites: Normal workspace permissions and the configured runtime/connectio
 
 - openclaude-data-and-creative-workflows (`openclaude-data-and-creative-workflows`): Create real Office, PDF, artifact and Python outputs; reuse file templates and semantic retrieval.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-data-and-creative-workflows"}}`
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: draft_id, source.
@@ -7208,7 +7208,7 @@ Prerequisites: Normal workspace permissions and the configured runtime/connectio
 
 - openclaude-data-and-creative-workflows (`openclaude-data-and-creative-workflows`): Create real Office, PDF, artifact and Python outputs; reuse file templates and semantic retrieval.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-data-and-creative-workflows"}}`
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: draft_id.
@@ -7259,7 +7259,7 @@ Prerequisites: Normal workspace permissions and the configured runtime/connectio
 
 ### Related skills
 
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: name, description, instructions.
@@ -7314,7 +7314,7 @@ Prerequisites: Normal workspace permissions and the configured runtime/connectio
 
 ### Related skills
 
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: name, description, instructions, skill_id, expected_version.
@@ -7373,7 +7373,7 @@ Prerequisites: Normal workspace permissions and the configured runtime/connectio
 
 ### Related skills
 
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: query, offset, limit.
@@ -7428,7 +7428,7 @@ Prerequisites: Normal workspace permissions and the configured runtime/connectio
 
 ### Related skills
 
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: skill_id.
@@ -7479,7 +7479,7 @@ Prerequisites: Normal workspace permissions and the configured runtime/connectio
 
 ### Related skills
 
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: skill_id, relative_path, offset.
@@ -7540,7 +7540,7 @@ Prerequisites: Normal workspace permissions and the configured runtime/connectio
   Load once: `{"function":"skill_load","parameters":{"skill_id":"claude-desktop/user-research-fa18fc13d0"}}`
 - research-synthesis (`claude-desktop/research-synthesis-40048615dc`): Synthesize user research into themes, insights, and recommendations. Use when you have interview transcripts, survey results, usability test notes, support tickets, or NPS responses that need to be distilled into patterns, user segments, and prioritized next steps.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"claude-desktop/research-synthesis-40048615dc"}}`
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: html.
@@ -7597,7 +7597,7 @@ Prerequisites: Normal workspace permissions and the configured runtime/connectio
   Load once: `{"function":"skill_load","parameters":{"skill_id":"claude-desktop/user-research-fa18fc13d0"}}`
 - research-synthesis (`claude-desktop/research-synthesis-40048615dc`): Synthesize user research into themes, insights, and recommendations. Use when you have interview transcripts, survey results, usability test notes, support tickets, or NPS responses that need to be distilled into patterns, user segments, and prioritized next steps.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"claude-desktop/research-synthesis-40048615dc"}}`
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: query, limit, time_range.
@@ -7656,7 +7656,7 @@ Prerequisites: Normal workspace permissions and the configured runtime/connectio
   Load once: `{"function":"skill_load","parameters":{"skill_id":"claude-desktop/user-research-fa18fc13d0"}}`
 - research-synthesis (`claude-desktop/research-synthesis-40048615dc`): Synthesize user research into themes, insights, and recommendations. Use when you have interview transcripts, survey results, usability test notes, support tickets, or NPS responses that need to be distilled into patterns, user segments, and prioritized next steps.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"claude-desktop/research-synthesis-40048615dc"}}`
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: query, limit.
@@ -7715,7 +7715,7 @@ Prerequisites: Normal workspace permissions and the configured runtime/connectio
   Load once: `{"function":"skill_load","parameters":{"skill_id":"claude-desktop/user-research-fa18fc13d0"}}`
 - research-synthesis (`claude-desktop/research-synthesis-40048615dc`): Synthesize user research into themes, insights, and recommendations. Use when you have interview transcripts, survey results, usability test notes, support tickets, or NPS responses that need to be distilled into patterns, user segments, and prioritized next steps.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"claude-desktop/research-synthesis-40048615dc"}}`
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: url, max_chars.
@@ -7773,7 +7773,7 @@ Prerequisites: Normal workspace permissions and the configured runtime/connectio
   Load once: `{"function":"skill_load","parameters":{"skill_id":"claude-desktop/user-research-fa18fc13d0"}}`
 - research-synthesis (`claude-desktop/research-synthesis-40048615dc`): Synthesize user research into themes, insights, and recommendations. Use when you have interview transcripts, survey results, usability test notes, support tickets, or NPS responses that need to be distilled into patterns, user segments, and prioritized next steps.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"claude-desktop/research-synthesis-40048615dc"}}`
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: url.
@@ -7830,7 +7830,7 @@ Prerequisites: Normal workspace permissions and the configured runtime/connectio
   Load once: `{"function":"skill_load","parameters":{"skill_id":"claude-desktop/user-research-fa18fc13d0"}}`
 - research-synthesis (`claude-desktop/research-synthesis-40048615dc`): Synthesize user research into themes, insights, and recommendations. Use when you have interview transcripts, survey results, usability test notes, support tickets, or NPS responses that need to be distilled into patterns, user segments, and prioritized next steps.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"claude-desktop/research-synthesis-40048615dc"}}`
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: url, phrase.
@@ -7889,7 +7889,7 @@ Prerequisites: Normal workspace permissions and the configured runtime/connectio
   Load once: `{"function":"skill_load","parameters":{"skill_id":"claude-desktop/user-research-fa18fc13d0"}}`
 - research-synthesis (`claude-desktop/research-synthesis-40048615dc`): Synthesize user research into themes, insights, and recommendations. Use when you have interview transcripts, survey results, usability test notes, support tickets, or NPS responses that need to be distilled into patterns, user segments, and prioritized next steps.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"claude-desktop/research-synthesis-40048615dc"}}`
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: urls, max_chars.
@@ -7950,7 +7950,7 @@ Prerequisites: Normal workspace permissions and the configured runtime/connectio
   Load once: `{"function":"skill_load","parameters":{"skill_id":"claude-desktop/user-research-fa18fc13d0"}}`
 - research-synthesis (`claude-desktop/research-synthesis-40048615dc`): Synthesize user research into themes, insights, and recommendations. Use when you have interview transcripts, survey results, usability test notes, support tickets, or NPS responses that need to be distilled into patterns, user segments, and prioritized next steps.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"claude-desktop/research-synthesis-40048615dc"}}`
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: url.
@@ -8007,7 +8007,7 @@ Prerequisites: Normal workspace permissions and the configured runtime/connectio
   Load once: `{"function":"skill_load","parameters":{"skill_id":"claude-desktop/user-research-fa18fc13d0"}}`
 - research-synthesis (`claude-desktop/research-synthesis-40048615dc`): Synthesize user research into themes, insights, and recommendations. Use when you have interview transcripts, survey results, usability test notes, support tickets, or NPS responses that need to be distilled into patterns, user segments, and prioritized next steps.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"claude-desktop/research-synthesis-40048615dc"}}`
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: url, max_chars.
@@ -8066,7 +8066,7 @@ Prerequisites: Normal workspace permissions and the configured runtime/connectio
   Load once: `{"function":"skill_load","parameters":{"skill_id":"claude-desktop/user-research-fa18fc13d0"}}`
 - research-synthesis (`claude-desktop/research-synthesis-40048615dc`): Synthesize user research into themes, insights, and recommendations. Use when you have interview transcripts, survey results, usability test notes, support tickets, or NPS responses that need to be distilled into patterns, user segments, and prioritized next steps.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"claude-desktop/research-synthesis-40048615dc"}}`
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: url.
@@ -8124,7 +8124,7 @@ Prerequisites: Normal workspace permissions and the configured runtime/connectio
   Load once: `{"function":"skill_load","parameters":{"skill_id":"claude-desktop/user-research-fa18fc13d0"}}`
 - research-synthesis (`claude-desktop/research-synthesis-40048615dc`): Synthesize user research into themes, insights, and recommendations. Use when you have interview transcripts, survey results, usability test notes, support tickets, or NPS responses that need to be distilled into patterns, user segments, and prioritized next steps.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"claude-desktop/research-synthesis-40048615dc"}}`
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: urls, max_chars.
@@ -8185,7 +8185,7 @@ Prerequisites: Normal workspace permissions and the configured runtime/connectio
 
 - openclaude-terminal-workflow (`openclaude-terminal-workflow`): Run programs and commands in the actual terminal, track jobs and inspect exit status.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-terminal-workflow"}}`
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: none.
@@ -8238,7 +8238,7 @@ Prerequisites: Normal workspace permissions and the configured runtime/connectio
 
 - openclaude-terminal-workflow (`openclaude-terminal-workflow`): Run programs and commands in the actual terminal, track jobs and inspect exit status.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-terminal-workflow"}}`
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: job_id, cols, rows.
@@ -8298,7 +8298,7 @@ Prerequisites: Granted desktop PowerShell workspace or Docker Bash sandbox
 
 - openclaude-terminal-workflow (`openclaude-terminal-workflow`): Run programs and commands in the actual terminal, track jobs and inspect exit status.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-terminal-workflow"}}`
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: command, cwd, timeout_ms, interactive.
@@ -8360,7 +8360,7 @@ Prerequisites: Granted desktop PowerShell workspace or Docker Bash sandbox
 
 - openclaude-terminal-workflow (`openclaude-terminal-workflow`): Run programs and commands in the actual terminal, track jobs and inspect exit status.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-terminal-workflow"}}`
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: job_id, offset, wait_ms.
@@ -8420,7 +8420,7 @@ Prerequisites: Granted desktop PowerShell workspace or Docker Bash sandbox
 
 - openclaude-terminal-workflow (`openclaude-terminal-workflow`): Run programs and commands in the actual terminal, track jobs and inspect exit status.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-terminal-workflow"}}`
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: job_id, text.
@@ -8478,7 +8478,7 @@ Prerequisites: Granted desktop PowerShell workspace or Docker Bash sandbox
 
 - openclaude-terminal-workflow (`openclaude-terminal-workflow`): Run programs and commands in the actual terminal, track jobs and inspect exit status.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-terminal-workflow"}}`
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: job_id.
@@ -8535,7 +8535,7 @@ Prerequisites: Connected native browser or built-in web browser; no open panel i
 
 - openclaude-browser-and-computer (`openclaude-browser-and-computer`): Use actual browser/desktop observations, scoped file grants and current references.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-browser-and-computer"}}`
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: url.
@@ -8593,7 +8593,7 @@ Prerequisites: Normal workspace permissions and the configured runtime/connectio
 
 - openclaude-browser-and-computer (`openclaude-browser-and-computer`): Use actual browser/desktop observations, scoped file grants and current references.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-browser-and-computer"}}`
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: tab_id, text, backwards.
@@ -8654,7 +8654,7 @@ Prerequisites: Normal workspace permissions and the configured runtime/connectio
 
 - openclaude-browser-and-computer (`openclaude-browser-and-computer`): Use actual browser/desktop observations, scoped file grants and current references.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-browser-and-computer"}}`
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: tab_id.
@@ -8711,7 +8711,7 @@ Prerequisites: Normal workspace permissions and the configured runtime/connectio
 
 - openclaude-browser-and-computer (`openclaude-browser-and-computer`): Use actual browser/desktop observations, scoped file grants and current references.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-browser-and-computer"}}`
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: tab_id.
@@ -8770,7 +8770,7 @@ Prerequisites: Normal workspace permissions and the configured runtime/connectio
 
 - openclaude-browser-and-computer (`openclaude-browser-and-computer`): Use actual browser/desktop observations, scoped file grants and current references.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-browser-and-computer"}}`
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: tab_id, enabled, width, height.
@@ -8833,7 +8833,7 @@ Prerequisites: Connected native browser or built-in web browser; no open panel i
 
 - openclaude-browser-and-computer (`openclaude-browser-and-computer`): Use actual browser/desktop observations, scoped file grants and current references.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-browser-and-computer"}}`
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: tab_id.
@@ -8890,7 +8890,7 @@ Prerequisites: Connected native browser or built-in web browser; no open panel i
 
 - openclaude-browser-and-computer (`openclaude-browser-and-computer`): Use actual browser/desktop observations, scoped file grants and current references.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-browser-and-computer"}}`
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: tab_id.
@@ -8947,7 +8947,7 @@ Prerequisites: Connected native browser or built-in web browser; no open panel i
 
 - openclaude-browser-and-computer (`openclaude-browser-and-computer`): Use actual browser/desktop observations, scoped file grants and current references.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-browser-and-computer"}}`
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: tab_id.
@@ -9004,7 +9004,7 @@ Prerequisites: Connected native browser or built-in web browser; no open panel i
 
 - openclaude-browser-and-computer (`openclaude-browser-and-computer`): Use actual browser/desktop observations, scoped file grants and current references.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-browser-and-computer"}}`
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: tab_id.
@@ -9061,7 +9061,7 @@ Prerequisites: Connected native browser or built-in web browser; no open panel i
 
 - openclaude-browser-and-computer (`openclaude-browser-and-computer`): Use actual browser/desktop observations, scoped file grants and current references.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-browser-and-computer"}}`
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: tab_id, snapshot_id, ref.
@@ -9122,7 +9122,7 @@ Prerequisites: Connected native browser or built-in web browser; no open panel i
 
 - openclaude-browser-and-computer (`openclaude-browser-and-computer`): Use actual browser/desktop observations, scoped file grants and current references.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-browser-and-computer"}}`
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: tab_id, text, exact, timeout_ms.
@@ -9185,7 +9185,7 @@ Prerequisites: Connected native browser or built-in web browser; no open panel i
 
 - openclaude-browser-and-computer (`openclaude-browser-and-computer`): Use actual browser/desktop observations, scoped file grants and current references.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-browser-and-computer"}}`
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: tab_id, limit.
@@ -9245,7 +9245,7 @@ Prerequisites: Connected native browser or built-in web browser; no open panel i
 
 - openclaude-browser-and-computer (`openclaude-browser-and-computer`): Use actual browser/desktop observations, scoped file grants and current references.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-browser-and-computer"}}`
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: tab_id, x, y, button, click_count, modifiers.
@@ -9312,7 +9312,7 @@ Prerequisites: Connected native browser or built-in web browser; no open panel i
 
 - openclaude-browser-and-computer (`openclaude-browser-and-computer`): Use actual browser/desktop observations, scoped file grants and current references.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-browser-and-computer"}}`
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: tab_id, x, y.
@@ -9373,7 +9373,7 @@ Prerequisites: Connected native browser or built-in web browser; no open panel i
 
 - openclaude-browser-and-computer (`openclaude-browser-and-computer`): Use actual browser/desktop observations, scoped file grants and current references.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-browser-and-computer"}}`
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: tab_id, path, button, modifiers.
@@ -9445,7 +9445,7 @@ Prerequisites: Connected native browser or built-in web browser; no open panel i
 
 - openclaude-browser-and-computer (`openclaude-browser-and-computer`): Use actual browser/desktop observations, scoped file grants and current references.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-browser-and-computer"}}`
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: tab_id, keys, duration_ms.
@@ -9508,7 +9508,7 @@ Prerequisites: Connected native browser or built-in web browser; no open panel i
 
 - openclaude-browser-and-computer (`openclaude-browser-and-computer`): Use actual browser/desktop observations, scoped file grants and current references.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-browser-and-computer"}}`
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: tab_id, source, limit.
@@ -9569,7 +9569,7 @@ Prerequisites: Connected native browser or built-in web browser; no open panel i
 
 - openclaude-browser-and-computer (`openclaude-browser-and-computer`): Use actual browser/desktop observations, scoped file grants and current references.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-browser-and-computer"}}`
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: tab_id, source, timeout_ms.
@@ -9630,7 +9630,7 @@ Prerequisites: Connected native browser or built-in web browser; no open panel i
 
 - openclaude-browser-and-computer (`openclaude-browser-and-computer`): Use actual browser/desktop observations, scoped file grants and current references.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-browser-and-computer"}}`
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: tab_id, left, top, right, bottom.
@@ -9695,7 +9695,7 @@ Prerequisites: Connected native browser or built-in web browser; no open panel i
 
 - openclaude-browser-and-computer (`openclaude-browser-and-computer`): Use actual browser/desktop observations, scoped file grants and current references.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-browser-and-computer"}}`
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: tab_id.
@@ -9752,7 +9752,7 @@ Prerequisites: Connected native browser or built-in web browser; no open panel i
 
 - openclaude-browser-and-computer (`openclaude-browser-and-computer`): Use actual browser/desktop observations, scoped file grants and current references.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-browser-and-computer"}}`
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: tab_id, origin, name, arguments.
@@ -9817,7 +9817,7 @@ Prerequisites: Normal workspace permissions and the configured runtime/connectio
 
 - openclaude-browser-and-computer (`openclaude-browser-and-computer`): Use actual browser/desktop observations, scoped file grants and current references.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-browser-and-computer"}}`
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: tab_id, snapshot_id, ref.
@@ -9879,7 +9879,7 @@ Prerequisites: Normal workspace permissions and the configured runtime/connectio
 
 - openclaude-browser-and-computer (`openclaude-browser-and-computer`): Use actual browser/desktop observations, scoped file grants and current references.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-browser-and-computer"}}`
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: tab_id.
@@ -9936,7 +9936,7 @@ Prerequisites: Connected native browser or built-in web browser; no open panel i
 
 - openclaude-browser-and-computer (`openclaude-browser-and-computer`): Use actual browser/desktop observations, scoped file grants and current references.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-browser-and-computer"}}`
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: tab_id, snapshot_id, ref.
@@ -9997,7 +9997,7 @@ Prerequisites: Connected native browser or built-in web browser; no open panel i
 
 - openclaude-browser-and-computer (`openclaude-browser-and-computer`): Use actual browser/desktop observations, scoped file grants and current references.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-browser-and-computer"}}`
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: tab_id, snapshot_id, ref.
@@ -10058,7 +10058,7 @@ Prerequisites: Connected native browser or built-in web browser; no open panel i
 
 - openclaude-browser-and-computer (`openclaude-browser-and-computer`): Use actual browser/desktop observations, scoped file grants and current references.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-browser-and-computer"}}`
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: tab_id, snapshot_id, ref, value.
@@ -10121,7 +10121,7 @@ Prerequisites: Connected native browser or built-in web browser; no open panel i
 
 - openclaude-browser-and-computer (`openclaude-browser-and-computer`): Use actual browser/desktop observations, scoped file grants and current references.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-browser-and-computer"}}`
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: tab_id, snapshot_id, ref, checked.
@@ -10184,7 +10184,7 @@ Prerequisites: Connected native browser or built-in web browser; no open panel i
 
 - openclaude-browser-and-computer (`openclaude-browser-and-computer`): Use actual browser/desktop observations, scoped file grants and current references.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-browser-and-computer"}}`
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: tab_id, snapshot_id, ref.
@@ -10245,7 +10245,7 @@ Prerequisites: Connected native browser or built-in web browser; no open panel i
 
 - openclaude-browser-and-computer (`openclaude-browser-and-computer`): Use actual browser/desktop observations, scoped file grants and current references.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-browser-and-computer"}}`
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: tab_id, selector, timeout_ms.
@@ -10306,7 +10306,7 @@ Prerequisites: Normal workspace permissions and the configured runtime/connectio
 
 - openclaude-browser-and-computer (`openclaude-browser-and-computer`): Use actual browser/desktop observations, scoped file grants and current references.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-browser-and-computer"}}`
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: tab_id, snapshot_id, ref, file_id.
@@ -10407,7 +10407,7 @@ Prerequisites: Connected native browser or built-in web browser; no open panel i
 
 - openclaude-browser-and-computer (`openclaude-browser-and-computer`): Use actual browser/desktop observations, scoped file grants and current references.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-browser-and-computer"}}`
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: tab_id, snapshot_id, ref.
@@ -10468,7 +10468,7 @@ Prerequisites: Connected native browser or built-in web browser; no open panel i
 
 - openclaude-browser-and-computer (`openclaude-browser-and-computer`): Use actual browser/desktop observations, scoped file grants and current references.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-browser-and-computer"}}`
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: tab_id, snapshot_id, ref, value.
@@ -10531,7 +10531,7 @@ Prerequisites: Connected native browser or built-in web browser; no open panel i
 
 - openclaude-browser-and-computer (`openclaude-browser-and-computer`): Use actual browser/desktop observations, scoped file grants and current references.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-browser-and-computer"}}`
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: tab_id, key.
@@ -10592,7 +10592,7 @@ Prerequisites: Connected native browser or built-in web browser; no open panel i
 
 - openclaude-browser-and-computer (`openclaude-browser-and-computer`): Use actual browser/desktop observations, scoped file grants and current references.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-browser-and-computer"}}`
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: tab_id, direction, amount.
@@ -10653,7 +10653,7 @@ Prerequisites: Connected native browser or built-in web browser; no open panel i
 
 - openclaude-browser-and-computer (`openclaude-browser-and-computer`): Use actual browser/desktop observations, scoped file grants and current references.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-browser-and-computer"}}`
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: action.
@@ -10731,7 +10731,7 @@ Prerequisites: Connected native browser or built-in web browser; no open panel i
 
 - openclaude-browser-and-computer (`openclaude-browser-and-computer`): Use actual browser/desktop observations, scoped file grants and current references.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-browser-and-computer"}}`
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: tab_id, full_page.
@@ -10789,7 +10789,7 @@ Prerequisites: Granted Windows computer control or Docker virtual desktop
 
 - openclaude-browser-and-computer (`openclaude-browser-and-computer`): Use actual browser/desktop observations, scoped file grants and current references.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-browser-and-computer"}}`
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: none.
@@ -10842,7 +10842,7 @@ Prerequisites: Granted Windows computer control or Docker virtual desktop
 
 - openclaude-browser-and-computer (`openclaude-browser-and-computer`): Use actual browser/desktop observations, scoped file grants and current references.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-browser-and-computer"}}`
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: none.
@@ -10895,7 +10895,7 @@ Prerequisites: Granted Windows computer control or Docker virtual desktop
 
 - openclaude-browser-and-computer (`openclaude-browser-and-computer`): Use actual browser/desktop observations, scoped file grants and current references.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-browser-and-computer"}}`
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: none.
@@ -10948,7 +10948,7 @@ Prerequisites: Normal workspace permissions and the configured runtime/connectio
 
 - openclaude-browser-and-computer (`openclaude-browser-and-computer`): Use actual browser/desktop observations, scoped file grants and current references.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-browser-and-computer"}}`
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: limit.
@@ -11004,7 +11004,7 @@ Prerequisites: Granted Windows computer control or Docker virtual desktop
 
 - openclaude-browser-and-computer (`openclaude-browser-and-computer`): Use actual browser/desktop observations, scoped file grants and current references.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-browser-and-computer"}}`
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: screen_id, action, x, y, button, modifiers, scroll_x, scroll_y, duration_ms.
@@ -11077,7 +11077,7 @@ Prerequisites: Granted Windows computer control or Docker virtual desktop
 
 - openclaude-browser-and-computer (`openclaude-browser-and-computer`): Use actual browser/desktop observations, scoped file grants and current references.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-browser-and-computer"}}`
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: window_id.
@@ -11133,7 +11133,7 @@ Prerequisites: Normal workspace permissions and the configured runtime/connectio
 
 - openclaude-browser-and-computer (`openclaude-browser-and-computer`): Use actual browser/desktop observations, scoped file grants and current references.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-browser-and-computer"}}`
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: application, arguments.
@@ -11191,7 +11191,7 @@ Prerequisites: Granted Windows computer control or Docker virtual desktop
 
 - openclaude-browser-and-computer (`openclaude-browser-and-computer`): Use actual browser/desktop observations, scoped file grants and current references.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-browser-and-computer"}}`
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: screen_id, x, y, button, click_count.
@@ -11255,7 +11255,7 @@ Prerequisites: Granted Windows computer control or Docker virtual desktop
 
 - openclaude-browser-and-computer (`openclaude-browser-and-computer`): Use actual browser/desktop observations, scoped file grants and current references.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-browser-and-computer"}}`
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: screen_id, x, y.
@@ -11315,7 +11315,7 @@ Prerequisites: Granted Windows computer control or Docker virtual desktop
 
 - openclaude-browser-and-computer (`openclaude-browser-and-computer`): Use actual browser/desktop observations, scoped file grants and current references.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-browser-and-computer"}}`
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: screen_id, start_x, start_y, end_x, end_y, duration.
@@ -11381,7 +11381,7 @@ Prerequisites: Granted Windows computer control or Docker virtual desktop
 
 - openclaude-browser-and-computer (`openclaude-browser-and-computer`): Use actual browser/desktop observations, scoped file grants and current references.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-browser-and-computer"}}`
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: screen_id, amount.
@@ -11439,7 +11439,7 @@ Prerequisites: Granted Windows computer control or Docker virtual desktop
 
 - openclaude-browser-and-computer (`openclaude-browser-and-computer`): Use actual browser/desktop observations, scoped file grants and current references.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-browser-and-computer"}}`
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: screen_id, text.
@@ -11497,7 +11497,7 @@ Prerequisites: Granted Windows computer control or Docker virtual desktop
 
 - openclaude-browser-and-computer (`openclaude-browser-and-computer`): Use actual browser/desktop observations, scoped file grants and current references.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-browser-and-computer"}}`
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: screen_id, keys.
@@ -11557,7 +11557,7 @@ Prerequisites: Granted Windows computer control or Docker virtual desktop
 
 - openclaude-browser-and-computer (`openclaude-browser-and-computer`): Use actual browser/desktop observations, scoped file grants and current references.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-browser-and-computer"}}`
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: duration_ms.
@@ -11766,7 +11766,7 @@ Prerequisites: App-managed local document worker; automatic Python dependency se
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-presentation-workflow"}}`
 - openclaude-data-and-creative-workflows (`openclaude-data-and-creative-workflows`): Create real Office, PDF, artifact and Python outputs; reuse file templates and semantic retrieval.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-data-and-creative-workflows"}}`
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: file_id.
@@ -11823,7 +11823,7 @@ Prerequisites: App-managed local document worker; automatic Python dependency se
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-presentation-workflow"}}`
 - openclaude-data-and-creative-workflows (`openclaude-data-and-creative-workflows`): Create real Office, PDF, artifact and Python outputs; reuse file templates and semantic retrieval.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-data-and-creative-workflows"}}`
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: file_id, output_name, changes, notes, add_slides.
@@ -12364,7 +12364,7 @@ Prerequisites: App-managed local document worker; automatic Python dependency se
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-presentation-workflow"}}`
 - openclaude-data-and-creative-workflows (`openclaude-data-and-creative-workflows`): Create real Office, PDF, artifact and Python outputs; reuse file templates and semantic retrieval.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-data-and-creative-workflows"}}`
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: output_name, slides.
@@ -12439,7 +12439,7 @@ Prerequisites: App-managed local document worker; automatic Python dependency se
 
 ### Related skills
 
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: data_file_id, chart_type, x, y, title.
@@ -12499,7 +12499,7 @@ Prerequisites: App-managed local document worker; automatic Python dependency se
 
 - openclaude-data-and-creative-workflows (`openclaude-data-and-creative-workflows`): Create real Office, PDF, artifact and Python outputs; reuse file templates and semantic retrieval.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-data-and-creative-workflows"}}`
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: file_id, operation, format.
@@ -12558,7 +12558,7 @@ Prerequisites: Docker sandbox
 
 ### Related skills
 
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: skill_id, script_path, arguments.
@@ -12618,7 +12618,7 @@ Prerequisites: Normal workspace permissions and the configured runtime/connectio
 
 - openclaude-terminal-workflow (`openclaude-terminal-workflow`): Run programs and commands in the actual terminal, track jobs and inspect exit status.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-terminal-workflow"}}`
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: language, path, cwd.
@@ -12678,7 +12678,7 @@ Prerequisites: Normal workspace permissions and the configured runtime/connectio
 
 - openclaude-terminal-workflow (`openclaude-terminal-workflow`): Run programs and commands in the actual terminal, track jobs and inspect exit status.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-terminal-workflow"}}`
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: job_id, operation.
@@ -12738,7 +12738,7 @@ Prerequisites: Granted native terminal or Docker runtime
 
 - openclaude-terminal-workflow (`openclaude-terminal-workflow`): Run programs and commands in the actual terminal, track jobs and inspect exit status.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-terminal-workflow"}}`
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: language, source, cwd, timeout_ms.
@@ -12800,7 +12800,7 @@ Prerequisites: Granted native terminal or Docker runtime
 
 - openclaude-terminal-workflow (`openclaude-terminal-workflow`): Run programs and commands in the actual terminal, track jobs and inspect exit status.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-terminal-workflow"}}`
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: cwd.
@@ -12856,7 +12856,7 @@ Prerequisites: Granted native terminal or Docker runtime
 
 - openclaude-terminal-workflow (`openclaude-terminal-workflow`): Run programs and commands in the actual terminal, track jobs and inspect exit status.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-terminal-workflow"}}`
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: binary, version, cwd.
@@ -12916,7 +12916,7 @@ Prerequisites: Granted native terminal or Docker runtime
 
 - openclaude-terminal-workflow (`openclaude-terminal-workflow`): Run programs and commands in the actual terminal, track jobs and inspect exit status.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-terminal-workflow"}}`
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: manager, packages, cwd, timeout_ms.
@@ -12980,7 +12980,7 @@ Prerequisites: Granted native terminal or Docker runtime
 
 - openclaude-terminal-workflow (`openclaude-terminal-workflow`): Run programs and commands in the actual terminal, track jobs and inspect exit status.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-terminal-workflow"}}`
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: cwd.
@@ -13036,7 +13036,7 @@ Prerequisites: An owned running interactive shell job
 
 - openclaude-terminal-workflow (`openclaude-terminal-workflow`): Run programs and commands in the actual terminal, track jobs and inspect exit status.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-terminal-workflow"}}`
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: job_id.
@@ -13095,7 +13095,7 @@ Prerequisites: An existing file in this conversation/project workspace or saved 
 
 - openclaude-browser-and-computer (`openclaude-browser-and-computer`): Use actual browser/desktop observations, scoped file grants and current references.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-browser-and-computer"}}`
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: path.
@@ -13154,7 +13154,7 @@ Prerequisites: Normal workspace permissions and the configured runtime/connectio
 
 ### Related skills
 
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: none.
@@ -13202,7 +13202,7 @@ Prerequisites: Normal workspace permissions and the configured runtime/connectio
 
 ### Related skills
 
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: none.
@@ -13250,7 +13250,7 @@ Prerequisites: Normal workspace permissions and the configured runtime/connectio
 
 ### Related skills
 
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: content.
@@ -13301,7 +13301,7 @@ Prerequisites: Normal workspace permissions and the configured runtime/connectio
 
 ### Related skills
 
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: queue_id.
@@ -13352,7 +13352,7 @@ Prerequisites: Normal workspace permissions and the configured runtime/connectio
 
 ### Related skills
 
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: none.
@@ -13400,7 +13400,7 @@ Prerequisites: Normal workspace permissions and the configured runtime/connectio
 
 ### Related skills
 
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: webhook_id, payload.
@@ -13453,7 +13453,7 @@ Prerequisites: Normal workspace permissions and the configured runtime/connectio
 
 ### Related skills
 
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: delivery_id.
@@ -13504,7 +13504,7 @@ Prerequisites: Normal workspace permissions and the configured runtime/connectio
 
 ### Related skills
 
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: webhook_id.
@@ -13555,7 +13555,7 @@ Prerequisites: Normal workspace permissions and the configured runtime/connectio
 
 ### Related skills
 
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: none.
@@ -13583,7 +13583,7 @@ Examples are templates, not executed operations. Replace every angle-bracket pla
 
 Callable function: `schedule_create`.
 
-Schedule a user-requested future task/reminder in this saved chat. First read clock_now and clarify ambiguous times. run_at is ISO 8601 with an explicit UTC offset; repeat_seconds is an optional fixed elapsed interval, not a DST-aware calendar rule. Saved across restarts; requires OpenClaude running. Missed repeating occurrences coalesce into one task. Uses the conversation model and normal tool permissions; scheduling does not authorize external actions.
+Schedule a user-requested future task/reminder in this saved chat. First read clock_now and clarify ambiguous times. run_at is ISO 8601 with an explicit UTC offset; repeat_seconds is an optional fixed elapsed interval, not a DST-aware calendar rule. Saved across restarts; requires Horizon running. Missed repeating occurrences coalesce into one task. Uses the conversation model and normal tool permissions; scheduling does not authorize external actions.
 
 Prerequisites: Normal workspace permissions and the configured runtime/connection for this action.
 
@@ -13604,7 +13604,7 @@ Prerequisites: Normal workspace permissions and the configured runtime/connectio
 
 ### Related skills
 
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: name, prompt, run_at, time_zone.
@@ -13662,7 +13662,7 @@ Prerequisites: Normal workspace permissions and the configured runtime/connectio
 
 ### Related skills
 
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: none.
@@ -13710,7 +13710,7 @@ Prerequisites: Normal workspace permissions and the configured runtime/connectio
 
 ### Related skills
 
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: schedule_id.
@@ -13761,7 +13761,7 @@ Prerequisites: Normal workspace permissions and the configured runtime/connectio
 
 ### Related skills
 
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: schedule_id.
@@ -13812,7 +13812,7 @@ Prerequisites: Normal workspace permissions and the configured runtime/connectio
 
 ### Related skills
 
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: schedule_id.
@@ -13863,7 +13863,7 @@ Prerequisites: Normal workspace permissions and the configured runtime/connectio
 
 ### Related skills
 
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: schedule_id.
@@ -13918,7 +13918,7 @@ Prerequisites: Normal workspace permissions and the configured runtime/connectio
 
 ### Related skills
 
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: schedule_id.
@@ -13969,7 +13969,7 @@ Prerequisites: Normal workspace permissions and the configured runtime/connectio
 
 ### Related skills
 
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: name, description, input_format, allowed_callers, parameters, steps.
@@ -14050,7 +14050,7 @@ Prerequisites: Normal workspace permissions and the configured runtime/connectio
 
 ### Related skills
 
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: offset, limit.
@@ -14103,7 +14103,7 @@ Prerequisites: Normal workspace permissions and the configured runtime/connectio
 
 ### Related skills
 
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: name.
@@ -14153,7 +14153,7 @@ Prerequisites: Normal workspace permissions and the configured runtime/connectio
 
 ### Related skills
 
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: action.
@@ -14217,7 +14217,7 @@ Prerequisites: Normal workspace permissions and the configured runtime/connectio
 
 - openclaude-browser-and-computer (`openclaude-browser-and-computer`): Use actual browser/desktop observations, scoped file grants and current references.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-browser-and-computer"}}`
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: purpose, tab_id.
@@ -14277,7 +14277,7 @@ Prerequisites: Normal workspace permissions and the configured runtime/connectio
 
 - openclaude-browser-and-computer (`openclaude-browser-and-computer`): Use actual browser/desktop observations, scoped file grants and current references.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-browser-and-computer"}}`
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: none.
@@ -14331,7 +14331,7 @@ Prerequisites: Normal workspace permissions and the configured runtime/connectio
 
 - openclaude-browser-and-computer (`openclaude-browser-and-computer`): Use actual browser/desktop observations, scoped file grants and current references.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-browser-and-computer"}}`
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: tab_id, filter.
@@ -14390,7 +14390,7 @@ Prerequisites: Normal workspace permissions and the configured runtime/connectio
 
 - openclaude-browser-and-computer (`openclaude-browser-and-computer`): Use actual browser/desktop observations, scoped file grants and current references.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-browser-and-computer"}}`
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: tab_id.
@@ -14447,7 +14447,7 @@ Prerequisites: Normal workspace permissions and the configured runtime/connectio
 
 - openclaude-browser-and-computer (`openclaude-browser-and-computer`): Use actual browser/desktop observations, scoped file grants and current references.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-browser-and-computer"}}`
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: tab_id, url.
@@ -14506,7 +14506,7 @@ Prerequisites: Normal workspace permissions and the configured runtime/connectio
 
 - openclaude-browser-and-computer (`openclaude-browser-and-computer`): Use actual browser/desktop observations, scoped file grants and current references.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-browser-and-computer"}}`
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: url.
@@ -14563,7 +14563,7 @@ Prerequisites: Normal workspace permissions and the configured runtime/connectio
 
 - openclaude-browser-and-computer (`openclaude-browser-and-computer`): Use actual browser/desktop observations, scoped file grants and current references.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-browser-and-computer"}}`
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: none.
@@ -14617,7 +14617,7 @@ Prerequisites: Normal workspace permissions and the configured runtime/connectio
 
 - openclaude-browser-and-computer (`openclaude-browser-and-computer`): Use actual browser/desktop observations, scoped file grants and current references.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-browser-and-computer"}}`
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: tab_id.
@@ -14674,7 +14674,7 @@ Prerequisites: Normal workspace permissions and the configured runtime/connectio
 
 - openclaude-browser-and-computer (`openclaude-browser-and-computer`): Use actual browser/desktop observations, scoped file grants and current references.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-browser-and-computer"}}`
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: tab_id.
@@ -14731,7 +14731,7 @@ Prerequisites: Normal workspace permissions and the configured runtime/connectio
 
 - openclaude-browser-and-computer (`openclaude-browser-and-computer`): Use actual browser/desktop observations, scoped file grants and current references.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-browser-and-computer"}}`
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: tab_id, snapshot_id, ref, checked.
@@ -14794,7 +14794,7 @@ Prerequisites: Normal workspace permissions and the configured runtime/connectio
 
 - openclaude-browser-and-computer (`openclaude-browser-and-computer`): Use actual browser/desktop observations, scoped file grants and current references.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-browser-and-computer"}}`
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: tab_id, snapshot_id, ref, text.
@@ -14857,7 +14857,7 @@ Prerequisites: Normal workspace permissions and the configured runtime/connectio
 
 - openclaude-browser-and-computer (`openclaude-browser-and-computer`): Use actual browser/desktop observations, scoped file grants and current references.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-browser-and-computer"}}`
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: tab_id, key.
@@ -14912,7 +14912,7 @@ Prerequisites: Normal workspace permissions and the configured runtime/connectio
 
 ### Related skills
 
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: plugin_id, hook_id, event.
@@ -14968,7 +14968,7 @@ Prerequisites: Normal workspace permissions and the configured runtime/connectio
 
 - openclaude-runtime-orchestration (`openclaude-runtime-orchestration`): Coordinate multi-step work with deferred discovery, sandboxed tool programs and isolated agents.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-runtime-orchestration"}}`
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: query.
@@ -15019,7 +15019,7 @@ Prerequisites: Normal workspace permissions and the configured runtime/connectio
 
 ### Related skills
 
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: environment_id, direction, path.
@@ -15076,7 +15076,7 @@ Prerequisites: Normal workspace permissions and the configured runtime/connectio
 
 ### Related skills
 
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: file_id, name, description, instructions.
@@ -15133,7 +15133,7 @@ Prerequisites: Normal workspace permissions and the configured runtime/connectio
 
 ### Related skills
 
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: query.
@@ -15184,7 +15184,7 @@ Prerequisites: Normal workspace permissions and the configured runtime/connectio
 
 ### Related skills
 
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: template_id, output_path.
@@ -15216,7 +15216,7 @@ Examples are templates, not executed operations. Replace every angle-bracket pla
 
 Callable function: `diagnostics_status`.
 
-Read actual OpenClaude runtime, model, connection and task state without exposing credentials. Does not run benchmarks or modify the system.
+Read actual Horizon runtime, model, connection and task state without exposing credentials. Does not run benchmarks or modify the system.
 
 Prerequisites: Normal workspace permissions and the configured runtime/connection for this action.
 
@@ -15237,7 +15237,7 @@ Prerequisites: Normal workspace permissions and the configured runtime/connectio
 
 ### Related skills
 
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: none.
@@ -15264,7 +15264,7 @@ Examples are templates, not executed operations. Replace every angle-bracket pla
 
 Callable function: `workflow_install_skill`.
 
-Convert an explicitly recorded workflow into an installed reusable OpenClaude skill. Describe when it should trigger; historical interactive IDs are documented as requiring fresh observations.
+Convert an explicitly recorded workflow into an installed reusable Horizon skill. Describe when it should trigger; historical interactive IDs are documented as requiring fresh observations.
 
 Prerequisites: Normal workspace permissions and the configured runtime/connection for this action.
 
@@ -15284,7 +15284,7 @@ Prerequisites: Normal workspace permissions and the configured runtime/connectio
 
 ### Related skills
 
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: workflow_id, name, description.
@@ -15338,7 +15338,7 @@ Prerequisites: Normal workspace permissions and the configured runtime/connectio
 
 ### Related skills
 
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: action.
@@ -15389,7 +15389,7 @@ Prerequisites: Normal workspace permissions and the configured runtime/connectio
 
 ### Related skills
 
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: none.
@@ -15436,7 +15436,7 @@ Prerequisites: Normal workspace permissions and the configured runtime/connectio
 
 ### Related skills
 
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: workflow_id.
@@ -15486,7 +15486,7 @@ Prerequisites: Normal workspace permissions and the configured runtime/connectio
 
 ### Related skills
 
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: workflow_id.
@@ -15516,7 +15516,7 @@ Examples are templates, not executed operations. Replace every angle-bracket pla
 
 Callable function: `lifecycle_list`.
 
-List user-configured OpenClaude lifecycle hooks for this conversation and supported event names.
+List user-configured Horizon lifecycle hooks for this conversation and supported event names.
 
 Prerequisites: Normal workspace permissions and the configured runtime/connection for this action.
 
@@ -15536,7 +15536,7 @@ Prerequisites: Normal workspace permissions and the configured runtime/connectio
 
 ### Related skills
 
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: none.
@@ -15583,7 +15583,7 @@ Prerequisites: Normal workspace permissions and the configured runtime/connectio
 
 ### Related skills
 
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: name, event, tool, arguments, enabled, timeout_ms, failure_mode.
@@ -15649,7 +15649,7 @@ Prerequisites: Normal workspace permissions and the configured runtime/connectio
 
 ### Related skills
 
-- openclaude-tool-operation (`openclaude-tool-operation`): Use OpenClaude tools with exact schemas, actionable workflows, returned state and bounded error recovery.
+- openclaude-tool-operation (`openclaude-tool-operation`): Use Horizon tools with exact schemas, actionable workflows, returned state and bounded error recovery.
   Load once: `{"function":"skill_load","parameters":{"skill_id":"openclaude-tool-operation"}}`
 
 Required fields: hook_id.

@@ -1,6 +1,6 @@
 ---
 name: openclaude-runtime-orchestration
-description: Coordinate multi-step OpenClaude tasks using deferred tool discovery, sandboxed parallel calls and isolated agents.
+description: Coordinate multi-step Horizon tasks using deferred tool discovery, sandboxed parallel calls and isolated agents.
 ---
 
 Use the existing task, user corrections and outputs. Do not ask for already supplied information. Start with a small plan for substantial work. Discover relevant categories with toolkit, then load one exact action schema with tool_action. Skills guide workflows; they do not grant runtime capabilities.
