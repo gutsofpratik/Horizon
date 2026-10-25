@@ -5,7 +5,7 @@ on:
       platform:
         type: choice
         default: all
-        options: [all, linux]
+        options: [all, windows, macos, linux]
 permissions:
   contents: read
 jobs:
@@ -13,7 +13,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: ${{ fromJSON(inputs.platform == 'linux' && '["ubuntu-24.04"]' || '["windows-latest","macos-14","ubuntu-24.04"]') }}
+        os: ${{ fromJSON(inputs.platform == 'linux' && '["ubuntu-24.04"]' || inputs.platform == 'macos' && '["macos-14"]' || inputs.platform == 'windows' && '["windows-latest"]' || '["windows-latest","macos-14","ubuntu-24.04"]') }}
     runs-on: ${{ matrix.os }}
     timeout-minutes: 90
     steps:
@@ -32,6 +32,9 @@ jobs:
       - name: Linux native dependencies
         if: runner.os == 'Linux'
         run: sudo apt-get update && sudo apt-get install -y libwebkit2gtk-4.1-dev build-essential curl wget file libxdo-dev libssl-dev librsvg2-dev libayatana-appindicator3-dev libxkbcommon-dev libxcb-randr0-dev libpipewire-0.3-dev libdbus-1-dev libgbm-dev
+      - name: Verify Ubuntu graphics libraries before linking
+        if: runner.os == 'Linux'
+        run: pkg-config --exists gbm xkbcommon xcb-randr libpipewire-0.3 && pkg-config --modversion gbm
       - run: npm ci
       - run: npm run lint
       - run: npm run typecheck
@@ -39,9 +42,11 @@ jobs:
       - name: Prepare pinned standalone Python
         run: node scripts/release/prepare-python.mjs
       - run: npm run package:native
+      - name: Verify platform packages
+        run: node scripts/release/verify-native-packages.mjs
       - uses: actions/upload-artifact@v4
         with:
-          name: Horizon-${{ runner.os }}-${{ runner.arch }}-preview
+          name: Horizon-${{ runner.os }}-${{ runner.arch }}
           path: |
             release/*.zip
             release/*.sha256

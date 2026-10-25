@@ -1,4 +1,4 @@
-param([switch]$Inference,[switch]$Docker,[switch]$Worker,[switch]$BrowserRuntime,[switch]$Check)
+param([switch]$Documents,[switch]$Inference,[switch]$Docker,[switch]$Worker,[switch]$BrowserRuntime,[switch]$Check)
 $ErrorActionPreference='Stop'
 $taskRoot=$PSScriptRoot
 if(!(Test-Path -LiteralPath (Join-Path $taskRoot 'backend'))){$taskRoot=Split-Path -Parent $taskRoot}
@@ -7,7 +7,7 @@ $taskNode=Join-Path $taskBackend 'node\node.exe'
 $taskPython=Join-Path $taskBackend 'python\python.exe'
 $taskData=Join-Path $env:LOCALAPPDATA 'OpenClaude\data'
 if($Check){
- [pscustomobject]@{Node=(Test-Path -LiteralPath $taskNode);Python=(Test-Path -LiteralPath $taskPython);Docker=[bool](Get-Command docker -ErrorAction SilentlyContinue);DataDirectory=$taskData}
+ [pscustomobject]@{Node=(Test-Path -LiteralPath $taskNode);Python=(Test-Path -LiteralPath $taskPython);DataDirectory=$taskData}
  exit 0
 }
 try{
@@ -25,12 +25,15 @@ try{
    Remove-Item -LiteralPath $taskBootstrap
   }
  }
- if($Inference){
+ if($Documents -or $Inference){
   if(!(Test-Path -LiteralPath $taskNode) -or !(Test-Path -LiteralPath $taskPython)){throw 'Bundled runtime files are missing. Extract the whole release ZIP or repair the installation.'}
   $env:OPENCLAUDE_DATA_DIR=$taskData
   $env:OPENCLAUDE_BUNDLED_PYTHON=Join-Path $taskBackend 'python'
   Push-Location -LiteralPath $taskBackend
-  try{& $taskNode (Join-Path $taskBackend 'setup-runtime.mjs');if($LASTEXITCODE -ne 0){throw 'Inference runtime installation failed. You can retry from Settings > Runtime packs.'}}finally{Pop-Location}
+  try{
+   if($Documents){& $taskNode (Join-Path $taskBackend 'setup-runtime.mjs') --documents-only;if($LASTEXITCODE -ne 0){throw 'Local OfficeCLI/PDF setup failed. Retry document setup in Settings.'}}
+   if($Inference){& $taskNode (Join-Path $taskBackend 'setup-runtime.mjs') --inference-only;if($LASTEXITCODE -ne 0){throw 'Inference runtime installation failed. You can retry from Settings > Runtime packs.'}}
+  }finally{Pop-Location}
  }
  if($Docker -and !(Get-Command docker -ErrorAction SilentlyContinue)){
   Add-Type -AssemblyName System.Windows.Forms

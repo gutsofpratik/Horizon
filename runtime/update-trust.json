@@ -1,6 +1,5 @@
 {
   "schemaVersion": 1,
-  "publicKey": null,
-  "endpoint": null,
-  "note": "Configure the publisher public key and signed GitHub release metadata URL at release time. No test certificate or trust bypass is enabled."
+  "publicKey": "-----BEGIN PUBLIC KEY-----\nMCowBQYDK2VwAyEASYrtKAt0QvJEagvyNM0gqNwyoVpeDPAbI6TTG8+D0Rc=\n-----END PUBLIC KEY-----\n",
+  "endpoint": "https://github.com/gutsofpratik/Horizon/releases/latest/download/update.json"
 }

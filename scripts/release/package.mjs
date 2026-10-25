@@ -1,4 +1,6 @@
 import {createReleaseStage,releaseFiles} from './payload.mjs';
+import {releaseTarget} from './build-paths.mjs';
+import {writeUpdateManifest} from './update-manifest.mjs';
 import {signingConfig,signRelease} from './signing.mjs';
 import {build} from 'esbuild';
 import {mkdir,cp,readFile,writeFile,readdir,stat,access} from 'node:fs/promises';
@@ -12,6 +14,7 @@ const root=process.cwd(),version=JSON.parse(await readFile('package.json','utf8'
 const signing=signingConfig(process.env,process.argv.includes('--unsigned'));
 const out=resolve(process.env.OPENCLAUDE_RELEASE_DIR??'release'),stage=await createReleaseStage(out);
 const cache=resolve('.local/release-cache');await mkdir(cache,{recursive:true});await mkdir(stage,{recursive:true});
+const target=releaseTarget(root);await mkdir(target,{recursive:true});
 const backend=join(stage,'backend');await mkdir(backend,{recursive:true});
 const inputs=JSON.parse(await readFile('scripts/release/inputs.json','utf8'));
 async function run(command,args,options={}){await new Promise((ok,fail)=>{const child=spawn(command,args,{stdio:'inherit',windowsHide:true,...options});child.on('error',fail);child.on('exit',code=>code===0?ok():fail(new Error(command+' exited '+code)));});}
@@ -28,9 +31,8 @@ if(!process.argv.includes('--skip-build')){
  await mkdir(join(nativeBuild,'runtime/worker'),{recursive:true});
  for(const file of ['page-diagnostics.js','page-advanced.js'])await cp(join(root,'runtime/worker',file),join(nativeBuild,'runtime/worker',file));
  const flags=[...(process.env.CARGO_ENCODED_RUSTFLAGS?.split('\x1f')??[]),'--remap-path-prefix='+homedir()+'=/build'].join('\x1f');
- await run('cargo',['build','--release','--manifest-path',join(nativeBuild,'src-tauri/Cargo.toml')],{env:{...process.env,CARGO_ENCODED_RUSTFLAGS:flags,CARGO_TARGET_DIR:process.env.CARGO_TARGET_DIR??resolve('.local/release-target')}});
+ await run('cargo',['build','--release','--manifest-path',join(nativeBuild,'src-tauri/Cargo.toml')],{env:{...process.env,CARGO_ENCODED_RUSTFLAGS:flags,CARGO_TARGET_DIR:target}});
 }
-const target=resolve(process.env.CARGO_TARGET_DIR??'.local/release-target');
 await cp(join(target,'release/claude-local-desktop.exe'),join(stage,'Horizon.exe'));await cp(join(target,'release/WebView2Loader.dll'),join(stage,'WebView2Loader.dll'));
 await mkdir(join(backend,'node'),{recursive:true});await cp(process.execPath,join(backend,'node/node.exe'));
 await cp(join(dirname(process.execPath),'LICENSE'),join(backend,'node/LICENSE'));
@@ -79,7 +81,7 @@ for(const [name,url] of [['elkjs-0.9.3.tar.gz','https://codeload.github.com/kiel
 await writeFile(join(licenses,'sources/README.txt'),'Unmodified ELK/elkjs corresponding sources and license/build files.\nELKJS 0.9.3: https://github.com/kieler/elkjs/releases/tag/0.9.3 (based on ELK 0.9.1 plus eclipse-elk/elk PR 955, whose merged source is also included).\nELK 0.9.1: https://github.com/eclipse-elk/elk/tree/v0.9.1\nHorizon does not modify these dependencies. EPL-covered source remains under EPL, not MIT.\n');
 for(const file of ['LICENSE','THIRD_PARTY_NOTICES.md'])await cp(file,join(stage,file));
 await cp('installer/Setup-Dependencies.ps1',join(stage,'Setup-Dependencies.ps1'));
-await writeFile(join(stage,'Setup-Dependencies.cmd'),'@echo off\r\npowershell.exe -NoLogo -NoProfile -ExecutionPolicy Bypass -File "%~dp0Setup-Dependencies.ps1" -BrowserRuntime -Inference -Docker -Worker\r\npause\r\n');
+await writeFile(join(stage,'Setup-Dependencies.cmd'),'@echo off\r\npowershell.exe -NoLogo -NoProfile -ExecutionPolicy Bypass -File "%~dp0Setup-Dependencies.ps1" -BrowserRuntime -Documents\r\npause\r\n');
 await writeFile(join(backend,'runtime-manifest.json'),JSON.stringify({version,node:process.version,python:inputs.python,transport:'private-stdio',modelsBundled:false},null,2)+'\n');
 const nsisZip=await download(inputs.nsis,'nsis.zip'),nsisDir=join(cache,'nsis');await mkdir(nsisDir,{recursive:true});
 const nsis=await JSZip.loadAsync(await readFile(nsisZip));for(const entry of Object.values(nsis.files)){if(entry.dir)continue;if(entry.name.includes('..')||entry.name.startsWith('/'))throw new Error('Unsafe NSIS archive');const file=join(nsisDir,entry.name);await mkdir(dirname(file),{recursive:true});await writeFile(file,await entry.async('nodebuffer'));}
@@ -96,3 +98,4 @@ const zip=new JSZip();for(const path of payload)zip.file('Horizon/'+path,await r
 const portable=join(out,'Horizon-'+version+'-windows-x64-portable.zip');await writeFile(portable,await zip.generateAsync({type:'nodebuffer',compression:'DEFLATE',compressionOptions:{level:6},streamFiles:true}));
 let checksums='';for(const file of [installer,portable])checksums+=createHash('sha256').update(await readFile(file)).digest('hex')+'  '+file.slice(out.length+1)+'\n';await writeFile(join(out,'SHA256SUMS.txt'),checksums);
 console.log(JSON.stringify({stage,installer,portable,checksums:join(out,'SHA256SUMS.txt')}));
+await writeUpdateManifest(out,version);

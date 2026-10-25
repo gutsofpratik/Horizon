@@ -1,0 +1,23 @@
+import {join} from 'node:path';
+import staticFiles from '@fastify/static';
+import {build,createServer} from 'vite';
+import {createApp} from '../server/app.ts';
+
+const directory=process.env.HORIZON_BROWSER_TEST_DIRECTORY;
+if(!directory||!process.env.HORIZON_BROWSER_TEST_TOKEN)throw new Error('Start browser tests through Playwright');
+process.env.OPENCLAUDE_HOST_TOKEN=process.env.HORIZON_BROWSER_TEST_TOKEN;
+process.env.HORIZON_PROFILE_REGISTRY=join(directory,'profiles.json');
+process.env.HORIZON_PROFILES_ROOT=join(directory,'profiles');
+process.env.OPENCLAUDE_EDITION='desktop';
+const desktopDirectory=join(directory,'desktop');
+await build({build:{outDir:desktopDirectory,emptyOutDir:true}});
+delete process.env.OPENCLAUDE_EDITION;
+const app=await createApp({dataDirectory:join(directory,'data'),root:process.cwd()});
+(app as any).context.store.put('onboarding',{id:'main',completed:true,completedAt:new Date().toISOString(),skipped:true});
+await app.register(staticFiles,{root:desktopDirectory,prefix:'/desktop/'});
+app.setNotFoundHandler((request,reply)=>request.url.startsWith('/desktop/')?reply.sendFile('index.html'):reply.code(404).send({error:'Not found'}));
+await app.listen({host:'127.0.0.1',port:3001});
+const vite=await createServer({server:{host:'127.0.0.1',port:5173,strictPort:true}});
+await vite.listen();
+let closing=false;
+for(const signal of ['SIGINT','SIGTERM'] as const)process.on(signal,()=>{if(closing)return;closing=true;void Promise.allSettled([vite.close(),app.close()]).then(()=>process.exit(0));});

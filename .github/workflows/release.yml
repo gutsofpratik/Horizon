@@ -16,6 +16,7 @@ jobs:
       OPENCLAUDE_SIGNTOOL: ${{ vars.OPENCLAUDE_SIGNTOOL }}
       OPENCLAUDE_SIGN_DLIB: ${{ vars.OPENCLAUDE_SIGN_DLIB }}
       OPENCLAUDE_SIGN_METADATA: ${{ vars.OPENCLAUDE_SIGN_METADATA }}
+      OPENCLAUDE_UPDATE_PRIVATE_KEY: ${{ secrets.OPENCLAUDE_UPDATE_PRIVATE_KEY }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -43,4 +44,5 @@ jobs:
             release/*-setup.exe
             release/*-portable.zip
             release/SHA256SUMS.txt
+            release/update.json
           if-no-files-found: error

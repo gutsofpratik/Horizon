@@ -29,6 +29,7 @@ const files=[];async function inventory(folder){for(const name of await readdir(
 await inventory(stage);await writeFile(join(backend,'runtime-manifest.json'),JSON.stringify({schemaVersion:1,version:pkg.version,platform,arch,contractVersion:1,files,verification:'Packaging does not establish runtime validation or verified publisher identity'},null,2));
 const targets=platform==='win32'?['nsis']:platform==='darwin'?['app','dmg']:['deb','appimage'];
 const config={bundle:{active:true,targets,icon:[resolve('src-tauri/icons/32x32.png'),resolve('src-tauri/icons/128x128.png'),resolve('src-tauri/icons/128x128@2x.png'),resolve('src-tauri/icons/icon.icns'),resolve('src-tauri/icons/icon.ico')],resources:{[backend+'/']:'backend/',[resolve('LICENSE')]:'LICENSE',[resolve('THIRD_PARTY_NOTICES.md')]:'THIRD_PARTY_NOTICES.md'}}};
+if(platform==='linux')config.bundle.linux={deb:{depends:['libgbm1','libxkbcommon0','libxcb-randr0','libpipewire-0.3-0t64 | libpipewire-0.3-0']}};
 if(platform==='win32'&&(process.env.OPENCLAUDE_SIGN_CERT_SHA1||process.env.OPENCLAUDE_SIGN_DLIB))config.bundle.windows={allowDowngrades:false,digestAlgorithm:'sha256',signCommand:{cmd:'powershell.exe',args:['-NoProfile','-NonInteractive','-File',resolve('scripts/release/Sign-Release.ps1'),'-Path','%1']}};
 
 const configFile=join(stage,'bundle.json');await writeFile(configFile,JSON.stringify(config));await run(process.execPath,[cli,'build','--ci','--config',configFile,'--','--locked'],{env:{...process.env,OPENCLAUDE_EDITION:'desktop'}});
@@ -41,6 +42,12 @@ if(platform==='darwin'){
  // ditto preserves the app bundle's resource layout and executable metadata.
  await mkdir('release',{recursive:true});
  await run('/usr/bin/ditto',['-c','-k','--sequesterRsrc','--keepParent',join(targetRoot,'bundle/macos',apps[0]),resolve('release',`Horizon-${pkg.version}-${platform}-${arch}.zip`)]);
-}else zip.file(platform==='win32'?'Horizon.exe':'Horizon',await readFile(join(targetRoot,'claude-local-desktop'+(platform==='win32'?'.exe':''))),{unixPermissions:0o755});
+}else{
+ zip.file(platform==='win32'?'Horizon.exe':'Horizon',await readFile(join(targetRoot,'claude-local-desktop'+(platform==='win32'?'.exe':''))),{unixPermissions:0o755});
+ if(platform==='win32'){try{zip.file('WebView2Loader.dll',await readFile(join(targetRoot,'WebView2Loader.dll')));}catch(error){if(error.code!=='ENOENT')throw error;}}
+ if(platform==='linux'){
+  zip.file('Start-Horizon.sh','#!/bin/sh\nset -eu\ncd -- "$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)"\nif ldd ./Horizon 2>&1 | grep -q "not found"; then\n  echo "Missing desktop libraries. Install the Horizon .deb with apt, or install libwebkit2gtk-4.1-0 libayatana-appindicator3-1 libgbm1 libxkbcommon0 libxcb-randr0 libpipewire-0.3-0." >&2\n  ldd ./Horizon | grep "not found" >&2\n  exit 1\nfi\nexec ./Horizon "$@"\n',{unixPermissions:0o755});
+ }
+}
 
 await mkdir('release',{recursive:true});const archive=resolve('release',`Horizon-${pkg.version}-${platform}-${arch}.zip`);if(platform!=='darwin')await writeFile(archive,await zip.generateAsync({type:'nodebuffer',platform:'UNIX',compression:'DEFLATE',compressionOptions:{level:6}}));await writeFile(archive+'.sha256',createHash('sha256').update(await readFile(archive)).digest('hex')+'  '+basename(archive)+'\n');

@@ -9,7 +9,7 @@ export async function releaseFiles(stage){
   for(const entry of await readdir(folder,{withFileTypes:true})){
    const name=prefix+entry.name,path=join(folder,entry.name),parts=name.split('/');
    if(!roots.has(parts[0])||parts[0]==='backend'&&parts.length>1&&!backendRoots.has(parts[1]))throw new Error('Unexpected release payload: '+name);
-   if(parts.some(part=>['.local','.rea','.git','source-packs','.env'].includes(part))||/\.(?:gguf|safetensors|sqlite(?:-wal|-shm)?)$/i.test(name)||/^\.env\./i.test(entry.name)||['Cookies','Login Data','Web Data','History'].includes(entry.name))throw new Error('Private data in release payload: '+name);
+   if(parts.some(part=>['.local','.rea','.git','source-packs','.env'].includes(part))||/\.(?:gguf|safetensors|sqlite(?:-wal|-shm)?|key|pfx|p12)$/i.test(name)||/^\.env\./i.test(entry.name)||['Cookies','Login Data','Web Data','History'].includes(entry.name))throw new Error('Private data in release payload: '+name);
    const info=await lstat(path);if(info.isSymbolicLink())throw new Error('Symbolic link in release payload: '+name);
    if(info.isDirectory())await visit(path,name+'/');else if(info.isFile())files.push(name);else throw new Error('Unsupported release payload: '+name);
   }
