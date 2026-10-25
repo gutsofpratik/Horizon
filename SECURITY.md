@@ -6,7 +6,7 @@ Here is the list of all the supported versions of the security updates we will b
 
 | Version | Supported          |
 | ------- | ------------------ |
-| 3.0.x   | :white_check_mark: |
+| 3.0 >   | :white_check_mark: |
 | 2.0     | :white_check_mark: |
 | < 1.2   | :x:                |
 
