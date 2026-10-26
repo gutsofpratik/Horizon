@@ -41,11 +41,11 @@ Install a Debian package with `sudo apt install ./Horizon-<version>-linux-x64.de
 
 ### First run
 
-1. Create a profile with your name, local login ID and password. Additional profiles keep separate conversations, memories and settings.
-2. Allow required Office/PDF services to prepare. Setup shows progress and repair actions when dependencies cannot be installed.
+1. Create a profile with your name and an optional password. Additional profiles keep separate conversations, memories and settings.
+2. Horizon prepares required services in the background. A text-only startup screen shows setup progress and a retry action if installation fails.
 3. Connect a provider or download/import a supported model. Desktop includes model management; web uses configured model connections.
 4. Choose a model and send a message. Select a workflow from Plus for a particular output, attach reference files or choose a project.
-5. Review generated files and previews in the workspace. Choose which actions require approval through the permission selector.
+5. Drop files into the workspace to attach them to your draft and see them under All files. Review created files and previews there too. Choose which actions require approval through the permission selector.
 
 Click your profile name for Settings and profile switching. A profile password gates application access; it is not database/disk encryption, and there is no cloud password-recovery service.
 
