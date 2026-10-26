@@ -1,4 +1,5 @@
 import {useVoiceInput} from './useVoiceInput';
+import {isDesktopEdition} from '../platform/edition';
 import {createPortal} from 'react-dom';
 import {useComposerPosition} from './menu-position';
 import {save} from '../app/api';
@@ -13,7 +14,7 @@ import {useRef,useEffect,useState} from 'react';
 
 
 
-import {ArrowUp,Plus,Square,Mic,Pause,Paperclip,X,Folder,Loader2} from 'lucide-react';import {ModelPicker} from './ModelPicker';import {ComposerMenu} from './ComposerMenu';
+import {ArrowUp,Plus,Square,Mic,Pause,Play,Paperclip,X,Folder,Loader2} from 'lucide-react';import {ModelPicker} from './ModelPicker';import {ComposerMenu} from './ComposerMenu';
 
 
 
@@ -38,7 +39,7 @@ export function Composer({text,setText,onSend,running,onCancel,models,settings,o
 
  const mentions=useComposerMentions({text,setText,field,skills,tools,settings});
 
- const voice=useVoiceInput({settings,setText,onError});const dictate=()=>void voice.toggle();
+ const voice=useVoiceInput({settings,text,setText,onError,desktop:isDesktopEdition});const dictate=()=>void voice.toggle();
 
 
 
@@ -75,7 +76,7 @@ export function Composer({text,setText,onSend,running,onCancel,models,settings,o
 
 
 
- </div><div className="composer-actions">{layout==='welcome'&&picker}{voice.recording||voice.busy?<div className="voice-inline"><span className="voice-wave" aria-hidden="true">{Array.from({length:9},(_,index)=><i key={index} style={{height:3+voice.level*(5+(index%4)*3)}}/>)}</span><button className="icon-button voice-pause" aria-label={voice.busy?'Finishing dictation':'Pause dictation'} disabled={voice.busy} onClick={()=>void voice.stop()}>{voice.busy?<Loader2 size={17} className="spin"/>:<Pause size={17} fill="currentColor"/>}</button></div>:<button className="icon-button" aria-label="Dictate" onClick={dictate}><Mic size={17}/></button>}{running?<>{(text.trim()||attachments.length>0)&&<button className="send-button" aria-label="Queue message" disabled={voice.recording||voice.busy} onClick={onSend}><ArrowUp size={18}/></button>}<button className="send-button stop" aria-label="Stop generation" onClick={onCancel}><Square size={15} fill="currentColor"/></button></>:<button className="send-button" aria-label="Send message" disabled={voice.recording||voice.busy||!text.trim()&&!attachments.length||!models.some((item:any)=>item.id===settings.model&&item.providerId===settings.providerId)} onClick={onSend}><ArrowUp size={18}/></button>}</div></div></div>
+ </div><div className="composer-actions">{layout==='welcome'&&picker}{voice.recording||voice.busy||voice.paused?<div className="voice-inline" data-recording={voice.recording}><span className="voice-wave" aria-hidden="true">{Array.from({length:9},(_,index)=><i key={index} style={{height:3+voice.level*(5+(index%4)*3)}}/>)}</span><button className="icon-button voice-pause" aria-label={voice.busy?'Finishing dictation':voice.paused?'Resume dictation':'Pause dictation'} disabled={voice.busy} onClick={()=>voice.paused?void voice.toggle():void voice.stop()}>{voice.busy?<Loader2 size={17} className="spin"/>:voice.paused?<Play size={17} fill="currentColor"/>:<Pause size={17} fill="currentColor"/>}</button></div>:<button className="icon-button" aria-label="Dictate" onClick={dictate}><Mic size={17}/></button>}{running?<>{(text.trim()||attachments.length>0)&&<button className="send-button" aria-label="Queue message" disabled={voice.recording||voice.busy} onClick={onSend}><ArrowUp size={18}/></button>}<button className="send-button stop" aria-label="Stop generation" onClick={onCancel}><Square size={15} fill="currentColor"/></button></>:<button className="send-button" aria-label="Send message" disabled={voice.recording||voice.busy||!text.trim()&&!attachments.length||!models.some((item:any)=>item.id===settings.model&&item.providerId===settings.providerId)} onClick={onSend}><ArrowUp size={18}/></button>}</div></div></div>
 
 
 
