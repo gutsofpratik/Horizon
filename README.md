@@ -13,7 +13,7 @@ Horizon brings conversations, editable artifacts, Office and PDF files, browser 
 | Platform | Installer | ZIP download |
 | --- | --- | --- |
 | Windows x64 | [Windows installer](https://github.com/gutsofpratik/Horizon/releases/download/v0.3.3/Horizon-0.3.3-windows-x64-setup.exe) | [Portable ZIP](https://github.com/gutsofpratik/Horizon/releases/download/v0.3.3/Horizon-0.3.3-windows-x64-portable.zip) |
-| macOS 14+ Apple Silicon | Pending bundle verification | Not yet published for 0.3.3 |
+| macOS 14+ Apple Silicon | [DMG installer](https://github.com/gutsofpratik/Horizon/releases/download/v0.3.3/Horizon-0.3.3-macos-arm64.dmg) | [Application ZIP](https://github.com/gutsofpratik/Horizon/releases/download/v0.3.3/Horizon-0.3.3-darwin-arm64.zip) |
 | Linux x64, Ubuntu 24.04 baseline | Package checks passed; publication follows Windows | Upload pending |
 | Source | [Horizon source ZIP](https://github.com/gutsofpratik/Horizon/releases/download/v0.3.3/Horizon-0.3.3-source.zip) | [Horizon source tar.gz](https://github.com/gutsofpratik/Horizon/releases/download/v0.3.3/Horizon-0.3.3-source.tar.gz) |
 

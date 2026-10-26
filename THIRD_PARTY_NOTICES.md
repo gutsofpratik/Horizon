@@ -54,10 +54,11 @@ See the pinned manifests and upstream license files for the controlling terms.
 
 ## Adopted agent backend source
 
-AionCore and aionrs are included under Apache-2.0. Their original license files
-remain in `vendor/AionCore/LICENSE` and `vendor/aionrs/LICENSE`. Pinned revisions,
-source archive checksums and Horizon modifications are recorded in
-`vendor/upstream-lock.json`; `vendor/NOTICE` retains upstream attribution.
+AionCore and aionrs are used under Apache-2.0. Their original license files
+are retained in `third-party/engine/licenses/`. Pinned revisions, source archive
+checksums and Horizon patches are recorded in `third-party/engine/sources.json`.
+`third-party/engine/NOTICE` retains attribution. The build downloads verified
+upstream archives and applies those patches into an ignored local `vendor/` directory.
 The backend component build copies these notices into its output. The original
 Horizon code remains subject to the repository license.
 
