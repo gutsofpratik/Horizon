@@ -1,7 +1,8 @@
 import {registerOwnedProcess} from '../runtime/managed-process.ts';
 import type {AppContext} from '../app.ts';
 import {spawn,execFile} from 'node:child_process';
-import {promisify} from 'node:util';import {join} from 'node:path';import {access,cp,mkdir} from 'node:fs/promises';
+import {promisify} from 'node:util';import {join} from 'node:path';import {access,mkdir} from 'node:fs/promises';
+import {copyBundledRuntime} from './runtime-copy.ts';
 const exec=promisify(execFile);
 export class EngineEnvironment {
  status='idle';error='';log='';private installing?:Promise<string>;private profile='python';
@@ -31,7 +32,7 @@ export class EngineEnvironment {
    if(engine==='mlx'&&(process.platform!=='darwin'||process.arch!=='arm64'))throw new Error('MLX requires an Apple Silicon Mac');
    try{await access(this.python);}catch{
     let base=process.env.OPENCLAUDE_PYTHON??'python';
-    if(process.env.OPENCLAUDE_BUNDLED_PYTHON){const target=join(this.dataRoot,'inference','base-python');base=join(target,process.platform==='win32'?'python.exe':'bin/python3');try{await access(base);}catch{await mkdir(join(this.dataRoot,'inference'),{recursive:true});await cp(process.env.OPENCLAUDE_BUNDLED_PYTHON,target,{recursive:true});}}
+    if(process.env.OPENCLAUDE_BUNDLED_PYTHON){const target=join(this.dataRoot,'inference','base-python');base=join(target,process.platform==='win32'?'python.exe':'bin/python3');try{await access(base);}catch{await mkdir(join(this.dataRoot,'inference'),{recursive:true});await copyBundledRuntime(process.env.OPENCLAUDE_BUNDLED_PYTHON,target);}}
     await this.run(base,['-m','venv',join(this.dataRoot,'inference',this.profile)]);
    }
    if(engine==='download')await this.run(this.python,['-m','pip','install','--only-binary=:all:','huggingface_hub==2.2.0']);
