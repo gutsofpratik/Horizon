@@ -104,6 +104,10 @@ These are actual Windows desktop captures. Setup screens show configuration, not
 
 ## What you can do
 
+### Speech-to-text
+
+Use the microphone with a selected local speech model or an explicitly configured transcription provider. Discover supported Whisper, Wav2Vec2, HuBERT and WavLM safetensors models in **Models → Voice**; local speech runs in its own CPU worker and keeps recordings on the device. Microphone recordings are converted to PCM WAV and temporary files are removed after transcription. Models and the speech runtime download only when requested. Ollama chat GGUF files are not speech models.
+
 ### Task-aware tools and the v0.3.3 toolkit
 
 The toolkit contains **337 concrete operations across 373 registered functions**, including **57 new operations**. Registration includes compatibility gateways; the concrete-operation count avoids counting those gateways twice. Task routing selects tools from the prompt and explicit workflow, and enforces the same scope for discovery, direct calls, grouped calls and the external-engine bridge. Permissions still apply to every operation.
