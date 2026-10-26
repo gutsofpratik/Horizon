@@ -593,7 +593,7 @@ fn open_external(view:Webview,url:String)->Result<(),String>{
 #[tauri::command]
 fn host_credential(view:Webview,state:State<'_,backend::Backend>)->Result<String,String>{trusted(&view)?;Ok(state.credential())}
 #[tauri::command]
-fn profile_restart(view:Webview,app:tauri::AppHandle)->Result<(),String>{trusted(&view)?;app.restart()}
+fn profile_restart(view:Webview,app:tauri::AppHandle,state:State<'_,backend::Backend>)->Result<(),String>{trusted(&view)?;state.stop();app.restart()}
 fn main() {
     let app=tauri::Builder::default()
         .manage(Desktop::default())

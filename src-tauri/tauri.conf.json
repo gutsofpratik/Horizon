@@ -18,10 +18,11 @@
         "height": 900,
         "minWidth": 850,
         "minHeight": 620,
-        "url": "http://127.0.0.1:5174/desktop/new",
+        "url": "http://127.0.0.1:3001/desktop/new",
         "userAgent": "HorizonDesktop/0.1",
         "browserExtensionsEnabled": true,
-        "dataDirectory": "trusted-interface"
+        "dataDirectory": "trusted-interface",
+        "devtools": false
       }
     ],
     "security": {

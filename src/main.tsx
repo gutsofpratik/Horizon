@@ -1,3 +1,4 @@
+import {AppContextMenu} from './components/AppContextMenu';
 import {RuntimeReady} from './app/RuntimeReady';
 import './styles/ecosystem.css';
 import {SessionGate} from './app/SessionGate';
@@ -17,6 +18,6 @@ import {Notifications} from './app/Notifications';
 import '@fontsource/dm-sans/400.css';import '@fontsource/dm-sans/500.css';import '@fontsource/dm-sans/600.css';import '@fontsource/lora/400.css';import '@fontsource/lora/500.css';
 const controlOverlay=location.pathname.endsWith('/control-indicator');
 if(controlOverlay)document.documentElement.classList.add('computer-overlay-root');
-createRoot(document.getElementById('root')!).render(location.pathname==='/remote'?<RemoteSession/>:controlOverlay?<ComputerIndicator active nativeOverlay/>:<SessionGate><RuntimeReady><ProfileGate><App/></ProfileGate></RuntimeReady><Notifications/></SessionGate>);
+createRoot(document.getElementById('root')!).render(location.pathname==='/remote'?<RemoteSession/>:controlOverlay?<ComputerIndicator active nativeOverlay/>:<><AppContextMenu/><SessionGate><RuntimeReady><ProfileGate><App/></ProfileGate></RuntimeReady><Notifications/></SessionGate></>);
 
 import './styles/ui-refinements.css';
