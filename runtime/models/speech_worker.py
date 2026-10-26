@@ -46,7 +46,7 @@ def transcribe(args):
         inputs = processor(samples[offset:offset + 30 * 16000], sampling_rate=16000, return_tensors='pt')
         with torch.inference_mode():
             if kind == 'whisper':
-                kwargs = {'max_new_tokens': 448}
+                kwargs = {'max_new_tokens': max(1, min(384, int(getattr(model.config, 'max_target_positions', 448)) - 16))}
                 if args.get('language') and model.config.vocab_size > 51864:
                     kwargs.update(language=args['language'].split('-')[0], task='transcribe')
                 ids = model.generate(**inputs, **kwargs)

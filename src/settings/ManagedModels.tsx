@@ -15,7 +15,7 @@ export function ManagedModels({settings,onChange,onRefresh,onError}:any){
  const editField=(key:string,value:any)=>setEditing({...editing,configuration:{...editing.configuration,[key]:value}});
  return <section>
   <div className="settings-section-heading"><h3>All models</h3><button className="secondary-button" onClick={()=>setDefaultsOpen(true)}><Settings2 size={14}/>Model defaults</button></div>{defaultsOpen&&<div className="modal-backdrop"><div className="dialog model-defaults-dialog" role="dialog" aria-modal="true" aria-label="Model defaults"><div className="dialog-heading"><h2>Model defaults</h2><button className="secondary-button" onClick={()=>setDefaultsOpen(false)}>Done</button></div><ModelDefaults settings={settings} onChange={onChange}/></div></div>}
-  
+
   <div className="model-load-toolbar"><select aria-label="Local model format" value={format} onChange={event=>setFormat(event.target.value)}><option value="gguf">GGUF file</option><option value="safetensors">Safetensors / MLX folder</option></select>
    {!window.claudeDesktop&&<input aria-label="Local model path" placeholder="Model file or folder path" value={path} onChange={event=>setPath(event.target.value)}/>}
    <button className="secondary-button" disabled={!!busy||(!window.claudeDesktop&&!path)} onClick={add}><FolderOpen size={14}/>{format==='safetensors'?'Choose model folder':'Choose model file'}</button>
