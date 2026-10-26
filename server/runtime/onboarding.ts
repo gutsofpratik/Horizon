@@ -13,7 +13,7 @@ export function registerOnboarding(app:FastifyInstance,context:AppContext){
   return progress({step:2});
  });
  app.post('/api/onboarding/memories',request=>{
-  const input=z.object({text:z.string().max(50000),preview:z.boolean().default(false)}).strict().parse(request.body);
+  const input=z.object({text:z.string().max(200000),preview:z.boolean().default(false)}).strict().parse(request.body);
   const facts=parseOnboardingMemories(input.text);
   if(input.preview)return {memories:facts};
   let saved=0;for(const fact of facts){if(!saveMemory(context.store,fact,undefined,'onboarding-import').deduplicated)saved++;}

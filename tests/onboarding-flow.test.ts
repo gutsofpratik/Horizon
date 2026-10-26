@@ -11,7 +11,7 @@ test('memory import accepts exported JSON and plain facts without executing cont
  assert.deepEqual(parseOnboardingMemories('- I prefer tea\n2. I am learning piano'),['I prefer tea','I am learning piano']);
  assert.throws(()=>parseOnboardingMemories('{"memories":["incomplete"'),/incomplete/);
  assert.throws(()=>parseOnboardingMemories('{"memories":[{"tool":"shell"}]}'),/plain text/);
- assert.throws(()=>parseOnboardingMemories(JSON.stringify({memories:Array(101).fill('fact')})),/100 memories/);
+ assert.throws(()=>parseOnboardingMemories(JSON.stringify({memories:Array.from({length:1001},(_,i)=>'fact'+i)})),/1,000 memories/);
 });
 test('memory review is read-only, imports deduplicate, and onboarding persists without a model',async()=>{
  const app=Fastify(),store=new Store(':memory:');

@@ -1,3 +1,4 @@
+import {registerSpeechRoutes} from './models/speech.ts';
 import {registerMigrations} from './storage/migrations.ts';
 import {registerUpdates} from './runtime/updates.ts';
 import {registerOnboarding} from './runtime/onboarding.ts';
@@ -111,7 +112,7 @@ export async function createApp(options:{dataDirectory:string;dbPath?:string;roo
   migrateProviderCredentials(context);registerProviderRoutes(app,context);registerConversationSkillRoutes(app,context);registerMessagePageRoutes(app,context);
   const revisions=new FileRevisions(context);context.ephemeral.set('fileRevisions',revisions);app.addHook('onClose',async()=>{await revisions.close();});
   const tools=createTools(context);void revisions.start().catch(error=>context.ephemeral.set('fileRevisionError',String(error)));app.decorate('tools',tools);registerEngineRoutes(app,context,tools);registerConnectors(app,context,tools);registerAgentRoutes(app,context,tools);registerRemoteRoutes(app,context,tools);registerEnvironmentRoutes(app,context);registerAnnotationRoutes(app,context,tools);registerGoalRoutes(app,context);
-  context.ephemeral.set('tools',tools);registerMigrations(app,context);registerUpdates(app,context);registerOnboarding(app,context);registerProfileRoutes(app,context);registerTeams(app,context);registerAutomationWorkspace(app,context);registerChannels(app,context);
+  context.ephemeral.set('tools',tools);registerMigrations(app,context);registerUpdates(app,context);registerOnboarding(app,context);registerSpeechRoutes(app,context);registerProfileRoutes(app,context);registerTeams(app,context);registerAutomationWorkspace(app,context);registerChannels(app,context);
   registerSkillRoutes(app,context);registerFileRoutes(app,context,tools);
   registerPluginRoutes(app,context);registerReflectRoutes(app,context);
   registerRepositoryRoutes(app,context);registerOfficialPluginRoutes(app,context);registerScheduleRoutes(app,context);

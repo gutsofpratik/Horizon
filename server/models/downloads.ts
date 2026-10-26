@@ -1,3 +1,4 @@
+import {inspectSpeechModel} from './speech.ts';
 import {mkdir,stat,rename,rm,open} from 'node:fs/promises';
 import {createReadStream} from 'node:fs';
 import {createHash,randomUUID} from 'node:crypto';
@@ -41,7 +42,8 @@ export function registerModelDownloads(app:any,context:AppContext){
     job.progress={file,completedFiles:index+1,totalFiles:job.files.length,bytes:completedBytes,totalBytes:total};write(job);
    }
    const gguf=job.files.find((file:string)=>file.endsWith('.gguf')&&file!==job.projector);
-   const entry=context.store.put('local_models',{id:randomUUID(),name:job.repo+(gguf?' · '+basename(gguf):''),path:gguf?join(job.directory,gguf):job.directory,configuration:{...job.configuration,...(job.projector?{visionProjectorPath:join(job.directory,job.projector)}:{})},source:{repo:job.repo,revision:job.revision}});
+   if(job.task==='speech')await inspectSpeechModel(job.directory);
+   const entry=context.store.put('local_models',{id:randomUUID(),task:job.task??'chat',name:job.repo+(gguf?' · '+basename(gguf):''),path:gguf?join(job.directory,gguf):job.directory,configuration:{...job.configuration,...(job.projector?{visionProjectorPath:join(job.directory,job.projector)}:{})},source:{repo:job.repo,revision:job.revision}});
    job.status='completed';job.model={id:entry.id,name:entry.name};write(job);
   }catch(error){if(job.status==='downloading'){job.status=controller.signal.aborted?'paused':'failed';job.error=(error as Error).message;write(job);}}finally{controllers.delete(job.id);running.delete(job.id);}
  };
@@ -49,13 +51,13 @@ export function registerModelDownloads(app:any,context:AppContext){
  app.get('/api/model-library/downloads',async()=>({downloads:context.store.list('model_downloads').map(publicJob).reverse()}));
  app.get('/api/model-library/downloads/:id',async(request:any)=>{const job=context.store.get('model_downloads',request.params.id);if(!job)throw new Error('Download not found');return publicJob(job);});
  app.post('/api/model-library/download',async(request:any)=>{
-  const {repo,revision,files,configuration,projector}=request.body??{};
+  const {repo,revision,files,configuration,projector,task}=request.body??{};if(task!==undefined&&!['chat','speech'].includes(task))throw new Error('Unknown model task');
   if(typeof repo!=='string'||!/^[\w.-]+\/[\w.-]+$/.test(repo)||typeof revision!=='string'||!/^[a-f0-9]{40}$/.test(revision)||!Array.isArray(files)||!files.length||files.length>1000)throw new Error('Select files from a pinned source repository');
   if(files.some((file:any)=>typeof file!=='string'||file.length>500||file.includes('\\')||file.startsWith('/')||file.split('/').some(part=>!part||part==='.'||part==='..')||file.includes(':')||!/[.](json|safetensors|gguf|model|txt|tiktoken|jinja)$/i.test(file)))throw new Error('Unsupported model resource path');
   if(projector&&(!files.includes(projector)||!projector.endsWith('.gguf')))throw new Error('Select a projector included in this download');
   if(controllers.size>=2)throw new Error('Two downloads are already active. Pause one before starting another.');
   const duplicate=context.store.list('model_downloads').find(job=>job.repo===repo&&job.revision===revision&&['downloading','paused'].includes(job.status)&&JSON.stringify(job.files)===JSON.stringify([...new Set(files)]));if(duplicate)return publicJob(duplicate);
-  const id=randomUUID();const job:any={id,repo,revision,files:[...new Set(files)],configuration:configuration??{},projector,directory:join(context.dataDirectory,'models','downloads',id),status:'downloading',createdAt:new Date().toISOString(),progress:null};write(job);launch(job);return publicJob(job);
+  const id=randomUUID();const job:any={id,repo,revision,task:task??'chat',files:[...new Set(files)],configuration:configuration??{},projector,directory:join(context.dataDirectory,'models','downloads',id),status:'downloading',createdAt:new Date().toISOString(),progress:null};write(job);launch(job);return publicJob(job);
  });
  app.post('/api/model-library/downloads/:id/:action',async(request:any)=>{
   const job=context.store.get('model_downloads',request.params.id);if(!job)throw new Error('Download not found');const action=request.params.action;
