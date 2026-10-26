@@ -13,7 +13,7 @@ import {useRef,useEffect,useState} from 'react';
 
 
 
-import {ArrowUp,Plus,Square,Mic,Paperclip,X,Folder,Loader2} from 'lucide-react';import {ModelPicker} from './ModelPicker';import {ComposerMenu} from './ComposerMenu';
+import {ArrowUp,Plus,Square,Mic,Pause,Paperclip,X,Folder,Loader2} from 'lucide-react';import {ModelPicker} from './ModelPicker';import {ComposerMenu} from './ComposerMenu';
 
 
 
@@ -24,7 +24,7 @@ export function Composer({text,setText,onSend,running,onCancel,models,settings,o
  const [projectMenu,setProjectMenu]=useState(false);const [creatingProject,setCreatingProject]=useState(false);const [projectName,setProjectName]=useState('');const [projectBusy,setProjectBusy]=useState(false);
 
  const projectAnchor=useRef<HTMLButtonElement>(null);const projectPosition=useComposerPosition(projectAnchor.current,projectMenu?'projects-open':'projects-closed',250);
- const menuAnchor=useRef<HTMLButtonElement>(null);const field=useRef<HTMLTextAreaElement>(null);const file=useRef<HTMLInputElement>(null);const [menu,setMenu]=useState(false);const [sketch,setSketch]=useState(false);const [unusedDictating,setUnusedDictating]=useState(false);
+ const menuAnchor=useRef<HTMLButtonElement>(null);const field=useRef<HTMLTextAreaElement>(null);const file=useRef<HTMLInputElement>(null);const [menu,setMenu]=useState(false);const [sketch,setSketch]=useState(false);
 
 
 
@@ -51,7 +51,7 @@ export function Composer({text,setText,onSend,running,onCancel,models,settings,o
 
 
 
- return <div className={'composer-wrap '+layout+'-composer'} data-layout={layout}>{sketch&&<SketchDialog onClose={()=>setSketch(false)} onAttach={onUpload} onError={onError}/ >}{mentions.menu}<div className={'composer '+(attachments.length?'has-attachments':'')}>{settings.composerMode&&settings.composerMode!=='chat'&&<div className="composer-mode-chip"><span>{composerModes.find(mode=>mode.id===settings.composerMode)?.label}</span><button aria-label="Clear workflow mode" onClick={()=>onSettings({...settings,composerMode:'chat'})}><X size={12}/></button></div>}
+ return <div className={'composer-wrap '+layout+'-composer'} data-layout={layout} onDragOver={event=>{if(event.dataTransfer.types.includes('Files'))event.preventDefault();}} onDrop={event=>{if(event.dataTransfer.files.length){event.preventDefault();event.stopPropagation();onUpload([...event.dataTransfer.files]);}}}>{sketch&&<SketchDialog onClose={()=>setSketch(false)} onAttach={onUpload} onError={onError}/ >}{mentions.menu}<div className={'composer '+(attachments.length?'has-attachments':'')}>{settings.composerMode&&settings.composerMode!=='chat'&&<div className="composer-mode-chip"><span>{composerModes.find(mode=>mode.id===settings.composerMode)?.label}</span><button aria-label="Clear workflow mode" onClick={()=>onSettings({...settings,composerMode:'chat'})}><X size={12}/></button></div>}
 
 
 
@@ -59,7 +59,7 @@ export function Composer({text,setText,onSend,running,onCancel,models,settings,o
 
 
 
- <textarea ref={field} {...mentions.inputProps} aria-label="Message" placeholder={running?'Add a follow-up to the queue…':settings.composerMode==='goal'?'Describe your goal. I’ll work through it step by step…':layout==='welcome'?'How can I help you today?':'Write a message…'} value={text} onChange={mentions.change} onKeyDown={event=>{if(mentions.keyDown(event))return;if(event.key==='Enter'&&!event.shiftKey&&!event.nativeEvent.isComposing){event.preventDefault();if(text.trim()||attachments.length)onSend();}}} onDragOver={event=>event.preventDefault()} onDrop={event=>{event.preventDefault();onUpload([...event.dataTransfer.files]);}} rows={layout==='welcome'?2:1}/>
+ {(voice.recording||voice.busy)&&<div className="voice-capture" role="status"><div className="voice-wave" aria-hidden="true">{Array.from({length:21},(_,index)=><i key={index} style={{height:4+voice.level*(10+(index%5)*4),animationDelay:(index%7)*.08+'s'}}/>)}</div><div className="voice-transcript" key={voice.transcript}>{voice.transcript||(voice.busy?'Finishing dictation…':'Listening…')}</div></div>}<textarea hidden={voice.recording||voice.busy} ref={field} {...mentions.inputProps} aria-label="Message" placeholder={running?'Add a follow-up to the queue…':settings.composerMode==='goal'?'Describe your goal. I’ll work through it step by step…':layout==='welcome'?'How can I help you today?':'Write a message…'} value={text} onChange={mentions.change} onKeyDown={event=>{if(mentions.keyDown(event))return;if(event.key==='Enter'&&!event.shiftKey&&!event.nativeEvent.isComposing){event.preventDefault();if(text.trim()||attachments.length)onSend();}}} onDragOver={event=>event.preventDefault()} onDrop={event=>{event.preventDefault();event.stopPropagation();onUpload([...event.dataTransfer.files]);}} rows={layout==='welcome'?2:1}/>
 
 
 
@@ -75,7 +75,7 @@ export function Composer({text,setText,onSend,running,onCancel,models,settings,o
 
 
 
- </div><div className="composer-actions">{layout==='welcome'&&picker}<button className={'icon-button '+(voice.recording?'dictating':'')} aria-label={voice.busy?'Transcribing audio':voice.recording?'Stop recording':'Dictate'} disabled={voice.busy} onClick={dictate}>{voice.busy?<Loader2 size={17} className="spin"/>:<Mic size={17}/>}</button>{running?<>{(text.trim()||attachments.length>0)&&<button className="send-button" aria-label="Queue message" onClick={onSend}><ArrowUp size={18}/></button>}<button className="send-button stop" aria-label="Stop generation" onClick={onCancel}><Square size={15} fill="currentColor"/></button></>:<button className="send-button" aria-label="Send message" disabled={!text.trim()&&!attachments.length||!settings.model} onClick={onSend}><ArrowUp size={18}/></button>}</div></div></div>
+ </div><div className="composer-actions">{layout==='welcome'&&picker}<button className={'icon-button '+(voice.recording?'dictating':'')} aria-label={voice.busy?'Transcribing audio':voice.recording?'Stop recording':'Dictate'} disabled={voice.busy} hidden={voice.recording||voice.busy} onClick={dictate}>{voice.busy?<Loader2 size={17} className="spin"/>:<Mic size={17}/>}</button>{voice.recording||voice.busy?<button className="send-button voice-pause" aria-label={voice.busy?'Finishing dictation':'Pause dictation'} disabled={voice.busy} onClick={()=>void voice.stop()}>{voice.busy?<Loader2 size={18} className="spin"/>:<Pause size={18} fill="currentColor"/>}</button>:running?<>{(text.trim()||attachments.length>0)&&<button className="send-button" aria-label="Queue message" onClick={onSend}><ArrowUp size={18}/></button>}<button className="send-button stop" aria-label="Stop generation" onClick={onCancel}><Square size={15} fill="currentColor"/></button></>:<button className="send-button" aria-label="Send message" disabled={!text.trim()&&!attachments.length||!models.some((item:any)=>item.id===settings.model&&item.providerId===settings.providerId)} onClick={onSend}><ArrowUp size={18}/></button>}</div></div></div>
 
 
 
