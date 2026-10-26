@@ -50,7 +50,7 @@ export function registerModelDownloads(app:any,context:AppContext){
  const launch=(job:any)=>{const promise=execute(job);running.set(job.id,promise);};
  app.get('/api/model-library/downloads',async()=>({downloads:context.store.list('model_downloads').map(publicJob).reverse()}));
  app.get('/api/model-library/downloads/:id',async(request:any)=>{const job=context.store.get('model_downloads',request.params.id);if(!job)throw new Error('Download not found');return publicJob(job);});
- app.post('/api/model-library/download',async(request:any)=>{
+ const startDownload=async(request:any)=>{
   const {repo,revision,files,configuration,projector,task}=request.body??{};if(task!==undefined&&!['chat','speech'].includes(task))throw new Error('Unknown model task');
   if(typeof repo!=='string'||!/^[\w.-]+\/[\w.-]+$/.test(repo)||typeof revision!=='string'||!/^[a-f0-9]{40}$/.test(revision)||!Array.isArray(files)||!files.length||files.length>1000)throw new Error('Select files from a pinned source repository');
   if(files.some((file:any)=>typeof file!=='string'||file.length>500||file.includes('\\')||file.startsWith('/')||file.split('/').some(part=>!part||part==='.'||part==='..')||file.includes(':')||!/[.](json|safetensors|gguf|model|txt|tiktoken|jinja)$/i.test(file)))throw new Error('Unsupported model resource path');
@@ -58,7 +58,11 @@ export function registerModelDownloads(app:any,context:AppContext){
   if(controllers.size>=2)throw new Error('Two downloads are already active. Pause one before starting another.');
   const duplicate=context.store.list('model_downloads').find(job=>job.repo===repo&&job.revision===revision&&['downloading','paused'].includes(job.status)&&JSON.stringify(job.files)===JSON.stringify([...new Set(files)]));if(duplicate)return publicJob(duplicate);
   const id=randomUUID();const job:any={id,repo,revision,task:task??'chat',files:[...new Set(files)],configuration:configuration??{},projector,directory:join(context.dataDirectory,'models','downloads',id),status:'downloading',createdAt:new Date().toISOString(),progress:null};write(job);launch(job);return publicJob(job);
- });
+ };
+ context.ephemeral.set('startModelDownload',(body:any)=>startDownload({body}));
+ context.ephemeral.set('resumeModelDownload',(id:string)=>{const job=context.store.get('model_downloads',id);if(!job)throw new Error('Download not found');if(job.status==='paused'&&!running.has(id))launch(job);return publicJob(job);});
+ app.post('/api/model-library/download',startDownload);
+
  app.post('/api/model-library/downloads/:id/:action',async(request:any)=>{
   const job=context.store.get('model_downloads',request.params.id);if(!job)throw new Error('Download not found');const action=request.params.action;
   if(action==='resume'){if(running.has(job.id))throw new Error('Download is still stopping');if(!['paused','failed'].includes(job.status))throw new Error('This download cannot be resumed');if(controllers.size>=2)throw new Error('Two downloads are already active');launch(job);}

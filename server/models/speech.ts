@@ -1,3 +1,4 @@
+import {ensureDefaultSpeech} from './default-speech.ts';
 import {spawn,type ChildProcessWithoutNullStreams} from 'node:child_process';
 import {createInterface} from 'node:readline';
 import {readFile,readdir,mkdir,writeFile,rm,stat} from 'node:fs/promises';
@@ -33,14 +34,15 @@ export class SpeechRuntime{
 }
 export function registerSpeechRoutes(app:any,context:AppContext){
  const runtime=new SpeechRuntime(context);context.ephemeral.set('speechRuntime',runtime);app.addHook('onClose',async()=>runtime.close());
- app.get('/api/voice/status',async()=>runtime.snapshot());
+ app.get('/api/voice/status',async()=>({...runtime.snapshot(),defaultModel:'Whisper Tiny',settingUpDefault:context.ephemeral.has('defaultSpeechSetup'),defaultError:context.ephemeral.get('defaultSpeechError')??null,defaultDownload:context.ephemeral.get('defaultSpeechJobId')?context.store.get('model_downloads',context.ephemeral.get('defaultSpeechJobId'))?.progress:null}));
+ app.post('/api/voice/default',async()=>{if(!context.ephemeral.has('modelRuntime'))throw new Error('Local speech recognition requires Horizon Desktop.');context.ephemeral.delete('defaultSpeechError');void ensureDefaultSpeech(context).catch((error:Error)=>context.ephemeral.set('defaultSpeechError',error.message));return {preparing:true};});
  app.post('/api/voice/prepare',async()=>{if(!context.ephemeral.has('modelRuntime'))throw new Error('Local voice models require the desktop host.');await runtime.prepare();return runtime.snapshot();});
  app.get('/api/voice/models',async()=>({models:context.store.list('local_models').filter(model=>model.task==='speech')}));
  app.post('/api/voice/import',async(request:any)=>{if(!context.ephemeral.has('modelRuntime'))throw new Error('Local model imports require the desktop host.');const input=z.object({path:z.string().min(1).max(2000)}).strict().parse(request.body);const path=resolve(input.path),detected=await inspectSpeechModel(path);const existing=context.store.list('local_models').find(model=>model.task==='speech'&&model.path===path);return existing??context.store.put('local_models',{id:randomUUID(),name:basename(path),path,...detected,configuration:{engine:'transformers',device:'cpu'}});});
  app.post('/api/voice/transcribe',async(request:any)=>{
   const file=await request.file({limits:{fileSize:10*1024*1024,files:1}});if(!file)throw new Error('Attach a recording.');const bytes=await file.toBuffer();if(file.file.truncated)throw new Error('Recordings must be under 10 MiB.');if(!/\.(wav|webm|mp3|ogg|m4a|flac)$/i.test(file.filename))throw new Error('Use a supported audio recording.');
-  const settings:any=context.store.get('settings','main')??{},entry=settings.voiceModelId?context.store.get('local_models',settings.voiceModelId):null;
-  if(settings.voiceModelId&&entry?.task!=='speech')throw new Error('Your selected voice model is unavailable. Choose another model in Voice settings.');
+  const settings:any=context.store.get('settings','main')??{};const local=settings.voiceMode!=='provider'&&context.ephemeral.has('modelRuntime');const entry=local?await ensureDefaultSpeech(context):null;
+  if(local&&settings.voiceModelId&&entry?.task!=='speech')throw new Error('Your selected voice model is unavailable. Choose another model in Voice settings.');
   if(entry?.task==='speech'){if(!context.ephemeral.has('modelRuntime'))throw new Error('Local speech requires the desktop host.');const folder=join(context.dataDirectory,'voice','temporary');await mkdir(folder,{recursive:true});const path=join(folder,randomUUID()+'.wav');await writeFile(path,bytes,{flag:'wx'});try{return await runtime.transcribe(entry,path,settings.voiceLanguage);}finally{await rm(path,{force:true});}}
   const service=connection({app:context} as any,'transcription'),form=new FormData();form.set('model',service.model);form.set('file',new Blob([new Uint8Array(bytes)],{type:file.mimetype}),file.filename);form.set('response_format','json');const result=await serviceRequest({app:context} as any,service,'/audio/transcriptions',form,true);if(typeof result.text!=='string')throw new Error('The voice provider returned no text.');return {text:result.text.slice(0,60000)};
  });

@@ -1,10 +1,11 @@
 """Local speech-to-text worker. Receives only validated local paths over private stdio."""
-import sys, json, wave, gc
+import os, sys, json, wave, gc
 from pathlib import Path
 protocol = sys.stdout
 sys.stdout = sys.stderr
 import numpy as np
 import torch
+torch.set_num_threads(max(1, min(4, (os.cpu_count() or 2) // 2)))
 from transformers import AutoProcessor, AutoModelForSpeechSeq2Seq, AutoModelForCTC
 cached_path = None
 processor = model = None
