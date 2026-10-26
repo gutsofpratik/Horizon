@@ -2,10 +2,12 @@ import {randomBytes,randomUUID,scryptSync,timingSafeEqual} from 'node:crypto';
 import {existsSync,mkdirSync,readFileSync,renameSync,unlinkSync,writeFileSync} from 'node:fs';
 import {dirname,join,resolve} from 'node:path';
 
-const AVATARS=new Set(['spark','planet','leaf','bolt','flower','moon','sun','orbit']);
-type ProfileRecord={id:string;name:string;loginId:string;avatar:string;salt:string;passwordHash:string;legacyData:boolean;createdAt:string};
+const AVATARS=new Set(['letter','spark','planet','leaf','bolt','flower','moon','sun','orbit']);
+type ProfileRecord={id:string;name:string;loginId:string;avatar:string;avatarImage?:string;salt:string;passwordHash:string;legacyData:boolean;createdAt:string};
 type RegistryFile={version:1;activeProfileId:string|null;profiles:ProfileRecord[]};
-const publicProfile=({id,name,loginId,avatar}:ProfileRecord)=>({id,name,loginId,avatar});
+const publicProfile=({id,name,loginId,avatar,avatarImage}:ProfileRecord)=>({id,name,loginId,avatar,...(avatarImage?{avatarImage}:{})});
+export function validProfileImage(value:unknown):value is string{if(typeof value!=='string'||value.length>256000)return false;const match=value.match(/^data:image\/png;base64,([A-Za-z0-9+/]+={0,2})$/);if(!match)return false;const bytes=Buffer.from(match[1],'base64');return bytes.length>=33&&bytes.subarray(0,8).equals(Buffer.from([137,80,78,71,13,10,26,10]))&&bytes.toString('ascii',12,16)==='IHDR'&&bytes.readUInt32BE(16)>0&&bytes.readUInt32BE(16)<=256&&bytes.readUInt32BE(20)>0&&bytes.readUInt32BE(20)<=256;}
+
 
 /** Local desktop profile accounts. Secrets stay in the registry; user data lives in one DB directory per profile. */
 export class ProfileRegistry{
@@ -15,7 +17,7 @@ export class ProfileRegistry{
  constructor(readonly registryFile:string,readonly profilesRoot:string,readonly legacyDataDirectory:string){
   mkdirSync(dirname(registryFile),{recursive:true});
   if(existsSync(registryFile)){
-   try{const value=JSON.parse(readFileSync(registryFile,'utf8'));if(value?.version!==1||!Array.isArray(value.profiles)||!(value.activeProfileId===null||typeof value.activeProfileId==='string')||!value.profiles.every((profile:any)=>profile&&/^[0-9a-f-]{36}$/i.test(profile.id)&&/^[a-z0-9][a-z0-9._-]{2,31}$/.test(profile.loginId)&&typeof profile.name==='string'&&typeof profile.avatar==='string'&&AVATARS.has(profile.avatar)&&/^[a-f0-9]{32}$/.test(profile.salt)&&/^[a-f0-9]{128}$/.test(profile.passwordHash)&&typeof profile.legacyData==='boolean'&&typeof profile.createdAt==='string')||value.activeProfileId&&!value.profiles.some((profile:any)=>profile.id===value.activeProfileId))throw new Error();this.file=value;}
+   try{const value=JSON.parse(readFileSync(registryFile,'utf8'));if(value?.version!==1||!Array.isArray(value.profiles)||!(value.activeProfileId===null||typeof value.activeProfileId==='string')||!value.profiles.every((profile:any)=>profile&&/^[0-9a-f-]{36}$/i.test(profile.id)&&/^[a-z0-9][a-z0-9._-]{2,31}$/.test(profile.loginId)&&typeof profile.name==='string'&&typeof profile.avatar==='string'&&AVATARS.has(profile.avatar)&&(profile.avatarImage===undefined||validProfileImage(profile.avatarImage))&&/^[a-f0-9]{32}$/.test(profile.salt)&&/^[a-f0-9]{128}$/.test(profile.passwordHash)&&typeof profile.legacyData==='boolean'&&typeof profile.createdAt==='string')||value.activeProfileId&&!value.profiles.some((profile:any)=>profile.id===value.activeProfileId))throw new Error();this.file=value;}
    catch{throw new Error('Horizon profile registry is invalid. The file was preserved; repair or restore it before continuing.');}
   }else this.file={version:1,activeProfileId:null,profiles:[]};
  }
@@ -28,20 +30,21 @@ export class ProfileRegistry{
  private password(value:string,salt:string){return scryptSync(value,salt,64,{N:16384,r:8,p:1,maxmem:64*1024*1024}).toString('hex');}
  private validProfileInput(input:any){
   const name=typeof input?.name==='string'?input.name.trim():'';
-  const loginId=typeof input?.loginId==='string'?input.loginId.trim().toLowerCase():'';
+  const loginId=typeof input?.loginId==='string'?input.loginId.trim().toLowerCase():'p-'+randomBytes(10).toString('hex');
   const password=typeof input?.password==='string'?input.password:'';
-  const avatar=typeof input?.avatar==='string'&&AVATARS.has(input.avatar)?input.avatar:'spark';
+  const avatar=typeof input?.avatar==='string'&&AVATARS.has(input.avatar)?input.avatar:'letter';
   if(name.length<1||name.length>80)throw new Error('Enter a profile name between 1 and 80 characters');
   if(!/^[a-z0-9][a-z0-9._-]{2,31}$/.test(loginId))throw new Error('Login ID must be 3–32 characters using letters, numbers, dots, underscores, or hyphens');
   if(password.length<8||password.length>1024)throw new Error('Password must be at least 8 characters');
-  return {name,loginId,password,avatar};
+  if(input?.avatarImage!==undefined&&!validProfileImage(input.avatarImage))throw new Error('Choose a PNG profile photo up to 256 × 256 pixels.');
+  return {name,loginId,password,avatar,...(input?.avatarImage?{avatarImage:input.avatarImage}:{})};
  }
  create(input:any,sessionToken?:string){
   const value=this.validProfileInput(input);
   if(this.file.profiles.some(profile=>profile.loginId===value.loginId))throw new Error('That login ID is already in use on this device');
   const first=this.file.profiles.length===0;
   const salt=randomBytes(16).toString('hex');
-  const profile:ProfileRecord={id:randomUUID(),name:value.name,loginId:value.loginId,avatar:value.avatar,salt,passwordHash:this.password(value.password,salt),legacyData:first,createdAt:new Date().toISOString()};
+  const profile:ProfileRecord={id:randomUUID(),name:value.name,loginId:value.loginId,avatar:value.avatar,...(value.avatarImage?{avatarImage:value.avatarImage}:{}),salt,passwordHash:this.password(value.password,salt),legacyData:first,createdAt:new Date().toISOString()};
   this.file.profiles.push(profile);
   if(first)this.file.activeProfileId=profile.id;
   if(!first)mkdirSync(this.dataDirectory(profile.id),{recursive:true});

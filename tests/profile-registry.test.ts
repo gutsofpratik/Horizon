@@ -5,6 +5,11 @@ import {tmpdir} from 'node:os';
 import {join} from 'node:path';
 import {ProfileRegistry} from '../server/runtime/profiles.ts';
 
+test('name and password are sufficient, with a letter avatar and stable internal identity',()=>{
+ const root=mkdtempSync(join(tmpdir(),'horizon-name-profile-'));
+ try{const path=join(root,'profiles.json');const registry=new ProfileRegistry(path,join(root,'profiles'),join(root,'data'));const created=registry.create({name:'Demo',password:'demo-password-123'},'demo-session');assert.equal(created.profile.avatar,'letter');assert.match(created.profile.loginId,/^p-[a-f0-9]{20}$/);assert.equal(registry.login(created.profile.loginId,'demo-password-123').authenticated,true);const reopened=new ProfileRegistry(path,join(root,'profiles'),join(root,'data'));assert.equal(reopened.status().initialized,true);assert.equal(reopened.status().profiles[0].name,'Demo');assert.throws(()=>registry.create({name:'Unsafe image',password:'demo-password-123',avatarImage:'data:image/svg+xml;base64,PHN2Zz4='}),/PNG profile photo/);}finally{rmSync(root,{recursive:true,force:true});}
+});
+
 test('creates a first profile with legacy data and authenticates it without exposing its password hash',()=>{
  const root=mkdtempSync(join(tmpdir(),'horizon-profile-'));
  try{
