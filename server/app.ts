@@ -62,6 +62,9 @@ export async function createApp(options:{dataDirectory:string;dbPath?:string;roo
   const office=new OfficeRuntime(context);context.ephemeral.set('officeRuntime',office);app.addHook('onClose',async()=>office.close());
   const documents=new DocumentRuntime(context);context.ephemeral.set('documentRuntime',documents);app.addHook('onClose',async()=>documents.close());
   app.get('/api/runtime/readiness',async()=>({ready:office.ready&&documents.ready,office:office.snapshot(),pdf:documents.snapshot()}));
+  const startupService=(service:any)=>({ready:service.ready,status:service.status,downloadProgress:service.downloadProgress??null,error:service.status==='failed'?'Setup could not finish. Check your internet connection, then retry.':undefined});
+  app.get('/api/runtime/startup',async()=>({ready:office.ready&&documents.ready,office:startupService(office),pdf:startupService(documents)}));
+  app.post('/api/runtime/startup/repair',async()=>{void Promise.allSettled([office.prepare(),documents.prepare()]);return {preparing:true};});
   app.post('/api/runtime/readiness/repair',async()=>{void Promise.allSettled([office.prepare(),documents.prepare()]);return {preparing:true};});
   app.addHook('onRequest',async(request,reply)=>{
     const remotePath=/^\/api\/remote\/(?:pair(?:\?|$)|session(?:\?|$)|messages(?:\?|$)|events(?:\?|$)|cancel(?:\?|$)|approvals(?:\/|\?|$))/.test(request.url);
@@ -78,7 +81,7 @@ export async function createApp(options:{dataDirectory:string;dbPath?:string;roo
     const path=request.url.split('?')[0];const authExempt=path==='/api/health'||path==='/api/session'||/^\/api\/remote\/(?:pair|session|messages|events|cancel|approvals(?:\/[^/]+)?)$/.test(path)||/^\/api\/connectors\/oauth\/callback$/.test(path);if(path.startsWith('/api/internal/channels/')&&context.ephemeral.get('channels')?.accepts(String(request.headers['x-openclaude-channel-token']??'')))return;
     const inferenceRequest=path.startsWith('/api/builtin/')&&access.acceptsInference(request);
     if(path.startsWith('/api/')&&!authExempt&&!access.authenticated(request)&&!inferenceRequest)return reply.code(401).send({error:'Horizon host authentication required',code:'HOST_AUTH_REQUIRED'});
-    const profileExempt=path==='/api/profiles/status'||path==='/api/profiles/create'||path==='/api/profiles/login'||path==='/api/profiles/select'||path==='/api/profiles/session'||path==='/api/desktop/shutdown';
+    const profileExempt=path==='/api/runtime/startup'&&request.method==='GET'||path==='/api/runtime/startup/repair'&&request.method==='POST'||path==='/api/profiles/status'||path==='/api/profiles/create'||path==='/api/profiles/login'||path==='/api/profiles/select'||path==='/api/profiles/session'||path==='/api/desktop/shutdown';
     const profileToken=profiles.tokenFrom(request);
     if(process.env.OPENCLAUDE_DESKTOP_OWNED==='1'&&path.startsWith('/api/')&&!authExempt&&!profileExempt&&!inferenceRequest&&profiles.status(profileToken).initialized&&!profiles.authenticateSession(profileToken))return reply.code(401).send({error:'Unlock this Horizon profile to access its workspace',code:'PROFILE_AUTH_REQUIRED'});
   });

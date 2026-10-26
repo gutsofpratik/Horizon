@@ -19,6 +19,11 @@ test('desktop profile password gates workspace APIs after host authentication',a
   assert.match(cookie,/^HorizonProfileSession=/);
   const locked=await app.inject({method:'GET',url:'/api/entities/settings',headers});
   assert.equal(locked.statusCode,401);
+  const startup=await app.inject({method:'GET',url:'/api/runtime/startup',headers});
+  assert.equal(startup.statusCode,200,'startup can render before profile unlock');
+  assert.equal(startup.json().office.binary,undefined,'startup does not expose private runtime paths');
+  assert.equal((await app.inject('/api/runtime/startup')).statusCode,401,'startup still requires host authentication');
+  assert.equal((await app.inject({method:'POST',url:'/api/onboarding/memories',headers,payload:{text:'Private fact'}})).statusCode,401,'onboarding memory writes still require profile unlock');
   assert.equal((await app.inject('/api/health')).statusCode,200,'native readiness must work while a profile is locked');
   assert.equal((await app.inject({method:'POST',url:'/api/session',headers})).statusCode,200,'host sign-in must precede profile unlock');
   assert.equal((await app.inject({method:'POST',url:'/api/session',headers:{authorization:'Bearer '+'b'.repeat(64)}})).statusCode,401,'host sign-in still requires its own credential');

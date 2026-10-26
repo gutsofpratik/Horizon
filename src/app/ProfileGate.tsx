@@ -1,6 +1,7 @@
 import {useEffect,useState,type FormEvent,type ReactNode} from 'react';
 import {invoke} from '@tauri-apps/api/core';
 import {api} from './api';
+import {HorizonLoading} from './RuntimeReady';
 import {isDesktopEdition} from '../platform/edition';
 import {ArrowRight,Flower,Globe,Leaf,LockKeyhole,LogOut,Moon,Orbit,Plus,ShieldCheck,Sparkles,Sun,Zap} from 'lucide-react';
 
@@ -27,11 +28,11 @@ export function ProfileGate({children}:{children:ReactNode}){
  const refresh=()=>api('/profiles/status').then((value:any)=>{setState(value);setLoginId(value.activeProfile?.loginId??value.profiles?.[0]?.loginId??'');}).catch((fault:Error)=>setError(fault.message));
  useEffect(()=>{if(isDesktopEdition)void refresh();},[]);
  if(!isDesktopEdition)return <>{children}</>;
- if(!state)return <div className="profile-loading" role="status">{error||'Opening Horizon profiles…'}</div>;
+ if(!state)return <HorizonLoading title={error||'Opening your workspace'}/>;
  if(state.authenticated)return <>{children}</>;
  const create=async(input:any)=>{setBusy(true);setError('');try{const result=await api('/profiles/create',{method:'POST',body:JSON.stringify(input)});if(result.authenticated){await refresh();}else setState((previous:any)=>({...previous,initialized:true,profiles:[...previous.profiles,result.profile]}));}catch(fault){setError((fault as Error).message);}finally{setBusy(false);}};
  const unlock=async(event:FormEvent)=>{event.preventDefault();setBusy(true);setError('');try{const result:any=await api('/profiles/login',{method:'POST',body:JSON.stringify({loginId,password})});if(result.selectRequired){const selected:any=await api('/profiles/select',{method:'POST',body:JSON.stringify({loginId,password})});setPassword('');if(selected.restartRequired)await restartIntoProfile();await refresh();return;}if(!result.authenticated)throw new Error('That login ID or password is incorrect');setPassword('');await refresh();}catch(fault){setError((fault as Error).message);}finally{setBusy(false);}};
- return <div className="profile-gate"><section className="profile-card" role="dialog" aria-modal="true" aria-labelledby="profile-title"><div className="profile-mark"><Sparkles size={19}/></div><div className="profile-kicker">HORIZON · PRIVATE WORKSPACE</div><h1 id="profile-title">{state.initialized?'Welcome back.':'Create your profile.'}</h1><p>{state.initialized?'Choose your profile and sign in to open its conversations, settings, and files.':'Your name, login ID, and password keep this local profile separate on this device.'}</p>
+ return <div className="profile-gate"><section className="profile-card" aria-labelledby="profile-title"><div className="profile-mark"><Sparkles size={19}/></div><div className="profile-kicker">Horizon</div><h1 id="profile-title">{state.initialized?'Welcome back.':'A space of your own.'}</h1><p>{state.initialized?'Choose your profile and sign in to open its conversations, settings, and files.':'Your name, login ID, and password keep this local profile separate on this device.'}</p>
   {!state.initialized?<ProfileFields onSubmit={create} busy={busy} error={error}/>:<form className="profile-form" onSubmit={unlock}><label>Profile<select value={loginId} onChange={event=>setLoginId(event.target.value)}>{state.profiles.map((profile:any)=><option key={profile.id} value={profile.loginId}>{profile.name} · @{profile.loginId}</option>)}</select></label><label>Password<input autoFocus type="password" autoComplete="current-password" value={password} onChange={event=>setPassword(event.target.value)} required/></label>{error&&<p className="profile-error" role="alert">{error}</p>}<button className="primary-button profile-submit" disabled={busy}>{busy?'Unlocking…':'Unlock profile'}<LockKeyhole size={16}/></button><p className="profile-secure-note"><ShieldCheck size={14}/>Passwords are stored as salted local hashes.</p></form>}
  </section></div>;
 }

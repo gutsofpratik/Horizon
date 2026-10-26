@@ -63,30 +63,33 @@ export function slideBatch(slides:OfficeSlide[],theme:{background?:string;foregr
 }
 
 export class OfficeRuntime {
- status:'idle'|'installing'|'ready'|'failed'='idle';error='';log='';version='';private setup?:Promise<void>;private children=new Set<ChildProcess>();private active=0;private stopped=false;private setupAbort?:AbortController;
+ status:'idle'|'downloading'|'installing'|'ready'|'failed'='idle';error='';log='';version='';private setup?:Promise<void>;private children=new Set<ChildProcess>();private active=0;private stopped=false;private setupAbort?:AbortController;
+ downloadProgress:{receivedBytes:number;totalBytes:number|null}|null=null;
  readonly binary:string;readonly asset?:[string,string];
  constructor(private app:AppContext){this.asset=assets[process.platform+'-'+process.arch];this.binary=join(resolve(app.dataDirectory),'officecli',OFFICECLI_VERSION,this.asset?.[0]??'unsupported-platform');}
  get ready(){return this.status==='ready';}
  availability(){return this.stopped?'OfficeCLI is shutting down':this.status==='failed'?'OfficeCLI setup required: '+this.error:null;}
- snapshot(){return {ready:this.ready,status:this.status,backend:'officecli',version:this.version||undefined,pinned_version:OFFICECLI_VERSION,binary:this.binary,checksum:this.asset?.[1],docker_required:false,error:this.error||undefined,log:this.log.slice(-1500),limitations:['No PDF export; OfficeCLI HTML previews are provided.','Formula results depend on OfficeCLI function support and are not certified as Excel recalculation.']};}
+ snapshot(){return {ready:this.ready,status:this.status,downloadProgress:this.downloadProgress,backend:'officecli',version:this.version||undefined,pinned_version:OFFICECLI_VERSION,binary:this.binary,checksum:this.asset?.[1],docker_required:false,error:this.error||undefined,log:this.log.slice(-1500),limitations:['No PDF export; OfficeCLI HTML previews are provided.','Formula results depend on OfficeCLI function support and are not certified as Excel recalculation.']};}
  handles(operation:string,input:any,ctx?:ToolContext){return officeDocumentOperations.has(operation)||(operation==='document_create'&&input.format==='docx')||(operation==='document_extract'&&Boolean(ctx&&/\.(docx|xlsx|pptx)$/i.test(fileInContext(ctx,input.file_id).absolutePath)));}
  async prepare(){if(this.stopped)throw fail('CANCELLED','OfficeCLI is shutting down');if(this.ready)return;if(this.setup)return this.setup;this.setup=this.install().catch(error=>{this.status='failed';this.error=(error as Error).message;throw error;}).finally(()=>{this.setup=undefined;});return this.setup;}
  private async waitForSetup(signal:AbortSignal){signal.throwIfAborted();await new Promise<void>((resolveSetup,reject)=>{const abort=()=>reject(fail('CANCELLED','Office operation cancelled'));signal.addEventListener('abort',abort,{once:true});this.prepare().then(resolveSetup,reject).finally(()=>signal.removeEventListener('abort',abort));});}
  private async install(){
-  this.status='installing';this.error='';if(!this.asset)throw fail('OFFICE_PLATFORM_UNSUPPORTED','No pinned OfficeCLI binary for this platform');
+  this.status='installing';this.downloadProgress=null;this.error='';if(!this.asset)throw fail('OFFICE_PLATFORM_UNSUPPORTED','No pinned OfficeCLI binary for this platform');
   const directory=join(resolve(this.app.dataDirectory),'officecli',OFFICECLI_VERSION);await mkdir(directory,{recursive:true});
   const valid=async()=>{try{return createHash('sha256').update(await readFile(this.binary)).digest('hex')===this.asset![1];}catch{return false;}};
   if(!await valid()){
+   this.status='downloading';
    this.setupAbort=new AbortController();const timeout=setTimeout(()=>this.setupAbort?.abort(),180000);const temporary=this.binary+'.'+randomUUID()+'.download';
    try{
     const response=await fetch(`https://github.com/iOfficeAI/OfficeCLI/releases/download/v${OFFICECLI_VERSION}/${this.asset[0]}`,{signal:this.setupAbort.signal});
     if(!response.ok||!response.body)throw fail('OFFICE_DOWNLOAD_FAILED','Pinned OfficeCLI download failed: HTTP '+response.status);
-    const chunks:Uint8Array[]=[];let size=0;for await(const chunk of response.body as any){size+=chunk.length;if(size>250*1024*1024)throw fail('OFFICE_DOWNLOAD_LIMIT','OfficeCLI download exceeds 250 MiB');chunks.push(chunk);}const bytes=Buffer.concat(chunks);
+    const total=Number(response.headers.get('content-length'));this.downloadProgress={receivedBytes:0,totalBytes:total>0?total:null};
+    const chunks:Uint8Array[]=[];let size=0;for await(const chunk of response.body as any){size+=chunk.length;this.downloadProgress.receivedBytes=size;if(size>250*1024*1024)throw fail('OFFICE_DOWNLOAD_LIMIT','OfficeCLI download exceeds 250 MiB');chunks.push(chunk);}const bytes=Buffer.concat(chunks);this.status='installing';
     if(createHash('sha256').update(bytes).digest('hex')!==this.asset[1])throw fail('OFFICE_CHECKSUM_FAILED','OfficeCLI checksum mismatch; binary was not installed');
     if(this.stopped)throw fail('CANCELLED','OfficeCLI setup cancelled');await writeFile(temporary,bytes,{flag:'wx'});await chmod(temporary,0o700);await rename(temporary,this.binary);
    }finally{clearTimeout(timeout);this.setupAbort=undefined;await rm(temporary,{force:true});}
   }
-  const version=(await this.command(['--version'],{timeout:15000})).trim();if(version!==OFFICECLI_VERSION)throw fail('OFFICE_VERSION_MISMATCH','Expected OfficeCLI '+OFFICECLI_VERSION+'; got '+version);this.version=version;this.status='ready';
+  const version=(await this.command(['--version'],{timeout:15000})).trim();if(version!==OFFICECLI_VERSION)throw fail('OFFICE_VERSION_MISMATCH','Expected OfficeCLI '+OFFICECLI_VERSION+'; got '+version);this.version=version;this.downloadProgress=null;this.status='ready';
  }
  private kill(child:ChildProcess){if(!this.children.has(child))return;const supervisor=this.app.ephemeral.get('processSupervisor');if(supervisor){void supervisor.stopChild(child).catch((error:unknown)=>{this.error=(error as Error).message;});}else child.kill('SIGTERM');}
  private command(args:string[],options:{timeout?:number;cwd?:string;input?:string;signal?:AbortSignal}={}):Promise<string>{

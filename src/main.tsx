@@ -10,10 +10,11 @@ import './styles/research.css';
 import './styles/creative.css';
 import './styles/workspace-controls.css';
 import './styles/settings-layout.css';
+import './styles/onboarding.css';
 import {ComputerIndicator} from './chat/ComputerIndicator';
 import {Notifications} from './app/Notifications';
 
 import '@fontsource/dm-sans/400.css';import '@fontsource/dm-sans/500.css';import '@fontsource/dm-sans/600.css';import '@fontsource/lora/400.css';import '@fontsource/lora/500.css';
 const controlOverlay=location.pathname.endsWith('/control-indicator');
 if(controlOverlay)document.documentElement.classList.add('computer-overlay-root');
-createRoot(document.getElementById('root')!).render(location.pathname==='/remote'?<RemoteSession/>:controlOverlay?<ComputerIndicator active nativeOverlay/>:<SessionGate><ProfileGate><RuntimeReady><App/></RuntimeReady></ProfileGate><Notifications/></SessionGate>);
+createRoot(document.getElementById('root')!).render(location.pathname==='/remote'?<RemoteSession/>:controlOverlay?<ComputerIndicator active nativeOverlay/>:<SessionGate><RuntimeReady><ProfileGate><App/></ProfileGate></RuntimeReady><Notifications/></SessionGate>);
