@@ -12,7 +12,7 @@ export function Onboarding({models,onSettings,onChoose,onError,onRefresh,onIdent
  const refreshModels=async()=>{if(isDesktopEdition){const value=await api('/model-library');setLocalModels(value.models);}await onRefresh?.();};
  useEffect(()=>{if(step!==3||!isDesktopEdition)return;void refreshModels().catch(error=>setError(error.message));const timer=setInterval(()=>void api('/model-library').then(value=>setLocalModels(value.models)).catch(()=>{}),2000);return()=>clearInterval(timer);},[step]);
  if(state?.completed)return null;
- if(!state)return <HorizonLoading title={error?'Unable to open setup':'Opening your workspace'}>{error&&<p role="alert" className="startup-error">{error}</p>}</HorizonLoading>;
+ if(!state)return <HorizonLoading title={error?'Unable to open setup':'Opening your workspace'}>{error&&<><p role="alert" className="startup-error">{error}</p><button className="primary-button" onClick={()=>location.reload()}>Try again</button></>}</HorizonLoading>;
  const options=[...models.filter((model:any)=>model.providerId!=='builtin'),...localModels.map(model=>({...model,providerId:'builtin'}))];
  const run=async(action:()=>Promise<void>)=>{setBusy(true);setError('');try{await action();}catch(error){setError((error as Error).message);}finally{setBusy(false);}};
  const details=async(skipped=false)=>{await api('/onboarding/details',{method:'POST',body:JSON.stringify(skipped?{skipped:true}:{name,age:age?Number(age):null,skipped:false})});if(!skipped)await onIdentity?.({...name?{userName:name}:{},userAge:age?Number(age):null});await onRefresh?.();setStep(2);};
