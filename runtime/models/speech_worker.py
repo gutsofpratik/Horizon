@@ -1,6 +1,7 @@
 """Local speech-to-text worker. Receives only validated local paths over private stdio."""
 import os, sys, json, wave, gc
 from pathlib import Path
+from speech_filter import speech_window
 protocol = sys.stdout
 sys.stdout = sys.stderr
 import numpy as np
@@ -34,6 +35,10 @@ def transcribe(args):
     kind = config.get('model_type')
     if kind not in ('whisper', 'wav2vec2', 'hubert', 'wavlm') or config.get('auto_map'):
         raise ValueError('This speech architecture is not supported by the local adapter.')
+    samples = audio_samples(args['audioPath'])
+    duration = len(samples) / 16000
+    if speech_window(samples) is None:
+        return {'text': '', 'durationSeconds': duration, 'device': 'cpu', 'architecture': kind}
     if cached_path != path:
         model = processor = None
         gc.collect()
@@ -41,10 +46,13 @@ def transcribe(args):
         cls = AutoModelForSpeechSeq2Seq if kind == 'whisper' else AutoModelForCTC
         model = cls.from_pretrained(path, local_files_only=True, trust_remote_code=False, use_safetensors=True).to('cpu').eval()
         cached_path = path
-    samples = audio_samples(args['audioPath'])
     parts = []
     for offset in range(0, len(samples), 30 * 16000):
-        inputs = processor(samples[offset:offset + 30 * 16000], sampling_rate=16000, return_tensors='pt')
+        segment = samples[offset:offset + 30 * 16000]
+        window = speech_window(segment)
+        if window is None:
+            continue
+        inputs = processor(segment[window[0]:window[1]], sampling_rate=16000, return_tensors='pt')
         with torch.inference_mode():
             if kind == 'whisper':
                 kwargs = {'max_new_tokens': max(1, min(384, int(getattr(model.config, 'max_target_positions', 448)) - 16))}
