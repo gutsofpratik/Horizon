@@ -21,7 +21,7 @@ export async function inspectSpeechModel(path:string){
 export class SpeechRuntime{
  readonly environment:EngineEnvironment;private child?:ChildProcessWithoutNullStreams;private pending=new Map<string,{resolve:(value:any)=>void;reject:(error:Error)=>void;timer:ReturnType<typeof setTimeout>}>();private busy=false;private closed=false;private stderr='';
  constructor(private context:AppContext){this.environment=new EngineEnvironment(context.root,context);}
- async prepare(){return this.environment.ensure('transformers','cpu');}
+ async prepare(){if(this.environment.status==='ready')return this.environment.python;return this.environment.ensure('transformers','cpu');}
  private fail(error:Error){for(const item of this.pending.values()){clearTimeout(item.timer);item.reject(error);}this.pending.clear();}
  async transcribe(entry:any,path:string,language?:string){
   if(this.busy)throw new Error('A transcription is already running. Wait for it to finish.');if(this.closed)throw new Error('Voice service is shutting down.');this.busy=true;
@@ -36,6 +36,7 @@ export function registerSpeechRoutes(app:any,context:AppContext){
  const runtime=new SpeechRuntime(context);context.ephemeral.set('speechRuntime',runtime);app.addHook('onClose',async()=>runtime.close());
  app.get('/api/voice/status',async()=>({...runtime.snapshot(),defaultModel:'Whisper Tiny',settingUpDefault:context.ephemeral.has('defaultSpeechSetup'),defaultError:context.ephemeral.get('defaultSpeechError')??null,defaultDownload:context.ephemeral.get('defaultSpeechJobId')?context.store.get('model_downloads',context.ephemeral.get('defaultSpeechJobId'))?.progress:null}));
  app.post('/api/voice/default',async()=>{if(!context.ephemeral.has('modelRuntime'))throw new Error('Local speech recognition requires Horizon Desktop.');context.ephemeral.delete('defaultSpeechError');void ensureDefaultSpeech(context).catch((error:Error)=>context.ephemeral.set('defaultSpeechError',error.message));return {preparing:true};});
+ app.post('/api/voice/ready',async()=>{if(!context.ephemeral.has('modelRuntime'))throw new Error('Local speech recognition requires Horizon Desktop.');await ensureDefaultSpeech(context);await runtime.prepare();return {ready:true};});
  app.post('/api/voice/prepare',async()=>{if(!context.ephemeral.has('modelRuntime'))throw new Error('Local voice models require the desktop host.');await runtime.prepare();return runtime.snapshot();});
  app.get('/api/voice/models',async()=>({models:context.store.list('local_models').filter(model=>model.task==='speech')}));
  app.post('/api/voice/import',async(request:any)=>{if(!context.ephemeral.has('modelRuntime'))throw new Error('Local model imports require the desktop host.');const input=z.object({path:z.string().min(1).max(2000)}).strict().parse(request.body);const path=resolve(input.path),detected=await inspectSpeechModel(path);const existing=context.store.list('local_models').find(model=>model.task==='speech'&&model.path===path);return existing??context.store.put('local_models',{id:randomUUID(),name:basename(path),path,...detected,configuration:{engine:'transformers',device:'cpu'}});});

@@ -3,9 +3,14 @@ import assert from 'node:assert/strict';
 import {mkdtemp,writeFile,rm} from 'node:fs/promises';
 import {tmpdir} from 'node:os';
 import {join} from 'node:path';
-import {inspectSpeechModel} from '../server/models/speech.ts';
+import {inspectSpeechModel,SpeechRuntime} from '../server/models/speech.ts';
 import {pcmWave} from '../src/chat/useVoiceInput.ts';
 import {parseOnboardingMemories} from '../server/runtime/onboarding-memory.ts';
+test('ready speech runtime avoids spawning a dependency probe for every audio chunk',async()=>{
+ const runtime=new SpeechRuntime({root:tmpdir()} as any);let calls=0;
+ runtime.environment.ensure=async()=>{calls++;runtime.environment.status='ready';return runtime.environment.python;};
+ assert.equal(await runtime.prepare(),await runtime.prepare());assert.equal(calls,1);runtime.close();
+});
 test('local speech import accepts standard safetensors and rejects custom model code',async()=>{
  const dir=await mkdtemp(join(tmpdir(),'horizon-speech-'));
  try{await writeFile(join(dir,'config.json'),JSON.stringify({model_type:'whisper'}));await writeFile(join(dir,'model.safetensors'),'fixture');assert.equal((await inspectSpeechModel(dir)).architecture,'whisper');await writeFile(join(dir,'config.json'),JSON.stringify({model_type:'whisper',auto_map:{AutoModel:'untrusted.Model'}}));await assert.rejects(inspectSpeechModel(dir),/Custom model code/);await writeFile(join(dir,'config.json'),JSON.stringify({model_type:'qwen3'}));await assert.rejects(inspectSpeechModel(dir),/speech model/);}finally{await rm(dir,{recursive:true,force:true});}
