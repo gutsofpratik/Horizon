@@ -1,4 +1,5 @@
 import {useLayoutEffect,useRef,useState} from 'react';
+import {workspaceBounds} from './workspace-sizing';
 const key='openclaude.workspace.width',initial=430;
 export function useWorkspaceResize(){
  const panel=useRef<HTMLElement>(null);const drag=useRef<{x:number;width:number}|null>(null);
@@ -6,11 +7,11 @@ export function useWorkspaceResize(){
  const bounds=()=>{
   const element=panel.current,main=element?.parentElement?.querySelector('.app-main');
   const other=element?.parentElement?.querySelector('.artifact-panel')?.getBoundingClientRect().width??0;
-  return {min:280,max:Math.max(280,(element?.parentElement?.getBoundingClientRect().right??window.innerWidth)-(main?.getBoundingClientRect().left??0)-other-320)};
+  return workspaceBounds((element?.parentElement?.getBoundingClientRect().right??window.innerWidth)-(main?.getBoundingClientRect().left??0)-other);
  };
  const resize=(value:number)=>{const {min,max}=bounds();setWidth(Math.round(Math.max(min,Math.min(max,value))));};
  const persist=(value:number)=>{try{localStorage.setItem(key,String(value));}catch{}};
- useLayoutEffect(()=>{const adjust=()=>setWidth(value=>{const {min,max}=bounds();return Math.max(min,Math.min(max,value));});adjust();window.addEventListener('resize',adjust);return()=>window.removeEventListener('resize',adjust);},[]);
+ useLayoutEffect(()=>{const adjust=()=>setWidth(value=>{const {min,max}=bounds();return Math.max(min,Math.min(max,value));});adjust();const observer=new ResizeObserver(adjust);if(panel.current?.parentElement)observer.observe(panel.current.parentElement);const main=panel.current?.parentElement?.querySelector('.app-main');if(main)observer.observe(main);window.addEventListener('resize',adjust);return()=>{observer.disconnect();window.removeEventListener('resize',adjust);};},[]);
  const limits=bounds();
  const handle=<div className="workspace-resize-handle" role="separator" tabIndex={0} aria-label="Resize workspace" aria-orientation="vertical" aria-valuenow={width} aria-valuemin={limits.min} aria-valuemax={limits.max} title="Drag to resize · Double-click to reset"
   onPointerDown={event=>{if(event.button!==0)return;event.preventDefault();drag.current={x:event.clientX,width};event.currentTarget.setPointerCapture(event.pointerId);event.currentTarget.classList.add('resizing');}}
