@@ -14,7 +14,7 @@ Horizon brings conversations, editable artifacts, Office and PDF files, browser 
 | --- | --- | --- |
 | Windows x64 | [Windows installer](https://github.com/gutsofpratik/Horizon/releases/download/v0.3.3/Horizon-0.3.3-windows-x64-setup.exe) | [Portable ZIP](https://github.com/gutsofpratik/Horizon/releases/download/v0.3.3/Horizon-0.3.3-windows-x64-portable.zip) |
 | macOS 14+ Apple Silicon | [DMG installer](https://github.com/gutsofpratik/Horizon/releases/download/v0.3.3/Horizon-0.3.3-macos-arm64.dmg) | [Application ZIP](https://github.com/gutsofpratik/Horizon/releases/download/v0.3.3/Horizon-0.3.3-darwin-arm64.zip) |
-| Linux x64, Ubuntu 24.04 baseline | Package checks passed; publication follows Windows | Upload pending |
+| Linux x64, Ubuntu 24.04 baseline | [DEB package](https://github.com/gutsofpratik/Horizon/releases/download/v0.3.3/Horizon-0.3.3-linux-x64.deb) · [AppImage](https://github.com/gutsofpratik/Horizon/releases/download/v0.3.3/Horizon-0.3.3-linux-x64.AppImage) | [Portable ZIP](https://github.com/gutsofpratik/Horizon/releases/download/v0.3.3/Horizon-0.3.3-linux-x64.zip) |
 | Source | [Horizon source ZIP](https://github.com/gutsofpratik/Horizon/releases/download/v0.3.3/Horizon-0.3.3-source.zip) | [Horizon source tar.gz](https://github.com/gutsofpratik/Horizon/releases/download/v0.3.3/Horizon-0.3.3-source.tar.gz) |
 
 [SHA-256 checksums](https://github.com/gutsofpratik/Horizon/releases/download/v0.3.3/SHA256SUMS.txt) cover the currently published downloads. Use the named Horizon source archives above for the packaged source snapshot; GitHub also automatically displays tag-generated “Source code” archives, which are separate from our uploaded assets.
