@@ -50,5 +50,8 @@ jobs:
           path: |
             release/*.zip
             release/*.sha256
-            src-tauri/target/release/bundle/
+            src-tauri/target/release/bundle/nsis/*.exe
+            src-tauri/target/release/bundle/dmg/*.dmg
+            src-tauri/target/release/bundle/deb/*.deb
+            src-tauri/target/release/bundle/appimage/*.AppImage
           if-no-files-found: error
