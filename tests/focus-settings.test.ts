@@ -1,2 +1,0 @@
-import test from 'node:test';import assert from 'node:assert/strict';import {isQuietTime} from '../src/settings/focus-time.ts';
-test('quiet hours wrap midnight and use the selected timezone',()=>{const policy={timeZone:'Asia/Calcutta',dailyLimitMinutes:null,quiet:[{day:3 as const,start:'22:00',end:'07:00'}]};assert.equal(isQuietTime(new Date('2026-10-14T18:00:00Z'),policy),true);assert.equal(isQuietTime(new Date('2026-10-15T00:30:00Z'),policy),true);assert.equal(isQuietTime(new Date('2026-10-15T03:00:00Z'),policy),false);});

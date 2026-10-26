@@ -1,0 +1,503 @@
+diff --git a/Cargo.lock b/Cargo.lock
+index 94ed1f9..8a9a53d 100644
+--- a/Cargo.lock
++++ b/Cargo.lock
+@@ -117,7 +117,6 @@ dependencies = [
+ [[package]]
+ name = "aion-agent"
+ version = "0.2.11"
+-source = "git+https://github.com/iOfficeAI/aionrs.git?tag=v0.2.11#8e61a90329fa9f67c4fdf7e97fe02c24dba33f75"
+ dependencies = [
+  "aion-compact",
+  "aion-config",
+@@ -148,7 +147,6 @@ dependencies = [
+ [[package]]
+ name = "aion-compact"
+ version = "0.2.11"
+-source = "git+https://github.com/iOfficeAI/aionrs.git?tag=v0.2.11#8e61a90329fa9f67c4fdf7e97fe02c24dba33f75"
+ dependencies = [
+  "regex",
+  "serde",
+@@ -160,7 +158,6 @@ dependencies = [
+ [[package]]
+ name = "aion-config"
+ version = "0.2.11"
+-source = "git+https://github.com/iOfficeAI/aionrs.git?tag=v0.2.11#8e61a90329fa9f67c4fdf7e97fe02c24dba33f75"
+ dependencies = [
+  "aion-compact",
+  "aion-process",
+@@ -185,7 +182,6 @@ dependencies = [
+ [[package]]
+ name = "aion-mcp"
+ version = "0.2.11"
+-source = "git+https://github.com/iOfficeAI/aionrs.git?tag=v0.2.11#8e61a90329fa9f67c4fdf7e97fe02c24dba33f75"
+ dependencies = [
+  "aion-config",
+  "aion-protocol",
+@@ -206,7 +202,6 @@ dependencies = [
+ [[package]]
+ name = "aion-memory"
+ version = "0.2.11"
+-source = "git+https://github.com/iOfficeAI/aionrs.git?tag=v0.2.11#8e61a90329fa9f67c4fdf7e97fe02c24dba33f75"
+ dependencies = [
+  "aion-config",
+  "chrono",
+@@ -220,7 +215,6 @@ dependencies = [
+ [[package]]
+ name = "aion-process"
+ version = "0.2.11"
+-source = "git+https://github.com/iOfficeAI/aionrs.git?tag=v0.2.11#8e61a90329fa9f67c4fdf7e97fe02c24dba33f75"
+ dependencies = [
+  "libc",
+  "tokio",
+@@ -231,7 +225,6 @@ dependencies = [
+ [[package]]
+ name = "aion-protocol"
+ version = "0.2.11"
+-source = "git+https://github.com/iOfficeAI/aionrs.git?tag=v0.2.11#8e61a90329fa9f67c4fdf7e97fe02c24dba33f75"
+ dependencies = [
+  "aion-types",
+  "serde",
+@@ -244,7 +237,6 @@ dependencies = [
+ [[package]]
+ name = "aion-providers"
+ version = "0.2.11"
+-source = "git+https://github.com/iOfficeAI/aionrs.git?tag=v0.2.11#8e61a90329fa9f67c4fdf7e97fe02c24dba33f75"
+ dependencies = [
+  "aion-config",
+  "aion-types",
+@@ -273,7 +265,6 @@ dependencies = [
+ [[package]]
+ name = "aion-skills"
+ version = "0.2.11"
+-source = "git+https://github.com/iOfficeAI/aionrs.git?tag=v0.2.11#8e61a90329fa9f67c4fdf7e97fe02c24dba33f75"
+ dependencies = [
+  "aion-config",
+  "aion-mcp",
+@@ -300,7 +291,6 @@ dependencies = [
+ [[package]]
+ name = "aion-tools"
+ version = "0.2.11"
+-source = "git+https://github.com/iOfficeAI/aionrs.git?tag=v0.2.11#8e61a90329fa9f67c4fdf7e97fe02c24dba33f75"
+ dependencies = [
+  "aion-config",
+  "aion-process",
+@@ -322,7 +312,6 @@ dependencies = [
+ [[package]]
+ name = "aion-types"
+ version = "0.2.11"
+-source = "git+https://github.com/iOfficeAI/aionrs.git?tag=v0.2.11#8e61a90329fa9f67c4fdf7e97fe02c24dba33f75"
+ dependencies = [
+  "async-trait",
+  "base64",
+@@ -7117,7 +7106,6 @@ dependencies = [
+ [[package]]
+ name = "workspace-hack"
+ version = "0.1.0"
+-source = "git+https://github.com/iOfficeAI/aionrs.git?tag=v0.2.11#8e61a90329fa9f67c4fdf7e97fe02c24dba33f75"
+ dependencies = [
+  "bitflags",
+  "cc",
+diff --git a/Cargo.toml b/Cargo.toml
+index 5846fbd..d260e1b 100644
+--- a/Cargo.toml
++++ b/Cargo.toml
+@@ -65,12 +65,12 @@ aionui-cron = { path = "crates/aionui-cron" }
+ aionui-assistant = { path = "crates/aionui-assistant" }
+ aionui-app = { path = "crates/aionui-app" }
+ 
+-aion-agent = { git = "https://github.com/iOfficeAI/aionrs.git", tag = "v0.2.11" }
+-aion-providers = { git = "https://github.com/iOfficeAI/aionrs.git", tag = "v0.2.11" }
+-aion-types = { git = "https://github.com/iOfficeAI/aionrs.git", tag = "v0.2.11" }
+-aion-protocol = { git = "https://github.com/iOfficeAI/aionrs.git", tag = "v0.2.11" }
+-aion-config = { git = "https://github.com/iOfficeAI/aionrs.git", tag = "v0.2.11" }
+-aion-mcp = { git = "https://github.com/iOfficeAI/aionrs.git", tag = "v0.2.11" }
++aion-agent = { path = "../aionrs/crates/aion-agent" }
++aion-providers = { path = "../aionrs/crates/aion-providers" }
++aion-types = { path = "../aionrs/crates/aion-types" }
++aion-protocol = { path = "../aionrs/crates/aion-protocol" }
++aion-config = { path = "../aionrs/crates/aion-config" }
++aion-mcp = { path = "../aionrs/crates/aion-mcp" }
+ 
+ # Core framework
+ tokio = { version = "1", features = ["full"] }
+diff --git a/crates/aionui-ai-agent/src/agent_task.rs b/crates/aionui-ai-agent/src/agent_task.rs
+index 193ab4c..2be37ca 100644
+--- a/crates/aionui-ai-agent/src/agent_task.rs
++++ b/crates/aionui-ai-agent/src/agent_task.rs
+@@ -653,6 +653,7 @@ mod aionrs_config_option_tests {
+             base_url: None,
+             system_prompt: None,
+             max_tokens: None,
++            context_window: None,
+             max_turns: None,
+             max_tool_call_malformed_turns: None,
+             max_tool_call_failure_turns: None,
+diff --git a/crates/aionui-ai-agent/src/factory/aionrs.rs b/crates/aionui-ai-agent/src/factory/aionrs.rs
+index d4c09cd..1772bf4 100644
+--- a/crates/aionui-ai-agent/src/factory/aionrs.rs
++++ b/crates/aionui-ai-agent/src/factory/aionrs.rs
+@@ -91,8 +91,9 @@ pub(super) async fn build(
+         &skill_index_text(&deps, &ctx.user_id, &resolved_skills).await,
+     );
+ 
+-    let mut extra_mcp_servers = resolve_mcp_servers(&overrides);
+-    if let Some(repo) = deps.mcp_server_repo.as_ref() {
++    let host_owned_tools = crate::host_policy::openclaude_tool_policy()?.is_some();
++    let mut extra_mcp_servers = if host_owned_tools { HashMap::new() } else { resolve_mcp_servers(&overrides) };
++    if !host_owned_tools && let Some(repo) = deps.mcp_server_repo.as_ref() {
+         for (name, config) in load_user_mcp_servers(
+             repo.as_ref(),
+             overrides.mcp_server_ids.as_deref(),
+@@ -105,9 +106,12 @@ pub(super) async fn build(
+             extra_mcp_servers.entry(name).or_insert(config);
+         }
+     }
++    let host_servers: Vec<SessionMcpServer> = overrides.session_mcp_servers.iter()
++        .filter(|server| !host_owned_tools || (server.name == "OpenClaude tools" && matches!(&server.transport, SessionMcpTransport::StreamableHttp { url, .. } if url.strip_prefix("http://127.0.0.1:").and_then(|tail| tail.strip_suffix("/mcp")).and_then(|port| port.parse::<u16>().ok()).is_some())))
++        .cloned().collect();
+     merge_session_snapshot_mcp_servers(
+         &mut extra_mcp_servers,
+-        &overrides.session_mcp_servers,
++        &host_servers,
+         &ctx.user_id,
+         &ctx.conversation_id,
+         deps.broadcaster.clone(),
+@@ -189,6 +193,10 @@ pub(super) async fn build(
+         base_url,
+         system_prompt: overrides.system_prompt,
+         max_tokens: None,
++        context_window: row.context_limit.map(|value| usize::try_from(value).ok()
++            .filter(|window| *window > 0)
++            .ok_or_else(|| AgentError::bad_request("The configured total context must be positive")))
++            .transpose()?,
+         max_turns: overrides.max_turns,
+         max_tool_call_malformed_turns: overrides.max_tool_call_malformed_turns,
+         max_tool_call_failure_turns: overrides.max_tool_call_failure_turns,
+diff --git a/crates/aionui-ai-agent/src/host_policy.rs b/crates/aionui-ai-agent/src/host_policy.rs
+new file mode 100644
+index 0000000..71c3bd6
+--- /dev/null
++++ b/crates/aionui-ai-agent/src/host_policy.rs
+@@ -0,0 +1,25 @@
++//! Host-owned tool policy for the OpenClaude embedded engine.
++
++use aion_agent::tool_policy::ToolPolicy;
++use crate::error::AgentError;
++
++pub(crate) fn openclaude_tool_policy() -> Result<Option<ToolPolicy>, AgentError> {
++    let names = match std::env::var("OPENCLAUDE_HOST_TOOL_NAMES") {
++        Ok(value) => value,
++        Err(std::env::VarError::NotPresent) => return Ok(None),
++        Err(_) => return Err(AgentError::bad_request("Invalid OpenClaude host tool policy")),
++    };
++    let mut names: Vec<String> = serde_json::from_str(&names)
++        .map_err(|_| AgentError::bad_request("Invalid OpenClaude host tool policy"))?;
++    if names.len() > 1000 || names.iter().any(|name| {
++        name.is_empty() || name.len() > 200 || !name.bytes().all(|byte| {
++            byte.is_ascii_lowercase() || byte.is_ascii_digit() || byte == b'_'
++        })
++    }) {
++        return Err(AgentError::bad_request("Invalid OpenClaude host tool names"));
++    }
++    // ToolSearch is read-only and its schema snapshot is filtered by this policy
++    // in AgentBootstrap::register_tool_search. It cannot expose native write tools.
++    names.push("ToolSearch".into());
++    Ok(Some(ToolPolicy::allow_only(names)))
++}
+diff --git a/crates/aionui-ai-agent/src/lib.rs b/crates/aionui-ai-agent/src/lib.rs
+index c9d10c4..db80f86 100644
+--- a/crates/aionui-ai-agent/src/lib.rs
++++ b/crates/aionui-ai-agent/src/lib.rs
+@@ -12,6 +12,7 @@ pub(crate) mod cli_probe;
+ pub(crate) mod dev_prompt_dump;
+ pub mod error;
+ pub mod factory;
++pub(crate) mod host_policy;
+ pub(crate) mod idle_scanner;
+ pub mod manager;
+ /// Neutral MCP resolution for the session-model port (claude/codex). Ported from
+diff --git a/crates/aionui-ai-agent/src/manager/aionrs/agent.rs b/crates/aionui-ai-agent/src/manager/aionrs/agent.rs
+index 3291d92..bba8042 100644
+--- a/crates/aionui-ai-agent/src/manager/aionrs/agent.rs
++++ b/crates/aionui-ai-agent/src/manager/aionrs/agent.rs
+@@ -195,6 +195,19 @@ impl AionrsAgentManager {
+         };
+ 
+         let mut config = resolve_aionui_config(&cli_args)?;
++        if let Some(context_window) = config_extra.context_window {
++            config.compact.context_window = context_window;
++            config.compact.autocompact_threshold_pct = Some(90);
++            config.compact.output_reserve = config.compact.output_reserve.min(context_window / 10).max(1);
++            config.compact.emergency_buffer = config.compact.emergency_buffer.min(context_window / 20).max(1);
++        }
++        let host_tool_policy = crate::host_policy::openclaude_tool_policy()?;
++        if host_tool_policy.is_some() {
++            // The host broker owns hooks, skills, MCP credentials and approvals.
++            // User/global engine configuration cannot install a second execution path.
++            config.hooks = Default::default();
++            config.mcp.servers.clear();
++        }
+ 
+         // Backend-specific overrides
+         config.bedrock = config_extra.bedrock_config;
+@@ -213,13 +226,21 @@ impl AionrsAgentManager {
+         }
+ 
+         if !config_extra.extra_mcp_servers.is_empty() {
+-            config.mcp.servers.extend(config_extra.extra_mcp_servers.clone());
++            let mut servers = config_extra.extra_mcp_servers.clone();
++            if host_tool_policy.is_some() {
++                servers.retain(|name, _| name == "OpenClaude tools");
++            }
++            config.mcp.servers.extend(servers);
+         }
+ 
+         let is_resume = resume_session.is_some();
+         let provider_label = config.provider_label.clone();
+ 
+         let mut bootstrap = AgentBootstrap::new(config, &workspace, sink).runtime_env(runtime_env);
++        if let Some(policy) = host_tool_policy.as_ref() {
++            bootstrap = bootstrap.tool_policy(policy.clone());
++            info!(conversation_id = %conversation_id, "OpenClaude host tool policy enabled; native execution paths disabled");
++        }
+         if let Some(session) = resume_session {
+             info!(
+                 conversation_id = %conversation_id,
+@@ -255,6 +276,11 @@ impl AionrsAgentManager {
+                 "Aionrs initial session mode applied"
+             );
+         }
++        if host_tool_policy.is_some() {
++            // This bypasses only the duplicate engine-level prompt. Every effectful
++            // tool call still passes through the host registry's approval gate.
++            approval_manager.set_mode(SessionMode::Yolo);
++        }
+ 
+         let confirmations = Arc::new(RwLock::new(Vec::new()));
+         let protocol_sink = BackendProtocolSink::new(runtime.event_sender(), confirmations.clone());
+diff --git a/crates/aionui-ai-agent/src/manager/aionrs/agent_test.rs b/crates/aionui-ai-agent/src/manager/aionrs/agent_test.rs
+index 9310f1e..01be9bd 100644
+--- a/crates/aionui-ai-agent/src/manager/aionrs/agent_test.rs
++++ b/crates/aionui-ai-agent/src/manager/aionrs/agent_test.rs
+@@ -30,6 +30,7 @@ fn make_test_config() -> AionrsResolvedConfig {
+         base_url: None,
+         system_prompt: None,
+         max_tokens: None,
++        context_window: None,
+         max_turns: None,
+         max_tool_call_malformed_turns: None,
+         max_tool_call_failure_turns: None,
+diff --git a/crates/aionui-ai-agent/src/services/provider_health.rs b/crates/aionui-ai-agent/src/services/provider_health.rs
+index 3453f12..4b7ac6d 100644
+--- a/crates/aionui-ai-agent/src/services/provider_health.rs
++++ b/crates/aionui-ai-agent/src/services/provider_health.rs
+@@ -94,6 +94,7 @@ impl ProviderHealthCheckService {
+             base_url,
+             system_prompt: Some("You are a provider health probe. Reply with exactly OK and do not use tools.".into()),
+             max_tokens: Some(HEALTH_CHECK_MAX_TOKENS),
++            context_window: row.context_limit.and_then(|value| usize::try_from(value).ok()).filter(|window| *window > 0),
+             max_turns: Some(1),
+             max_tool_call_malformed_turns: Some(1),
+             max_tool_call_failure_turns: Some(1),
+diff --git a/crates/aionui-ai-agent/src/types.rs b/crates/aionui-ai-agent/src/types.rs
+index ce55c7d..67b7e57 100644
+--- a/crates/aionui-ai-agent/src/types.rs
++++ b/crates/aionui-ai-agent/src/types.rs
+@@ -143,6 +143,8 @@ pub struct AionrsResolvedConfig {
+     /// Internal response cap for specialized flows such as provider health probes.
+     /// Normal AionUi conversations leave this unset.
+     pub max_tokens: Option<u32>,
++    /// Host-configured total context. This is independent of the response cap.
++    pub context_window: Option<usize>,
+     /// Max agentic turns.
+     pub max_turns: Option<usize>,
+     /// Max repeated malformed tool-call turns before stopping.
+diff --git a/crates/aionui-ai-agent/tests/agent_types_integration.rs b/crates/aionui-ai-agent/tests/agent_types_integration.rs
+index bc67523..62c1347 100644
+--- a/crates/aionui-ai-agent/tests/agent_types_integration.rs
++++ b/crates/aionui-ai-agent/tests/agent_types_integration.rs
+@@ -96,6 +96,7 @@ fn make_aionrs_config() -> AionrsResolvedConfig {
+         base_url: None,
+         system_prompt: None,
+         max_tokens: None,
++        context_window: None,
+         max_turns: None,
+         max_tool_call_malformed_turns: None,
+         max_tool_call_failure_turns: None,
+diff --git a/crates/aionui-app/Cargo.toml b/crates/aionui-app/Cargo.toml
+index f0fa612..c253136 100644
+--- a/crates/aionui-app/Cargo.toml
++++ b/crates/aionui-app/Cargo.toml
+@@ -5,11 +5,11 @@ edition.workspace = true
+ exclude = ["data/**"]
+ 
+ [[bin]]
+-name = "aioncore"
++name = "openclaude-engine"
+ path = "src/main.rs"
+ 
+ [features]
+-default = ["telegram", "lark", "dingtalk", "weixin", "slack", "discord"]
++default = ["telegram", "lark", "dingtalk", "slack", "discord"]
+ telegram = ["aionui-channel/telegram"]
+ lark = ["aionui-channel/lark"]
+ dingtalk = ["aionui-channel/dingtalk"]
+diff --git a/crates/aionui-app/src/cli.rs b/crates/aionui-app/src/cli.rs
+index 040fcdf..f7096ba 100644
+--- a/crates/aionui-app/src/cli.rs
++++ b/crates/aionui-app/src/cli.rs
+@@ -10,7 +10,7 @@ use std::path::PathBuf;
+ use clap::{Args, Parser, Subcommand, ValueEnum};
+ 
+ #[derive(Parser)]
+-#[command(name = "aioncore", about = "AionUi Backend Server", version)]
++#[command(name = "openclaude-engine", about = "OpenClaude Agent Backend", version)]
+ pub(crate) struct Cli {
+     /// Host address to listen on.
+     #[arg(long, default_value_t = String::from(aionui_common::constants::DEFAULT_HOST))]
+diff --git a/crates/aionui-app/src/main.rs b/crates/aionui-app/src/main.rs
+index ae3fc72..d44458a 100644
+--- a/crates/aionui-app/src/main.rs
++++ b/crates/aionui-app/src/main.rs
+@@ -28,6 +28,11 @@ fn main() -> ExitCode {
+ 
+ fn run_main() -> Result<ExitCode, MainError> {
+     let cli = Cli::parse();
++    // OpenClaude modification: embedded identity must never mean unauthenticated HTTP.
++    if cli.local && !std::env::var("OPENCLAUDE_ENGINE_TOKEN").is_ok_and(|v| v.len() == 64 && v.bytes().all(|b| b.is_ascii_hexdigit())) {
++        eprintln!("OpenClaude embedded engine requires an authenticated host token");
++        return Ok(ExitCode::FAILURE);
++    }
+ 
+     // mcp-* subcommands route into short-lived stdio helpers that live entirely
+     // outside the main HTTP server. They share the global flags so clap can
+diff --git a/crates/aionui-app/src/router/health.rs b/crates/aionui-app/src/router/health.rs
+index b3c57da..97d2a9b 100644
+--- a/crates/aionui-app/src/router/health.rs
++++ b/crates/aionui-app/src/router/health.rs
+@@ -17,3 +17,13 @@ pub(super) async fn health_check() -> Json<HealthResponse> {
+         build_time: env!("BUILD_TIME"),
+     })
+ }
++
++pub(super) async fn openclaude_contract() -> Json<serde_json::Value> {
++    Json(serde_json::json!({
++        "contract_version": 1,
++        "host_tool_policy_revision": 1,
++        "host_channel_relay_revision": 1,
++        "host_tool_policy_configured": std::env::var_os("OPENCLAUDE_HOST_TOOL_NAMES").is_some(),
++        "native_tool_paths_disabled": std::env::var_os("OPENCLAUDE_HOST_TOOL_NAMES").is_some()
++    }))
++}
+diff --git a/crates/aionui-app/src/router/routes.rs b/crates/aionui-app/src/router/routes.rs
+index e67514c..3a45dba 100644
+--- a/crates/aionui-app/src/router/routes.rs
++++ b/crates/aionui-app/src/router/routes.rs
+@@ -45,7 +45,7 @@ use aionui_team::{TeamSessionService, team_routes};
+ use crate::services::AppServices;
+ 
+ use super::fs_monitor::spawn_fs_monitor;
+-use super::health::health_check;
++use super::health::{health_check, openclaude_contract};
+ use aionui_session_message::{session_message_routes, session_message_user_routes};
+ use aionui_skill_runtime::skill_runtime_routes;
+ 
+@@ -398,6 +398,7 @@ pub fn create_router_with_all_state(services: &AppServices, states: ModuleStates
+     let router = Router::new()
+         .merge(antigravity_hook)
+         .route("/health", get(health_check))
++        .route("/api/openclaude/contract", get(openclaude_contract))
+         .merge(auth_routes(auth_state))
+         .merge(system_authenticated)
+         .merge(conversation_authenticated)
+@@ -454,6 +455,11 @@ pub fn create_router_with_all_state(services: &AppServices, states: ModuleStates
+     );
+ 
+     if services.identity_mode.is_local() {
++        // OpenClaude modification: the host proxy is the only embedded HTTP client.
++        // Never expose open-CORS local identity to browser pages or other local apps.
++        if let Ok(token) = std::env::var("OPENCLAUDE_ENGINE_TOKEN") {
++            return router.layer(from_fn_with_state(Arc::new(token), openclaude_host_auth));
++        }
+         let cors = CorsLayer::new()
+             .allow_origin(Any)
+             .allow_methods([
+@@ -699,3 +705,17 @@ mod tests {
+         bridge.abort();
+     }
+ }
++
++// OpenClaude modification: authenticated private loopback bridge, including upgrades.
++async fn openclaude_host_auth(
++    axum::extract::State(token): axum::extract::State<Arc<String>>,
++    request: Request,
++    next: Next,
++) -> Response {
++    let supplied = request.headers().get("x-openclaude-engine-token").and_then(|v| v.to_str().ok()).unwrap_or("");
++    let valid = supplied.len() == token.len() && supplied.bytes().zip(token.bytes()).fold(0u8, |v, (a,b)| v | (a ^ b)) == 0;
++    if !valid || request.headers().contains_key(header::ORIGIN) {
++        return (StatusCode::UNAUTHORIZED, "OpenClaude engine authentication required").into_response();
++    }
++    next.run(request).await
++}
+diff --git a/crates/aionui-channel/src/orchestrator.rs b/crates/aionui-channel/src/orchestrator.rs
+index 2d45377..b6dde27 100644
+--- a/crates/aionui-channel/src/orchestrator.rs
++++ b/crates/aionui-channel/src/orchestrator.rs
+@@ -91,6 +91,13 @@ impl ChannelOrchestrator {
+                     session_id,
+                     conversation_id,
+                 }) => {
++                    // OpenClaude modification: pairing above is required, but it
++                    // never authorizes upstream yolo-mode execution. The host
++                    // owns tool grants, conversation state and approval UI.
++                    if std::env::var_os("OPENCLAUDE_CHANNEL_RELAY_URL").is_some() {
++                        host_relay(&sender, &owner_user_id, &plugin_id, &chat_id, &session_id, &msg).await;
++                        return;
++                    }
+                     handle_dispatched(
+                         &msg_svc,
+                         &session_mgr,
+@@ -116,6 +123,28 @@ impl ChannelOrchestrator {
+     }
+ }
+ 
++#[cfg(any(feature="telegram",feature="lark",feature="dingtalk",feature="weixin",feature="slack",feature="discord"))]
++async fn host_relay(sender:&Arc<dyn ChannelSender>,owner:&str,plugin:&str,chat:&str,session:&str,msg:&UnifiedIncomingMessage){
++    let result:Result<(),String>=async {
++        let url=std::env::var("OPENCLAUDE_CHANNEL_RELAY_URL").map_err(|_|"Host relay is required".to_owned())?;
++        let token=std::env::var("OPENCLAUDE_CHANNEL_RELAY_TOKEN").map_err(|_|"Host relay credential is missing".to_owned())?;
++        if !url.starts_with("http://127.0.0.1:")||!url.ends_with("/api/internal/channels"){return Err("Invalid local host relay URL".into());}
++        let client=reqwest::Client::builder().redirect(reqwest::redirect::Policy::none()).timeout(std::time::Duration::from_secs(1810)).build().map_err(|_|"Cannot create relay client".to_owned())?;
++        let response=client.post(format!("{url}/dispatch")).header("x-openclaude-channel-token",&token).json(&serde_json::json!({"sessionId":session,"message":{"id":msg.id,"platform":msg.platform,"chat_id":msg.chat_id,"user":msg.user,"content":msg.content}})).send().await.map_err(|_|"Host relay interrupted; task outcome may be unknown".to_owned())?;
++        if !response.status().is_success(){return Err("OpenClaude denied the channel request. Check channel grants and runtime diagnostics.".into());}
++        let reply:serde_json::Value=response.json().await.map_err(|_|"Invalid host relay response".to_owned())?;
++        if reply.get("duplicate").and_then(|v|v.as_bool())==Some(true){return Ok(());}
++        let text=reply.get("text").and_then(|v|v.as_str()).unwrap_or("Open OpenClaude to inspect this request.");
++        let outgoing=UnifiedOutgoingMessage{message_type:OutgoingMessageType::Text,text:Some(text.to_owned()),parse_mode:None,buttons:None,keyboard:None,image_url:None,file_url:None,file_name:None,media_actions:None,reply_to_message_id:Some(msg.id.clone()),silent:None};
++        let delivered=sender.send_message(owner,plugin,chat,outgoing).await.is_ok();
++        let _=client.post(format!("{url}/delivery")).header("x-openclaude-channel-token",&token).json(&serde_json::json!({"id":reply.get("id"),"delivered":delivered})).send().await;
++        if !delivered{return Err("Platform delivery failed; no automatic resend".into());}Ok(())
++    }.await;
++    if let Err(error)=result{warn!(error=%error,"OpenClaude channel relay stopped");}
++}
++#[cfg(not(any(feature="telegram",feature="lark",feature="dingtalk",feature="weixin",feature="slack",feature="discord")))]
++async fn host_relay(_sender:&Arc<dyn ChannelSender>,_owner:&str,_plugin:&str,_chat:&str,_session:&str,_msg:&UnifiedIncomingMessage){warn!("No channel transport was compiled");}
++
+ async fn send_action_response(
+     sender: &Arc<dyn ChannelSender>,
+     owner_user_id: &str,
+diff --git a/crates/aionui-runtime/src/agent_env.rs b/crates/aionui-runtime/src/agent_env.rs
+index 57c186e..7be8e72 100644
+--- a/crates/aionui-runtime/src/agent_env.rs
++++ b/crates/aionui-runtime/src/agent_env.rs
+@@ -71,6 +71,8 @@ fn clean_agent_env(env: &mut BTreeMap<OsString, OsString>) {
+         remove_env_key(env, key);
+     }
+     env.retain(|key, _| !env_key_starts_with(key, "npm_"));
++    // OpenClaude host and relay capabilities must not be inherited by external agents.
++    env.retain(|key, _| !env_key_starts_with(key, "OPENCLAUDE_"));
+ }
+ 
+ fn get_env_value<'a>(env: &'a [(OsString, OsString)], key: &str) -> Option<&'a OsString> {

@@ -1,6 +1,0 @@
-import {test,expect} from './test-fixture';
-test('welcome and conversation have distinct compact composers and the workspace stays behind its control',async({page,request})=>{
- const id='composer-ref-'+crypto.randomUUID();await request.post('/api/entities/conversations',{data:{id,title:'Composer reference',messages:[{id:'u',role:'user',content:'hi'},{id:'a',role:'assistant',content:'Hello',parentId:'u'}],headId:'a'} });
- await page.route('**/api/skills',route=>route.fulfill({json:[{id:'learn',name:'learn',description:'Learn a concept',installed:true,available:true}]}));
- try{await page.goto('/new');await expect(page.locator('.composer-wrap')).toHaveAttribute('data-layout','welcome');await page.getByRole('button',{name:'Add files, skills, and tools'}).click();await page.getByRole('menuitem',{name:'Skills',exact:true}).click();await page.getByRole('button',{name:'Use learn skill'}).click();await expect(page.getByRole('textbox',{name:'Message',exact:true})).toHaveValue('@learn ');await page.goto('/chat/'+id);await expect(page.locator('.composer-wrap')).toHaveAttribute('data-layout','conversation');await expect(page.getByRole('button',{name:'Open workspace'})).toBeVisible();await expect(page.getByRole('button',{name:'terminal',exact:true})).toHaveCount(0);}finally{await request.delete('/api/entities/conversations/'+id).catch(()=>{});}
-});

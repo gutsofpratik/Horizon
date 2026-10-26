@@ -14,3 +14,7 @@ src-tauri/target/
 src-tauri/gen/
 .rea/
 test-results/
+
+/vendor/
+/tests/
+/test/

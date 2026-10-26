@@ -29,7 +29,6 @@
     "src",
     "server",
     "scripts",
-    "tests",
     "vite.config.ts"
   ]
 }

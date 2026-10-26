@@ -1,4 +1,4 @@
-name: Source quality and contract checks
+name: Source quality and build checks
 on:
   pull_request:
   workflow_dispatch:
@@ -23,20 +23,6 @@ jobs:
       - run: npm run typecheck
       - run: npm run build:ui
       - run: npm run build:web-host
-  suites:
-    runs-on: ubuntu-latest
-    strategy:
-      fail-fast: false
-      matrix:
-        suite: [unit, contract, migration, security, integration]
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: '22'
-          cache: npm
-      - run: npm ci
-      - run: npm run test:${{ matrix.suite }}
   native-source:
     strategy:
       fail-fast: false

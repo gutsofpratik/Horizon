@@ -1,1 +1,0 @@
-ALTER TABLE providers ADD COLUMN is_full_url INTEGER NOT NULL DEFAULT 0;

@@ -217,23 +217,16 @@ The desktop host starts its backend with hidden child processes. For a self-host
 
 Component builds: build:web-host, build:engine, build:ui and build:inference. Package boundaries keep desktop services out of the web host. Existing internal environment names and data paths retain OPENCLAUDE for compatibility with saved installations.
 
-## Verification and packaging
+## Build checks and packaging
 
 ~~~powershell
-npm run typecheck
 npm run lint
-npm test
-node --test tests/*.test.mjs
-npm run test:browser
-npm run test:runtime
+npm run typecheck
+npm run prepare:engine
 npm run release:package -- --unsigned
 ~~~
 
-The 0.3.1 main automated run passed **366 tests, with zero failures and zero cancellations**. Type checking and edition-boundary checks passed. Optional live Docker/model/Office checks are not included in this count.
-
-The main automated suite covers API authentication, profiles, provider contracts, tool validation/recovery, approvals, skills, memory/privacy, context/compaction, paging, streams, schedules, lifecycle and artifact/file behavior. Release tests cover payload isolation, checksums and signing configuration. Passing mocked/contract tests does not establish live cloud, messaging, every local model, or every native GUI workflow support.
-
-Runtime integration tests require actual configured dependencies and accounts. Docker tests require a running Docker engine and prepared worker image; GGUF tests require OPENCLAUDE_TEST_GGUF; OfficeCLI tests require OFFICECLI_TEST_BINARY. These checks are reported separately and must not be counted as live passes when skipped. Native packaging workflows now target Windows, macOS and Linux; native GUI verification is required separately for each platform.
+The full third-party engine source is downloaded only when needed, from checksum-pinned upstream revisions. Horizon's small patch set and required license notices are retained under third-party/engine. The generated vendor directory and local development tests are excluded from this public source tree. Public CI checks source boundaries, types and builds; native packaging also checks platform package layout and runtime dependencies. These checks do not establish live support for every provider, model or GUI workflow.
 
 The package builder uses a fresh isolated stage, pinned dependency hashes and payload validation, then emits the Windows installer, portable ZIP and SHA256SUMS.txt. Code signing requires a publisher-controlled certificate or Microsoft Artifact Signing configuration; the --unsigned flag explicitly builds a preview without claiming a verified publisher.
 

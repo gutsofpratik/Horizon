@@ -1,3 +1,4 @@
+import {ensureEngineSources} from './prepare-engine-sources.mjs';
 import {spawn} from 'node:child_process';
 import {mkdir,cp,writeFile,readFile} from 'node:fs/promises';
 import {fileURLToPath} from 'node:url';
@@ -7,6 +8,7 @@ const root=fileURLToPath(new URL('..',import.meta.url)),target=process.argv[2],o
 const run=(command,args,env={})=>new Promise((resolve,reject)=>{const child=spawn(command,args,{cwd:root,stdio:'inherit',windowsHide:true,env:{...process.env,...env}});child.once('error',reject);child.once('exit',code=>code===0?resolve():reject(new Error('Component build failed: '+target+' (exit '+code+')')));});
 await mkdir(output,{recursive:true});
 if(target==='agent-backend'){
+ await ensureEngineSources(root);
  await run('cargo',['build','--locked','--manifest-path',join(root,'vendor/AionCore/Cargo.toml'),'--release','--bin','openclaude-engine','--no-default-features','--features','telegram,lark,dingtalk,slack,discord'],{CARGO_TARGET_DIR:join(root,'.local/engine-target'),CARGO_BUILD_JOBS:process.env.CARGO_BUILD_JOBS??'2'});
  await cp(join(root,'.local/engine-target/release/openclaude-engine'+(process.platform==='win32'?'.exe':'')),join(output,'openclaude-engine'+(process.platform==='win32'?'.exe':'')));
  await cp(join(root,'vendor/upstream-lock.json'),join(output,'upstream-lock.json'));

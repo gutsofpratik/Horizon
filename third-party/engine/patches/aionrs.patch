@@ -1,0 +1,130 @@
+diff --git a/crates/aion-mcp/src/manager.rs b/crates/aion-mcp/src/manager.rs
+index f2b1053..a4d4e37 100644
+--- a/crates/aion-mcp/src/manager.rs
++++ b/crates/aion-mcp/src/manager.rs
+@@ -236,13 +236,32 @@ impl McpManager {
+         tool_name: &str,
+         arguments: serde_json::Value,
+     ) -> Result<String, McpError> {
++        let tool_result = self.call_tool_result(server_name, tool_name, arguments).await?;
++        let text = tool_result.content.iter().map(|content| match content {
++            super::protocol::McpContent::Text { text } => text.clone(),
++            super::protocol::McpContent::Image { mime_type, .. } => format!("[image: {mime_type}]"),
++            super::protocol::McpContent::Resource { .. } => "[resource]".to_owned(),
++        }).collect::<Vec<_>>().join("\n");
++        if tool_result.is_error {
++            return Err(McpError::Transport(text));
++        }
++        Ok(text)
++    }
++
++    /// Preserve MCP error and image content for tool proxies with image follow-ups.
++    pub(crate) async fn call_tool_result(
++        &self,
++        server_name: &str,
++        tool_name: &str,
++        arguments: serde_json::Value,
++    ) -> Result<McpToolResult, McpError> {
+         let server = self
+             .servers
+             .get(server_name)
+             .ok_or_else(|| McpError::ServerNotFound(server_name.to_string()))?;
+ 
+         let request = JsonRpcRequest::new(
+-            0, // id doesn't matter for stdio, will be used for SSE/HTTP
++            self.next_id.fetch_add(1, Ordering::Relaxed),
+             "tools/call",
+             Some(json!({
+                 "name": tool_name,
+@@ -252,28 +271,18 @@ impl McpManager {
+ 
+         let response = server.transport.request(&request).await?;
+ 
++        if let Some(error) = response.error {
++            return Err(McpError::Transport(format!("MCP request failed ({}): {}", error.code, error.message)));
++        }
++
+         let result_value = response
+             .result
+             .ok_or_else(|| McpError::Transport("No result in tool call response".into()))?;
+ 
+-        // Parse result and concatenate text content
++        // Keep isError and image blocks intact until the execution boundary.
+         let tool_result: McpToolResult = serde_json::from_value(result_value)
+             .map_err(|e| McpError::Transport(format!("Failed to parse tool result: {}", e)))?;
+-
+-        let mut text_parts = Vec::new();
+-        for content in &tool_result.content {
+-            match content {
+-                super::protocol::McpContent::Text { text } => text_parts.push(text.clone()),
+-                super::protocol::McpContent::Image { mime_type, .. } => {
+-                    text_parts.push(format!("[image: {}]", mime_type));
+-                }
+-                super::protocol::McpContent::Resource { .. } => {
+-                    text_parts.push("[resource]".to_string());
+-                }
+-            }
+-        }
+-
+-        Ok(text_parts.join("\n"))
++        Ok(tool_result)
+     }
+ 
+     /// Get names of all connected servers.
+diff --git a/crates/aion-mcp/src/protocol.rs b/crates/aion-mcp/src/protocol.rs
+index 02117cc..6092f20 100644
+--- a/crates/aion-mcp/src/protocol.rs
++++ b/crates/aion-mcp/src/protocol.rs
+@@ -63,6 +63,8 @@ pub struct McpToolDef {
+ #[derive(Debug, Deserialize)]
+ pub struct McpToolResult {
+     pub content: Vec<McpContent>,
++    #[serde(default, rename = "isError")]
++    pub is_error: bool,
+ }
+ 
+ /// Content types returned by MCP tool calls
+diff --git a/crates/aion-mcp/src/tool_proxy.rs b/crates/aion-mcp/src/tool_proxy.rs
+index 53d2aa9..ba1ad7c 100644
+--- a/crates/aion-mcp/src/tool_proxy.rs
++++ b/crates/aion-mcp/src/tool_proxy.rs
+@@ -8,6 +8,8 @@ use super::config::McpServerConfig;
+ use super::manager::McpManager;
+ use aion_protocol::events::ToolCategory;
+ use aion_tools::Tool;
++use aion_tools::ToolExecutionOutput;
++use aion_types::message::{ContentBlock, ImageUrl};
+ use aion_types::tool::{JsonSchema, ToolResult};
+ 
+ /// Wraps an MCP server tool as a local Tool trait implementation.
+@@ -85,6 +87,30 @@ impl Tool for McpToolProxy {
+         }
+     }
+ 
++    async fn execute_with_follow_up(&self, input: Value) -> ToolExecutionOutput {
++        let result = match self.manager.call_tool_result(&self.server_name, &self.tool_name, input).await {
++            Ok(result) => result,
++            Err(error) => return ToolResult { content: format!("MCP tool error: {error}"), is_error: true }.into(),
++        };
++        let mut text = Vec::new();
++        let mut follow_up_blocks = Vec::new();
++        for content in result.content {
++            match content {
++                super::protocol::McpContent::Text { text: part } => text.push(part),
++                super::protocol::McpContent::Image { data, mime_type } if !result.is_error => {
++                    let image_url = ImageUrl { url: format!("data:{mime_type};base64,{data}") };
++                    if let Err(error) = image_url.validate() {
++                        return ToolResult { content: format!("MCP returned an invalid image: {error}"), is_error: true }.into();
++                    }
++                    follow_up_blocks.push(ContentBlock::Image { image_url });
++                }
++                super::protocol::McpContent::Image { .. } => {},
++                super::protocol::McpContent::Resource { .. } => text.push("[resource]".to_owned()),
++            }
++        }
++        ToolExecutionOutput { result: ToolResult { content: text.join("\n"), is_error: result.is_error }, follow_up_blocks }
++    }
++
+     fn category(&self) -> ToolCategory {
+         ToolCategory::Mcp
+     }

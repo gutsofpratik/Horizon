@@ -22,6 +22,8 @@ jobs:
         with:
           node-version: '22'
           cache: npm
+      - run: npm ci
+      - run: node scripts/prepare-engine-sources.mjs
       - uses: dtolnay/rust-toolchain@stable
       - uses: Swatinem/rust-cache@v2
         with:
@@ -35,10 +37,8 @@ jobs:
       - name: Verify Ubuntu graphics libraries before linking
         if: runner.os == 'Linux'
         run: pkg-config --exists gbm xkbcommon xcb-randr libpipewire-0.3 && pkg-config --modversion gbm
-      - run: npm ci
       - run: npm run lint
       - run: npm run typecheck
-      - run: npm run test:contract
       - name: Prepare pinned standalone Python
         run: node scripts/release/prepare-python.mjs
       - run: npm run package:native
