@@ -14,7 +14,7 @@
         "Embedded host tool-policy contract: allow only registered OpenClaude MCP tools and filtered read-only ToolSearch; disable inherited native tools/hooks/MCP configuration. Source changes awaiting user-authorized build and verification.",
         "Carry provider total context into the embedded runtime configuration rather than storing it only as unused provider metadata; source not rebuilt or verified yet."
       ],
-      "patch": "third-party/engine/patches/AionCore.patch",
+      "patch": "third-party/engine/patches/horizon-host.patch",
       "patchSha256": "f25d4fee6f6a729008b8dfc0b758f53168326f5e986f5ec4704666d9aa242f43"
     },
     {
@@ -26,7 +26,7 @@
       "modifications": [
         "MCP calls use distinct request IDs; preserve isError for agent recovery and image blocks as validated model follow-up content. Source changes awaiting user-authorized build and verification."
       ],
-      "patch": "third-party/engine/patches/aionrs.patch",
+      "patch": "third-party/engine/patches/horizon-agent-runtime.patch",
       "patchSha256": "6d94ed694bb0d6ebef987c0437d3cc1a512e24bbe06d3e878a5f27fa77d7c092"
     }
   ]
