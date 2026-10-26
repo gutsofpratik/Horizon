@@ -638,7 +638,7 @@ fn main() {
         ])
         .build(tauri::generate_context!())
         .expect("Native desktop runtime failed");
-    app.run(|app,event|{if let tauri::RunEvent::WindowEvent { label, event: tauri::WindowEvent::CloseRequested { api, .. }, .. } = &event { if label == "main" { if app.state::<background::Background>().enabled.load(std::sync::atomic::Ordering::SeqCst) { if let Some(window)=app.get_webview_window("main") { if window.hide().is_ok(){api.prevent_close();} } } else { app.exit(0); } } } if matches!(event,tauri::RunEvent::Exit){if let Err(error)=updater::install_on_exit(app){eprintln!("Update installation not scheduled: {error}");}app.state::<backend::Backend>().stop();}});
+    app.run(|app,event|{if let tauri::RunEvent::WindowEvent { label, event: tauri::WindowEvent::CloseRequested { api, .. }, .. } = &event { if label == "main" { if app.state::<background::Background>().enabled.load(std::sync::atomic::Ordering::SeqCst) && app.state::<background::Background>().ready.load(std::sync::atomic::Ordering::SeqCst) { if let Some(window)=app.get_webview_window("main") { if window.hide().is_ok(){api.prevent_close();} } } else { app.exit(0); } } } if matches!(event,tauri::RunEvent::Exit){if let Err(error)=updater::install_on_exit(app){eprintln!("Update installation not scheduled: {error}");}app.state::<backend::Backend>().stop();}});
 }
 
 
