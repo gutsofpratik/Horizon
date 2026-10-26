@@ -13,7 +13,7 @@ import {useRef,useEffect,useState} from 'react';
 
 
 
-import {ArrowUp,Plus,Square,Mic,Paperclip,X,Folder} from 'lucide-react';import {ModelPicker} from './ModelPicker';import {ComposerMenu} from './ComposerMenu';
+import {ArrowUp,Plus,Square,Mic,Paperclip,X,Folder,Loader2} from 'lucide-react';import {ModelPicker} from './ModelPicker';import {ComposerMenu} from './ComposerMenu';
 
 
 
@@ -75,7 +75,7 @@ export function Composer({text,setText,onSend,running,onCancel,models,settings,o
 
 
 
- </div><div className="composer-actions">{layout==='welcome'&&picker}<button className={'icon-button '+(voice.recording?'dictating':'')} aria-label={voice.busy?'Transcribing audio':voice.recording?'Stop recording':'Dictate'} disabled={voice.busy} onClick={dictate}><Mic size={17}/></button>{running?<>{(text.trim()||attachments.length>0)&&<button className="send-button" aria-label="Queue message" onClick={onSend}><ArrowUp size={18}/></button>}<button className="send-button stop" aria-label="Stop generation" onClick={onCancel}><Square size={15} fill="currentColor"/></button></>:<button className="send-button" aria-label="Send message" disabled={!text.trim()&&!attachments.length||!settings.model} onClick={onSend}><ArrowUp size={18}/></button>}</div></div></div>
+ </div><div className="composer-actions">{layout==='welcome'&&picker}<button className={'icon-button '+(voice.recording?'dictating':'')} aria-label={voice.busy?'Transcribing audio':voice.recording?'Stop recording':'Dictate'} disabled={voice.busy} onClick={dictate}>{voice.busy?<Loader2 size={17} className="spin"/>:<Mic size={17}/>}</button>{running?<>{(text.trim()||attachments.length>0)&&<button className="send-button" aria-label="Queue message" onClick={onSend}><ArrowUp size={18}/></button>}<button className="send-button stop" aria-label="Stop generation" onClick={onCancel}><Square size={15} fill="currentColor"/></button></>:<button className="send-button" aria-label="Send message" disabled={!text.trim()&&!attachments.length||!settings.model} onClick={onSend}><ArrowUp size={18}/></button>}</div></div></div>
 
 
 
