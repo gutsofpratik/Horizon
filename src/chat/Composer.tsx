@@ -1,3 +1,4 @@
+import {useVoiceInput} from './useVoiceInput';
 import {createPortal} from 'react-dom';
 import {useComposerPosition} from './menu-position';
 import {save} from '../app/api';
@@ -22,8 +23,8 @@ export function Composer({text,setText,onSend,running,onCancel,models,settings,o
 
  const [projectMenu,setProjectMenu]=useState(false);const [creatingProject,setCreatingProject]=useState(false);const [projectName,setProjectName]=useState('');const [projectBusy,setProjectBusy]=useState(false);
 
- const projectAnchor=useRef<HTMLButtonElement>(null);const projectPosition=useComposerPosition(projectAnchor.current,'projects',250);
- const menuAnchor=useRef<HTMLButtonElement>(null);const field=useRef<HTMLTextAreaElement>(null);const file=useRef<HTMLInputElement>(null);const [menu,setMenu]=useState(false);const [sketch,setSketch]=useState(false);const [dictating,setDictating]=useState(false);
+ const projectAnchor=useRef<HTMLButtonElement>(null);const projectPosition=useComposerPosition(projectAnchor.current,projectMenu?'projects-open':'projects-closed',250);
+ const menuAnchor=useRef<HTMLButtonElement>(null);const field=useRef<HTMLTextAreaElement>(null);const file=useRef<HTMLInputElement>(null);const [menu,setMenu]=useState(false);const [sketch,setSketch]=useState(false);const [unusedDictating,setUnusedDictating]=useState(false);
 
 
 
@@ -37,7 +38,8 @@ export function Composer({text,setText,onSend,running,onCancel,models,settings,o
 
  const mentions=useComposerMentions({text,setText,field,skills,tools,settings});
 
- const dictate=()=>{const Recognition=(window as any).SpeechRecognition??(window as any).webkitSpeechRecognition;if(!Recognition){onError?.('Dictation is not supported by this browser.');return;}const speech=new Recognition();speech.lang=settings.voiceLanguage??navigator.language;speech.interimResults=false;speech.onresult=(event:any)=>setText(text+' '+event.results[0][0].transcript);speech.onend=()=>setDictating(false);speech.onerror=()=>setDictating(false);speech.start();setDictating(true);};
+ const voice=useVoiceInput({settings,setText,onError});const dictate=()=>void voice.toggle();
+
 
 
 
@@ -73,7 +75,7 @@ export function Composer({text,setText,onSend,running,onCancel,models,settings,o
 
 
 
- </div><div className="composer-actions">{layout==='welcome'&&picker}<button className={'icon-button '+(dictating?'dictating':'')} aria-label="Dictate" onClick={dictate}><Mic size={17}/></button>{running?<>{(text.trim()||attachments.length>0)&&<button className="send-button" aria-label="Queue message" onClick={onSend}><ArrowUp size={18}/></button>}<button className="send-button stop" aria-label="Stop generation" onClick={onCancel}><Square size={15} fill="currentColor"/></button></>:<button className="send-button" aria-label="Send message" disabled={!text.trim()&&!attachments.length||!settings.model} onClick={onSend}><ArrowUp size={18}/></button>}</div></div></div>
+ </div><div className="composer-actions">{layout==='welcome'&&picker}<button className={'icon-button '+(voice.recording?'dictating':'')} aria-label={voice.busy?'Transcribing audio':voice.recording?'Stop recording':'Dictate'} disabled={voice.busy} onClick={dictate}><Mic size={17}/></button>{running?<>{(text.trim()||attachments.length>0)&&<button className="send-button" aria-label="Queue message" onClick={onSend}><ArrowUp size={18}/></button>}<button className="send-button stop" aria-label="Stop generation" onClick={onCancel}><Square size={15} fill="currentColor"/></button></>:<button className="send-button" aria-label="Send message" disabled={!text.trim()&&!attachments.length||!settings.model} onClick={onSend}><ArrowUp size={18}/></button>}</div></div></div>
 
 
 

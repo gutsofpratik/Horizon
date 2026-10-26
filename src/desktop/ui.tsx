@@ -6,3 +6,5 @@ export {ComputerControl} from './ComputerControl';
 export {ModelLibrary} from '../settings/ModelLibrary';
 export {ManagedModels} from '../settings/ManagedModels';
 export {RuntimePacks} from '../settings/RuntimePacks';
+
+export async function pickSpeechFolder(){const {invoke}=await import('@tauri-apps/api/core');return invoke<string>('model_pick',{format:'safetensors'});}

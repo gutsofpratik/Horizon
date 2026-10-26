@@ -18,3 +18,5 @@ import '@fontsource/dm-sans/400.css';import '@fontsource/dm-sans/500.css';import
 const controlOverlay=location.pathname.endsWith('/control-indicator');
 if(controlOverlay)document.documentElement.classList.add('computer-overlay-root');
 createRoot(document.getElementById('root')!).render(location.pathname==='/remote'?<RemoteSession/>:controlOverlay?<ComputerIndicator active nativeOverlay/>:<SessionGate><RuntimeReady><ProfileGate><App/></ProfileGate></RuntimeReady><Notifications/></SessionGate>);
+
+import './styles/ui-refinements.css';
