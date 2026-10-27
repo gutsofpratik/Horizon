@@ -22,6 +22,7 @@ export class NativeBroker {
  poll(token:string){this.authenticate(token);this.updated=Date.now();const batch=this.queue.splice(0);for(const command of batch){const pending=this.pending.get(command.id);if(pending)pending.dispatched=true;}return batch;}
  complete(token:string,id:string,result:{data?:any;error?:string}){
   this.authenticate(token);const pending=this.pending.get(id);if(!pending)throw new Error('Desktop command is not pending');if(!pending.dispatched)throw new Error('Desktop command was not dispatched');
+  if(!result||typeof result!=='object'||Array.isArray(result)||Object.hasOwn(result,'data')===Object.hasOwn(result,'error')||Object.hasOwn(result,'error')&&(typeof result.error!=='string'||!result.error.trim())||Object.hasOwn(result,'data')&&result.data===undefined)throw new Error('Desktop result must contain exactly one data value or a nonempty error string');
   this.pending.delete(id);pending.cleanup();if(result.error){const stale=/screenshot is stale|snapshot is stale|stale screen|screen_id.*stale/i.test(result.error);const terminal=/TERMINAL_EXITED|Terminal (?:process has exited|job has stopped)|pipe is being closed/i.test(result.error);pending.reject(new ToolError(stale?'STALE_ELEMENT_REFERENCE':terminal?'TERMINAL_EXITED':'NATIVE_TOOL_FAILED',stale?`${result.error}. Capture a fresh screenshot or browser snapshot, then retry with its new reference.`:result.error));}else pending.resolve(result.data);
  }
  request(name:string,args:any,owner:string,signal:AbortSignal){
