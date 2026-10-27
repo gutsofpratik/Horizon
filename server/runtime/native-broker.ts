@@ -19,7 +19,7 @@ export class NativeBroker {
  verify(token:string){this.authenticate(token);}
  poll(token:string){this.authenticate(token);this.updated=Date.now();const batch=this.queue.splice(0);for(const command of batch){const pending=this.pending.get(command.id);if(pending)pending.dispatched=true;}return batch;}
  complete(token:string,id:string,result:{data?:any;error?:string}){
-  this.authenticate(token);const pending=this.pending.get(id);if(!pending)throw new Error('Desktop command is not pending');
+  this.authenticate(token);const pending=this.pending.get(id);if(!pending)throw new Error('Desktop command is not pending');if(!pending.dispatched)throw new Error('Desktop command was not dispatched');
   this.pending.delete(id);pending.cleanup();if(result.error){const stale=/screenshot is stale|snapshot is stale|stale screen|screen_id.*stale/i.test(result.error);const terminal=/TERMINAL_EXITED|Terminal (?:process has exited|job has stopped)|pipe is being closed/i.test(result.error);pending.reject(new ToolError(stale?'STALE_ELEMENT_REFERENCE':terminal?'TERMINAL_EXITED':'NATIVE_TOOL_FAILED',stale?`${result.error}. Capture a fresh screenshot or browser snapshot, then retry with its new reference.`:result.error));}else pending.resolve(result.data);
  }
  request(name:string,args:any,owner:string,signal:AbortSignal){
