@@ -6,13 +6,13 @@ export async function* decodeRecords(body:ReadableStream<Uint8Array>,mode:'ndjso
  try{while(true){const {value,done}=await reader.read();pending+=done?decoder.decode():decoder.decode(value,{stream:true});pending=pending.replaceAll('\r\n','\n');if(pending.length>4*1024*1024)throw new Error('Model stream record is too large');const delimiter=mode==='sse'?'\n\n':'\n';let index;while((index=pending.indexOf(delimiter))>=0){const text=pending.slice(0,index);pending=pending.slice(index+delimiter.length);const record=parse(text);if(record)yield record;}if(done)break;}if(pending.trim()){const record=parse(pending);if(record)yield record;}}finally{await reader.cancel().catch(()=>{});reader.releaseLock();}
 }
 export async function* normalizeEvents(records:AsyncIterable<any>,provider:'ollama'|'openai'):AsyncGenerator<any>{
- const calls=new Map<number,{id:string;name:string;arguments:string;argumentError?:string}>();let finished=false;
+ const calls=new Map<number,{id:string;name:string;arguments:string;argumentError?:string}>();const ollamaCalls:any[]=[];let finished=false;
  for await(const record of records){
   if(record.error)throw new Error(typeof record.error==='string'?record.error:record.error.message??'Model request failed');
   if(provider==='ollama'){
    const message=record.message??{};if(message.content)yield {type:'content',text:message.content};if(message.thinking)yield {type:'reasoning',text:message.thinking};
-   for(const call of message.tool_calls??[]){yield {type:'tool_call',id:call.id??randomUUID(),name:call.function.name,...toolArguments(call.function.arguments)};}
-   if(record.done){finished=true;yield {type:'done',reason:record.done_reason,usage:{input:record.prompt_eval_count,output:record.eval_count,prompt_tokens:record.prompt_eval_count,completion_tokens:record.eval_count,duration:record.total_duration}};}
+   for(const call of message.tool_calls??[]){ollamaCalls.push({type:'tool_call',id:call.id??randomUUID(),name:call.function.name,...toolArguments(call.function.arguments)});}
+   if(record.done&&!finished){if(ollamaCalls.length&&record.done_reason&&record.done_reason!=='stop')throw new Error('Ollama tool generation did not complete: '+record.done_reason+'; no tool was executed');for(const call of ollamaCalls)yield call;finished=true;yield {type:'done',reason:record.done_reason,usage:{input:record.prompt_eval_count,output:record.eval_count,prompt_tokens:record.prompt_eval_count,completion_tokens:record.eval_count,duration:record.total_duration}};}
   }else{
    const choice=record.choices?.[0];const delta=choice?.delta??{};
    if(delta.openclaude_phase)yield {type:'model_status',phase:delta.openclaude_phase};
