@@ -30,8 +30,18 @@ def run(operation, path, args, output, record):
         if image.width * image.height > 25_000_000:
             raise ValueError('OCR image exceeds 25 megapixels')
         stream = io.BytesIO(); image.convert('RGB').save(stream, format='PNG')
-        result = subprocess.run([executable, 'stdin', 'stdout', '-l', language],
-                                input=stream.getvalue(), capture_output=True, timeout=15, check=True)
+        try:
+            result = subprocess.run([executable, 'stdin', 'stdout', '-l', language],
+                                    input=stream.getvalue(), capture_output=True, timeout=15, check=True)
+        except FileNotFoundError as error:
+            raise ValueError('OCR_RUNTIME_UNAVAILABLE: Tesseract is no longer available; repair the OCR installation') from error
+        except subprocess.TimeoutExpired as error:
+            raise ValueError('OCR_TIMEOUT: Recognition exceeded 15 seconds; retry a smaller image or fewer pages') from error
+        except subprocess.CalledProcessError as error:
+            detail = (error.stderr or b'').decode('utf-8', errors='replace')[-2000:]
+            if any(marker in detail.lower() for marker in ('failed loading language', 'error opening data file')):
+                raise ValueError('OCR_LANGUAGE_UNAVAILABLE: Check Tesseract language data for ' + language + '. ' + detail) from error
+            raise ValueError('OCR_FAILED: Tesseract could not recognize this input. ' + detail) from error
         text = result.stdout.decode('utf-8', errors='replace')
         pages.append({'page': number, 'text': text[:12000], 'truncated': len(text) > 12000})
     if path.suffix.lower() == '.pdf':
