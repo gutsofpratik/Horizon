@@ -3,7 +3,7 @@ use tauri::{Manager,Webview};
 
 pub fn allowed_navigation(url:&tauri::Url)->bool{
     let local=matches!(url.host_str(),Some("127.0.0.1"|"localhost"|"[::1]"|"::1"|"0.0.0.0"));
-    if local&&matches!(url.port_or_known_default(),Some(3001|5173)){
+    if local&&matches!(url.port_or_known_default(),Some(3001|5173|5174)){
         let ticket=url.path().strip_prefix("/browser-preview/").is_some_and(|value|value.len()==64&&value.chars().all(|c|c.is_ascii_hexdigit()));
         return ticket||url.path()=="/api/connectors/oauth/callback";
     }
@@ -71,5 +71,14 @@ pub fn configure(view:&Webview)->Result<(),String>{*view.app_handle().state::<su
     #[test]fn website_filename_cannot_disguise_its_extension_with_bidi_controls(){
         assert_eq!(download_name(Path::new("report\u{202e}exe.pdf")),"reportexe.pdf");
         assert_eq!(download_name(Path::new("...")),"download");
+    }
+}
+
+#[cfg(test)]mod navigation_contract_tests {
+    use super::*;
+    #[test]fn agent_browser_rejects_every_application_interface_port(){
+        for port in [3001,5173,5174]{let url=tauri::Url::parse(&format!("http://127.0.0.1:{port}/desktop/new")).unwrap();assert!(!allowed_navigation(&url),"Privileged interface admitted: {url}");}
+        let preview=tauri::Url::parse(&format!("http://127.0.0.1:3001/browser-preview/{}","a".repeat(64))).unwrap();assert!(allowed_navigation(&preview));
+        assert!(allowed_navigation(&tauri::Url::parse("https://example.com/").unwrap()));assert!(!allowed_navigation(&tauri::Url::parse("file:///C:/private.txt").unwrap()));
     }
 }
