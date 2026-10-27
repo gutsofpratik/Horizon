@@ -26,7 +26,8 @@
     "updates:sign": "node scripts/release/sign-update.mjs",
     "desktop:icons": "tauri icon src-tauri/icons/source.svg --output src-tauri/icons",
     "export:source": "node scripts/release/export-source.mjs",
-    "prepare:engine": "node scripts/prepare-engine-sources.mjs"
+    "prepare:engine": "node scripts/prepare-engine-sources.mjs",
+    "check:tool-scenarios": "tsx scripts/check-tool-scenarios.ts"
   },
   "dependencies": {
     "@aws-sdk/client-bedrock-runtime": "^3.1152.0",
