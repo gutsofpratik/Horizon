@@ -17,7 +17,7 @@ export class NativeBroker {
   if(this.token&&this.token!==token)this.dispose();
   this.token=token;this.updated=Date.now();this.capabilities=capabilities;
  }
- private authenticate(token:string){if(token.length!==this.token.length||!this.token||!timingSafeEqual(Buffer.from(token),Buffer.from(this.token)))throw new Error('Desktop authentication failed');}
+ private authenticate(token:string){if(!/^[a-f0-9]{64}$/.test(token)||!this.token||!timingSafeEqual(Buffer.from(token),Buffer.from(this.token)))throw new Error('Desktop authentication failed');}
  verify(token:string){this.authenticate(token);}
  poll(token:string){this.authenticate(token);this.updated=Date.now();const batch=this.queue.splice(0);for(const command of batch){const pending=this.pending.get(command.id);if(pending)pending.dispatched=true;}return batch;}
  complete(token:string,id:string,result:{data?:any;error?:string}){
