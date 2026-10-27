@@ -221,15 +221,16 @@ fn key(code: u16, up: bool) -> INPUT {
         },
     }
 }
-fn pointer(screen: &Screen, x: f64, y: f64) -> Result<(), String> {
+fn screen_coordinates(screen: &Screen, x: f64, y: f64) -> Result<(i32,i32), String> {
     if !(0.0..1280.0).contains(&x) || !(0.0..800.0).contains(&y) {
         return Err("Coordinates must refer to the returned 1280x800 screenshot".into());
     }
+    Ok((screen.x + (x * screen.width as f64 / 1280.0) as i32,screen.y + (y * screen.height as f64 / 800.0) as i32))
+}
+fn pointer(screen: &Screen, x: f64, y: f64) -> Result<(), String> {
+    let (x,y)=screen_coordinates(screen,x,y)?;
     unsafe {
-        if SetCursorPos(
-            screen.x + (x * screen.width as f64 / 1280.0) as i32,
-            screen.y + (y * screen.height as f64 / 800.0) as i32,
-        ) == 0
+        if SetCursorPos(x,y) == 0
         {
             return Err("Windows pointer movement failed".into());
         }
@@ -299,12 +300,7 @@ pub async fn computer_tool(
     let request = cancellations.begin(&request_id);
     request.check()?;
     if name!="computer_screenshot"&&view.state::<super::Desktop>().download_prompt.load(Ordering::Acquire){return Err("User download approval is pending. The agent cannot approve or interact with this save dialog.".into());}
-    if !state.enabled.load(Ordering::SeqCst) {
-        return Err("Enable Windows computer control in the desktop panel first".into());
-    }
-    if owner.is_empty() {
-        return Err("Computer tools require a conversation owner".into());
-    }
+    state.require_control(&owner)?;
     if matches!(name.as_str(), "computer_clipboard_read"|"computer_clipboard_write"|"computer_window_move"|"computer_window_resize"|"computer_window_close"|"computer_ui_tree"|"computer_ui_element_action") { return advanced::execute(&state,&name,&args,&owner,&request); }
     if name == "computer_screenshot" {
         let _desktop = DESKTOP_INPUT.lock().map_err(|_| "Desktop control lock is unavailable")?;
@@ -354,17 +350,7 @@ pub async fn computer_tool(
     }
     let _desktop = DESKTOP_INPUT.lock().map_err(|_| "Desktop control lock is unavailable")?;
     request.check()?;
-    let screen = state
-        .screens
-        .lock()
-        .unwrap()
-        .remove(&owner)
-        .ok_or("Capture a fresh screenshot before using computer input")?;
-    if args["screen_id"].as_str() != Some(&screen.id)
-        || screen.time.elapsed() > Duration::from_secs(60)
-    {
-        return Err("Screenshot is stale; capture the screen again".into());
-    }
+    let screen = state.take_screen(&owner,args["screen_id"].as_str())?;
     let indicator = super::control_indicator::ActiveIndicator::show(view.app_handle())?;
     if name=="computer_pointer" {
         let codes=args["modifiers"].as_array().map(|items|items.iter().map(|value|virtual_key(value.as_str().unwrap_or(""))).collect::<Result<Vec<_>,_>>()).transpose()?.unwrap_or_default();
@@ -492,4 +478,22 @@ pub async fn computer_tool(
     }
     drop(indicator);
     capture(&state, &owner)
+}
+
+impl Computer {
+    fn require_control(&self,owner:&str)->Result<(),String>{
+        if !self.enabled.load(Ordering::SeqCst){return Err("Enable Windows computer control in the desktop panel first".into());}
+        if owner.is_empty(){return Err("Computer tools require a conversation owner".into());}Ok(())
+    }
+    fn take_screen(&self,owner:&str,id:Option<&str>)->Result<Screen,String>{
+        let screen=self.screens.lock().unwrap().remove(owner).ok_or("Capture a fresh screenshot before using computer input")?;
+        if id!=Some(screen.id.as_str())||screen.time.elapsed()>Duration::from_secs(60){return Err("Screenshot is stale; capture the screen again".into());}Ok(screen)
+    }
+}
+#[cfg(test)]mod computer_contract_tests {
+    use super::*;
+    fn observed(time:Instant)->Screen{Screen{id:"fixture".into(),time,x:-1920,y:100,width:1920,height:1080}}
+    #[test]fn coordinates_validate_before_any_input_and_map_virtual_desktop(){let screen=observed(Instant::now());assert_eq!(screen_coordinates(&screen,0.0,0.0).unwrap(),(-1920,100));assert_eq!(screen_coordinates(&screen,640.0,400.0).unwrap(),(-960,640));for(x,y)in [(-1.0,0.0),(1280.0,0.0),(0.0,800.0),(f64::NAN,0.0),(0.0,f64::INFINITY)]{assert!(screen_coordinates(&screen,x,y).is_err());}}
+    #[test]fn observations_are_owner_scoped_fresh_and_single_use(){let state=Computer::default();state.screens.lock().unwrap().insert("owner".into(),observed(Instant::now()));assert!(state.take_screen("foreign",Some("fixture")).is_err());assert!(state.take_screen("owner",Some("fixture")).is_ok());assert!(state.take_screen("owner",Some("fixture")).is_err());state.screens.lock().unwrap().insert("owner".into(),observed(Instant::now()-Duration::from_secs(61)));assert!(state.take_screen("owner",Some("fixture")).err().unwrap().contains("stale"));state.screens.lock().unwrap().insert("owner".into(),observed(Instant::now()));assert!(state.take_screen("owner",Some("different")).is_err());}
+    #[test]fn revoked_grant_and_missing_owner_block_input(){let state=Computer::default();assert!(state.require_control("owner").is_ok());assert!(state.require_control("").is_err());state.enabled.store(false,Ordering::SeqCst);assert!(state.require_control("owner").is_err());}
 }

@@ -1,5 +1,5 @@
 use serde_json::{json,Value};
-use std::{path::PathBuf,sync::mpsc,time::{Duration,SystemTime,UNIX_EPOCH}};
+use std::{path::{Path,PathBuf},sync::mpsc,time::{Duration,SystemTime,UNIX_EPOCH}};
 use tauri::{Manager,State,Webview};
 use windows_core::{Interface,PCWSTR};
 use webview2_com::{Microsoft::Web::WebView2::Win32::*,CallDevToolsProtocolMethodCompletedHandler,ProfileGetBrowserExtensionsCompletedHandler,ProfileAddBrowserExtensionCompletedHandler,BrowserExtensionRemoveCompletedHandler,ClearBrowsingDataCompletedHandler,take_pwstr};
@@ -9,6 +9,9 @@ fn timestamp()->u64{SystemTime::now().duration_since(UNIX_EPOCH).unwrap_or_defau
 fn data_file(app:&tauri::AppHandle)->Result<PathBuf,String>{Ok(app.path().app_local_data_dir().map_err(|e|e.to_string())?.join("browser-data.json"))}
 fn access<T>(app:&tauri::AppHandle,edit:bool,f:impl FnOnce(&mut Value)->T)->Result<T,String>{
  let state=app.state::<super::Desktop>();let mut data=state.browser_data.lock().unwrap();let path=data_file(app)?;
+ access_data(&mut data,&path,edit,f)
+}
+fn access_data<T>(data:&mut BrowserData,path:&Path,edit:bool,f:impl FnOnce(&mut Value)->T)->Result<T,String>{
  if !data.loaded{data.value=std::fs::read(&path).ok().and_then(|bytes|serde_json::from_slice(&bytes).ok()).unwrap_or_else(||json!({"history":[],"downloads":[],"preferences":{"passwords":true,"autofill":true}}));if !data.value.is_object(){data.value=json!({});}for key in ["history","downloads"]{if !data.value[key].is_array(){data.value[key]=json!([]);}}if !data.value["preferences"].is_object(){data.value["preferences"]=json!({"passwords":true,"autofill":true});}data.loaded=true;}
  let result=f(&mut data.value);
  if edit{std::fs::create_dir_all(path.parent().unwrap()).map_err(|e|e.to_string())?;let temporary=path.with_extension("tmp");std::fs::write(&temporary,serde_json::to_vec(&data.value).map_err(|e|e.to_string())?).map_err(|e|e.to_string())?;std::fs::rename(temporary,path).map_err(|e|e.to_string())?;}
@@ -89,4 +92,16 @@ pub async fn browser_manage(view:Webview,app:tauri::AppHandle,state:State<'_,sup
   access(&app,true,|data|{if kind=="history"||kind=="all"{data["history"]=json!([]);}if kind=="downloads"||kind=="all"{data["downloads"]=json!([]);}})?;return Ok(json!({"cleared":kind}));
  }
  Err("Unsupported browser management action".into())
+}
+
+#[cfg(test)]mod browser_data_contract_tests {
+ use super::*;
+ #[test]fn preferences_history_and_downloads_persist_and_clear_in_their_own_profile(){
+  let root=std::env::temp_dir().join(format!("horizon-browser-state-{}",uuid::Uuid::new_v4()));let path=root.join("one/browser-data.json");let other=root.join("two/browser-data.json");
+  let mut first=BrowserData::default();access_data(&mut first,&path,true,|data|{data["preferences"]=json!({"passwords":false,"autofill":true});data["history"]=json!([{"url":"https://example.invalid/fixture"}]);data["downloads"]=json!([{"status":"cancelled","url":"https://example.invalid/file"}]);}).unwrap();
+  let mut reopened=BrowserData::default();let saved=access_data(&mut reopened,&path,false,|data|data.clone()).unwrap();assert_eq!(saved["history"].as_array().unwrap().len(),1);assert_eq!(saved["downloads"][0]["status"],"cancelled");assert_eq!(saved["preferences"]["passwords"],false);
+  let mut separate=BrowserData::default();assert_eq!(access_data(&mut separate,&other,false,|data|data["history"].as_array().unwrap().len()).unwrap(),0);
+  access_data(&mut reopened,&path,true,|data|data["history"]=json!([])).unwrap();let mut last=BrowserData::default();let cleared=access_data(&mut last,&path,false,|data|data.clone()).unwrap();assert!(cleared["history"].as_array().unwrap().is_empty());assert_eq!(cleared["downloads"].as_array().unwrap().len(),1);assert_eq!(cleared["preferences"]["passwords"],false);
+  std::fs::remove_dir_all(root).unwrap();
+ }
 }

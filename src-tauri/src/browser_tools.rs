@@ -7,7 +7,8 @@ use base64::{engine::general_purpose::STANDARD,Engine};
 pub struct BrowserTools {
     tabs: Mutex<HashMap<String, String>>,
 }
-impl BrowserTools {pub fn own(&self,id:&str,owner:&str){self.tabs.lock().unwrap().insert(id.into(),owner.into());}}
+impl BrowserTools {pub fn own(&self,id:&str,owner:&str){self.tabs.lock().unwrap().insert(id.into(),owner.into());}
+fn require_owner(&self,id:&str,owner:&str)->Result<(),String>{if self.tabs.lock().unwrap().get(id).map(String::as_str)!=Some(owner){return Err("Browser tab is not owned by this conversation".into());}Ok(())}}
 pub(super) async fn evaluate(window: tauri::Webview, script: String) -> Result<Value, String> {
     let (sender, receiver) = std::sync::mpsc::channel();
     window
@@ -66,9 +67,7 @@ pub async fn browser_tool(
         let action = args["action"].as_str().unwrap_or("list");
         let id = args["tab_id"].as_str().unwrap_or("");
         if action != "list" {
-            if state.tabs.lock().unwrap().get(id) != Some(&owner) {
-                return Err("Browser tab is not owned by this conversation".into());
-            }
+            state.require_owner(id,&owner)?;
             let window = app.get_webview(id).ok_or("Browser tab was closed")?;
             match action {
                 "close" => {
@@ -100,9 +99,7 @@ pub async fn browser_tool(
             return Err("Use HTTP(S) URLs without credentials".into());
         }
         if let Some(id) = args["tab_id"].as_str() {
-            if state.tabs.lock().unwrap().get(id) != Some(&owner) {
-                return Err("Browser tab is not owned by this conversation".into());
-            }
+            state.require_owner(id,&owner)?;
             desktop.browser_loaded.lock().unwrap().insert(id.into(),false);
             app.get_webview(id)
                 .ok_or("Browser tab was closed")?
@@ -122,9 +119,7 @@ pub async fn browser_tool(
             .ok_or("Browser tab ID is required")?
             .to_string()
     };
-    if state.tabs.lock().unwrap().get(&id) != Some(&owner) {
-        return Err("Browser tab is not owned by this conversation".into());
-    }
+    state.require_owner(&id,&owner)?;
     if let Some(previous)=desktop.browser.lock().unwrap().clone(){if previous!=id{if let Some(old)=app.get_webview(&previous){let _=old.hide();}}}
     *desktop.browser.lock().unwrap() = Some(id.clone());
     let window = app
@@ -227,3 +222,5 @@ pub async fn browser_tool(
     Ok(result)
 }
 
+
+#[cfg(test)]mod browser_contract_tests{use super::*;#[test]fn tabs_are_rejected_before_access_when_foreign_or_closed(){let state=BrowserTools::default();state.own("tab-a","owner-a");state.own("tab-b","owner-b");assert!(state.require_owner("tab-a","owner-a").is_ok());assert!(state.require_owner("tab-a","owner-b").is_err());assert!(state.require_owner("main","owner-a").is_err());state.tabs.lock().unwrap().remove("tab-a");assert!(state.require_owner("tab-a","owner-a").is_err());assert!(state.require_owner("tab-b","owner-b").is_ok());}}

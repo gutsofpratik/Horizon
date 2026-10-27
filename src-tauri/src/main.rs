@@ -155,6 +155,9 @@ fn terminal_open(
     encoded_command: Option<String>,
 ) -> Result<serde_json::Value, String> {
     trusted(&view)?;
+    terminal_open_core(&state, workspace_id, cwd, encoded_command)
+}
+fn terminal_open_core(state: &Desktop, workspace_id: String, cwd: Option<String>, encoded_command: Option<String>) -> Result<serde_json::Value, String> {
     let path = state
         .workspaces
         .lock()
@@ -266,6 +269,9 @@ fn terminal_read(
     offset: usize,
 ) -> Result<serde_json::Value, String> {
     trusted(&view)?;
+    terminal_read_core(&state, id, offset)
+}
+fn terminal_read_core(state: &Desktop, id: String, offset: usize) -> Result<serde_json::Value, String> {
     let mut sessions = state.terminals.lock().unwrap();
     let terminal = sessions.get_mut(&id).ok_or("Terminal session not found")?;
     let exit = terminal.child.try_wait().map_err(|e| e.to_string())?;
@@ -290,6 +296,9 @@ fn terminal_write(
     text: String,
 ) -> Result<(), String> {
     trusted(&view)?;
+    terminal_write_core(&state, id, text)
+}
+fn terminal_write_core(state: &Desktop, id: String, text: String) -> Result<(), String> {
     if text.len() > 65536 {
         return Err("Terminal input exceeds limit".into());
     }
@@ -314,6 +323,9 @@ fn terminal_resize(
     rows: u16,
 ) -> Result<(), String> {
     trusted(&view)?;
+    terminal_resize_core(&state, id, cols, rows)
+}
+fn terminal_resize_core(state: &Desktop, id: String, cols: u16, rows: u16) -> Result<(), String> {
     if cols < 2 || cols > 500 || rows < 2 || rows > 200 {
         return Err("Invalid terminal dimensions".into());
     }
@@ -339,6 +351,9 @@ fn terminal_resize(
 #[tauri::command]
 fn terminal_close(view: Webview, state: State<'_, Desktop>, id: String) -> Result<(), String> {
     trusted(&view)?;
+    terminal_close_core(&state, id)
+}
+fn terminal_close_core(state: &Desktop, id: String) -> Result<(), String> {
     if let Some(mut terminal) = state.terminals.lock().unwrap().remove(&id) {
         terminal.stop()?;
     }
@@ -643,3 +658,65 @@ fn main() {
 
 
 
+
+#[cfg(test)]
+mod native_contract_tests {
+    use super::*;
+    use base64::{engine::general_purpose::STANDARD, Engine};
+    use std::{fs,time::{Duration,Instant}};
+    fn workspace() -> (Desktop, String, PathBuf) {
+        let root=std::env::temp_dir().join(format!("horizon-pty-contract-{}",Uuid::new_v4()));
+        fs::create_dir(&root).unwrap();let root=root.canonicalize().unwrap();
+        let state=Desktop::default();let id=Uuid::new_v4().to_string();
+        state.workspaces.lock().unwrap().insert(id.clone(),root.clone());(state,id,root)
+    }
+    fn wait_for_exit(state:&Desktop,id:&str)->serde_json::Value {
+        let deadline=Instant::now()+Duration::from_secs(20);
+        loop {let result=terminal_read_core(state,id.into(),0).unwrap();
+            if result["status"]=="exited" {return result;}
+            assert!(Instant::now()<deadline,"Owned PTY did not drain: {result}");
+            std::thread::sleep(Duration::from_millis(25));
+        }
+    }
+    #[test]
+    fn native_pty_lifecycle_reads_real_output_and_retains_exit_status() {
+        let (state,workspace,root)=workspace();
+        let opened=terminal_open_core(&state,workspace,None,None).unwrap();let id=opened["id"].as_str().unwrap();
+        assert!(opened["pid"].as_u64().is_some());
+        assert!(terminal_resize_core(&state,id.into(),1,24).is_err());
+        terminal_resize_core(&state,id.into(),110,32).unwrap();
+        #[cfg(windows)]let input="Write-Output 'HORIZON_REAL_PTY_MARKER'; exit 7\r";
+        #[cfg(not(windows))]let input="printf 'HORIZON_REAL_PTY_MARKER\\n'; exit 7\n";
+        terminal_write_core(&state,id.into(),input.into()).unwrap();
+        let result=wait_for_exit(&state,id);assert_eq!(result["exitCode"],7);
+        assert!(result["output"].as_str().unwrap().contains("HORIZON_REAL_PTY_MARKER"));
+        let offset=result["nextOffset"].as_u64().unwrap() as usize;
+        assert_eq!(terminal_read_core(&state,id.into(),offset).unwrap()["output"],"");
+        assert!(terminal_write_core(&state,id.into(),"must not execute".into()).unwrap_err().contains("TERMINAL_EXITED"));
+        terminal_resize_core(&state,id.into(),90,24).unwrap();
+        terminal_close_core(&state,id.into()).unwrap();assert!(state.terminals.lock().unwrap().is_empty());
+        drop(state);fs::remove_dir_all(root).unwrap();
+    }
+    #[test]
+    fn native_pty_workspace_guard_and_cancel_leave_other_owned_session_alive() {
+        let (state,workspace,root)=workspace();
+        assert!(terminal_open_core(&state,"ungranted".into(),None,None).is_err());
+        assert!(terminal_open_core(&state,workspace.clone(),Some("..".into()),None).unwrap_err().contains("outside"));
+        let first=terminal_open_core(&state,workspace.clone(),None,None).unwrap();
+        let second=terminal_open_core(&state,workspace,None,None).unwrap();
+        let a=first["id"].as_str().unwrap();let b=second["id"].as_str().unwrap();
+        terminal_close_core(&state,a.into()).unwrap();
+        assert!(terminal_read_core(&state,a.into(),0).is_err());
+        assert_eq!(terminal_read_core(&state,b.into(),0).unwrap()["status"],"running");
+        terminal_close_core(&state,b.into()).unwrap();drop(state);fs::remove_dir_all(root).unwrap();
+    }
+    #[test]
+    fn native_encoded_command_exits_with_real_status() {
+        let (state,workspace,root)=workspace();
+        #[cfg(windows)]let bytes:Vec<u8>="Write-Output 'HORIZON_ENCODED_MARKER'; exit 3".encode_utf16().flat_map(u16::to_le_bytes).collect();
+        #[cfg(not(windows))]let bytes=b"printf 'HORIZON_ENCODED_MARKER\\n'; exit 3".to_vec();
+        let result=terminal_open_core(&state,workspace,None,Some(STANDARD.encode(bytes))).unwrap();let id=result["id"].as_str().unwrap();
+        let read=wait_for_exit(&state,id);assert_eq!(read["exitCode"],3);assert!(read["output"].as_str().unwrap().contains("HORIZON_ENCODED_MARKER"));
+        terminal_close_core(&state,id.into()).unwrap();drop(state);fs::remove_dir_all(root).unwrap();
+    }
+}
