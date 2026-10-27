@@ -21,6 +21,17 @@ export class DocumentRuntime {
   if(this.stopped)throw fail('CANCELLED','Document runtime is shutting down');if(this.ready)return;if(this.setup)return this.setup;
   this.setup=this.install().catch(error=>{this.status='failed';this.error=(error as Error).message;throw error;}).finally(()=>{this.setup=undefined;});return this.setup;
  }
+ private async waitForSetup(signal:AbortSignal){
+  if(signal.aborted)throw fail('CANCELLED','Document operation cancelled');
+  await new Promise<void>((resolveSetup,reject)=>{
+   let settled=false;
+   const finish=(error?:unknown)=>{if(settled)return;settled=true;signal.removeEventListener('abort',abort);if(error!==undefined)reject(error);else resolveSetup();};
+   const abort=()=>finish(fail('CANCELLED','Document operation cancelled'));
+   signal.addEventListener('abort',abort,{once:true});
+   this.prepare().then(()=>finish(),finish);
+   if(signal.aborted)abort();
+  });
+ }
  private async install(){
   this.status='installing';this.error='';
   const probe='import reportlab,pypdf,pandas,matplotlib,PIL,pypdfium2; print("ready")';
@@ -54,9 +65,10 @@ export class DocumentRuntime {
   const officeRequest=officeDocumentOperations.has(operation)||(operation==='document_create'&&input.format==='docx')||(operation==='document_extract'&&/\.(docx|xlsx|pptx)$/i.test(source?.absolutePath??input.file_path??''));
   if(officeRequest){const office=this.app.ephemeral.get('officeRuntime') as OfficeRuntime|undefined;if(!office)throw fail('OFFICE_RUNTIME_MISSING','OfficeCLI runtime is required for Word, Excel and PowerPoint operations');return office.request(operation,input,ctx);}
   if(!localDocumentOperations.has(operation))throw fail('DOCUMENT_OPERATION_UNSUPPORTED','The local document worker does not execute arbitrary scripts or shell commands');
+  if(ctx.signal.aborted)throw fail('CANCELLED','Document operation cancelled');
   if(this.active>=2)throw fail('DOCUMENT_WORKER_BUSY','Two document jobs are running. Wait for them to finish before starting another.');this.active++;
   try{
-   ctx.emit('model.status',{messageId:ctx.messageId,phase:'working'});await this.prepare();if(ctx.signal.aborted)throw fail('CANCELLED','Document operation cancelled');
+   ctx.emit('model.status',{messageId:ctx.messageId,phase:'working'});await this.waitForSetup(ctx.signal);if(ctx.signal.aborted)throw fail('CANCELLED','Document operation cancelled');
    const root=resolve(workspaceRoot(ctx));await mkdir(root,{recursive:true});let args={...input};const fileId=args.file_id??args.data_file_id;
    if(fileId){const file=fileInContext(ctx,fileId);const path=relative(root,file.absolutePath);await safePath(root,path);args.file_path=path;}
    if(args.file_path)await safePath(root,args.file_path);
