@@ -27,6 +27,7 @@ if(!process.argv.includes('--skip-build')){
  const nativeBuild=join(process.env.PUBLIC??'C:/Users/Public','HorizonReleaseBuild-'+version);await mkdir(join(nativeBuild,'src-tauri'),{recursive:true});
  for(const file of ['src','capabilities','permissions','icons','Cargo.toml','Cargo.lock','build.rs','tauri.conf.json'])await cp(join(root,'src-tauri',file),join(nativeBuild,'src-tauri',file),{recursive:true});
  await cp(join(root,'dist-desktop'),join(nativeBuild,'dist-desktop'),{recursive:true});
+ await mkdir(join(nativeBuild,'public'),{recursive:true});await cp(join(root,'public/horizon-startup.html'),join(nativeBuild,'public/horizon-startup.html'));
  // These page adapters are compile-time include_str! inputs, not just backend assets.
  await mkdir(join(nativeBuild,'runtime/worker'),{recursive:true});
  for(const file of ['page-diagnostics.js','page-advanced.js'])await cp(join(root,'runtime/worker',file),join(nativeBuild,'runtime/worker',file));
