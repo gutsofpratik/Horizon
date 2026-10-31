@@ -13,7 +13,7 @@ const query={...base,sql:z.string().min(1).max(30000),parameters:z.array(value).
 // Run SQLite out of process so expensive recursive queries cannot block the server.
 const worker=String.raw`
 const {DatabaseSync}=require('node:sqlite');
-const a=JSON.parse(process.argv[1]),db=new DatabaseSync(a.path,{readOnly:!a.write,allowExtension:false});
+const a=JSON.parse(require('node:fs').readFileSync(0,'utf8')),db=new DatabaseSync(a.path,{readOnly:!a.write,allowExtension:false});
 try {
  db.exec('PRAGMA busy_timeout=1500; PRAGMA trusted_schema=OFF;');
  if(!a.write)db.exec('PRAGMA query_only=ON');
@@ -42,7 +42,7 @@ async function execute(ctx:ToolContext,args:any,write=false){
  if(write&&(ctx.executionDepth??0)===0&&needsApproval('database_execute',ctx.approvalMode??ctx.app.store.get('settings','main')?.approvalMode??'ask',args))await requestApproval('database_execute',args,ctx);
  // Recheck symlinks after approval, before opening the file.
  await safePath(workspaceRoot(ctx),args.path);
- try{const result=await run(process.execPath,['--no-warnings','-e',worker,JSON.stringify({...args,path,write,limit:args.limit??100})],{timeout:8000,maxBuffer:400000,signal:ctx.signal});const data=JSON.parse(result.stdout);if(write){try{return {...data,files:[await registerFile(ctx.app,path,projectKey(ctx),'application/vnd.sqlite3')]};}catch(error){return {...data,file_registration_error:(error as Error).message,summary:'The database mutation committed. File registration failed; inspect the database rather than repeating the mutation.'};}}return data;}
+ try{const pending=run(process.execPath,['--no-warnings','-e',worker],{timeout:8000,maxBuffer:400000,signal:ctx.signal,windowsHide:true});pending.child.stdin!.on('error',()=>{});pending.child.stdin!.end(JSON.stringify({...args,path,write,limit:args.limit??100}));const result=await pending;const data=JSON.parse(result.stdout);if(write){try{return {...data,files:[await registerFile(ctx.app,path,projectKey(ctx),'application/vnd.sqlite3')]};}catch(error){return {...data,file_registration_error:(error as Error).message,summary:'The database mutation committed. File registration failed; inspect the database rather than repeating the mutation.'};}}return data;}
  catch(error){if(write&&((error as any).killed||(error as any).signal||ctx.signal.aborted||error instanceof SyntaxError))throw new ToolError('OUTCOME_UNKNOWN','Database execution was interrupted after dispatch. Inspect its current rows/schema before retrying; the mutation may have committed.');throw new ToolError('DATABASE_FAILED',String((error as any).stderr||(error as Error).message).slice(0,2000));}
 }
 export function registerDatabaseTools(registry:ToolRegistry){
