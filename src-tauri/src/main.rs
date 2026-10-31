@@ -102,14 +102,20 @@ fn trusted(view: &Webview) -> Result<(), String> {
     }
     Ok(())
 }
+fn resolve_workspace_path(root:PathBuf,scope:&str,path:Option<PathBuf>)->Result<PathBuf,String>{
+    // Agent dispatch supplies the backend-owned workspace. A native default must
+    // not silently replace it with a different folder under the installation.
+    if let Some(path)=path {if !path.is_absolute(){return Err("Bound workspace must be absolute".into());}return Ok(path);}
+    Ok(if scope=="default"{root}else{root.join(".local").join("workspaces").join(scope)})
+}
 #[tauri::command]
-fn workspace_current(view: Webview,state: State<'_, Desktop>,scope:Option<String>) -> Result<Workspace,String>{
+fn workspace_current(view: Webview,state: State<'_, Desktop>,scope:Option<String>,path:Option<String>) -> Result<Workspace,String>{
     trusted(&view)?;
     let scope=scope.unwrap_or_else(||"default".into());
     if scope.is_empty()||scope.len()>150||!scope.chars().all(|value|value.is_ascii_alphanumeric()||"-_".contains(value)){return Err("Invalid workspace scope".into());}
     let mut root=std::env::var_os("OPENCLAUDE_WORKSPACE_ROOT").map(PathBuf::from).unwrap_or(std::env::current_dir().map_err(|error|error.to_string())?);
     if root.file_name().and_then(|value|value.to_str())==Some("src-tauri")&&root.join("Cargo.toml").exists(){root=root.parent().ok_or("Workspace parent is unavailable")?.to_path_buf();}
-    let path=if scope=="default"{root}else{root.join(".local").join("workspaces").join(&scope)};
+    let path=resolve_workspace_path(root,&scope,path.map(PathBuf::from))?;
     std::fs::create_dir_all(&path).map_err(|error|error.to_string())?;
     let path=path.canonicalize().map_err(|error|error.to_string())?;
     let id=format!("current-{}",scope);
@@ -611,16 +617,31 @@ fn host_credential(view:Webview,state:State<'_,backend::Backend>)->Result<String
 fn profile_restart(view:Webview,app:tauri::AppHandle,state:State<'_,backend::Backend>)->Result<(),String>{trusted(&view)?;state.stop();app.restart()}
 fn main() {
     let app=tauri::Builder::default()
+        .on_page_load(|view,payload|{
+            if view.label()=="main"&&matches!(payload.event(),tauri::webview::PageLoadEvent::Finished)&&payload.url().as_str()=="about:blank"{
+                let markup=serde_json::to_string(include_str!("../../public/horizon-startup.html")).unwrap();
+                let _=view.eval(format!("if(location.href==='about:blank'&&!document.getElementById('startup-status')){{document.open();document.write({markup});document.close();}}"));
+            }
+        })
         .manage(Desktop::default())
         .manage(background::Background::default())
         .manage(browser_tools::BrowserTools::default())
         .manage(computer::Computer::default())
         .setup(|app| {
             let resource=app.path().resource_dir().ok().map(|root|root.join("backend"));
-            let backend=backend::Backend::start(resource).map_err(std::io::Error::other)?;
-            app.manage(backend);
-            if let Some(window)=app.get_webview_window("main"){window.navigate(tauri::Url::parse("http://127.0.0.1:3001/desktop/new")?)?;}
-            if let Err(error)=background::prepare(app.handle()){eprintln!("System tray unavailable: {error}");} if let Err(error) = control_indicator::prepare(app.handle()) { eprintln!("Computer control indicator could not initialize: {error}"); } Ok(()) })
+            let handle=app.handle().clone();
+            tauri::async_runtime::spawn(async move {
+                let result=tauri::async_runtime::spawn_blocking(move||{
+                    let started=std::time::Instant::now();let backend=backend::Backend::start(resource);
+                    if let Some(remaining)=std::time::Duration::from_secs(1).checked_sub(started.elapsed()){std::thread::sleep(remaining);}
+                    backend
+                }).await;
+                match result {
+                    Ok(Ok(backend))=>{handle.manage(backend);if let Err(error)=control_indicator::prepare(&handle){eprintln!("Computer control indicator could not initialize: {error}");}if let Some(window)=handle.get_webview_window("main"){let _=browser_security::configure_interface(&window.as_ref());let _=window.navigate(tauri::Url::parse("http://127.0.0.1:3001/desktop/new").unwrap());}}
+                    error=>{if let Some(window)=handle.get_webview_window("main"){let message=match error{Ok(Err(message))=>message,Err(error)=>error.to_string(),_=>String::new()};let encoded=serde_json::to_string(&message).unwrap_or_else(|_|"\"Restart Horizon to reconnect.\"".into());let _=window.eval(format!("document.getElementById('startup-status').textContent={encoded};"));}}
+                }
+            });
+            if let Err(error)=background::prepare(app.handle()){eprintln!("System tray unavailable: {error}");} Ok(()) })
         .manage(cancellation::Cancellation::default())
         .invoke_handler(tauri::generate_handler![
             host_credential,
@@ -653,7 +674,7 @@ fn main() {
         ])
         .build(tauri::generate_context!())
         .expect("Native desktop runtime failed");
-    app.run(|app,event|{if let tauri::RunEvent::WindowEvent { label, event: tauri::WindowEvent::CloseRequested { api, .. }, .. } = &event { if label == "main" { if app.state::<background::Background>().enabled.load(std::sync::atomic::Ordering::SeqCst) && app.state::<background::Background>().ready.load(std::sync::atomic::Ordering::SeqCst) { if let Some(window)=app.get_webview_window("main") { if window.hide().is_ok(){api.prevent_close();} } } else { app.exit(0); } } } if matches!(event,tauri::RunEvent::Exit){if let Err(error)=updater::install_on_exit(app){eprintln!("Update installation not scheduled: {error}");}app.state::<backend::Backend>().stop();}});
+    app.run(|app,event|{if let tauri::RunEvent::WindowEvent { label, event: tauri::WindowEvent::CloseRequested { api, .. }, .. } = &event { if label == "main" { if app.state::<background::Background>().enabled.load(std::sync::atomic::Ordering::SeqCst) && app.state::<background::Background>().ready.load(std::sync::atomic::Ordering::SeqCst) { if let Some(window)=app.get_webview_window("main") { if window.hide().is_ok(){api.prevent_close();} } } else { app.exit(0); } } } if matches!(event,tauri::RunEvent::Exit){if let Err(error)=updater::install_on_exit(app){eprintln!("Update installation not scheduled: {error}");}if let Some(backend)=app.try_state::<backend::Backend>(){backend.stop();}}});
 }
 
 
@@ -677,6 +698,14 @@ mod native_contract_tests {
             assert!(Instant::now()<deadline,"Owned PTY did not drain: {result}");
             std::thread::sleep(Duration::from_millis(25));
         }
+    }
+    #[test]
+    fn native_workspace_binding_uses_the_backend_directory() {
+        let root=std::env::temp_dir().join("horizon-native-root");
+        let backend=std::env::temp_dir().join("horizon-backend-owned");
+        assert_eq!(resolve_workspace_path(root.clone(),"chat",Some(backend.clone())).unwrap(),backend);
+        assert!(resolve_workspace_path(root.clone(),"chat",Some(PathBuf::from("relative"))).is_err());
+        assert_eq!(resolve_workspace_path(root.clone(),"default",None).unwrap(),root);
     }
     #[test]
     fn native_pty_lifecycle_reads_real_output_and_retains_exit_status() {
