@@ -5,7 +5,7 @@ export async function browserAdvanced(tab,name,args){
  if(name==='browser_run_script')args={...args,timeout_ms:args.timeout_ms??30000};
  // Resolve references into an ephemeral page map for the shared page-level driver.
  const key='__openclaude_worker_observation';if(name==='browser_scroll_to'){if(args.snapshot_id!==tab.snapshotId)throw Error('Snapshot is stale; inspect again');const element=tab.refs.get(args.ref);if(!element||!await element.evaluate(element=>element.isConnected))throw Error('Element is stale; inspect again');await element.scrollIntoViewIfNeeded();return {updated:true};}
- const expression=source.replace('__NAME__',JSON.stringify(name)).replace('__KEY__',JSON.stringify(key)).replace('__ARGS__',JSON.stringify(args));
+ const expression=source.replace('__NAME__',()=>JSON.stringify(name)).replace('__KEY__',()=>JSON.stringify(key)).replace('__ARGS__',()=>JSON.stringify(args));
  if(name!=='browser_run_script')return tab.page.evaluate(expression);
  const cdp=await tab.page.context().newCDPSession(tab.page),timeout=args.timeout_ms;let timer,timedOut=false,scriptException=false;
  try{const result=await Promise.race([cdp.send('Runtime.evaluate',{expression,awaitPromise:true,returnByValue:true,timeout}),new Promise((_,reject)=>{timer=setTimeout(()=>{timedOut=true;reject(Error('Page script timed out; inspect the page before retrying'));},timeout+100);})]);if(result.exceptionDetails){scriptException=true;const message=result.exceptionDetails.exception?.description??result.exceptionDetails.text;if(/^(?:(?:Error: )?Page script timed out\b|Script execution timed out\.?|Execution was terminated)/i.test(message))timedOut=true;throw Error(message);}return result.result?.value??null;}
