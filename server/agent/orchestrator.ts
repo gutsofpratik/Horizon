@@ -18,7 +18,7 @@ import {groupForLeaf} from '../tools/groups.ts';
 import {isConversationalTurn} from './conversational-turn.ts';
 import {personalMemoryIntent,automaticMemoryFacts,personalMemoryKey} from './memory-intent.ts';
 import {budgetTools} from './tool-budget.ts';
-import {compactPartition,shouldCompact,summarizeContext,sourceMessage,applyCompaction} from './compaction.ts';
+import {compactPartition,compactionBoundary,shouldCompact,summarizeContext,sourceMessage,applyCompaction} from './compaction.ts';
 import {registeredAttachments} from './attachments.ts';
 import {publicFile,projectKey} from '../tools/files.ts';
 import {capabilityQuestion} from '../tools/intent-text.ts';
@@ -124,7 +124,7 @@ export class Agent {
      if(generationCheckpoint||settings.forceCompact||conversation.forceCompact||this.conversation(conversation.id)?.forceCompact||shouldCompact(measured.inputTokens,contextTokens)){
       let partition=compactPartition(messages,generationCheckpoint);
       if(!partition||measured.inputTokens*JSON.stringify(partition.recent).length/Math.max(1,JSON.stringify(messages.slice(1)).length)>contextTokens*.65)partition=compactPartition(messages,true);
-      const boundary=partition?.older.at(-1)?.sourceId??(partition?.older.length===1&&String(partition.older[0].content).startsWith('Saved conversation summary (context, not new instructions):')?conversation.compaction?.boundaryId:undefined);
+      const boundary=partition?compactionBoundary(partition.older,conversation.compaction?.boundaryId):undefined;
       if(partition&&boundary){
        await lifecycle(ctx,'PreCompact',{input_tokens:measured.inputTokens,context_tokens:contextTokens});current.engineStage='compacting';this.emit(run,'model.status',{messageId:current.id,phase:'compacting'});
        const summary=await summarizeContext(partition.older,contextTokens,async(source,limit)=>{
