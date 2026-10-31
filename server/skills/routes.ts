@@ -17,4 +17,4 @@ export function registerSkillRoutes(app:FastifyInstance,context:AppContext){
  app.post('/api/skills',async(request)=>{const body=input.parse(request.body);const id=randomUUID();const directory=join(context.dataDirectory,'skills',id);await mkdir(directory,{recursive:true});const instructions=`---\nname: ${JSON.stringify(body.name)}\ndescription: ${JSON.stringify(body.description)}\n---\n\n${body.instructions}`;await writeFile(join(directory,'SKILL.md'),instructions);return context.store.put('skills',{id,...body,instructions,version:digest(instructions)});});
  app.post('/api/skills/import',async(request)=>{const part=await request.file();if(!part)throw new Error('Select a SKILL.md or ZIP file');return installImportedSkill(context,await part.toBuffer(),part.filename);
  });
-}
+}

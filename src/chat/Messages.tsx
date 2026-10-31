@@ -62,7 +62,7 @@ export function Messages({conversation,onRetry,onEdit,onFeedback,onBranch,activi
 
 function InlineActivity({activities}:any){return <div className="thinking-tools">
 
- 
+
 
  <div className="activity-steps">{groupedActivities(activities).map((group,groupIndex)=><details className="tool-family" key={groupIndex} open={group.name!=='Memory'&&group.items.some((item:any)=>!item.result)}><summary>{group.name==='Memory'?'Using memories':'Using '+group.name.toLowerCase()}<small>{group.items.length} {group.items.length===1?'action':'actions'}</small></summary>{group.items.map((item:any,index:number)=>{const args=item.arguments??{};const detail=args.query??args.url??item.result?.data?.query??item.result?.data?.url;const status=item.result?.status??(item.phase==='preparing'?'Preparing':'Running');return <div className="thinking-tool" key={item.callId??index}>
 
@@ -87,5 +87,3 @@ function ResponsePhase({message,activity,workingWithTools,activeToolName,artifac
   {!isUser&&(message.reasoning||activity||generating)&&<div className={`thinking-block ${generating?'thinking-live':''}`}><button aria-expanded={thinking} onClick={()=>setThinking(!thinking)}><span className={generating?'thinking-shimmer':''}>{phaseLabel}</span><ChevronDown size={14} className={thinking?'rotated':''}/></button>{thinking&&<div className="reasoning-content">{activity}{generating&&message.engineStage==='tool_arguments'&&message.generationProgress&&<p className="reasoning-caption" role="status">Preparing tool call · {message.generationProgress.characters.toLocaleString()} characters</p>}{message.reasoning&&<><p className="reasoning-caption">{message.reasoningMode==='summary'?'Model-generated approach summary.':'Reasoning returned by your selected model.'}</p><Markdown text={message.reasoning}/></>}{!message.reasoning&&!activity&&message.engineStage!=='prefill'&&<span className="muted">{phaseLabel}</span>}</div>}</div>}
 
  {artifactCards}{message.content&&<Markdown text={message.content}/>} {files}</div>;}
-
-
