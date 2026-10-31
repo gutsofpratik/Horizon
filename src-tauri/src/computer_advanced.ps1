@@ -14,7 +14,7 @@ $queue.Enqueue(@{element=$root;parent=$null})
 $nodes = [Collections.Generic.List[object]]::new()
 $timer = [Diagnostics.Stopwatch]::StartNew()
 $found = $null
-$limit = if ($a.operation -eq 'computer_ui_tree') { [Math]::Min(300,[Math]::Max(1,[int]$a.max_nodes)) } else { 300 }
+$limit = if ($a.operation -eq 'computer_ui_tree' -and $null -ne $a.max_nodes) { [Math]::Min(300,[Math]::Max(1,[int]$a.max_nodes)) } else { 300 }
 while ($queue.Count -gt 0 -and $nodes.Count -lt $limit -and $timer.ElapsedMilliseconds -lt 8000) {
  $item=$queue.Dequeue(); $e=$item.element; $c=$e.Current
  $id=($e.GetRuntimeId() -join '.')
