@@ -9,8 +9,10 @@ def automatic_context(raw,native,metadata,weight_bytes,available_bytes):
         except (ValueError,TypeError):return default
     layers=number('block_count',32);heads=max(1,number('attention.head_count',32));kv=max(1,number('attention.head_count_kv',heads))
     head=number('embedding_length',4096)//heads
+    key_length=number('attention.key_length',head)
+    value_length=number('attention.value_length',key_length)
     # F16 K and V is conservative even if quantized caches are selected.
-    per_token=max(1,layers*kv*head*4)
+    per_token=max(1,layers*kv*(key_length+value_length)*2)
     spare=max(0,available_bytes-weight_bytes-1024**3)
     fitted=int(spare//per_token)//256*256
     return max(minimum,min(native,fitted))
