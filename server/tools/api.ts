@@ -7,8 +7,8 @@ function checkSchema(value:any,depth=0,budget={nodes:0}){
  if(depth>16||++budget.nodes>300)throw new ToolError('SCHEMA_TOO_COMPLEX','Use a schema under 300 nodes and 16 levels');
  if(!value||typeof value!=='object')return;
  for(const key of ['$ref','$dynamicRef','pattern','patternProperties','format','uniqueItems'])if(Object.hasOwn(value,key))throw new ToolError('UNSUPPORTED_SCHEMA_KEYWORD',key+' is not supported by the bounded validator');
- for(const key of ['properties','$defs','definitions','dependentSchemas'])for(const item of Object.values(value[key]??{}))checkSchema(item,depth+1,budget);
- for(const key of ['items','additionalProperties','contains','not','if','then','else','propertyNames']){const item=value[key];if(Array.isArray(item))for(const child of item)checkSchema(child,depth+1,budget);else if(item&&typeof item==='object')checkSchema(item,depth+1,budget);}
+ for(const key of ['properties','$defs','definitions','dependentSchemas','dependencies'])for(const item of Object.values(value[key]??{}))checkSchema(item,depth+1,budget);
+ for(const key of ['items','additionalItems','additionalProperties','contains','not','if','then','else','propertyNames','unevaluatedItems','unevaluatedProperties','contentSchema']){const item=value[key];if(Array.isArray(item))for(const child of item)checkSchema(child,depth+1,budget);else if(item&&typeof item==='object')checkSchema(item,depth+1,budget);}
  for(const key of ['allOf','anyOf','oneOf','prefixItems'])if(Array.isArray(value[key]))for(const item of value[key])checkSchema(item,depth+1,budget);
 }
 export function registerApiTools(registry:ToolRegistry){
