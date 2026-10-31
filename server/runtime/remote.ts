@@ -12,7 +12,7 @@ const equal=(a:string,b:string)=>a.length===b.length&&timingSafeEqual(Buffer.fro
  * this module does not open a public listener or silently provision hosting. */
 export function registerRemoteRoutes(app:FastifyInstance,context:AppContext,registry:ToolRegistry){
  const pairings=new Map<string,any>();const agent=()=>context.ephemeral.get('agent');
- const authenticate=(request:any)=>{const token=String(request.headers.authorization??'').replace(/^Bearer /,'');if(!/^[a-f0-9]{64}$/.test(token))throw new Error('Remote authentication required');const record=context.store.list('remote_grants').find(item=>equal(item.tokenHash,hash(token)));if(!record||record.revoked||Date.parse(record.expiresAt)<Date.now())throw new Error('Remote grant is expired or revoked');return record;};
+ const authenticate=(request:any)=>{const token=String(request.headers.authorization??'').replace(/^Bearer /,'');if(!/^[a-f0-9]{64}$/.test(token))throw new Error('Remote authentication required');const digest=hash(token);const record=context.store.list('remote_grants').find(item=>typeof item.tokenHash==='string'&&equal(item.tokenHash,digest));if(!record||record.revoked||Date.parse(record.expiresAt)<Date.now())throw new Error('Remote grant is expired or revoked');return record;};
  const activeRun=(grant:any)=>{const chat=agent().conversation(grant.conversationId);if(!chat||chat.incognito)throw new Error('Granted conversation is unavailable');return chat.activeRunId;};
  // Management routes require the local UI origin; the remote bearer cannot create grants.
  const local=(request:any)=>{if(request.headers.authorization||request.headers['x-forwarded-for']||request.headers['x-forwarded-host'])throw new Error('Remote requests cannot manage pairing');};
