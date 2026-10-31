@@ -17,6 +17,7 @@ export const desktopReady=(async()=>{if('__TAURI_INTERNALS__' in window){const c
   browserManage:(action:string,args:any={})=>invoke('browser_manage',{action,args}),
   browserBounds:(bounds:{x:number;y:number;width:number;height:number})=>invoke('browser_bounds',bounds),
  };
- const saved=await fetch('/api/entities/settings/main').then(response=>response.json());if(saved.backgroundMode===true)await invoke('background_mode',{enabled:true}).catch(()=>{});
+ const saved=await fetch('/api/entities/settings/main',{signal:AbortSignal.timeout(5000)}).then(response=>response.ok?response.json():null).catch(()=>null);if(saved?.backgroundMode!==false)await invoke('background_mode',{enabled:true}).catch(()=>{});
  startDesktopAgent();
 }})();
+
