@@ -19,7 +19,8 @@ pub fn install_on_exit(app:&tauri::AppHandle)->Result<(),String>{
   let directory=exe.parent().ok_or("Installation directory missing")?;
   // Never overwrite a development checkout or unsupported portable host.
   if exe.file_name().and_then(|s|s.to_str())!=Some("Horizon.exe")||!directory.join("Uninstall.exe").is_file(){return Ok(());}
-  let value=prepare(&app.state::<super::backend::Backend>().credential())?;
+  let Some(backend)=app.try_state::<super::backend::Backend>() else { return Ok(()); };
+  let value=prepare(&backend.credential())?;
   if value["pending"]!=true{return Ok(());}
   let path=value["path"].as_str().ok_or("Missing installer")?;
   let hash=value["sha256"].as_str().ok_or("Missing installer hash")?;
