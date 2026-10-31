@@ -30,6 +30,7 @@ export class ConnectorManager {
  async save(body:any){
   const parsed=new URL(String(body.url));
   if(!['http:','https:'].includes(parsed.protocol)||parsed.username||parsed.password)throw new Error('Enter an HTTP or HTTPS MCP URL without embedded credentials');
+  if(parsed.protocol==='http:'&&!['localhost','127.0.0.1','[::1]'].includes(parsed.hostname))throw new Error('Use HTTPS for remote MCP servers; plain HTTP is allowed only for local servers');
   const name=String(body.name??'').trim();if(!name)throw new Error('Enter a connector name');
   const id=String(body.id??randomUUID()),old=this.app.store.get('mcp',id);
   const mode=['oauth','bearer','none'].includes(body.authMode)?body.authMode:'oauth';
