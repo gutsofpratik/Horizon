@@ -16,7 +16,7 @@ import {lifecycle} from '../runtime/hooks.ts';
 import {repositoryInstructions} from './instruction-sources.ts';
 import {groupForLeaf} from '../tools/groups.ts';
 import {isConversationalTurn} from './conversational-turn.ts';
-import {personalMemoryIntent,automaticMemoryFacts,personalMemoryKey} from './memory-intent.ts';
+import {explicitMemoryIntent,automaticMemoryFacts,personalMemoryKey} from './memory-intent.ts';
 import {budgetTools} from './tool-budget.ts';
 import {compactPartition,compactionBoundary,shouldCompact,summarizeContext,sourceMessage,applyCompaction} from './compaction.ts';
 import {registeredAttachments} from './attachments.ts';
@@ -184,7 +184,7 @@ export class Agent {
      const textCall=!/\b(example|explain|schema|tool format)\b/i.test(request)&&printedToolCall(current.content,this.tools.tools.keys());
      if(textCall&&correctedTextCall)throw new Error('The model printed tool-call JSON instead of executing a native tool. No operation was performed by the printed text.');
      if(textCall&&!correctedTextCall){correctedTextCall=true;messages.push({role:'assistant',content:current.content},{role:'system',content:'Execution feedback: The previous response printed tool-shaped JSON as text. No tool was executed. Continue the actual user task with a native function call using the supplied tools schema. Do not claim that the printed JSON loaded a skill or created an output.'});continue;}
-     const wantsMemory=personalMemoryIntent(request)&&!conversation.incognito&&conversation.useMemory!==false&&settings.memoryEnabled!==false;
+     const wantsMemory=explicitMemoryIntent(request)&&!settings.retryMessageId&&!settings.approvedPlanId&&!conversation.incognito&&conversation.useMemory!==false&&settings.memoryEnabled!==false;
      if(wantsMemory&&!memorySaved&&definitions.some(tool=>['memory_save','toolkit'].includes(tool.function.name))&&lastToolResult?.status!=='failed'){
       if(memoryCompletionChecks++>=1){current.content+='\n\nMemory was not saved. Your message remains in this chat history.';this.emit(run,'message.completed',{message:current});run.status='completed';break;}
       messages.push({role:'assistant',content:current.content},{role:'system',content:'Execution feedback: The user requested persistent memory but no memory_save or memory_update succeeded. Recover the exact user-provided fact from this conversation, search existing memories to avoid duplicates, then use memory_save or memory_update. Do not claim it is remembered until the actual save result succeeds. If the fact is ambiguous, use ask_user.'});continue;

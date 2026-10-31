@@ -21,7 +21,5 @@ export function personalMemoryKey(text:string){
  if(/^i(?: am|'m) (?:a )?(?:vegetarian|vegan)\b|^my diet is\b/i.test(text))return 'profile.diet';
  return undefined;
 }
-export function automaticMemoryFacts(text:string){
- const explicit=/\b(?:remember|save (?:this|my|that)|keep (?:this|my|that).{0,30}(?:mind|memory))\b/i.test(text);
- return personalMemoryFacts(text).filter(fact=>explicit||personalMemoryKey(fact));
-}
+export function explicitMemoryIntent(text:string){return personalMemoryIntent(text)&&/\b(?:remember|save (?:this|my|that)|keep (?:this|my|that).{0,30}(?:mind|memory))\b/i.test(text);}
+export function automaticMemoryFacts(text:string){return personalMemoryFacts(text).filter(fact=>explicitMemoryIntent(text)||personalMemoryKey(fact));}
