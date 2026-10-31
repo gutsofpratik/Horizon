@@ -174,7 +174,7 @@ class BatchedDecoder:
                 self.ctx.decode(self.batch)
                 for token,position,slot,_ in rows:self.active[slot]['evaluated'].append(token)
                 for job in list(self.active.values()):
-                    if job.get('prefill_boundary')==job['prompt_offset'] and not job['checkpoint_saved']:
+                    if job.get('prefill_boundary') and job['prefill_boundary']==job['prompt_offset'] and not job['checkpoint_saved']:
                         job['checkpoint_saved']=True;self.cache.capture(job['slot'],job['evaluated'],job['cache_scope'])
                         if job['remaining_boundaries']:job['prefill_boundary']=job['remaining_boundaries'].pop(0);job['checkpoint_saved']=False
                 for job in list(self.active.values()):self._prefill_progress(job)
