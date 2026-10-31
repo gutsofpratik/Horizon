@@ -3,7 +3,7 @@ import {useState} from 'react';
 import {Search} from 'lucide-react';
 const groups=[
  {name:'Personal',items:[['general','General','profile appearance theme font transcript motion notifications'],['memory','Memory','preferences tone responses remember history'],['privacy','Privacy and data','migration backup rollback export storage'],['focus','Time and focus','quiet hours reminders'],['reflect','Reflect','recaps statistics']]},
- {name:'Models and intelligence',items:[['models','Models','voice speech audio model files connections defaults'],['library','Model library','discover download hardware GGUF MLX'],['agents','Agents and assistants','external ACP workflows'],['tools','Capabilities','permissions tools enabled'],['inference','Inference sessions','loaded memory context eject']]},
+ {name:'Models and intelligence',items:[['models','Models','voice speech audio model files connections defaults'],['library','Model library','discover download hardware GGUF MLX'],['agents','Agents and assistants','external ACP workflows'],['tools','Capabilities','permissions tools enabled'],['search','Web search','provider brave tavily searxng api key'],['runtime','Runtime diagnostics','install packs engine execution'],['inference','Inference sessions','loaded memory context eject']]},
  {name:'Workspace',items:[['teams','Teams','members tasks coordination'],['automations','Automations','schedules channels queues webhooks'],['mcp','Connectors','connections MCP tools'],['remote','Remote control','devices pairing'],['api','API endpoints','local inference server keys'],['environments','Environments','execution sandbox workers'],['hooks','Lifecycle hooks','events automation']]},
  {name:'Horizon',items:[['about','About','version update installation release']]}
 ];
