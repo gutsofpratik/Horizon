@@ -16,7 +16,7 @@ import {lifecycle} from '../runtime/hooks.ts';
 import {repositoryInstructions} from './instruction-sources.ts';
 import {groupForLeaf} from '../tools/groups.ts';
 import {isConversationalTurn} from './conversational-turn.ts';
-import {personalMemoryIntent,personalMemoryFacts,personalMemoryKey} from './memory-intent.ts';
+import {personalMemoryIntent,automaticMemoryFacts,personalMemoryKey} from './memory-intent.ts';
 import {budgetTools} from './tool-budget.ts';
 import {compactPartition,shouldCompact,summarizeContext,sourceMessage,applyCompaction} from './compaction.ts';
 import {registeredAttachments} from './attachments.ts';
@@ -68,9 +68,9 @@ export class Agent {
   setTaskScope(ctx,continuationRequest(activeMessages(conversation),String(activeMessages(conversation).filter(message=>message.role==='user').at(-1)?.content??'')));if(settings.toolSelection?.mode==='none')ctx.toolsEnabled=false;if(settings.toolSelection?.mode==='specific'){const selected=settings.toolSelection.name;ctx.taskSelection=selected;setTaskScope(ctx,ctx.taskRequest??'');const essential=['toolkit','discover_tools','runtime_capabilities','ask_user','skills_list','skill_load'];ctx.enabledToolNames=ctx.enabledToolNames?ctx.enabledToolNames.filter(name=>name===selected||groupForLeaf(name)===selected||essential.includes(name)):[selected,...essential].filter(Boolean);settings.enabledToolNames=ctx.enabledToolNames;}let selectionSatisfied=false;const codingCompletion=new CodingCompletion(ctx.taskRequest??'',ctx.taskScope?.families.includes('code')??false,this.app.store.list('files').filter(file=>file.scope===projectKey(ctx)).map(file=>file.name));let codeCompletionChecks=0;const toolCircuit=new ToolCircuitBreaker();const invalidAttempts=new Map<string,number>();const invalidReasons=new Map<string,string>();let validationStreak=0;let recoveryExhausted=false;let current:any;let lastToolResult:any;let lastSave=Date.now();let correctedTextCall=false;let draftCompletionChecks=0;let outputCompletionChecks=0;let modeCompletionChecks=0;let modeToolUsed=false;let hasSavedDeliverable=false;let memorySaved=false;let questionAnswered=false;let memoryCompletionChecks=0;let capabilityChecked=false;let capabilityCheckNeeded=false;let capabilityCorrections=0;let repairNext=false;let protocolRepairs=0;let discoveryStreak=0;
   let autoMemoryNote='';
   const savePersonalFacts=async()=>{
-   if(!conversation.incognito&&conversation.useMemory!==false&&settings.memoryEnabled!==false){
+   if(!settings.retryMessageId&&!settings.approvedPlanId&&!conversation.incognito&&conversation.useMemory!==false&&settings.memoryEnabled!==false){
     const request=String(activeMessages(conversation).filter(message=>message.role==='user').at(-1)?.content??'');
-    const facts=personalMemoryFacts(request);const saved:string[]=[];
+    const facts=automaticMemoryFacts(request);const saved:string[]=[];
     for(const [index,text] of facts.entries()){
      const result=await this.tools.execute({id:'auto-memory-'+index,name:'memory_save',arguments:{text,global:true,key:personalMemoryKey(text)}},ctx);
      if(result.status==='succeeded')saved.push(result.data.memory.id);
