@@ -6,7 +6,7 @@ class BatchedDecoder:
     def __init__(self,model,context,slots):
         import llama_cpp
         from llama_cpp import _internals
-        self.model=model;self.slots=slots;self.capacity=model.n_batch;self.pending=queue.Queue();self.closed=False;self.active={};self.decode_calls=0;self.max_batch_sequences=0
+        self.model=model;self.slots=slots;self.capacity=model.n_batch;self.pending=queue.Queue();self.closed=False;self.state_lock=threading.Lock();self.active={};self.decode_calls=0;self.max_batch_sequences=0
         # Weight tensors are retained. Only the KV/context allocation changes.
         model._ctx.close();model._batch.close()
         params=type(model.context_params)()
@@ -34,10 +34,12 @@ class BatchedDecoder:
 
     def completion(self,prompt,max_tokens,temperature,grammar,stop,cancel,native_thinking=False,cache_scope=None,system_boundary=0,policy_boundary=0,**sampling):
         out=queue.Queue();job=dict(prompt=prompt,max_tokens=max_tokens,temperature=temperature,grammar=grammar,stop=stop,cancel=cancel,out=out,sampling=sampling,native_thinking=native_thinking,cache_scope=cache_scope if isinstance(prompt,list) else None,system_boundary=system_boundary,policy_boundary=policy_boundary)
-        if self.closed:
+        with self.state_lock:
+            rejected=self.closed
+            if not rejected:self.pending.put(job)
+        if rejected:
             if hasattr(prompt,'close'):prompt.close()
             raise ValueError('Inference runtime is closed')
-        self.pending.put(job)
         while True:
             item=out.get()
             if isinstance(item,Exception):raise item
@@ -45,8 +47,9 @@ class BatchedDecoder:
             yield item
 
     def close(self):
-        self.closed=True
-        self.pending.put(None)
+        with self.state_lock:
+            self.closed=True
+            self.pending.put(None)
         if hasattr(self,'thread'):self.thread.join(timeout=30)
         if hasattr(self,'thread') and self.thread.is_alive():raise ValueError('Native decoding has not stopped; the model remains allocated')
         if hasattr(self,'cache'):
@@ -180,12 +183,15 @@ class BatchedDecoder:
                     job=self.active.get(slot)
                     if job is not None:self._sample(job,index)
         except Exception as error:
-            self.closed=True
+            with self.state_lock:self.closed=True
             for job in list(self.active.values()):self._finish(job,error=error)
         finally:
             for job in list(self.active.values()):self._finish(job,error=ValueError('Inference runtime closed'))
-            while not self.pending.empty():
-                job=self.pending.get()
+            with self.state_lock:
+                self.closed=True
+                remaining=[]
+                while not self.pending.empty():remaining.append(self.pending.get_nowait())
+            for job in remaining:
                 if job is not None:
                     if hasattr(job['prompt'],'close'):job['prompt'].close()
                     job['out'].put(ValueError('Inference runtime closed'))
