@@ -1,0 +1,14 @@
+{
+  "id": "github:sickn33/agentic-awesome-skills:skills/meta-description-optimizer",
+  "repository": "sickn33/agentic-awesome-skills",
+  "revision": "6e4106fb38458d2bb2bf50b53db74031daabc208",
+  "digest": "1ba85da802b9b68403238c981ff4e96892e5b000b5a0ac7e6aa0d593451ff860",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE",
+      "LICENSE-CONTENT"
+    ]
+  }
+}

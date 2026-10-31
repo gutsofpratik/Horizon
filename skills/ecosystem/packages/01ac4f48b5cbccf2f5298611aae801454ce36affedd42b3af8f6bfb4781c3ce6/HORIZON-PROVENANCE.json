@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:skills/logistics-exception-management",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "ad23eb4b7671ee232258f6087e82590722b560e1ae9273693b1910aa1989ac43",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

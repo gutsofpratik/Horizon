@@ -1,0 +1,14 @@
+{
+  "id": "github:sickn33/agentic-awesome-skills:skills/cc-skill-project-guidelines-example",
+  "repository": "sickn33/agentic-awesome-skills",
+  "revision": "6e4106fb38458d2bb2bf50b53db74031daabc208",
+  "digest": "c5e1e3630a8e866a918efb5b416652ac059f6b58270110b8823bf144ddf8b8ff",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE",
+      "LICENSE-CONTENT"
+    ]
+  }
+}

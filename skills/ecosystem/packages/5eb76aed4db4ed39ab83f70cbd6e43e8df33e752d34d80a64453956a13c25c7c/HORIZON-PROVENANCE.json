@@ -1,0 +1,14 @@
+{
+  "id": "github:sickn33/agentic-awesome-skills:skills/ui-review",
+  "repository": "sickn33/agentic-awesome-skills",
+  "revision": "6e4106fb38458d2bb2bf50b53db74031daabc208",
+  "digest": "18a5607b64d7fc406200de9f3b3b207ef8a1e6c903ad3be1e2e56094104fe0f5",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE",
+      "LICENSE-CONTENT"
+    ]
+  }
+}

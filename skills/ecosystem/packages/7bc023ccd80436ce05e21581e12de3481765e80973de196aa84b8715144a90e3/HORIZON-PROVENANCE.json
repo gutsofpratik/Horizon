@@ -1,0 +1,14 @@
+{
+  "id": "github:sickn33/agentic-awesome-skills:skills/programmatic-seo",
+  "repository": "sickn33/agentic-awesome-skills",
+  "revision": "6e4106fb38458d2bb2bf50b53db74031daabc208",
+  "digest": "f1604943edb0c7134bb11cbb09f851472805b2227b7ddeea4cddf4ec0e126403",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE",
+      "LICENSE-CONTENT"
+    ]
+  }
+}

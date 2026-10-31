@@ -1,0 +1,14 @@
+{
+  "id": "github:sickn33/agentic-awesome-skills:skills/smart-git-automation",
+  "repository": "sickn33/agentic-awesome-skills",
+  "revision": "6e4106fb38458d2bb2bf50b53db74031daabc208",
+  "digest": "001ee8de8efdfa81066066c2c156149322d3d29417cde1849109b935edaeb356",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE",
+      "LICENSE-CONTENT"
+    ]
+  }
+}

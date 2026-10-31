@@ -1,0 +1,13 @@
+{
+  "id": "github:openai/plugins:plugins/twilio-developer-kit/skills/twilio-sendgrid-email-settings",
+  "repository": "openai/plugins",
+  "revision": "0722921d5542fc593105c27bd52630babd8b8c2a",
+  "digest": "242959e72b928577db759404db06816d377ef7bc5e72c49529b6a32821fa6b1d",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "plugins/twilio-developer-kit/.codex-plugin/plugin.json"
+    ]
+  }
+}

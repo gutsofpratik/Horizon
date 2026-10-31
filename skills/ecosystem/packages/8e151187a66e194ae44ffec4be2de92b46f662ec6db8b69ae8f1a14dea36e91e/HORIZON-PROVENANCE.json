@@ -1,0 +1,13 @@
+{
+  "id": "github:elevenlabs/skills:realtime",
+  "repository": "elevenlabs/skills",
+  "revision": "503d4e9fda0190ab9357142f44e51de626f97f90",
+  "digest": "ef5eb38fbfdd538185ab5a7799d8b5c6cf2934dea66df25a8f3160e630fe783b",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

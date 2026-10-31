@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:skills/dashboard-builder",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "5f8012d92a390b7e16b9e7dded1a23644bfbd8cba8c358265013e08df49eee3f",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

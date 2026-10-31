@@ -1,0 +1,13 @@
+{
+  "id": "github:openai/plugins:plugins/game-studio/skills/web-3d-asset-pipeline",
+  "repository": "openai/plugins",
+  "revision": "0722921d5542fc593105c27bd52630babd8b8c2a",
+  "digest": "62704a957fe59fa4e6b209c35fea06b13db06c3bd6e0c7178bcdbbdec86a1ca3",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "plugins/game-studio/.codex-plugin/plugin.json"
+    ]
+  }
+}

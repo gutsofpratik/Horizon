@@ -1,0 +1,13 @@
+{
+  "id": "github:openai/plugins:plugins/ngs-analysis/skills/ngs-fastq-qc",
+  "repository": "openai/plugins",
+  "revision": "0722921d5542fc593105c27bd52630babd8b8c2a",
+  "digest": "2822d55d267825d4f56696647ce9b572033d869c599b3da6b36c819840acd6b6",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "plugins/ngs-analysis/.codex-plugin/plugin.json"
+    ]
+  }
+}

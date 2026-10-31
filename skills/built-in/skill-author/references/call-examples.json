@@ -1,0 +1,44 @@
+{
+  "version": 1,
+  "skill_id": "openclaude-skill-author",
+  "examples": [
+    {
+      "tool": "skills_list",
+      "arguments": {
+        "query": "<purpose or existing skill name>"
+      }
+    },
+    {
+      "tool": "skill_load",
+      "arguments": {
+        "skill_id": "<installed skill_id returned by skills_list>"
+      }
+    },
+    {
+      "tool": "skill_create",
+      "arguments": {
+        "name": "weekly-project-summary",
+        "description": "Use when the user asks for a weekly summary of the current project using its saved notes and verified task state.",
+        "instructions": "Read the current user request and relevant saved project notes. Use files_list with path=\".\" and files_read with an observed relative text path. Collect actual completed work, blockers and next steps. If an essential source is missing, use ask_user once with selectable choices; do not ask for information already in this chat. Save a Markdown artifact using artifact_save with title, type=\"markdown\" and complete source containing Completed, Blockers and Next steps. For a revision, artifact_read first, then artifact_save with the same artifact_id and returned current expected_version unchanged. Return the actual artifact and cite source file/message IDs. Do not invent progress or contact external services."
+      }
+    },
+    {
+      "tool": "skill_update",
+      "arguments": {
+        "skill_id": "<personal skill_id from skill_load>",
+        "expected_version": "<current version string from skill_load>",
+        "name": "weekly-project-summary",
+        "description": "Use when the user asks for a weekly summary of the current project.",
+        "instructions": "<complete improved instructions with actual tool calls, branches, result bindings and quality checks>"
+      }
+    },
+    {
+      "tool": "skill_read_resource",
+      "arguments": {
+        "skill_id": "<loaded skill_id>",
+        "relative_path": "references/tool-index.md",
+        "offset": 0
+      }
+    }
+  ]
+}

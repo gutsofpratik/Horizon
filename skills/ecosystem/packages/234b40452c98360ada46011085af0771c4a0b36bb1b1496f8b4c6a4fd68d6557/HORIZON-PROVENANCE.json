@@ -1,0 +1,13 @@
+{
+  "id": "github:openai/plugins:plugins/twilio-developer-kit/skills/twilio-voice-twiml",
+  "repository": "openai/plugins",
+  "revision": "0722921d5542fc593105c27bd52630babd8b8c2a",
+  "digest": "16cf28dd2bf34546e8ce202f7576b6344442d6156b175e0b998862024dc82818",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "plugins/twilio-developer-kit/.codex-plugin/plugin.json"
+    ]
+  }
+}

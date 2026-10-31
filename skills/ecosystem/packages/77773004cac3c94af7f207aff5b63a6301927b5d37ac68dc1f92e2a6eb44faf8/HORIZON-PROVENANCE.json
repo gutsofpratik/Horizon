@@ -1,0 +1,13 @@
+{
+  "id": "github:sickn33/agentic-awesome-skills:skills/competitor-analysis",
+  "repository": "sickn33/agentic-awesome-skills",
+  "revision": "6e4106fb38458d2bb2bf50b53db74031daabc208",
+  "digest": "f35daf142e6cbec7374b0191cdd39bd6b9d3b2897daa36c990a52554fd665a54",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "skills/competitor-analysis/LICENSE.txt"
+    ]
+  }
+}

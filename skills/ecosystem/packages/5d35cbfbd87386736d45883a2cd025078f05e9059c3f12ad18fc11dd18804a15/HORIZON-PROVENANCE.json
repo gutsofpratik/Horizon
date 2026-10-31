@@ -1,0 +1,13 @@
+{
+  "id": "github:sickn33/agentic-awesome-skills:skills/loki-mode",
+  "repository": "sickn33/agentic-awesome-skills",
+  "revision": "6e4106fb38458d2bb2bf50b53db74031daabc208",
+  "digest": "2d757df800c2dd6a724307ee20b19f1c3e3cdb23bbd37ab750e34bbad5e85f5b",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "skills/loki-mode/LICENSE"
+    ]
+  }
+}

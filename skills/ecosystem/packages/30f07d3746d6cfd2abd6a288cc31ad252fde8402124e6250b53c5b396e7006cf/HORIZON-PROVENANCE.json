@@ -1,0 +1,13 @@
+{
+  "id": "github:anthropics/skills:skills/theme-factory",
+  "repository": "anthropics/skills",
+  "revision": "ca45fc496a3436251f191354091d557da31c15b5",
+  "digest": "7b7bd771035a031145c7a990c66abd9a853eaf71b37c93f48db8de765f21617e",
+  "license": {
+    "decision": "allowed",
+    "label": "Apache-2.0",
+    "evidence": [
+      "skills/theme-factory/LICENSE.txt"
+    ]
+  }
+}

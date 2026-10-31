@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:skills/agent-self-evaluation",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "f8a4bcaa03cc13ef453343f122fa9d77bddf6a46b55207a1cd65c88482aa5087",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "id": "github:anthropics/skills:skills/web-artifacts-builder",
+  "repository": "anthropics/skills",
+  "revision": "ca45fc496a3436251f191354091d557da31c15b5",
+  "digest": "f4181ab859c1b4ff44a65f7f1e773033b956dd57917a2f749e40e354524533d0",
+  "license": {
+    "decision": "allowed",
+    "label": "Apache-2.0",
+    "evidence": [
+      "skills/web-artifacts-builder/LICENSE.txt"
+    ]
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:commands/skill-host-compat.md",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "df5551bb9f214b7113f2c622ea3155ba3f1a1b47054d2f00cf1f9c34e9bf493a",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

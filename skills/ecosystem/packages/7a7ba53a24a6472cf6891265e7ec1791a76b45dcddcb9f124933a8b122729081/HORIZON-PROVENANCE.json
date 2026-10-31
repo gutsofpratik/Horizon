@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:skills/deep-research",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "a2bed76792d1fac7e796b3311a580ed8d9aafe202bbf65f22d323e8737558819",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

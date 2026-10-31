@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:skills/gan-style-harness",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "92c88792e414ea032b45ad198a81fd26229eccee84466f4ff2717f7b403af897",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

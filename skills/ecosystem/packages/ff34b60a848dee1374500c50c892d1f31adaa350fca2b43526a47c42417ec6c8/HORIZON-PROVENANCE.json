@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:skills/competitive-report-structure",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "f7e23273c9e7980716c5c8fdd301fa3878712e5634f54c8473d30f51f6f3aaac",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

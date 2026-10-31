@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:skills/springboot-tdd",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "1f46e23adca7381eea39af5f28cd2afac1a60dd19d59814a9f485abc5cd62e6f",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

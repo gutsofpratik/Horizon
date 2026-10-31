@@ -1,0 +1,13 @@
+{
+  "id": "github:openai/plugins:plugins/twilio-developer-kit/skills/twilio-sendgrid-engagement-quality",
+  "repository": "openai/plugins",
+  "revision": "0722921d5542fc593105c27bd52630babd8b8c2a",
+  "digest": "da5e22bda48a060b4d5308c507d4fc6819ff4c77d5d90ee600eebadf47714527",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "plugins/twilio-developer-kit/.codex-plugin/plugin.json"
+    ]
+  }
+}

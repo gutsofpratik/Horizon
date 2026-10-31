@@ -1,0 +1,13 @@
+{
+  "id": "github:openai/plugins:plugins/posthog/skills/posthog",
+  "repository": "openai/plugins",
+  "revision": "0722921d5542fc593105c27bd52630babd8b8c2a",
+  "digest": "448ed2130030705012319fe88ef784fa2945bc7960c0aca0410d368e366c0da5",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "plugins/posthog/skills/posthog/LICENSE.txt"
+    ]
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "id": "github:openai/plugins:plugins/build-ios-apps/skills/ios-debugger-agent",
+  "repository": "openai/plugins",
+  "revision": "0722921d5542fc593105c27bd52630babd8b8c2a",
+  "digest": "9e36be0036def0cbc66bb59dbd0dd51a460b63aa0adb9a549e51dedcad472e0e",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "plugins/build-ios-apps/.codex-plugin/plugin.json"
+    ]
+  }
+}

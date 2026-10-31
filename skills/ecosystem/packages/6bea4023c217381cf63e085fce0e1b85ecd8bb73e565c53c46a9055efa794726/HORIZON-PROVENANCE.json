@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:skills/connections-optimizer",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "7c1b0242c5dc8b3a90e3d76211bf31fb778c1cdc3b1098ab2f85fb1dceb99968",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

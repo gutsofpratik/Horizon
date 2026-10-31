@@ -1,0 +1,13 @@
+{
+  "id": "github:openai/plugins:plugins/plugin-eval/skills/evaluate-plugin",
+  "repository": "openai/plugins",
+  "revision": "0722921d5542fc593105c27bd52630babd8b8c2a",
+  "digest": "5a4ea9071a01111c27d55b28f8cb542b143449dee2de16ea8a7352051fb412e4",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "plugins/plugin-eval/.codex-plugin/plugin.json"
+    ]
+  }
+}

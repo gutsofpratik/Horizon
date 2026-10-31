@@ -1,0 +1,13 @@
+{
+  "id": "github:sickn33/agentic-awesome-skills:skills/expo-animation",
+  "repository": "sickn33/agentic-awesome-skills",
+  "revision": "6e4106fb38458d2bb2bf50b53db74031daabc208",
+  "digest": "a281f2b918ea9b669aaaa78b31f67ad52fb5296de47b451122d2f8d689b5656b",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "skills/expo-animation/LICENSE"
+    ]
+  }
+}

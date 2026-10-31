@@ -1,0 +1,13 @@
+{
+  "id": "github:openai/plugins:plugins/vercel/skills/ncc",
+  "repository": "openai/plugins",
+  "revision": "0722921d5542fc593105c27bd52630babd8b8c2a",
+  "digest": "4c254e6286ad4433f821cdb5ec574632daa1d34bb972325def87dc3c6f5d6abd",
+  "license": {
+    "decision": "allowed",
+    "label": "Apache-2.0",
+    "evidence": [
+      "plugins/vercel/.codex-plugin/plugin.json"
+    ]
+  }
+}

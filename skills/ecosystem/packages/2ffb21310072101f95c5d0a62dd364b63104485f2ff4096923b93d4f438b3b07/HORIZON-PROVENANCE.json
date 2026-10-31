@@ -1,0 +1,13 @@
+{
+  "id": "github:sickn33/agentic-awesome-skills:skills/repo-native-refactor",
+  "repository": "sickn33/agentic-awesome-skills",
+  "revision": "6e4106fb38458d2bb2bf50b53db74031daabc208",
+  "digest": "770bf233425cc50f47b1a1170c6773f1215e73a2014a7e06f141ae1c51e45e26",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "skills/repo-native-refactor/references/LICENSE.md"
+    ]
+  }
+}

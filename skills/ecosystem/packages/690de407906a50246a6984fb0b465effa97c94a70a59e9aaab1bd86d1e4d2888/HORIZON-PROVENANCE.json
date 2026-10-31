@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:skills/conventional-commit-review",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "6d34cf570330e61e4a25f726d5fbee03d47e351638d4eb548462c36cc00229b7",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

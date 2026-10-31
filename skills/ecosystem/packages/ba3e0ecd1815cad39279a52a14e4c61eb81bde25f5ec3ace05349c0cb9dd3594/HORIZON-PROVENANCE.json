@@ -1,0 +1,13 @@
+{
+  "id": "github:openai/plugins:plugins/build-macos-apps/skills/packaging-notarization",
+  "repository": "openai/plugins",
+  "revision": "0722921d5542fc593105c27bd52630babd8b8c2a",
+  "digest": "6a5c8cf4331b419da41d4228ad65a57dc933fa86be1a923677ab7f65c9204c0e",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "plugins/build-macos-apps/.codex-plugin/plugin.json"
+    ]
+  }
+}

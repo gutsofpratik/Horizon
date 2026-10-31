@@ -1,0 +1,13 @@
+{
+  "id": "github:openai/plugins:plugins/notion/skills/notion-meeting-intelligence",
+  "repository": "openai/plugins",
+  "revision": "0722921d5542fc593105c27bd52630babd8b8c2a",
+  "digest": "1e93df53c58d120aa9099930995cc249cb410e849708728c092e283d67a5c963",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "plugins/notion/skills/notion-meeting-intelligence/LICENSE.txt"
+    ]
+  }
+}

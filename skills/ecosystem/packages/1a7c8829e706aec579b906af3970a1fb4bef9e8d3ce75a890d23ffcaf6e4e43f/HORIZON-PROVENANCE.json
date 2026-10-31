@@ -1,0 +1,13 @@
+{
+  "id": "github:openai/plugins:plugins/nvidia/skills/nemoclaw-user-get-started",
+  "repository": "openai/plugins",
+  "revision": "0722921d5542fc593105c27bd52630babd8b8c2a",
+  "digest": "03d2c3f53fc7195ca3a8c22ca5010b778b6b7c2a9c0ba7ad1047acb3e0076a30",
+  "license": {
+    "decision": "allowed",
+    "label": "Apache-2.0",
+    "evidence": [
+      "plugins/nvidia/.codex-plugin/plugin.json"
+    ]
+  }
+}

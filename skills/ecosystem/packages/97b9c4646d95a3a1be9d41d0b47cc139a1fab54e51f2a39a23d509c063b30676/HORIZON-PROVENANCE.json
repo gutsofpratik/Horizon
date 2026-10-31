@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:commands/update-docs.md",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "16a50f5c3d1f1c32aba1ff58bf7d623699786313b973826159c60f45287ffb1b",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

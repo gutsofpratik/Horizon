@@ -1,0 +1,13 @@
+{
+  "id": "github:openai/plugins:plugins/build-macos-apps/skills/build-run-debug",
+  "repository": "openai/plugins",
+  "revision": "0722921d5542fc593105c27bd52630babd8b8c2a",
+  "digest": "995f8af09278d3834de85ae8f09bc13c639927004af6a367b8ce423054cd1e25",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "plugins/build-macos-apps/.codex-plugin/plugin.json"
+    ]
+  }
+}

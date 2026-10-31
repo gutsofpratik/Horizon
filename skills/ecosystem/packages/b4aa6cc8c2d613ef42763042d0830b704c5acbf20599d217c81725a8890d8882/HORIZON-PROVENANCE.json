@@ -1,0 +1,13 @@
+{
+  "id": "github:openai/plugins:plugins/ngs-analysis/skills/ngs-shotgun-metagenomics",
+  "repository": "openai/plugins",
+  "revision": "0722921d5542fc593105c27bd52630babd8b8c2a",
+  "digest": "6e1d6849d49a6856afbb9813432a654003842bea3f74964d080a7ffae225c682",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "plugins/ngs-analysis/.codex-plugin/plugin.json"
+    ]
+  }
+}

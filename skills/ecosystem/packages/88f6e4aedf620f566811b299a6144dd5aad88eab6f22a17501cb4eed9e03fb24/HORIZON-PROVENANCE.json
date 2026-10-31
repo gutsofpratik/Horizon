@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:skills/test-collaboration",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "f59480db75b8b88c6933c620fe45efedd3266bd9a0644681c5267bfd21a210d4",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

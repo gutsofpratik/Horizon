@@ -1,0 +1,13 @@
+{
+  "id": "github:openai/plugins:plugins/vercel/skills/geist",
+  "repository": "openai/plugins",
+  "revision": "0722921d5542fc593105c27bd52630babd8b8c2a",
+  "digest": "6fd101132cd235625f3097c28ec887d6fad14de976a12a00eec3a354fe6f185c",
+  "license": {
+    "decision": "allowed",
+    "label": "Apache-2.0",
+    "evidence": [
+      "plugins/vercel/.codex-plugin/plugin.json"
+    ]
+  }
+}

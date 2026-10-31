@@ -1,0 +1,13 @@
+{
+  "id": "github:openai/plugins:plugins/zoom/skills/plan-zoom-integration",
+  "repository": "openai/plugins",
+  "revision": "0722921d5542fc593105c27bd52630babd8b8c2a",
+  "digest": "b750a6000dbe17bae5de795e58d57d0b37956ec0dce32d8f2db0b3fa7060e1f8",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "plugins/zoom/LICENSE"
+    ]
+  }
+}

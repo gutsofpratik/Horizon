@@ -1,0 +1,13 @@
+{
+  "id": "github:openai/plugins:plugins/build-web-apps/skills/react-best-practices",
+  "repository": "openai/plugins",
+  "revision": "0722921d5542fc593105c27bd52630babd8b8c2a",
+  "digest": "aa3500863d844ef3078bedad44c2a5a1a3cf282005f134bd55868256fa350d67",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "plugins/build-web-apps/.codex-plugin/plugin.json"
+    ]
+  }
+}

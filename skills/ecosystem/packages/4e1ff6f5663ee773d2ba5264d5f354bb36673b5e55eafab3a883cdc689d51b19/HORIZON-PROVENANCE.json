@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:commands/learn-eval.md",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "4ba31cfb2e9267d78d9bcdbae548cc33ffced87599f0c5b57717e145af31712b",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

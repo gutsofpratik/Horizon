@@ -1,0 +1,13 @@
+{
+  "id": "github:openai/plugins:plugins/zoom/skills/meeting-sdk/linux",
+  "repository": "openai/plugins",
+  "revision": "0722921d5542fc593105c27bd52630babd8b8c2a",
+  "digest": "b310d5a12c4fda4fda4734a4f5787305a7e8c5c5e4963eadce700322bfe7c057",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "plugins/zoom/LICENSE"
+    ]
+  }
+}

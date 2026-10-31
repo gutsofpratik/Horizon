@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:skills/nasiko-control-plane",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "f2197c34fd69d440d24af47e9a17d4b73907bc8e85cfe02e29bdc8f5c6a93e41",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

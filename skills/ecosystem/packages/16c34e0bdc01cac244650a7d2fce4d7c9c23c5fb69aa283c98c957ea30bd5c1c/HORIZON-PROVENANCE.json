@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:skills/terminal-ops",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "50cc2449a0c4b294a4f27ea857e0d26711d2614d1fae0d9e263ebea2ec87d36e",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

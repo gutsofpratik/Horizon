@@ -1,0 +1,13 @@
+{
+  "id": "github:openai/plugins:plugins/build-web-apps/skills/shadcn-best-practices",
+  "repository": "openai/plugins",
+  "revision": "0722921d5542fc593105c27bd52630babd8b8c2a",
+  "digest": "1585ba1a2b6144c41f02696c6b0d141aa559f35f22dd90398d1ba722d97cc127",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "plugins/build-web-apps/.codex-plugin/plugin.json"
+    ]
+  }
+}

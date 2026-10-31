@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:skills/content-hash-cache-pattern",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "b4bc5756ea2774f4bbd9cced9de6b67bdd28f827f06691abbb4ba27433a77920",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

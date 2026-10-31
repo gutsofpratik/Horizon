@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:skills/ai-regression-testing",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "5b806e0f3e7874fd5e230f48e67cfb5754726e8921629fe8d08b10a5f9708e60",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

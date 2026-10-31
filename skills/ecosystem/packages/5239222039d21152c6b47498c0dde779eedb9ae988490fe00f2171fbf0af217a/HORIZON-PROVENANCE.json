@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:skills/x-api",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "496a7b0977e5d99450419fe4e2a6aac7622a51ffd2bf1948ddd0c8c44696f4a1",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

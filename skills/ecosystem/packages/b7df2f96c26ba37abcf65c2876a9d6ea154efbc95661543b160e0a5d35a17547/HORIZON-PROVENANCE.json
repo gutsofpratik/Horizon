@@ -1,0 +1,13 @@
+{
+  "id": "github:openai/plugins:plugins/twilio-developer-kit/skills/twilio-marketing-promotions-advisor",
+  "repository": "openai/plugins",
+  "revision": "0722921d5542fc593105c27bd52630babd8b8c2a",
+  "digest": "e42d469c34dac90e991005762d75f825ea4cc76686c190e3b3bbcc8282238bc3",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "plugins/twilio-developer-kit/.codex-plugin/plugin.json"
+    ]
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:commands/go-review.md",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "293625b5f05d4b407a69479c92ad18c3662c6c461be64b8c179c367302561791",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

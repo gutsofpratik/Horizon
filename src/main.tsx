@@ -21,3 +21,4 @@ if(controlOverlay)document.documentElement.classList.add('computer-overlay-root'
 createRoot(document.getElementById('root')!).render(location.pathname==='/remote'?<RemoteSession/>:controlOverlay?<ComputerIndicator active nativeOverlay/>:<><AppContextMenu/><SessionGate><RuntimeReady><ProfileGate><App/></ProfileGate></RuntimeReady><Notifications/></SessionGate></>);
 
 import './styles/ui-refinements.css';
+import './styles/library-refinements.css';

@@ -1,0 +1,13 @@
+{
+  "id": "github:openai/plugins:plugins/vercel/skills/nextjs",
+  "repository": "openai/plugins",
+  "revision": "0722921d5542fc593105c27bd52630babd8b8c2a",
+  "digest": "9207a90e6c1d9a0afbacee4d759e7c928fa95387d77b237b3f47628577aa4ab4",
+  "license": {
+    "decision": "allowed",
+    "label": "Apache-2.0",
+    "evidence": [
+      "plugins/vercel/.codex-plugin/plugin.json"
+    ]
+  }
+}

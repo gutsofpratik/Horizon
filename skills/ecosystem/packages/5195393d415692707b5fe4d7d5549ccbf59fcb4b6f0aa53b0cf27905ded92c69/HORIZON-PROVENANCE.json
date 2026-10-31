@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:skills/react-native-patterns",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "7d031231999d7a3e384b7ba566ff78fe49fb3c1da7243661e0d6998f99f1e576",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

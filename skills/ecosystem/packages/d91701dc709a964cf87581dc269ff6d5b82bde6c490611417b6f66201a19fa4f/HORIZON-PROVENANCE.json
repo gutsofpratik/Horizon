@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:skills/react-testing",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "62c4bd428efe09799fcc253181a29a014b3b303cb383934db6f126ed70fd003b",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:commands/build-fix.md",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "e0378d41a8057835aa17f16144271a51c1937309438b5b82b052f5bd096cf8a0",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

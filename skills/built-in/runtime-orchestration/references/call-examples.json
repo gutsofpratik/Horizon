@@ -1,0 +1,94 @@
+{
+  "version": 1,
+  "skill_id": "openclaude-runtime-orchestration",
+  "examples": [
+    {
+      "tool": "runtime_capabilities",
+      "arguments": {}
+    },
+    {
+      "tool": "task_create",
+      "arguments": {
+        "title": "Create and inspect the requested deliverable",
+        "description": "Read inputs, create the real output, inspect it and return its actual link."
+      }
+    },
+    {
+      "tool": "task_update",
+      "arguments": {
+        "task_id": "<task_id from task_create>",
+        "status": "completed",
+        "note": "<actual output and successful check>"
+      }
+    },
+    {
+      "tool": "agent_spawn",
+      "arguments": {
+        "task": "Review the supplied module for edge cases and return findings only. Do not edit files or contact external services.",
+        "tools": [
+          "files_read",
+          "files_search"
+        ],
+        "files": [
+          "src/add.mjs"
+        ]
+      }
+    },
+    {
+      "tool": "agent_wait",
+      "arguments": {
+        "agent_ids": [
+          "<agent_id returned by agent_spawn>"
+        ],
+        "timeout_ms": 30000
+      }
+    },
+    {
+      "tool": "agent_result",
+      "arguments": {
+        "agent_id": "<actual agent_id>"
+      }
+    },
+    {
+      "tool": "programmatic_tools",
+      "arguments": {
+        "tools": [
+          "calculate"
+        ],
+        "code": "const first = await tools.calculate({expression: \"10+20\"}); return first;",
+        "timeout_ms": 30000
+      }
+    },
+    {
+      "tool": "clock_now",
+      "arguments": {
+        "time_zone": "Asia/Kolkata"
+      }
+    },
+    {
+      "tool": "schedule_create",
+      "arguments": {
+        "name": "Review the project",
+        "prompt": "Review the saved project status and summarize new actionable changes.",
+        "run_at": "2030-01-01T09:00:00+05:30",
+        "time_zone": "Asia/Kolkata"
+      }
+    },
+    {
+      "tool": "memory_search",
+      "arguments": {
+        "query": "preferred report format",
+        "offset": 0,
+        "limit": 10
+      }
+    },
+    {
+      "tool": "memory_save",
+      "arguments": {
+        "text": "<useful fact or preference actually provided by the user>",
+        "global": true,
+        "key": "preferences.report_format"
+      }
+    }
+  ]
+}

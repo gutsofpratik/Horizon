@@ -1,0 +1,13 @@
+{
+  "id": "github:sickn33/agentic-awesome-skills:skills/outreachgenie-list-audit",
+  "repository": "sickn33/agentic-awesome-skills",
+  "revision": "6e4106fb38458d2bb2bf50b53db74031daabc208",
+  "digest": "4543e754edea2bf1a146c5279670843142bc96af1cced7df7138b5c26c1ef6ba",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "skills/outreachgenie-list-audit/LICENSE"
+    ]
+  }
+}

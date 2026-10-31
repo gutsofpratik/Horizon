@@ -1,0 +1,13 @@
+{
+  "id": "github:openai/plugins:plugins/openai-developers/skills/build-chatgpt-app",
+  "repository": "openai/plugins",
+  "revision": "0722921d5542fc593105c27bd52630babd8b8c2a",
+  "digest": "9e26703ecf0fdc368ee9fc61d9eb6b76a81193f23bd93f7c1288d0a026e7a4ea",
+  "license": {
+    "decision": "allowed",
+    "label": "Apache-2.0",
+    "evidence": [
+      "plugins/openai-developers/skills/build-chatgpt-app/LICENSE.txt"
+    ]
+  }
+}

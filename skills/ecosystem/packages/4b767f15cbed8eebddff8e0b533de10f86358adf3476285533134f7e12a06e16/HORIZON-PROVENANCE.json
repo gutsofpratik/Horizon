@@ -1,0 +1,13 @@
+{
+  "id": "github:anthropics/skills:skills/mcp-builder",
+  "repository": "anthropics/skills",
+  "revision": "ca45fc496a3436251f191354091d557da31c15b5",
+  "digest": "d7777bd052e94f70baf12a4401cc354e9cacfd79a51bab5b2a279e2799600c8a",
+  "license": {
+    "decision": "allowed",
+    "label": "Apache-2.0",
+    "evidence": [
+      "skills/mcp-builder/LICENSE.txt"
+    ]
+  }
+}

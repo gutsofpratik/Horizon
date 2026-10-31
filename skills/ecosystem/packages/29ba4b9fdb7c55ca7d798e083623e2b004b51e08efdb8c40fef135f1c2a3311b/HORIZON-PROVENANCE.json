@@ -1,0 +1,13 @@
+{
+  "id": "github:openai/plugins:plugins/superpowers/skills/using-git-worktrees",
+  "repository": "openai/plugins",
+  "revision": "0722921d5542fc593105c27bd52630babd8b8c2a",
+  "digest": "682701d672c987b1ce9b2ce5fa68474af57760a7bc22123942e7f1c83241736f",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "plugins/superpowers/LICENSE"
+    ]
+  }
+}

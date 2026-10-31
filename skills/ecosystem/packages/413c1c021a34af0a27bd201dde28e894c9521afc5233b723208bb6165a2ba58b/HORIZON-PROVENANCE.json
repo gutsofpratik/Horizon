@@ -1,0 +1,13 @@
+{
+  "id": "github:openai/plugins:plugins/notion/skills/notion-research-documentation",
+  "repository": "openai/plugins",
+  "revision": "0722921d5542fc593105c27bd52630babd8b8c2a",
+  "digest": "dce30e5e3e290490b42cfca2eb043eb041e25ae7742138ef0aeb79adbad21b52",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "plugins/notion/skills/notion-research-documentation/LICENSE.txt"
+    ]
+  }
+}

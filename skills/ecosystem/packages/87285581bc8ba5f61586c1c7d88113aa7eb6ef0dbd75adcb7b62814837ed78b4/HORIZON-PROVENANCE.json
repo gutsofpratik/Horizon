@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:commands/multi-execute.md",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "30c68a41610438f995bdac1fada0108466bc5859d7aa15ef819de1199b26e945",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

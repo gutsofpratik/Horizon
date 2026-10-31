@@ -1,0 +1,13 @@
+{
+  "id": "github:openai/plugins:plugins/vercel/skills/email",
+  "repository": "openai/plugins",
+  "revision": "0722921d5542fc593105c27bd52630babd8b8c2a",
+  "digest": "442d0877e89e64de6657299c193eb22d121f06e7fbbda16b9009cc721e52ed55",
+  "license": {
+    "decision": "allowed",
+    "label": "Apache-2.0",
+    "evidence": [
+      "plugins/vercel/.codex-plugin/plugin.json"
+    ]
+  }
+}

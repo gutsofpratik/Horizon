@@ -1,0 +1,13 @@
+{
+  "id": "github:openai/plugins:plugins/cloudflare/skills/building-ai-agent-on-cloudflare",
+  "repository": "openai/plugins",
+  "revision": "0722921d5542fc593105c27bd52630babd8b8c2a",
+  "digest": "a8b46585de08f95e93da03b36dbe5a53fa38b2bca36425dfbce709c44328b42d",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "plugins/cloudflare/.codex-plugin/plugin.json"
+    ]
+  }
+}

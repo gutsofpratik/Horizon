@@ -1,0 +1,13 @@
+{
+  "id": "github:openai/plugins:plugins/notion/skills/notion-spec-to-implementation",
+  "repository": "openai/plugins",
+  "revision": "0722921d5542fc593105c27bd52630babd8b8c2a",
+  "digest": "63753c919e40a2cf88faa034c84c61a4a06787f92eb1f61277507c97236b66a2",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "plugins/notion/skills/notion-spec-to-implementation/LICENSE.txt"
+    ]
+  }
+}

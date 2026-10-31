@@ -1,0 +1,13 @@
+{
+  "id": "github:obra/superpowers:skills/finishing-a-development-branch",
+  "repository": "obra/superpowers",
+  "revision": "2ce8aa15d05bd57213e6f746f953aafb7ded7a8b",
+  "digest": "fe5479c6cecc555a0ddd35ad563216f4c477bf68c04b0a1bfac76aa018bab5ec",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

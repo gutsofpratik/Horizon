@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:skills/research-ops",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "17491123dfc6d764198b4155a63ae8a1dfee49eb85c4eb83402eee188d71d109",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

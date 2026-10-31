@@ -1,0 +1,13 @@
+{
+  "id": "github:openai/plugins:plugins/cloudflare/skills/web-perf",
+  "repository": "openai/plugins",
+  "revision": "0722921d5542fc593105c27bd52630babd8b8c2a",
+  "digest": "bd3b7acfd697524c66630fe1c179def0a1fca9a1642c21a535e2723e3f865e26",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "plugins/cloudflare/.codex-plugin/plugin.json"
+    ]
+  }
+}

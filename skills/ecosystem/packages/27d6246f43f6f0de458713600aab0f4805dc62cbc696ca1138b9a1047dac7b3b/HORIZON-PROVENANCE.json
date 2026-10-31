@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:commands/setup-pm.md",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "81df145196217643b73ef8a235be11d88ac0616c0c97adaf20db0c37646552f0",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

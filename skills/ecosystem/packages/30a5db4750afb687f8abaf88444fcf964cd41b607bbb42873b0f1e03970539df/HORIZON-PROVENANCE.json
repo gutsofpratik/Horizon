@@ -1,0 +1,13 @@
+{
+  "id": "github:openai/plugins:plugins/twilio-developer-kit/skills/twilio-compliance-onboarding",
+  "repository": "openai/plugins",
+  "revision": "0722921d5542fc593105c27bd52630babd8b8c2a",
+  "digest": "7aaf0020ed67ebf647f9ba98a915a57fc9dcd5e039839df6d9aad6bd558518a8",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "plugins/twilio-developer-kit/.codex-plugin/plugin.json"
+    ]
+  }
+}

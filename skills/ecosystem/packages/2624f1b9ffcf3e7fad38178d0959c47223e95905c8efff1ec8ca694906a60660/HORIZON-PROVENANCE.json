@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:skills/ml-adoption-playbook",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "dfe16065b742e66b53b4afc17054f3086b86c1f95338910db4d97e881ef70621",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

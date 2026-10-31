@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:skills/loop-design-check",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "6744ad589661eaddc429e92bb4526abf6a9e91a1b7ca68ac29b98b91a7f8b611",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

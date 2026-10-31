@@ -1,0 +1,13 @@
+{
+  "id": "github:openai/plugins:plugins/superpowers/skills/using-superpowers",
+  "repository": "openai/plugins",
+  "revision": "0722921d5542fc593105c27bd52630babd8b8c2a",
+  "digest": "12f7c55fcb56adeac9e3fbeac981bcbadd99242a250788b7ba16d304aba36df7",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "plugins/superpowers/LICENSE"
+    ]
+  }
+}

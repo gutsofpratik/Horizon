@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:commands/react-build.md",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "f1cdb939c55720c36ef56d9d096241e68043d712a60a9a6b3d0c8192797caadf",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

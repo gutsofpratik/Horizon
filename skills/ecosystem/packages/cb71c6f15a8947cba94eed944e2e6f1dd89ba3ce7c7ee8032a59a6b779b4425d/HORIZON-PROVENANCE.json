@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:skills/agent-payment-x402",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "585ce359f52b4ca45ca6c95530ebe6a6fb515810457166a1b57f03a6522574f9",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

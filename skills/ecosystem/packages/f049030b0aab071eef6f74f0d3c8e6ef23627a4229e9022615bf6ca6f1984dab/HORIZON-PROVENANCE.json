@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:skills/iterative-retrieval",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "a89dbf00f800ae91a09e6b560ee066501728d2d8bc9cbf35f6793f0b54f3246a",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:skills/latency-critical-systems",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "024409ff129c7b2607c6e7dfc0608e60d088c129822b40c6ced187530fabbc22",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

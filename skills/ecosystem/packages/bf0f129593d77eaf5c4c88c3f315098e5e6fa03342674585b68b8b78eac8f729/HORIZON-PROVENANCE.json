@@ -1,0 +1,13 @@
+{
+  "id": "github:openai/plugins:plugins/build-web-data-visualization/skills/visualization-strategy-and-critique",
+  "repository": "openai/plugins",
+  "revision": "0722921d5542fc593105c27bd52630babd8b8c2a",
+  "digest": "937228502fa82fc60c1f02b0b0b7e30ba23c80ce95335b24f0ed451acdd58469",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "plugins/build-web-data-visualization/.codex-plugin/plugin.json"
+    ]
+  }
+}

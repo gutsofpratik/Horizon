@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:skills/docs-governance",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "bb1ff0664aed8b46ad5989b5119b5de4bec3a23cc51c463800fe737d5006b0f0",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

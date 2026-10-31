@@ -12,7 +12,11 @@ extern "system" { fn DwmFlush() -> i32; }
 pub fn prepare(app: &AppHandle) -> Result<WebviewWindow, String> {
     if let Some(window) = app.get_webview_window(LABEL) { return Ok(window); }
     let window = WebviewWindowBuilder::new(app, LABEL, WebviewUrl::External(tauri::Url::parse(URL).map_err(|error|error.to_string())?))
-        .title("OpenClaude computer control")
+        // Keep the non-interactive overlay out of the extension-enabled browser's
+        // WebView2 environment. Reusing its profile with different environment
+        // options can fail with ERROR_INVALID_STATE before any input executes.
+        .data_directory(app.path().app_local_data_dir().map_err(|error|error.to_string())?.join("control-indicator"))
+        .title("Horizon computer control")
         .transparent(true).background_color(tauri::window::Color(0, 0, 0, 0))
         .decorations(false).shadow(false).resizable(false)
         .always_on_top(true).skip_taskbar(true).focused(false).focusable(false).visible(false)

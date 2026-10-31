@@ -1,0 +1,13 @@
+{
+  "id": "github:openai/plugins:plugins/vercel/skills/cron-jobs",
+  "repository": "openai/plugins",
+  "revision": "0722921d5542fc593105c27bd52630babd8b8c2a",
+  "digest": "6e98b2ffd4c88926c56baf7c4e8e0626197cdc5e23feef216ad6f71e47e3526e",
+  "license": {
+    "decision": "allowed",
+    "label": "Apache-2.0",
+    "evidence": [
+      "plugins/vercel/.codex-plugin/plugin.json"
+    ]
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:commands/gradle-build.md",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "baa66fcd4a8dc8326720247f5b5317e8a8d2ccbc325d6bddf715102093d21edb",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

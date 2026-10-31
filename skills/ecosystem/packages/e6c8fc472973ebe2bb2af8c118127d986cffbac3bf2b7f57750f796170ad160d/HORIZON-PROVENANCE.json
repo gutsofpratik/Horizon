@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:skills/agent-harness-construction",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "b2db0048f9c093f567e5d06d32ae85f694d77e38355b8399b78a319906fb1b75",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

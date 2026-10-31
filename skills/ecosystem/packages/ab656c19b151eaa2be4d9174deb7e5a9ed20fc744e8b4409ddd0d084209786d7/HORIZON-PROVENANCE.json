@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:skills/team-builder",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "1841d3def9afd559a4476d1f4e7451add610f4204afbc64de8060d4a4388ba81",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "id": "github:anthropics/skills:skills/claude-api",
+  "repository": "anthropics/skills",
+  "revision": "ca45fc496a3436251f191354091d557da31c15b5",
+  "digest": "c704d8bf3cfc95369a7df0389089b596a8a3b548e5d1c9673a41ed81ece76035",
+  "license": {
+    "decision": "allowed",
+    "label": "Apache-2.0",
+    "evidence": [
+      "skills/claude-api/LICENSE.txt"
+    ]
+  }
+}

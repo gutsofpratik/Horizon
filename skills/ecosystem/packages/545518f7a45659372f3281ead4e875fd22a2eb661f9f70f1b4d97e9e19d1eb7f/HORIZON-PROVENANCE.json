@@ -1,0 +1,13 @@
+{
+  "id": "github:sickn33/agentic-awesome-skills:skills/using-lwc",
+  "repository": "sickn33/agentic-awesome-skills",
+  "revision": "6e4106fb38458d2bb2bf50b53db74031daabc208",
+  "digest": "36d6c3e7cc670558b1e8ed417cf5709aed11c0dec31e63d9166e0b4abdf3802a",
+  "license": {
+    "decision": "allowed",
+    "label": "Apache-2.0",
+    "evidence": [
+      "skills/using-lwc/LICENSE"
+    ]
+  }
+}

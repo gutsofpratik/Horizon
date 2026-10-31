@@ -8,6 +8,7 @@ export function isConversationalTurn(message:any){
   if(/^h+i+$/.test(word))return 'hi';if(/^he+l+o+$/.test(word))return 'hello';if(/^he+y+$/.test(word))return 'hey';
   if(word==='r'||/^a+r+e+$/.test(word))return 'are';if(word==='u'||/^yo+u+$/.test(word))return 'you';return word;
  }).filter((word:string)=>!['bro','dude','mate','lol','lmao','haha'].includes(word)&&!/^lo+l$/.test(word)).join(' ');
+ if(/^(?:(?:hi|hello|hey) )?(?:just )?(?:say hello|say hi|greet me)(?: briefly)?(?:;? (?:no (?:workspace task or )?tools (?:are )?needed|without (?:using )?tools))?$/.test(text))return true;
  return /^(?:(?:hi|hello|hey|hiya|good morning|good afternoon|good evening)(?: there)?(?: (?:how (?:are )?you(?: doing)?|how's it going))?|how (?:are )?you(?: doing)?|how's it going|thank you(?: so much)?|thanks(?: a lot)?|you're welcome|good night|bye|goodbye)$/.test(text);
 }
 

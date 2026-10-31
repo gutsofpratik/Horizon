@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:commands/security-scan.md",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "df8eee1e9e1dd8b2d99e18796a6b2382f0e65247dd09611563d43011c98b5c4b",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

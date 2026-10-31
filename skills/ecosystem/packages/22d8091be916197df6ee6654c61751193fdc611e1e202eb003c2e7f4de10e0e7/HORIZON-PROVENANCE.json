@@ -1,0 +1,13 @@
+{
+  "id": "github:openai/plugins:plugins/cloudflare/skills/durable-objects",
+  "repository": "openai/plugins",
+  "revision": "0722921d5542fc593105c27bd52630babd8b8c2a",
+  "digest": "6771ec101ae14c007ac0fb1c57b79fcbf24300eeb09f12a54ee02c666e75aa8c",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "plugins/cloudflare/.codex-plugin/plugin.json"
+    ]
+  }
+}

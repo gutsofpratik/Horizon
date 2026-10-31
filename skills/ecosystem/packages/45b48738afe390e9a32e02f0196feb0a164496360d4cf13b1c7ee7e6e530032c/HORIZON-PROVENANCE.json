@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:skills/prompt-caching-strategy",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "1c119d91d7510fb792776cfd9269c5f5f5c2ff44755d18d4cee0d9643c4894ea",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

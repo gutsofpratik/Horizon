@@ -1,0 +1,13 @@
+{
+  "id": "github:openai/plugins:plugins/build-web-data-visualization/skills/node-link-and-diagram-layout",
+  "repository": "openai/plugins",
+  "revision": "0722921d5542fc593105c27bd52630babd8b8c2a",
+  "digest": "75b4c9c6876188eb548791739bde6396bb6c430ddb992433b6c705eee5f05a7a",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "plugins/build-web-data-visualization/.codex-plugin/plugin.json"
+    ]
+  }
+}

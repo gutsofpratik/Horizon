@@ -1,0 +1,13 @@
+{
+  "id": "github:openai/plugins:plugins/boltz-api-cli/skills/boltz-protein-design",
+  "repository": "openai/plugins",
+  "revision": "0722921d5542fc593105c27bd52630babd8b8c2a",
+  "digest": "4f4043050df48531403aa4d2fcc7eb29eeec8f27ef10fecbeaa9db0ca452ee3f",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "plugins/boltz-api-cli/LICENSE"
+    ]
+  }
+}

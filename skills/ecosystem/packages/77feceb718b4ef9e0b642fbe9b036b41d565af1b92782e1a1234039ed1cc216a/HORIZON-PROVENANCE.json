@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:commands/instinct-status.md",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "eb4e5028925e840b71b490ab732b1de2be06c6425eccf243f3ae47ff2d999fd5",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

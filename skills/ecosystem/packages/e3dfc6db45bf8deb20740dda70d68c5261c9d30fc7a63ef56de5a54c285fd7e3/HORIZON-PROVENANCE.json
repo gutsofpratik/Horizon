@@ -1,0 +1,13 @@
+{
+  "id": "github:openai/plugins:plugins/build-web-apps/skills/stripe-best-practices",
+  "repository": "openai/plugins",
+  "revision": "0722921d5542fc593105c27bd52630babd8b8c2a",
+  "digest": "159d76663d9771d9fc732219588f7f1faf77901ca246235a3287c6eee560707e",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "plugins/build-web-apps/.codex-plugin/plugin.json"
+    ]
+  }
+}

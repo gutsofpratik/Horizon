@@ -1,0 +1,13 @@
+{
+  "id": "github:openai/plugins:plugins/expo/skills/native-data-fetching",
+  "repository": "openai/plugins",
+  "revision": "0722921d5542fc593105c27bd52630babd8b8c2a",
+  "digest": "f3191e3e47929534347037e2a6ec69a4586435d703fefdf32be6c782545ebf44",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "plugins/expo/LICENSE"
+    ]
+  }
+}

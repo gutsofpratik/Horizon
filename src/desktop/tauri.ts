@@ -20,4 +20,3 @@ export const desktopReady=(async()=>{if('__TAURI_INTERNALS__' in window){const c
  const saved=await fetch('/api/entities/settings/main').then(response=>response.json());if(saved.backgroundMode===true)await invoke('background_mode',{enabled:true}).catch(()=>{});
  startDesktopAgent();
 }})();
-

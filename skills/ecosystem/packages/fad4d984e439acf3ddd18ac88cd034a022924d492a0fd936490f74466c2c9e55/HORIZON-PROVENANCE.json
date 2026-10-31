@@ -1,0 +1,13 @@
+{
+  "id": "github:openai/plugins:plugins/remotion/skills/remotion-interactivity",
+  "repository": "openai/plugins",
+  "revision": "0722921d5542fc593105c27bd52630babd8b8c2a",
+  "digest": "24482c3900354b6fc8c7c73742a6deb7b857068dcb283a42d87a5ebf167fbcc6",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "plugins/remotion/.codex-plugin/plugin.json"
+    ]
+  }
+}

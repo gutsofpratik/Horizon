@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:skills/api-design",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "72a17a16f5d2f67e1af0e7739dd2185157c46f610a247474a249dbc30b515e9d",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

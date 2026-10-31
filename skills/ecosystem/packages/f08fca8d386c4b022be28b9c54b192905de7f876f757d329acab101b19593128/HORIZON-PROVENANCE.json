@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:skills/parallel-execution-optimizer",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "dfe5e57bee29ce1ef6afaa76d65923bd5f7319d7a2637d7212677739d74e6411",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

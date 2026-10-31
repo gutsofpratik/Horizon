@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:skills/autonomous-agent-harness",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "98485804aa8d583f5577c9ee6a270794d817da1a92692378928ce34dbe5fa073",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

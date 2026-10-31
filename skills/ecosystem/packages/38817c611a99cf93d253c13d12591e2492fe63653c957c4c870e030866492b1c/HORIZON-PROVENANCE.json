@@ -1,0 +1,13 @@
+{
+  "id": "github:openai/plugins:plugins/openai-developers/skills/chatgpt-app-submission",
+  "repository": "openai/plugins",
+  "revision": "0722921d5542fc593105c27bd52630babd8b8c2a",
+  "digest": "02b14cb40454efb5036580a20f025f9c6ec805863fdcb0ef5b8c28feb80daf0f",
+  "license": {
+    "decision": "allowed",
+    "label": "Apache-2.0",
+    "evidence": [
+      "plugins/openai-developers/skills/chatgpt-app-submission/LICENSE.txt"
+    ]
+  }
+}

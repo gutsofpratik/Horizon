@@ -1,0 +1,13 @@
+{
+  "id": "github:openai/plugins:plugins/zoom/skills/virtual-agent",
+  "repository": "openai/plugins",
+  "revision": "0722921d5542fc593105c27bd52630babd8b8c2a",
+  "digest": "85c1011e32c38582937c947095eba2c758dd3089fd0689739a0261fa5405a9e2",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "plugins/zoom/LICENSE"
+    ]
+  }
+}

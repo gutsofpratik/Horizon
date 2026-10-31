@@ -1,0 +1,42 @@
+{
+  "version": 1,
+  "skill_id": "horizon-frontend-design",
+  "examples": [
+    {
+      "tool": "artifact_save",
+      "arguments": {
+        "title": "Project roadmap",
+        "type": "html",
+        "source": "<!doctype html><html lang=\"en\"><meta charset=\"utf-8\"><meta name=\"viewport\" content=\"width=device-width,initial-scale=1\"><title>Project roadmap</title><style>:root{color-scheme:light;--bg:#f8f7f3;--ink:#242320;--accent:#a95743}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 system-ui}main{max-width:64rem;margin:auto;padding:clamp(1rem,5vw,3rem)}h1{font:500 clamp(2rem,5vw,3rem)/1.1 Georgia,serif}ol{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,14rem),1fr));gap:1rem;padding:0;list-style:none}li{padding:1.25rem;background:white;border:1px solid #e1ded6;border-radius:12px}h2{font-size:1.1rem;color:var(--accent)}</style><main><h1>Project roadmap</h1><p>Three steps to a dependable result.</p><ol><li><h2>Observe</h2><p>Understand the need and constraints.</p></li><li><h2>Implement</h2><p>Build the agreed working behavior.</p></li><li><h2>Verify</h2><p>Check the real output and edge cases.</p></li></ol></main></html>"
+      }
+    },
+    {
+      "tool": "artifact_read",
+      "arguments": {
+        "artifact_id": "<artifact_id returned by artifact_save>",
+        "offset": 0,
+        "limit": 12000
+      }
+    },
+    {
+      "tool": "artifact_save",
+      "arguments": {
+        "artifact_id": "<same observed artifact_id>",
+        "expected_version": 1,
+        "source": "<complete revised source preserving the requested original content>"
+      }
+    },
+    {
+      "tool": "browser_open_file",
+      "arguments": {
+        "artifact_id": "<actual saved artifact_id>"
+      }
+    },
+    {
+      "tool": "browser_snapshot",
+      "arguments": {
+        "tab_id": "<tab_id returned by browser_open_file>"
+      }
+    }
+  ]
+}

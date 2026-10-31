@@ -1,0 +1,13 @@
+{
+  "id": "github:openai/plugins:plugins/game-studio/skills/three-webgl-game",
+  "repository": "openai/plugins",
+  "revision": "0722921d5542fc593105c27bd52630babd8b8c2a",
+  "digest": "7da93520c31398163b207989b729e6d87d205027926ff3f377212d801b89dbe4",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "plugins/game-studio/.codex-plugin/plugin.json"
+    ]
+  }
+}

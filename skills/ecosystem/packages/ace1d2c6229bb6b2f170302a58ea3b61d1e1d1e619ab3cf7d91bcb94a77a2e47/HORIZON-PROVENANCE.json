@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:skills/continuous-agent-loop",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "2f6e03b1260625c4b5e8877a821707e315aecd0021263d5027c6465e0e344bf6",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

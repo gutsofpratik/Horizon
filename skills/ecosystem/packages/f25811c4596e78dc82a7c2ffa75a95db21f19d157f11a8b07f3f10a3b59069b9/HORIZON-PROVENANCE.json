@@ -1,0 +1,13 @@
+{
+  "id": "github:sickn33/agentic-awesome-skills:skills/internal-comms-anthropic",
+  "repository": "sickn33/agentic-awesome-skills",
+  "revision": "6e4106fb38458d2bb2bf50b53db74031daabc208",
+  "digest": "55677f415ab6efd769ece0e12846d7731ae4252861d7541dc141207f3a8889f5",
+  "license": {
+    "decision": "allowed",
+    "label": "Apache-2.0",
+    "evidence": [
+      "skills/internal-comms-anthropic/LICENSE.txt"
+    ]
+  }
+}

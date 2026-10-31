@@ -1,0 +1,13 @@
+{
+  "id": "github:openai/plugins:plugins/build-web-data-visualization/skills/grammar-of-graphics-and-declarative-visualization",
+  "repository": "openai/plugins",
+  "revision": "0722921d5542fc593105c27bd52630babd8b8c2a",
+  "digest": "728a62f14d30178cd62e84e74e0f78f7fe72202a8d9d1473885011eb85df6b3c",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "plugins/build-web-data-visualization/.codex-plugin/plugin.json"
+    ]
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:skills/scientific-thinking-scholar-evaluation",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "a41791778835221b00e1c04a2fe01636d3b7af287c505613dc40dbd1a561edce",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

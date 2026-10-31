@@ -1,0 +1,13 @@
+{
+  "id": "github:openai/plugins:plugins/zoom/skills/video-sdk/react-native",
+  "repository": "openai/plugins",
+  "revision": "0722921d5542fc593105c27bd52630babd8b8c2a",
+  "digest": "3c22cd6040d0afff6836ad286a598704eae14b1dec4ef647e035f63458ed5e66",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "plugins/zoom/LICENSE"
+    ]
+  }
+}

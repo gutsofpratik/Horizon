@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:skills/error-handling",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "17224836e781d521eeab3a01e33bbcf8364f8df44214518dd85c4c5228cc790b",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

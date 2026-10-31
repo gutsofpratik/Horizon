@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:skills/tasteforge-video",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "5925947679e648a92e7662f2b183c2f3b74206c04634ba79e96118c4a447a6f5",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

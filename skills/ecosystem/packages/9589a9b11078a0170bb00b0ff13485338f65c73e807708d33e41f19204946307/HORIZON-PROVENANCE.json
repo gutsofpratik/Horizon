@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:commands/pm2.md",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "083d68812a2495b73e19747ae15fe3360a8f03cc43ebfcf56b9355a7651bf2f2",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

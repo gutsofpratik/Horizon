@@ -1,0 +1,13 @@
+{
+  "id": "horizon:adapter:artifacts",
+  "repository": "",
+  "revision": "application",
+  "digest": "75fc56af63604e2b34261ca9c2723f56588a0e507ec4f5a2b20a8b1e20702ff9",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "Application LICENSE"
+    ]
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "id": "github:openai/plugins:plugins/remotion/skills/remotion-upgrade",
+  "repository": "openai/plugins",
+  "revision": "0722921d5542fc593105c27bd52630babd8b8c2a",
+  "digest": "660d873c639e2d4cbf2d3b8fec67ae68fd9e3892ab165f22938910fe051f499b",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "plugins/remotion/.codex-plugin/plugin.json"
+    ]
+  }
+}

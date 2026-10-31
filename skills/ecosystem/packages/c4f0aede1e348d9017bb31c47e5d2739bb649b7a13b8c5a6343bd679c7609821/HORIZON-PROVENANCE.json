@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:skills/unified-memory",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "ead3aa8c87a88649449cf456e280e4309e15f0187cbd1be0e4db9e1990d7aa3e",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

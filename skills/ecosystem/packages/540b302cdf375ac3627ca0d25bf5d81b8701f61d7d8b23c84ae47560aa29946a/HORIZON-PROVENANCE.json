@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:skills/network-interface-health",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "f5f278e5141de1a72321c28bbff31f3797ca424e2b37faddeb986f8d01cd5c31",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

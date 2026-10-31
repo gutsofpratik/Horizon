@@ -1,0 +1,13 @@
+{
+  "id": "github:openai/plugins:plugins/build-web-data-visualization/skills/testing-data-visualizations",
+  "repository": "openai/plugins",
+  "revision": "0722921d5542fc593105c27bd52630babd8b8c2a",
+  "digest": "f90a9c20e5d61eec91ac5dd979ddf301fb928f7e72c8575995b608a8fe52de22",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "plugins/build-web-data-visualization/.codex-plugin/plugin.json"
+    ]
+  }
+}

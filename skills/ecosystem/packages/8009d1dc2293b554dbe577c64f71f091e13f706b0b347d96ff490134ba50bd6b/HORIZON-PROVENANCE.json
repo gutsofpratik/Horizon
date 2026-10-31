@@ -1,0 +1,13 @@
+{
+  "id": "github:anthropics/skills:skills/algorithmic-art",
+  "repository": "anthropics/skills",
+  "revision": "ca45fc496a3436251f191354091d557da31c15b5",
+  "digest": "2f238ceddf88c857601de06809e62e88ae4e118cde2e0b540f59b33159b008bf",
+  "license": {
+    "decision": "allowed",
+    "label": "Apache-2.0",
+    "evidence": [
+      "skills/algorithmic-art/LICENSE.txt"
+    ]
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:skills/ito-baskets",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "17c3707d694fedaad163ad12ab8970f84e2629bcf9c48d80b4c3a0003fcf6ac7",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

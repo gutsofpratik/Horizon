@@ -1,0 +1,13 @@
+{
+  "id": "github:anthropics/skills:skills/academy-guide",
+  "repository": "anthropics/skills",
+  "revision": "ca45fc496a3436251f191354091d557da31c15b5",
+  "digest": "f988b30f9f590713e5a4ac2658e45e0073d5131275b357785830588bfbedffa7",
+  "license": {
+    "decision": "allowed",
+    "label": "Apache-2.0",
+    "evidence": [
+      "skills/academy-guide/LICENSE.txt"
+    ]
+  }
+}

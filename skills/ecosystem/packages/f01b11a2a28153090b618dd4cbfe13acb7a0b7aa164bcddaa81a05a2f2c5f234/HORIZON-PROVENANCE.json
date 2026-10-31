@@ -1,0 +1,13 @@
+{
+  "id": "github:openai/plugins:plugins/nvidia/skills/omniverse-realtime-viewer",
+  "repository": "openai/plugins",
+  "revision": "0722921d5542fc593105c27bd52630babd8b8c2a",
+  "digest": "70449fe99e17a942cd2955978f611591eac6bdfd355a50b09fd5a51b7b037f4f",
+  "license": {
+    "decision": "allowed",
+    "label": "Apache-2.0",
+    "evidence": [
+      "plugins/nvidia/.codex-plugin/plugin.json"
+    ]
+  }
+}

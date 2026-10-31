@@ -1,0 +1,13 @@
+{
+  "id": "github:openai/plugins:plugins/test-android-apps/skills/android-performance",
+  "repository": "openai/plugins",
+  "revision": "0722921d5542fc593105c27bd52630babd8b8c2a",
+  "digest": "820ef064649195b158cd2fd100f15b42fcc11aefb38c5eff5a6f6c6695c77d3b",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "plugins/test-android-apps/.codex-plugin/plugin.json"
+    ]
+  }
+}

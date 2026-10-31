@@ -1,0 +1,13 @@
+{
+  "id": "github:sickn33/agentic-awesome-skills:skills/frontend-design",
+  "repository": "sickn33/agentic-awesome-skills",
+  "revision": "6e4106fb38458d2bb2bf50b53db74031daabc208",
+  "digest": "b792e77b1199a64cad806ae558c7a61a68cfafa9fbdcd0192e6296851df37255",
+  "license": {
+    "decision": "allowed",
+    "label": "Apache-2.0",
+    "evidence": [
+      "skills/frontend-design/LICENSE.txt"
+    ]
+  }
+}

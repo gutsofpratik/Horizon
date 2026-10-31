@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:commands/loop-status.md",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "b815f726febe1584d5e87ea6b8e500ae5f1860492eab0dcc7aad7c2fc390e2bc",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

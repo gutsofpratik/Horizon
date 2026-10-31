@@ -1,0 +1,13 @@
+{
+  "id": "github:elevenlabs/skills:music",
+  "repository": "elevenlabs/skills",
+  "revision": "503d4e9fda0190ab9357142f44e51de626f97f90",
+  "digest": "ce7e8c5cb3296d2df407e23f68946732eb3ced0c4827f13484493ec5faf9b30b",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

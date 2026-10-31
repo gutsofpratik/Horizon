@@ -1,0 +1,159 @@
+{
+  "version": 1,
+  "skill_id": "openclaude-browser-and-computer",
+  "examples": [
+    {
+      "tool": "browser_tabs",
+      "arguments": {
+        "action": "list"
+      }
+    },
+    {
+      "tool": "browser_open",
+      "arguments": {
+        "url": "https://example.com"
+      }
+    },
+    {
+      "tool": "browser_open_file",
+      "arguments": {
+        "file_id": "<registered file_id from the file-producing tool>"
+      }
+    },
+    {
+      "tool": "browser_snapshot",
+      "arguments": {
+        "tab_id": "<observed tab_id>"
+      }
+    },
+    {
+      "tool": "browser_click",
+      "arguments": {
+        "tab_id": "<observed tab_id>",
+        "snapshot_id": "<current snapshot_id>",
+        "ref": "<observed button/link ref>"
+      }
+    },
+    {
+      "tool": "browser_fill",
+      "arguments": {
+        "tab_id": "<observed tab_id>",
+        "snapshot_id": "<current snapshot_id>",
+        "ref": "<observed input ref>",
+        "value": "Example search"
+      }
+    },
+    {
+      "tool": "browser_press",
+      "arguments": {
+        "tab_id": "<observed tab_id>",
+        "key": "Enter"
+      }
+    },
+    {
+      "tool": "browser_scroll",
+      "arguments": {
+        "tab_id": "<observed tab_id>",
+        "direction": "down",
+        "amount": 700
+      }
+    },
+    {
+      "tool": "browser_find",
+      "arguments": {
+        "tab_id": "<observed tab_id>",
+        "text": "Contact",
+        "backwards": false
+      }
+    },
+    {
+      "tool": "browser_tabs",
+      "arguments": {
+        "action": "select",
+        "tab_id": "<owned tab_id>"
+      }
+    },
+    {
+      "tool": "browser_tabs",
+      "arguments": {
+        "action": "close",
+        "tab_id": "<owned tab_id>"
+      }
+    },
+    {
+      "tool": "browser_upload",
+      "arguments": {
+        "tab_id": "<observed tab_id>",
+        "snapshot_id": "<current snapshot_id>",
+        "ref": "<observed file-input ref>",
+        "file_id": "<registered workspace file_id>"
+      }
+    },
+    {
+      "tool": "browser_download",
+      "arguments": {
+        "tab_id": "<observed tab_id>",
+        "snapshot_id": "<current snapshot_id>",
+        "ref": "<observed download-link ref>"
+      }
+    },
+    {
+      "tool": "computer_windows",
+      "arguments": {}
+    },
+    {
+      "tool": "computer_focus_window",
+      "arguments": {
+        "window_id": "<recent window_id from computer_windows>"
+      }
+    },
+    {
+      "tool": "computer_screenshot",
+      "arguments": {}
+    },
+    {
+      "tool": "computer_click",
+      "arguments": {
+        "screen_id": "<latest screen_id>",
+        "x": 320,
+        "y": 240,
+        "button": "left",
+        "click_count": 1
+      }
+    },
+    {
+      "tool": "computer_type",
+      "arguments": {
+        "screen_id": "<latest screen_id>",
+        "text": "Example text"
+      }
+    },
+    {
+      "tool": "computer_key",
+      "arguments": {
+        "screen_id": "<latest screen_id>",
+        "keys": [
+          "ENTER"
+        ]
+      }
+    },
+    {
+      "tool": "computer_scroll",
+      "arguments": {
+        "screen_id": "<latest screen_id>",
+        "amount": 3
+      }
+    },
+    {
+      "tool": "computer_drag",
+      "arguments": {
+        "screen_id": "<latest screen_id>",
+        "start_x": 320,
+        "start_y": 240,
+        "end_x": 500,
+        "end_y": 300,
+        "duration": 0.5
+      }
+    }
+  ]
+}

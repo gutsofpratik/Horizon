@@ -1,0 +1,13 @@
+{
+  "id": "github:openai/plugins:plugins/superpowers/skills/receiving-code-review",
+  "repository": "openai/plugins",
+  "revision": "0722921d5542fc593105c27bd52630babd8b8c2a",
+  "digest": "83cd4bcb26ff80f853fd618227c7fb1522286353873ae1c43b0c0fc1cae6473a",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "plugins/superpowers/LICENSE"
+    ]
+  }
+}

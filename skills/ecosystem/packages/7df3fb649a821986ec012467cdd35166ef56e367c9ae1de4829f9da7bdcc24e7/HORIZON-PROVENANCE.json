@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:skills/recursive-decision-ledger",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "c2c262a434da7f1348b783b571ab1a51078e3a4d7a5dbb09728dc2971c12d29d",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

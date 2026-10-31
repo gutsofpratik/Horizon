@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:skills/homelab-vlan-segmentation",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "e20f73d34dd1db76a324542e88df111086ab79e719aac4228d5b5cab76b8f64c",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

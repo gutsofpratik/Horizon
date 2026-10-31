@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:skills/java-coding-standards",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "e0af9538e073cd2fc2be0b5046255618071a18803464a7cea533bb937b5a108c",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

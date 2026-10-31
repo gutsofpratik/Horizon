@@ -1,0 +1,13 @@
+{
+  "id": "github:openai/plugins:plugins/expo/skills/expo-cicd-workflows",
+  "repository": "openai/plugins",
+  "revision": "0722921d5542fc593105c27bd52630babd8b8c2a",
+  "digest": "d35141f1a96f24c01a177ae750f25cb47b4e1d248cdbb387fa0a1971aeba842a",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "plugins/expo/LICENSE"
+    ]
+  }
+}

@@ -1,8 +1,11 @@
+import {canonicalAlias} from '../skills/ecosystem/relationships.ts';
 import {z} from 'zod';
 import type {ToolRegistry,ToolContext} from './registry.ts';
 import {groupForLeaf,groupAction,isToolGroup} from './groups.ts';
 import {decideTool} from './policy.ts';
 import {operationExamples,operationWorkflow} from './operation-workflows.ts';
+import {artifactById} from '../artifacts/access.ts';
+import {digest as digestForGuidance} from './files.ts';
 
 export function normalizeGatewayArguments(name:string,value:any){
  if(name!=='toolkit'||value?.action!=='call'||typeof value.arguments!=='string'||value.arguments.length>1000000)return value;
@@ -16,6 +19,16 @@ export function normalizeDirectArguments(name:string,value:any,schema:any){
  // Only recognize a complete transport wrapper. Never merge fields, invent
  // omitted arguments, or unwrap a real parameter named arguments.
  if(parsed&&typeof parsed==='object'&&!Array.isArray(parsed)&&!schema?.properties?.arguments){const keys=Object.keys(parsed);if(keys.every(key=>['name','arguments'].includes(key))&&Object.hasOwn(parsed,'arguments')&&(!Object.hasOwn(parsed,'name')||parsed.name===name)){const inner=decode(parsed.arguments);if(inner&&typeof inner==='object'&&!Array.isArray(inner))parsed=inner;}}
+ // Some native templates serialize an absent optional string as JSON null or
+ // the literal "null". Only this optional creation precondition is normalized;
+ // real hashes and every required edit precondition remain untouched.
+ if(name==='files_write'&&parsed&&typeof parsed==='object'&&!Array.isArray(parsed)&&Object.hasOwn(parsed,'expected_hash')&&(parsed.expected_hash===null||parsed.expected_hash==='null')){const {expected_hash,...rest}=parsed;parsed=rest;}
+ // Empty unused selectors do not identify another file. Preserve conflicting
+ // nonempty selectors so validation still rejects an ambiguous target.
+ if(name==='browser_open_file'&&parsed&&typeof parsed==='object'&&!Array.isArray(parsed)){
+  const selectors=['path','file_id','artifact_id'];
+  if(selectors.filter(key=>typeof parsed[key]==='string'&&parsed[key].length>0).length===1)parsed=Object.fromEntries(Object.entries(parsed).filter(([key,value])=>!selectors.includes(key)||value!==''&&value!==null));
+ }
  return parsed;
 }
 
@@ -56,7 +69,7 @@ function entryGuide(entry:ReturnType<typeof entries>[number],ctx?:ToolContext,ca
  const {tool,category,action,schema}=entry;
  const workflow=operationWorkflow(category,tool.name);
  const preferred:Record<string,string>={sheets:'openclaude-spreadsheet-workflow',data:'openclaude-spreadsheet-workflow',documents:'openclaude-document-workflow',pdf:'openclaude-document-workflow',slides:'openclaude-presentation-workflow',shell:'openclaude-terminal-workflow',file:'openclaude-terminal-workflow',directory:'openclaude-terminal-workflow',git:'openclaude-terminal-workflow',browser:'openclaude-browser-and-computer',computer:'openclaude-browser-and-computer',agent:'openclaude-runtime-orchestration',planning:'openclaude-runtime-orchestration',artifact:'openclaude-data-and-creative-workflows',python:'openclaude-data-and-creative-workflows',retrieval:'openclaude-data-and-creative-workflows'};
- const score=(skill:any)=>skill.id===preferred[category]?100:skill.id==='openclaude-tool-operation'?1:workflow.skill_topics.some(topic=>String(skill.name).toLowerCase().includes(topic))?20:skill.id==='openclaude-data-and-creative-workflows'?10:0;
+ const score=(skill:any)=>(skill.id===preferred[category]||skill.id===canonicalAlias(preferred[category]??''))?100:skill.id==='openclaude-tool-operation'?1:workflow.skill_topics.some(topic=>String(skill.name).toLowerCase().includes(topic))?20:skill.id==='openclaude-data-and-creative-workflows'?10:0;
  const skills=(ctx?.app.ephemeral.get('installedSkills')??catalog).filter((skill:any)=>skill.installed!==false&&skill.available!==false&&skill.enabled!==false&&(skill.relatedTools??[]).some((name:string)=>name==='*'||name===category||name===tool.name)&&score(skill)>0).sort((a:any,b:any)=>score(b)-score(a)).slice(0,4).map((skill:any)=>({skill_id:skill.id,name:skill.name,purpose:String(skill.description??'').slice(0,280),already_loaded:ctx?.loadedSkills.has(skill.id)??false,load_call:{action:'call',name:'skill_load',arguments:{skill_id:skill.id}}}));
  const examples=operationExamples[tool.name];
  const asCategory=(input:any)=>{let args={...input};if(action){if(Object.hasOwn(args,'action')){const {action:operation,...rest}=args;args={...rest,operation};}args={action,...args};}return args;};
@@ -73,8 +86,12 @@ export function toolReference(registry:ToolRegistry,ctx:ToolContext,query='',act
  const available=selected.some(entry=>!entry.tool.available?.());const reason=selected.length&&!available?selected[0].tool.available?.():undefined;
  return {guidelines:CALL_GUIDELINES,category,registered:selected.length>0,available,unavailable_reason:reason??null,actions:selected.map(entry=>selectedAction||!entry.action?entryGuide(entry,ctx):{action:entry.action,tool:entry.tool.name,when_to_use:entry.tool.description,available:!entry.tool.available?.(),unavailable_reason:entry.tool.available?.()??null,read_guide:{action:'discover',name:'guide',query:entry.category,tool_action:entry.action}}),summary:reason?'The tool exists, but its execution runtime is unavailable: '+reason+'. Do not repeat discovery, invent another tool or use a different channel to bypass this blocker. Skills do not supply a runtime.':selected.length?(selectedAction?'Use the example shape with real values, then execute. Do not rediscover this action unless its schema changes.':'Choose an action and read its guide once before execution.'):'No permitted matching tool. Check the selected workflow and tool permissions; do not invent access.'};
 }
-export function toolFailureGuidance(registry:ToolRegistry,name:string,args:any){
+export function toolFailureGuidance(registry:ToolRegistry,name:string,args:any,ctx?:ToolContext){
  const tool=registry.tools.get(name);if(!tool)return undefined;
+ if(name==='artifact_save'&&typeof args?.artifact_id==='string'){
+  let current:any;try{if(ctx)current=artifactById(args.artifact_id,ctx);}catch{}
+  const patch=typeof args.find==='string';return {function:name,required_fields:patch?['artifact_id','expected_version','expected_hash','find','replace']:['artifact_id','expected_version','source'],example_arguments:{artifact_id:current?.id??args.artifact_id,expected_version:current?.version??1,...(patch?{expected_hash:current?digestForGuidance(current.source):'<source_hash returned by artifact_read>',find:'<one exact unique substring from artifact_read>',replace:'<replacement text>'}:{source:'<complete revised source preserving unrelated content>'})},next:'This is a revision, not a new artifact. Read the latest artifact, copy its current expected_version unchanged, and call artifact_save with the same artifact_id. Do not remove the identity or invent a future version.'};
+ }
  if(name==='toolkit'){
   const target=typeof args?.name==='string'?args.name:undefined;
   let supplied=args?.arguments;if(typeof supplied==='string')try{supplied=JSON.parse(supplied);}catch{}

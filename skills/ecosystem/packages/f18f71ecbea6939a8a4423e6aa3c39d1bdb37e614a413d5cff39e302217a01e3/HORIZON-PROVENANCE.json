@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:skills/orch-change-feature",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "0bfaeb806a0df5c4497c31f506a564f8c03e92deb34cfdb094164d21b2484217",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

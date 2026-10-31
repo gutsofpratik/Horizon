@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:skills/dev-team",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "af087306d323b7f8986bcb4e05375b2d5ac1c6ae235ecb212424f40feb88a9e7",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

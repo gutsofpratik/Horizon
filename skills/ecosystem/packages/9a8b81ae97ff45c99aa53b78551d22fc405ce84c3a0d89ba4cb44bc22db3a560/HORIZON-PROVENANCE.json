@@ -1,0 +1,13 @@
+{
+  "id": "github:openai/plugins:plugins/supabase/skills/supabase-postgres-best-practices",
+  "repository": "openai/plugins",
+  "revision": "0722921d5542fc593105c27bd52630babd8b8c2a",
+  "digest": "66741b329417b34bb86c294c99432792648cc776e95ed4e2f17a603b42f2518c",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "plugins/supabase/LICENSE"
+    ]
+  }
+}

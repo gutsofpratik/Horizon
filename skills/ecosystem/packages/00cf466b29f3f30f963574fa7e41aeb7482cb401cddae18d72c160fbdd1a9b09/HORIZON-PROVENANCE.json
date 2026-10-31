@@ -1,0 +1,13 @@
+{
+  "id": "github:openai/plugins:plugins/build-ios-apps/skills/ios-memgraph-leaks",
+  "repository": "openai/plugins",
+  "revision": "0722921d5542fc593105c27bd52630babd8b8c2a",
+  "digest": "6502549d7345c7eeb6714b91ee7eab3b6139804bbbb22a15d8426487855e014a",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "plugins/build-ios-apps/.codex-plugin/plugin.json"
+    ]
+  }
+}

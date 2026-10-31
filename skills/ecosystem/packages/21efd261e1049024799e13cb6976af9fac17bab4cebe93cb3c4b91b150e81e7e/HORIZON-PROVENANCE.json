@@ -1,0 +1,13 @@
+{
+  "id": "github:openai/plugins:plugins/circleci/skills/cli",
+  "repository": "openai/plugins",
+  "revision": "0722921d5542fc593105c27bd52630babd8b8c2a",
+  "digest": "9b942a9db2bee97a2895e7ad5fb125864ea3b1e68c4b6c89a844ee2aefa7dc34",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "plugins/circleci/.codex-plugin/plugin.json"
+    ]
+  }
+}

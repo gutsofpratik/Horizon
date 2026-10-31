@@ -22,9 +22,9 @@ async function watchCompletion(job:Job){while(job.status==='running'){await paus
 async function execute(command:Command){const {name,args,owner}=command;
  if(name==='cancel'){cancelledCommands.add(command.cancelId??'');await invoke('native_cancel',{requestId:command.cancelId});const id=commands.get(command.cancelId??'');if(id){const job=jobs.get(id);if(job&&job.status==='running')await close(job);}return {};}
  if(cancelledCommands.has(command.id))throw new Error('Desktop command cancelled');
- if(name==='terminal_session'){const scope=args.__workspace_scope??owner,workspace=await currentWorkspace(scope);const opened:any=await invoke('terminal_open',{workspaceId:workspace.id});await registerTerminalProcess(opened.pid);const job:Job={id:opened.id,owner,marker:'OC_SESSION_'+crypto.randomUUID().replaceAll('-',''),status:'running',exitCode:null,offset:0,timer:undefined};jobs.set(job.id,job);commands.set(command.id,job.id);followTerminal(scope,job.id);void watchCompletion(job);return read(job,0,100);}
+ if(name==='terminal_session'){const scope=args.__workspace_scope??owner,workspace=await currentWorkspace(scope,args.__workspace_path);const opened:any=await invoke('terminal_open',{workspaceId:workspace.id});await registerTerminalProcess(opened.pid);const job:Job={id:opened.id,owner,marker:'OC_SESSION_'+crypto.randomUUID().replaceAll('-',''),status:'running',exitCode:null,offset:0,timer:undefined};jobs.set(job.id,job);commands.set(command.id,job.id);followTerminal(scope,job.id);void watchCompletion(job);return read(job,0,100);}
  if(name==='terminal_run'){
-  const scope=args.__workspace_scope??owner;const workspace=await currentWorkspace(scope);
+  const scope=args.__workspace_scope??owner;const workspace=await currentWorkspace(scope,args.__workspace_path);
   const marker='OC_DONE_'+crypto.randomUUID().replaceAll('-','')+'_';
   const unix=!/^Win/i.test(navigator.platform);
   const script=unix?args.command:"$ErrorActionPreference='Stop'; $global:LASTEXITCODE=0; try { & {\n"+args.command+"\n} | Out-Default; if ($LASTEXITCODE) { exit $LASTEXITCODE }; exit 0 } catch { Write-Error $_ -ErrorAction Continue; exit 1 }";

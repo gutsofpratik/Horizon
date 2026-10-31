@@ -1,0 +1,13 @@
+{
+  "id": "github:obra/superpowers:skills/subagent-driven-development",
+  "repository": "obra/superpowers",
+  "revision": "2ce8aa15d05bd57213e6f746f953aafb7ded7a8b",
+  "digest": "aef6d877babe22b49a1f8a1aa2cc55462db56bb92b40b42e8934afbf5823647e",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

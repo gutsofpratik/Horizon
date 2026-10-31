@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:skills/swift-concurrency-6-2",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "7a1421cbcba2fe2534cf32a18a8d0b1f027b1068187bb2999dc942d32bfcbb5b",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

@@ -2,7 +2,7 @@ import {createHash} from 'node:crypto';
 
 export interface CircuitCall {name:string;arguments?:unknown;argumentError?:string}
 export interface CircuitResult {status:string;tool?:string;summary?:string;error?:{code?:string;message?:string};data?:{called_tool?:string;execution_outcome?:string}}
-export interface CircuitDecision {action:'continue'|'correct'|'halt';reason?:'invalid_arguments'|'repeated_failure'|'all_error_rounds'|'discovery_cycle'|'protocol_failure';message?:string}
+export interface CircuitDecision {action:'continue'|'correct'|'halt';reason?:'invalid_arguments'|'repeated_failure'|'all_error_rounds'|'discovery_cycle'|'protocol_failure'|'stalled_read';message?:string}
 const validationCodes=new Set(['INVALID_ARGUMENTS','INVALID_TOOL_JSON','REPEATED_INVALID_ARGUMENTS']);
 function canonical(value:unknown):unknown{
  if(Array.isArray(value))return value.map(canonical);
@@ -13,6 +13,7 @@ export function callFingerprint(call:CircuitCall){return call.name+':'+createHas
 function discovery(call:CircuitCall,result:CircuitResult){const name=result.data?.called_tool??call.name;return ['discover_tools','skills_list','skill_load','runtime_capabilities','list_tools','search_tools'].includes(name)||call.name==='toolkit'&&(call.arguments as any)?.action==='discover';}
 /** Per-run recovery budget. Unrelated successes cannot reset a repeatedly failed operation. */
 export class ToolCircuitBreaker {
+ private reads=new Map<string,{signature:string;count:number}>();
  private failures=new Map<string,{count:number;message:string;invalid:boolean;uncertain:boolean}>();
  private round:Array<{call:CircuitCall;result:CircuitResult}>=[];
  private unproductive:string[]=[];
@@ -33,7 +34,9 @@ export class ToolCircuitBreaker {
   this.round.push({call,result});const key=callFingerprint(call);
   if(result.status==='succeeded'){
    this.failures.delete(key);
-   if(!discovery(call,result)){this.successfulActions++;this.unproductive=[];this.protocolFailures=0;for(const [fingerprint,failure] of this.failures)if(failure.invalid&&fingerprint.startsWith(call.name+':'))this.failures.delete(fingerprint);}
+   const name=result.data?.called_tool??call.name;const read=/^(?:artifact_read|files_read|file_read|files_list|directory_list|spreadsheet_inspect|slides_inspect|pdf_inspect|document_inspect)$/.test(name);
+   if(read){const signature=createHash('sha256').update(JSON.stringify(canonical(result.data??result.summary??null))).digest('hex');const previous=this.reads.get(key);this.reads.set(key,{signature,count:previous?.signature===signature?previous.count+1:1});}
+   if(!discovery(call,result)){if(!read)this.reads.clear();if(!read||this.reads.get(key)?.count===1)this.successfulActions++;this.unproductive=[];this.protocolFailures=0;for(const [fingerprint,failure] of this.failures)if(failure.invalid&&fingerprint.startsWith(call.name+':'))this.failures.delete(fingerprint);}
   }else{
    const previous=this.failures.get(key);this.failures.set(key,{count:(previous?.count??0)+1,message:(result.error?.message??result.summary??'Unknown tool failure').slice(0,700),invalid:previous?.invalid??validationCodes.has(result.error?.code??''),uncertain:previous?.uncertain||result.error?.code==='OUTCOME_UNKNOWN'||result.data?.execution_outcome==='unknown'});
   }
@@ -51,6 +54,8 @@ export class ToolCircuitBreaker {
   if(this.halted)return this.halted;
   const round=this.round;this.round=[];if(!round.length)return {action:'continue'};
   const failed=round.filter(({result})=>result.status!=='succeeded');
+  const stalled=round.map(({call})=>this.reads.get(callFingerprint(call))).find(read=>read&&read.count>=3);
+  if(stalled)return this.decision('stalled_read','The same read already returned unchanged content '+stalled.count+' times. Use the returned source, IDs and version to perform the requested next action. Do not read the same unchanged content again.',stalled.count>=5);
   this.errorRounds=failed.length===round.length?this.errorRounds+1:0;
   this.discoveryRounds=round.every(({call,result})=>discovery(call,result))?this.discoveryRounds+1:0;
   const repeated=round.map(({call})=>this.failures.get(callFingerprint(call))).find(f=>f&&f.count>=(f.invalid?6:4));

@@ -1,0 +1,13 @@
+{
+  "id": "github:openai/plugins:plugins/superpowers/skills/finishing-a-development-branch",
+  "repository": "openai/plugins",
+  "revision": "0722921d5542fc593105c27bd52630babd8b8c2a",
+  "digest": "d98f4b4817a2a2a72ad94b9f06c243f8e2d0e4c22859acb5f05183b42fe5245f",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "plugins/superpowers/LICENSE"
+    ]
+  }
+}

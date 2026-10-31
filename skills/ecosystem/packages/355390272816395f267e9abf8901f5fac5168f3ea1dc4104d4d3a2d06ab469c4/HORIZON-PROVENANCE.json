@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:skills/fastapi-patterns",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "eb6975c3d9f4dd528aa25420a0c96b0cbf96de8fa04a5d5bbf104c3f61d23559",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

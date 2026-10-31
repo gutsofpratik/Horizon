@@ -1,0 +1,13 @@
+{
+  "id": "github:openai/plugins:plugins/expo/skills/expo-deployment",
+  "repository": "openai/plugins",
+  "revision": "0722921d5542fc593105c27bd52630babd8b8c2a",
+  "digest": "8967386d73982392b4010a89ff99ac9a929a4897815ceff5230a52f2b5b186fb",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "plugins/expo/LICENSE"
+    ]
+  }
+}

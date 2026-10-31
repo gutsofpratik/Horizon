@@ -1,0 +1,13 @@
+{
+  "id": "github:sickn33/agentic-awesome-skills:skills/idea-to-blueprint",
+  "repository": "sickn33/agentic-awesome-skills",
+  "revision": "6e4106fb38458d2bb2bf50b53db74031daabc208",
+  "digest": "84779458e1e11c1d418aac9c44b37af050ff4d4289411d0ee1fcf6b4a5efc0d2",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "skills/idea-to-blueprint/LICENSE"
+    ]
+  }
+}

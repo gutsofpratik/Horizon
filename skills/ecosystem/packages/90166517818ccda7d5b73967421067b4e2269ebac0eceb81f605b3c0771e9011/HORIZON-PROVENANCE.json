@@ -1,0 +1,13 @@
+{
+  "id": "github:sickn33/agentic-awesome-skills:skills/hugging-face-jobs",
+  "repository": "sickn33/agentic-awesome-skills",
+  "revision": "6e4106fb38458d2bb2bf50b53db74031daabc208",
+  "digest": "29014915822c3d19baec46d84eefd5dcbd74e298de488b05773be2bc8942b7ea",
+  "license": {
+    "decision": "allowed",
+    "label": "Apache-2.0",
+    "evidence": [
+      "skills/hugging-face-jobs/LICENSE.txt"
+    ]
+  }
+}

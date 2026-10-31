@@ -1,0 +1,13 @@
+{
+  "id": "github:sickn33/agentic-awesome-skills:skills/brand-guidelines-anthropic",
+  "repository": "sickn33/agentic-awesome-skills",
+  "revision": "6e4106fb38458d2bb2bf50b53db74031daabc208",
+  "digest": "dc8cf94f0fc81a45da6be30dffb093b3b2ee929608da968e6617be64310ac2df",
+  "license": {
+    "decision": "allowed",
+    "label": "Apache-2.0",
+    "evidence": [
+      "skills/brand-guidelines-anthropic/LICENSE.txt"
+    ]
+  }
+}

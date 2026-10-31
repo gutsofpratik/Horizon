@@ -1,0 +1,13 @@
+{
+  "id": "github:sickn33/agentic-awesome-skills:skills/brand-guidelines-community",
+  "repository": "sickn33/agentic-awesome-skills",
+  "revision": "6e4106fb38458d2bb2bf50b53db74031daabc208",
+  "digest": "cde6ca11771acf18287bd6a623ef5cca703e5fa8068b379c190ae724b48d674f",
+  "license": {
+    "decision": "allowed",
+    "label": "Apache-2.0",
+    "evidence": [
+      "skills/brand-guidelines-community/LICENSE.txt"
+    ]
+  }
+}

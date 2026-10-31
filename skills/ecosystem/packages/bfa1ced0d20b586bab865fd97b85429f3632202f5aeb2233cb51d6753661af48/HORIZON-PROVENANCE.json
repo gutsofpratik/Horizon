@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:skills/manim-video",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "354cd74368e52bb4a078b2ac5a565df197147f3471600e28da23a2e26771d6c0",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

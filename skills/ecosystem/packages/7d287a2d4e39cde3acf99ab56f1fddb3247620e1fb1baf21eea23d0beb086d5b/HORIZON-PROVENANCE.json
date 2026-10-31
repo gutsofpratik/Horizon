@@ -1,0 +1,13 @@
+{
+  "id": "github:openai/plugins:plugins/superpowers/skills/requesting-code-review",
+  "repository": "openai/plugins",
+  "revision": "0722921d5542fc593105c27bd52630babd8b8c2a",
+  "digest": "bc1cd54fc0882c2a08bef6f6814b78becc48351c13e38b93b3b2c2d6250cbeb0",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "plugins/superpowers/LICENSE"
+    ]
+  }
+}

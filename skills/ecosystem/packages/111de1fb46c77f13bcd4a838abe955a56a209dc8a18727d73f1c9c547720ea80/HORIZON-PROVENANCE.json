@@ -1,0 +1,13 @@
+{
+  "id": "github:openai/plugins:plugins/game-studio/skills/react-three-fiber-game",
+  "repository": "openai/plugins",
+  "revision": "0722921d5542fc593105c27bd52630babd8b8c2a",
+  "digest": "be2f519d9715a7e1f638ce755bd0a7e7d5b18f75a42140cb1cf435b1ae62f91c",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "plugins/game-studio/.codex-plugin/plugin.json"
+    ]
+  }
+}

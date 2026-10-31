@@ -1,0 +1,13 @@
+{
+  "id": "github:openai/plugins:plugins/zotero/skills/zotero",
+  "repository": "openai/plugins",
+  "revision": "0722921d5542fc593105c27bd52630babd8b8c2a",
+  "digest": "088598823bb413d51539b82fb6070655cd372fbc0e8758b112926ee02e9d8500",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "plugins/zotero/.codex-plugin/plugin.json"
+    ]
+  }
+}

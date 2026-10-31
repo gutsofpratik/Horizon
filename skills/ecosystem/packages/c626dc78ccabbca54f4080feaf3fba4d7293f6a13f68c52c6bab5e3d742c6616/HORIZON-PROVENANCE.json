@@ -1,0 +1,13 @@
+{
+  "id": "github:openai/plugins:plugins/build-macos-apps/skills/telemetry",
+  "repository": "openai/plugins",
+  "revision": "0722921d5542fc593105c27bd52630babd8b8c2a",
+  "digest": "48867214160dc023554439c56e1757749a65500ffd1aaf277c067fa7d59dd3e4",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "plugins/build-macos-apps/.codex-plugin/plugin.json"
+    ]
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:skills/mle-workflow",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "d11ee05f41c9ef6666d54d6d190399ea40ebb9615d8b1dbdbdc2fc3b26b83505",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

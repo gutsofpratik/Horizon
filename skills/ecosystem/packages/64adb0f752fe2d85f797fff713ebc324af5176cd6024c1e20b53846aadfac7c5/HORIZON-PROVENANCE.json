@@ -1,0 +1,13 @@
+{
+  "id": "github:openai/plugins:plugins/game-studio/skills/phaser-2d-game",
+  "repository": "openai/plugins",
+  "revision": "0722921d5542fc593105c27bd52630babd8b8c2a",
+  "digest": "f1db393a2b101427f4126a3a616e42177dd8951b0c66fd777bf342916cc11e5b",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "plugins/game-studio/.codex-plugin/plugin.json"
+    ]
+  }
+}

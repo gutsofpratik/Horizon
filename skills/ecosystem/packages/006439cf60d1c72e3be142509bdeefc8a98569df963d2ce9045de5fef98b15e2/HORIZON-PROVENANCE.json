@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:skills/workspace-surface-audit",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "4d459ab188d5481dff1f2e67de5af7560fc3696fb485c068dca8da251001ef6b",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

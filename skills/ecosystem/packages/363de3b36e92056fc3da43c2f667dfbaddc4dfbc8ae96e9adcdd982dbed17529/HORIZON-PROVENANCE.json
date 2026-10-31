@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:skills/git-workflow",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "ebf11e9dad7cabc19ea2f66a8123e4284207f57c5f3f65732650cddc8f7a581d",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

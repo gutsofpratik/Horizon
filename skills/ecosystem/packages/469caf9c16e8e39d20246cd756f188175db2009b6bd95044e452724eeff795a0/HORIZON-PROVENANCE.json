@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:skills/hexagonal-architecture",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "24bd90a40549b27fcb22dd437549148e2f9188a908a2ae485fdcbeb6528b19cb",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

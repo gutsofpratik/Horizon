@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:skills/compose-multiplatform-patterns",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "25f7737f59f70df819beb87803c0118a98b4b8448ff706136c409794fdfd5807",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

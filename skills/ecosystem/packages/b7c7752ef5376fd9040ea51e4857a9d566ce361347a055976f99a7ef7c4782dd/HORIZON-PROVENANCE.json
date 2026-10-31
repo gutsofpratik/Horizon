@@ -1,0 +1,13 @@
+{
+  "id": "github:sickn33/agentic-awesome-skills:skills/survey-generator",
+  "repository": "sickn33/agentic-awesome-skills",
+  "revision": "6e4106fb38458d2bb2bf50b53db74031daabc208",
+  "digest": "7fa91d6530604d9c1670cee109e3f5c0bdc77a7b0aa73716cebf1f8d7302e7be",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "skills/survey-generator/LICENSE"
+    ]
+  }
+}

@@ -4,6 +4,7 @@ import {spawn} from 'node:child_process';
 import {build} from 'esbuild';
 import {createHash} from 'node:crypto';
 import JSZip from 'jszip';
+import {readWindowsLoader} from './release/windows-loader.mjs';
 
 const root=process.cwd(),platform=process.platform,arch=process.arch;
 if(!['win32','darwin','linux'].includes(platform))throw new Error('Unsupported desktop platform');
@@ -16,7 +17,7 @@ await mkdir('.local',{recursive:true});const stage=await mkdtemp(resolve('.local
 const privatePart=/^(?:\.local|\.git|\.rea|tests?|test-results|source-packs|__pycache__|\.env(?:\..*)?|Cookies|Login Data|Web Data|History)$/i;
 const filter=source=>{const parts=relative(root,source).split(/[\\/]/);return !parts.some(p=>privatePart.test(p))&&!/\.(?:gguf|safetensors|sqlite(?:-wal|-shm)?|pyc|pem|pfx|p12)$/i.test(source);};
 for(const path of ['runtime','dist','dist-desktop'])await cp(resolve(path),join(backend,path),{recursive:true,filter});
-await mkdir(join(backend,'skills'),{recursive:true});for(const path of ['built-in','app-research','catalog.json','repository-catalog.json','official-plugin-catalog.json'])await cp(resolve('skills',path),join(backend,'skills',path),{recursive:true,filter});
+await mkdir(join(backend,'skills'),{recursive:true});for(const path of ['ecosystem','catalog.json','repository-catalog.json','official-plugin-catalog.json'])await cp(resolve('skills',path),join(backend,'skills',path),{recursive:true,filter});
 await mkdir(join(backend,'engine/licenses'),{recursive:true});const engineName='openclaude-engine'+(platform==='win32'?'.exe':'');await cp(resolve('.local/components/agent-backend',engineName),join(backend,'engine',engineName));
 await cp(resolve('vendor/AionCore/LICENSE'),join(backend,'engine/licenses/AionCore.txt'));await cp(resolve('vendor/aionrs/LICENSE'),join(backend,'engine/licenses/aionrs.txt'));await cp(resolve('vendor/NOTICE'),join(backend,'engine/NOTICE'));await mkdir(join(backend,'vendor'),{recursive:true});await cp(resolve('vendor/upstream-lock.json'),join(backend,'vendor/upstream-lock.json'));
 await mkdir(join(backend,'node'),{recursive:true});await cp(process.execPath,join(backend,'node',platform==='win32'?'node.exe':'node'));
@@ -45,7 +46,7 @@ if(platform==='darwin'){
  await run('/usr/bin/ditto',['-c','-k','--sequesterRsrc','--keepParent',join(targetRoot,'bundle/macos',apps[0]),resolve('release',`Horizon-${pkg.version}-${platform}-${arch}.zip`)]);
 }else{
  zip.file(platform==='win32'?'Horizon.exe':'Horizon',await readFile(join(targetRoot,'claude-local-desktop'+(platform==='win32'?'.exe':''))),{unixPermissions:0o755});
- if(platform==='win32'){try{zip.file('WebView2Loader.dll',await readFile(join(targetRoot,'WebView2Loader.dll')));}catch(error){if(error.code!=='ENOENT')throw error;}}
+ if(platform==='win32')zip.file('WebView2Loader.dll',await readWindowsLoader(targetRoot,arch));
  if(platform==='linux'){
   zip.file('Start-Horizon.sh','#!/bin/sh\nset -eu\ncd -- "$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)"\nif ldd ./Horizon 2>&1 | grep -q "not found"; then\n  echo "Missing desktop libraries. Install the Horizon .deb with apt, or install libwebkit2gtk-4.1-0 libayatana-appindicator3-1 libgbm1 libxkbcommon0 libxcb-randr0 libpipewire-0.3-0." >&2\n  ldd ./Horizon | grep "not found" >&2\n  exit 1\nfi\nexec ./Horizon "$@"\n',{unixPermissions:0o755});
  }

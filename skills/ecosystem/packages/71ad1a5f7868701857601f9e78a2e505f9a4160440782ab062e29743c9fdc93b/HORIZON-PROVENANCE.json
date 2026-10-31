@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:skills/content-engine",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "5284f17835a94161da2bb5f57662149d0eda5c1c3742fb6d55d1d44481255910",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

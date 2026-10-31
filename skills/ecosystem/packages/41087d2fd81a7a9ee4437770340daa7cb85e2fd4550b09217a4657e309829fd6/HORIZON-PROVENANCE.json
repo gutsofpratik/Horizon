@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:skills/motion-patterns",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "999ca7806bc466331b164026149bc3947b2e3e872d971a177460d0774981a554",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

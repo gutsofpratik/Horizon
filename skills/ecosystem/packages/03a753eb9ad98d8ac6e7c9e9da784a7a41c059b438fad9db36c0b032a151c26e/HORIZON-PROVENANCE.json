@@ -1,0 +1,13 @@
+{
+  "id": "github:sickn33/agentic-awesome-skills:skills/mcp-builder",
+  "repository": "sickn33/agentic-awesome-skills",
+  "revision": "6e4106fb38458d2bb2bf50b53db74031daabc208",
+  "digest": "92eba570ba860fd57387b7eb7f6ded9e8b2bdebc3aa4034e09144986a9bc540f",
+  "license": {
+    "decision": "allowed",
+    "label": "Apache-2.0",
+    "evidence": [
+      "skills/mcp-builder/LICENSE.txt"
+    ]
+  }
+}

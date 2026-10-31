@@ -1,0 +1,13 @@
+{
+  "id": "github:openai/plugins:plugins/ngs-analysis/skills/ngs-dna-variant-calling",
+  "repository": "openai/plugins",
+  "revision": "0722921d5542fc593105c27bd52630babd8b8c2a",
+  "digest": "a41e346e5b159adda7e2f09634a82219ad9821eedd62099b06183d80d9cd28b1",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "plugins/ngs-analysis/.codex-plugin/plugin.json"
+    ]
+  }
+}

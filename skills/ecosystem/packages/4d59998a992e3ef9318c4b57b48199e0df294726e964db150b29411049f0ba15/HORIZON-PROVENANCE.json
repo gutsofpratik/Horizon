@@ -1,0 +1,13 @@
+{
+  "id": "github:sickn33/agentic-awesome-skills:skills/browser-extension-launch",
+  "repository": "sickn33/agentic-awesome-skills",
+  "revision": "6e4106fb38458d2bb2bf50b53db74031daabc208",
+  "digest": "8449fb334725e75fa33be1d02f15e908f8184b43c956cbe1e819da9e129037f9",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "skills/browser-extension-launch/LICENSE"
+    ]
+  }
+}

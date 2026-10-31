@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:skills/prompt-optimizer",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "930ae36c671045587706541a1b9537d8db9c8b124f86c3f633243d85264c68ad",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:skills/lead-intelligence",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "1131c768f129ee2debd114773bc2230718dafe9c19ca37a361480cc53b8b685f",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

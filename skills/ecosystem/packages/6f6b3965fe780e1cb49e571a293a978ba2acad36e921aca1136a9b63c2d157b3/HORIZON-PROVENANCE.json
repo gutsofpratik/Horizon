@@ -1,0 +1,13 @@
+{
+  "id": "github:sickn33/agentic-awesome-skills:skills/product-design-harness",
+  "repository": "sickn33/agentic-awesome-skills",
+  "revision": "6e4106fb38458d2bb2bf50b53db74031daabc208",
+  "digest": "a946b2487cd34e21c6629734689bd2de9a9bb3589234584070f9b17bb0152ab6",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "skills/product-design-harness/LICENSE"
+    ]
+  }
+}

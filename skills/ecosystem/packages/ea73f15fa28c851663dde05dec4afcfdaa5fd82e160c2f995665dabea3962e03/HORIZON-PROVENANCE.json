@@ -1,0 +1,13 @@
+{
+  "id": "github:openai/plugins:plugins/ngs-analysis/skills/ngs-amplicon-microbiome",
+  "repository": "openai/plugins",
+  "revision": "0722921d5542fc593105c27bd52630babd8b8c2a",
+  "digest": "7091a3575b568dd1f8448d4238ef254a39e8e1b7eec8972fd2cb10b2d1ca9da9",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "plugins/ngs-analysis/.codex-plugin/plugin.json"
+    ]
+  }
+}

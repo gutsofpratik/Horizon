@@ -1,0 +1,13 @@
+{
+  "id": "github:obra/superpowers:skills/test-driven-development",
+  "repository": "obra/superpowers",
+  "revision": "2ce8aa15d05bd57213e6f746f953aafb7ded7a8b",
+  "digest": "23be8dcf27f2373aa7912fbb181eb7b99d588c7f2a7bdce5cb698d2914920212",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

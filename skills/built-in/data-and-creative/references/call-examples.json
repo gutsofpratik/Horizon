@@ -1,0 +1,94 @@
+{
+  "version": 1,
+  "skill_id": "openclaude-data-and-creative-workflows",
+  "examples": [
+    {
+      "tool": "artifact_save",
+      "arguments": {
+        "title": "Project roadmap",
+        "type": "markdown",
+        "source": "# Project roadmap\n\n## Observe\nCapture requirements and constraints.\n\n## Implement\nBuild the agreed behavior.\n\n## Verify\nCheck the saved output and edge cases.\n"
+      }
+    },
+    {
+      "tool": "artifact_read",
+      "arguments": {
+        "artifact_id": "<artifact_id returned by artifact_save>",
+        "offset": 0,
+        "limit": 12000
+      }
+    },
+    {
+      "tool": "artifact_save",
+      "arguments": {
+        "artifact_id": "<same observed artifact_id>",
+        "expected_version": 1,
+        "source": "<complete revised source with the requested change and preserved original content>"
+      }
+    },
+    {
+      "tool": "artifact_save",
+      "arguments": {
+        "artifact_id": "<same observed artifact_id>",
+        "expected_version": 1,
+        "expected_hash": "<current source_hash from artifact_read>",
+        "find": "## Verify\nCheck the saved output and edge cases.",
+        "replace": "## Verify\nCheck the saved output and edge cases.\n\n## Summary\nDeliver the verified outcome."
+      }
+    },
+    {
+      "tool": "artifact_export",
+      "arguments": {
+        "artifact_id": "<actual saved artifact_id>"
+      }
+    },
+    {
+      "tool": "python_session",
+      "arguments": {
+        "action": "create"
+      }
+    },
+    {
+      "tool": "python_session",
+      "arguments": {
+        "action": "execute",
+        "session_id": "<session_id from python_session create>",
+        "code": "values = [10, 20, 30]\nprint({\"count\": len(values), \"total\": sum(values), \"mean\": sum(values)/len(values)})"
+      }
+    },
+    {
+      "tool": "python_session",
+      "arguments": {
+        "action": "close",
+        "session_id": "<owned session_id>"
+      }
+    },
+    {
+      "tool": "template_create",
+      "arguments": {
+        "file_id": "<real registered DOCX/XLSX/PPTX/HTML/SVG file_id>",
+        "name": "Project status template",
+        "description": "Use for a recurring project status deliverable.",
+        "instructions": "Preserve the layout; replace the title, dates and project facts; inspect the revised copy before delivery."
+      }
+    },
+    {
+      "tool": "template_apply",
+      "arguments": {
+        "template_id": "<template_id returned by template_create>",
+        "output_path": "outputs/project-status.docx"
+      }
+    },
+    {
+      "tool": "retrieval_index",
+      "arguments": {
+        "file_ids": [
+          "<registered text/extracted file_id>"
+        ],
+        "attributes": {
+          "topic": "project-notes"
+        }
+      }
+    }
+  ]
+}

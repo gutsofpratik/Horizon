@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:skills/operator-approval-loop",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "2e63548fb2a6450bea2c4d1f1ca41906c7140c17c5a8dbd1dd5d69801a54c9a2",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

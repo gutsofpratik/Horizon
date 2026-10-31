@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:skills/coding-standards",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "9aac0f2ddae0a8655d7f0c66774f69d00257023f53ff8b0a65a777e6b96a955a",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

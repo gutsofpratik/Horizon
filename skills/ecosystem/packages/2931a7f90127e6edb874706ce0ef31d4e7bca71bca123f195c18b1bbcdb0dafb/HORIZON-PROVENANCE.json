@@ -1,0 +1,13 @@
+{
+  "id": "github:openai/plugins:plugins/supabase/skills/supabase",
+  "repository": "openai/plugins",
+  "revision": "0722921d5542fc593105c27bd52630babd8b8c2a",
+  "digest": "94b188b42b2b7d353adcfb6e34c3e271d7b78e66d2ba102a69e7336ecda60da0",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "plugins/supabase/LICENSE"
+    ]
+  }
+}

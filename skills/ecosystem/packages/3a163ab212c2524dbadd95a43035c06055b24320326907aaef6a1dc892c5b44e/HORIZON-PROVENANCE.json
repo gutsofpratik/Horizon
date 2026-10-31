@@ -1,0 +1,13 @@
+{
+  "id": "github:openai/plugins:plugins/temporal/skills/temporal-serverless",
+  "repository": "openai/plugins",
+  "revision": "0722921d5542fc593105c27bd52630babd8b8c2a",
+  "digest": "2baca59a6f221ee543f3e5d77822da07d636ef0dad943e697a93e8a9037b4008",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "plugins/temporal/LICENSE"
+    ]
+  }
+}

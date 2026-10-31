@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:skills/santa-method",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "c2c097e12aa2e6893c6ba0a08d7ee91ca0e6521e418599d30c631f77b23e5d8e",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

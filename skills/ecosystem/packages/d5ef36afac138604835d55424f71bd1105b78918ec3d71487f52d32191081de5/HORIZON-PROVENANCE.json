@@ -1,0 +1,13 @@
+{
+  "id": "github:openai/plugins:plugins/expo/skills/expo-ui-swift-ui",
+  "repository": "openai/plugins",
+  "revision": "0722921d5542fc593105c27bd52630babd8b8c2a",
+  "digest": "5e50d3614238394234c225509ad7468a57e24be44fd87ca9a3ad9bdaf29be69f",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "plugins/expo/LICENSE"
+    ]
+  }
+}

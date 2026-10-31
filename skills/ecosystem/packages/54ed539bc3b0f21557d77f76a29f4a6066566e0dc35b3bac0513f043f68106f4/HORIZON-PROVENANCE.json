@@ -1,0 +1,13 @@
+{
+  "id": "github:openai/plugins:plugins/notion/skills/notion-knowledge-capture",
+  "repository": "openai/plugins",
+  "revision": "0722921d5542fc593105c27bd52630babd8b8c2a",
+  "digest": "9fc85f227c0b95f9ce2bab8114192357540fcf68495085f5c757212aae6d1f5d",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "plugins/notion/skills/notion-knowledge-capture/LICENSE.txt"
+    ]
+  }
+}

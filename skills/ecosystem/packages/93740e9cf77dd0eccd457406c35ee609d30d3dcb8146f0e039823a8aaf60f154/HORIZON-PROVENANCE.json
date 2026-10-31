@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:skills/counterparty-channel-discipline",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "b39b9f8c84db64e475cd66f1f2050024150d03a71e8c225baab4b9abacbf5549",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

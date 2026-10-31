@@ -1,6 +1,42 @@
 use std::{path::{Path,PathBuf},sync::atomic::{AtomicBool,Ordering}};
 use tauri::{Manager,Webview};
 
+fn interface_origin(value:&str)->bool{
+    tauri::Url::parse(value).is_ok_and(|url|{
+        let path=url.path().strip_prefix("/desktop").unwrap_or(url.path());
+        url.scheme()=="http"&&url.host_str()==Some("127.0.0.1")&&url.port()==Some(3001)
+            &&(matches!(path,"/"|"/new"|"/skills"|"/projects"|"/artifacts"|"/settings")||path.starts_with("/chat/"))
+    })
+}
+#[cfg(test)]mod interface_permission_tests{
+    use super::interface_origin;
+    #[test]fn only_trusted_app_documents_receive_automatic_permissions(){
+        assert!(interface_origin("http://127.0.0.1:3001/desktop/new"));
+        assert!(interface_origin("http://127.0.0.1:3001/chat/fixture"));
+        for value in ["https://example.com/","http://127.0.0.1:3001/api/files/id/preview","http://127.0.0.1:3001/browser-preview/ticket","http://127.0.0.1:5174/new","file:///private.html"]{assert!(!interface_origin(value),"{value}");}
+    }
+}
+/// Grant only app-interface clipboard/microphone prompts, never website frames.
+#[cfg(windows)]
+pub fn configure_interface(view:&Webview)->Result<(),String>{
+    if view.label()!="main"{return Err("Interface permissions require the main view".into());}
+    view.with_webview(move|platform|{
+        use webview2_com::{PermissionRequestedEventHandler,take_pwstr,Microsoft::Web::WebView2::Win32::*};
+        let result=unsafe{platform.controller().CoreWebView2().and_then(|core|{
+            let mut token=0;
+            core.add_PermissionRequested(&PermissionRequestedEventHandler::create(Box::new(|_,args|{
+                let Some(args)=args else{return Ok(())};
+                let mut uri=windows_core::PWSTR::null();args.Uri(&mut uri)?;let uri=take_pwstr(uri);
+                let mut kind=COREWEBVIEW2_PERMISSION_KIND::default();args.PermissionKind(&mut kind)?;
+                if interface_origin(&uri)&&matches!(kind,COREWEBVIEW2_PERMISSION_KIND_MICROPHONE|COREWEBVIEW2_PERMISSION_KIND_CLIPBOARD_READ){args.SetState(COREWEBVIEW2_PERMISSION_STATE_ALLOW)?;}
+                Ok(())
+            })),&mut token)
+        })};if let Err(error)=result{eprintln!("Interface permissions unavailable: {error}");}
+    }).map_err(|error|error.to_string())
+}
+#[cfg(not(windows))]
+pub fn configure_interface(_view:&Webview)->Result<(),String>{Ok(())}
+
 pub fn allowed_navigation(url:&tauri::Url)->bool{
     let local=matches!(url.host_str(),Some("127.0.0.1"|"localhost"|"[::1]"|"::1"|"0.0.0.0"));
     if local&&matches!(url.port_or_known_default(),Some(3001|5173|5174)){
@@ -27,8 +63,12 @@ pub fn download(view:Webview,event:tauri::webview::DownloadEvent<'_>)->bool{
         if state.download_prompt.swap(true,Ordering::AcqRel){return false;}
         struct Prompt<'a>(&'a AtomicBool);impl Drop for Prompt<'_>{fn drop(&mut self){self.0.store(false,Ordering::Release);}}
         let _prompt=Prompt(&state.download_prompt);
-        let origin=view.url().ok().and_then(|url|url.host_str().map(str::to_owned)).or_else(||url.host_str().map(str::to_owned)).unwrap_or_else(||"this website".into());
-        let selected=rfd::FileDialog::new().set_parent(&view.window()).set_title(format!("Download from {origin} — choose where to save")).set_file_name(download_name(destination)).save_file();
+        // This callback runs on the WebView thread. A synchronous view.url() getter
+        // re-enters that thread and can deadlock before the save dialog appears.
+        // set_parent(&view.window()) also performs a synchronous window-handle
+        // getter; keep this modal independent of the WebView event dispatcher.
+        let origin=url.host_str().unwrap_or("this website");
+        let selected=rfd::FileDialog::new().set_title(format!("Download from {origin} — choose where to save")).set_file_name(download_name(destination)).save_file();
         let approved=approved_path(selected,destination);
         super::browser_manage::downloaded(view.app_handle(),view.label(),&url,if approved{Some(destination.as_path())}else{None},if approved{"downloading"}else{"cancelled"});
         return approved;

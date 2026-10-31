@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:skills/healthcare-eval-harness",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "287f589177a5ae732ad0ed2081433358867656ef661222993c0a88a61445bc44",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

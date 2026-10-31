@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:skills/homelab-pihole-dns",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "98b4a230608cf226aa3e3d86ef76db96f784979e6608d233931aed08d1abc07e",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

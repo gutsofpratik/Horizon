@@ -1,0 +1,13 @@
+{
+  "id": "github:elevenlabs/skills:setup-api-key",
+  "repository": "elevenlabs/skills",
+  "revision": "503d4e9fda0190ab9357142f44e51de626f97f90",
+  "digest": "a4cb4204e0edd306649b1b4c104276fba72fd97527286111c56cf4039430efa1",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

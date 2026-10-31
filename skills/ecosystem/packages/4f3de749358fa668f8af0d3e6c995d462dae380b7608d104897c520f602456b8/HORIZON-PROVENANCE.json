@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:skills/mcp-dependency-review",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "a9d3e371d3ce2a5b645591e26724b7722c8037068580baca66251b50a6bf7175",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

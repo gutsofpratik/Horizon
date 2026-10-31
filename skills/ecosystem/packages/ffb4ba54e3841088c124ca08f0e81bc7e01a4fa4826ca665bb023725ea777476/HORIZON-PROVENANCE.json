@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:skills/investor-materials",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "317c71b5bf693e0732524ee873228257d368ed4b834cde9f17f36a69b6bf9ae5",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "id": "github:sickn33/agentic-awesome-skills:skills/xvary-stock-research",
+  "repository": "sickn33/agentic-awesome-skills",
+  "revision": "6e4106fb38458d2bb2bf50b53db74031daabc208",
+  "digest": "ff112c9bd964b48455b0bf020980760cf6513a026d33d7eebe51f9679c054fea",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "skills/xvary-stock-research/LICENSE"
+    ]
+  }
+}

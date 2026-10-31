@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:skills/autonomous-loops",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "8b4edcca6db563cf47fa27489a8b8e148ae7fc27509c7c6f4a48fbc338815ddd",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

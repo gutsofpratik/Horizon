@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:skills/project-flow-ops",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "8010dd677edef7fdb30dad6a61a9ab3c8d039558fe1b443bd243fe18cc7009a8",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:skills/energy-procurement",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "fba5e7d4f0c2dffef49946aa4b2ecbf928762192e66bcd2443b241bd9f06e138",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

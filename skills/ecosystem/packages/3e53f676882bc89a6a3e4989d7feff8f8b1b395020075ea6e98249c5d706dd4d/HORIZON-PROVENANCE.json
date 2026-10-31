@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:commands/vue-review.md",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "d94547ea9a3ee65178931950594b506bd2422ac61515fcba9978fd63642ee015",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

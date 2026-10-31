@@ -1,0 +1,13 @@
+{
+  "id": "github:openai/plugins:plugins/remotion/skills/remotion-multimedia",
+  "repository": "openai/plugins",
+  "revision": "0722921d5542fc593105c27bd52630babd8b8c2a",
+  "digest": "bee2bb1efbc1af0a57a988207473a24c0d310fb3be6b9a63357d632c22ee1a5a",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "plugins/remotion/.codex-plugin/plugin.json"
+    ]
+  }
+}

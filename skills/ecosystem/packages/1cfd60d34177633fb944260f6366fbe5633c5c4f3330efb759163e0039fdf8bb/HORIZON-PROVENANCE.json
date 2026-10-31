@@ -1,0 +1,13 @@
+{
+  "id": "github:openai/plugins:plugins/nvidia/skills/omniverse-usd-performance-tuning",
+  "repository": "openai/plugins",
+  "revision": "0722921d5542fc593105c27bd52630babd8b8c2a",
+  "digest": "76238621264cec4f2bc64781f5a967772b69068e4224d32e2285d79c1a428a0d",
+  "license": {
+    "decision": "allowed",
+    "label": "Apache-2.0",
+    "evidence": [
+      "plugins/nvidia/.codex-plugin/plugin.json"
+    ]
+  }
+}

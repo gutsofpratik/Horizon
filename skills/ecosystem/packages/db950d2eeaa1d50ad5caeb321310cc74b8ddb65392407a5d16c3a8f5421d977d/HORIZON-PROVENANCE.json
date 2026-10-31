@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:skills/prediction-market-risk-review",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "4cbda0471958de09e8d4542080d73cea60c069b67a893041029b668c7f287ce6",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

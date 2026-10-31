@@ -1,0 +1,13 @@
+{
+  "id": "github:openai/plugins:plugins/game-studio/skills/game-ui-frontend",
+  "repository": "openai/plugins",
+  "revision": "0722921d5542fc593105c27bd52630babd8b8c2a",
+  "digest": "058961f8b633ea5e75a2567ad932d94f68349cc313da790dc6fd2d10ff2d04c3",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "plugins/game-studio/.codex-plugin/plugin.json"
+    ]
+  }
+}

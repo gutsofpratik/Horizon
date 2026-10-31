@@ -1,0 +1,165 @@
+{
+  "version": 1,
+  "skill_id": "openclaude-document-workflow",
+  "examples": [
+    {
+      "tool": "document_create",
+      "arguments": {
+        "format": "docx",
+        "title": "Project review",
+        "output_name": "project-review.docx",
+        "blocks": [
+          {
+            "type": "heading",
+            "text": "Overview"
+          },
+          {
+            "type": "paragraph",
+            "text": "Summarize the actual project objective and evidence."
+          },
+          {
+            "type": "heading",
+            "text": "Actions"
+          },
+          {
+            "type": "table",
+            "rows": [
+              [
+                "Action",
+                "Owner",
+                "Status"
+              ],
+              [
+                "Implement approved change",
+                "Assigned owner",
+                "Pending"
+              ]
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "tool": "document_extract",
+      "arguments": {
+        "file_id": "<file_id returned by document_create>"
+      }
+    },
+    {
+      "tool": "document_inspect",
+      "arguments": {
+        "file_id": "<registered DOCX file_id>",
+        "path": "/body",
+        "depth": 3
+      }
+    },
+    {
+      "tool": "document_edit",
+      "arguments": {
+        "file_id": "<latest DOCX file_id>",
+        "output_name": "project-review-revised.docx",
+        "changes": [
+          {
+            "path": "/body/p[1]",
+            "expected_text": "<exact text returned for this node>",
+            "text": "Revised project review"
+          }
+        ],
+        "append_blocks": [
+          {
+            "type": "heading",
+            "text": "Summary"
+          },
+          {
+            "type": "paragraph",
+            "text": "Add the requested summary while keeping the original sections."
+          }
+        ]
+      }
+    },
+    {
+      "tool": "document_create",
+      "arguments": {
+        "format": "pdf",
+        "title": "Project review",
+        "output_name": "project-review.pdf",
+        "blocks": [
+          {
+            "type": "heading",
+            "text": "Overview"
+          },
+          {
+            "type": "paragraph",
+            "text": "The requested report content belongs here."
+          },
+          {
+            "type": "table",
+            "rows": [
+              [
+                "Stage",
+                "Outcome"
+              ],
+              [
+                "Observe",
+                "Requirements captured"
+              ],
+              [
+                "Verify",
+                "Output checked"
+              ]
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "tool": "pdf_inspect",
+      "arguments": {
+        "file_id": "<registered PDF file_id>"
+      }
+    },
+    {
+      "tool": "pdf_edit",
+      "arguments": {
+        "file_id": "<latest PDF file_id>",
+        "output_name": "project-review-annotated.pdf",
+        "overlays": [
+          {
+            "page": 1,
+            "text": "Summary: approved changes are documented.",
+            "x": 48,
+            "y": 48,
+            "font_size": 11
+          }
+        ]
+      }
+    },
+    {
+      "tool": "pdf_edit",
+      "arguments": {
+        "file_id": "<registered PDF file_id>",
+        "output_name": "selected-pages.pdf",
+        "pages": [
+          1,
+          3
+        ],
+        "rotations": [
+          {
+            "page": 2,
+            "degrees": 90
+          }
+        ]
+      }
+    },
+    {
+      "tool": "pdf_edit",
+      "arguments": {
+        "file_id": "<inspected form PDF file_id>",
+        "output_name": "filled-form.pdf",
+        "form_fields": {
+          "<actual text-field name from pdf_inspect>": "<user-provided value>"
+        }
+      }
+    }
+  ]
+}

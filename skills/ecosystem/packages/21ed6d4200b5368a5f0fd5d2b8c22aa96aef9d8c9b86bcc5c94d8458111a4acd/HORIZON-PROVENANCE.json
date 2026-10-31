@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:skills/bun-runtime",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "a7802838b6b435fb3e16c18d4f90ac7fe5114cbbf3a8ab027e8d2bd1cb74481b",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

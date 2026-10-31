@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:skills/healthcare-cdss-patterns",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "8fec8bdda538e8c67ccb748d0aefd460d4afb54daf5dbb5a8f80107089d7c0f9",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

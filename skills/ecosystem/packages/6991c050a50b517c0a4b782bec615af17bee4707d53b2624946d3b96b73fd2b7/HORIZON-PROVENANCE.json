@@ -1,0 +1,13 @@
+{
+  "id": "github:openai/plugins:plugins/plugin-eval/fixtures/multi-skill-plugin/skills/beta",
+  "repository": "openai/plugins",
+  "revision": "0722921d5542fc593105c27bd52630babd8b8c2a",
+  "digest": "bdaf6bfee6a6d8aabca7b3c59f77e9aa91b4c4c0b85143092a3d04d7cb240a4a",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "plugins/plugin-eval/.codex-plugin/plugin.json"
+    ]
+  }
+}

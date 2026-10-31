@@ -1,0 +1,15 @@
+{
+  "version": 1,
+  "enabled": true,
+  "maxInitialSkillMains": 3,
+  "telemetry": false,
+  "automaticUpstreamHooks": false,
+  "automaticSourceUpdates": false,
+  "nativeOfficeEngine": "OfficeCLI",
+  "unresolvedLicenses": "source-link-only",
+  "canonicalPreference": [
+    "original-source",
+    "reviewed-adapter",
+    "collection-mirror"
+  ]
+}

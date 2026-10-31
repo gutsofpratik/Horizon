@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:commands/refactor-clean.md",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "1d7ee370e974d03c5cd3aed881054612dfbaa85c5ba76a34a830a66bf87a4638",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:skills/terminal-opener",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "54fc0848dd0ef9952bdefe6fe549c6e073079432dd38995866615783bd86c955",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

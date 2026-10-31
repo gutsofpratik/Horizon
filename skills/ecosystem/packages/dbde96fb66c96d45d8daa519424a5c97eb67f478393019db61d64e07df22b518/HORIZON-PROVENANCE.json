@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:commands/hookify.md",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "0b29cd1ecabc21d2e9927283c3031755147159144fdcd3460c96c5ce3523cc7e",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

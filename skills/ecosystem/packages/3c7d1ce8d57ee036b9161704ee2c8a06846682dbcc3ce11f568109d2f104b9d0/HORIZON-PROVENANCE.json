@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:skills/context-and-decisions",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "e409baed1d22fde2ff7230022b94ae8176f72a493818ce48ec87dda450ac73b6",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

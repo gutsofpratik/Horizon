@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:skills/frontend-patterns",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "5439c772d6bff5e6b6964ee68c4996926e600823cb9b501e04cb6f553225d7e6",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

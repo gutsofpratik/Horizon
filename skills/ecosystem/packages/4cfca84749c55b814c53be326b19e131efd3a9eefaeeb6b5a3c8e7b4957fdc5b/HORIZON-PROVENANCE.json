@@ -1,0 +1,13 @@
+{
+  "id": "github:openai/plugins:plugins/expo/skills/upgrading-expo",
+  "repository": "openai/plugins",
+  "revision": "0722921d5542fc593105c27bd52630babd8b8c2a",
+  "digest": "e4de88b1c45d0ce47cd90fc42ad276e8dbb01094aa4463c559bc2b8cacc0067e",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "plugins/expo/LICENSE"
+    ]
+  }
+}

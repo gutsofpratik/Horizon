@@ -1,0 +1,13 @@
+{
+  "id": "github:obra/superpowers:skills/diagnosing-superpowers",
+  "repository": "obra/superpowers",
+  "revision": "2ce8aa15d05bd57213e6f746f953aafb7ded7a8b",
+  "digest": "50e348480d355fdff18c42a7d59393e8d191c73f22c26e0c64a006af02d26391",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

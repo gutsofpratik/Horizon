@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:skills/data-scraper-agent",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "4ea843723b9a25d31a6c31da6540068b1b13f761db70539a9f5c939b1018316a",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

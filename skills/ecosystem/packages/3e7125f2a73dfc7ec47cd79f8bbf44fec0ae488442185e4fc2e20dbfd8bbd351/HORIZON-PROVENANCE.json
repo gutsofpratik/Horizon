@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:skills/angular-developer",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "dc9951277df92bec58793058e3a86db1cc6acc680201f8aecc4f153f9a337c8a",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

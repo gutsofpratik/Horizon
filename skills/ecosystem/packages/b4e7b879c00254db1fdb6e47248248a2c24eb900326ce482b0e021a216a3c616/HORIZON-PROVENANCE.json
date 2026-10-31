@@ -1,0 +1,13 @@
+{
+  "id": "github:openai/plugins:plugins/boltz-api-cli/skills/boltz-check-status",
+  "repository": "openai/plugins",
+  "revision": "0722921d5542fc593105c27bd52630babd8b8c2a",
+  "digest": "a1665305fd7ac6ff16aee98f46c06cd5fa51ca0e5b83174898e2076e2a5f520c",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "plugins/boltz-api-cli/LICENSE"
+    ]
+  }
+}

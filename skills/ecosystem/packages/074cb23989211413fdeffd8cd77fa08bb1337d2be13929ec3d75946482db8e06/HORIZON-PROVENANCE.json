@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:skills/react-patterns",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "3e96f74f07bb5ff72c9ab5123e41a23fdbc5e1b47a347c265da6414e44238627",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

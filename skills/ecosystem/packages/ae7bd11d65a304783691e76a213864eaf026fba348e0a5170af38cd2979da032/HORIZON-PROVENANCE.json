@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:skills/click-path-audit",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "d96f0b641ec4f4719d37ed1a9d0d2bbd6945e902c3d00c2e6248a25609e611f2",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

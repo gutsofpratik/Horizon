@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:skills/make-interfaces-feel-better",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "20d5abe2e215ce027c26442b33e537b855838fa5403ffcfc65c222cf42989886",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

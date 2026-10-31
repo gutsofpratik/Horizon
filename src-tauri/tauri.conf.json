@@ -18,7 +18,7 @@
         "height": 900,
         "minWidth": 850,
         "minHeight": 620,
-        "url": "http://127.0.0.1:3001/desktop/new",
+        "url": "about:blank",
         "userAgent": "HorizonDesktop/0.1",
         "browserExtensionsEnabled": true,
         "dataDirectory": "trusted-interface",

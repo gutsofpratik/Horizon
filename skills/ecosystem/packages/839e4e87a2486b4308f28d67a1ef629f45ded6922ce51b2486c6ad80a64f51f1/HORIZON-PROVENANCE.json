@@ -1,0 +1,13 @@
+{
+  "id": "github:sickn33/agentic-awesome-skills:skills/goal-instruction-writer",
+  "repository": "sickn33/agentic-awesome-skills",
+  "revision": "6e4106fb38458d2bb2bf50b53db74031daabc208",
+  "digest": "c676e1534a17b8c0713a2d271cfb87feeab13d14ae45c634304e536a5263713c",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "skills/goal-instruction-writer/LICENSE"
+    ]
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "id": "github:anthropics/skills:skills/internal-comms",
+  "repository": "anthropics/skills",
+  "revision": "ca45fc496a3436251f191354091d557da31c15b5",
+  "digest": "3657a8e110ab26351f1c259b5ee53a9e76d091713396f9b0ca99ce044769330c",
+  "license": {
+    "decision": "allowed",
+    "label": "Apache-2.0",
+    "evidence": [
+      "skills/internal-comms/LICENSE.txt"
+    ]
+  }
+}

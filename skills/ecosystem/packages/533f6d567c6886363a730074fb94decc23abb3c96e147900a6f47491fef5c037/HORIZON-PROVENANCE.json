@@ -1,0 +1,13 @@
+{
+  "id": "github:sickn33/agentic-awesome-skills:skills/shipvela-publish",
+  "repository": "sickn33/agentic-awesome-skills",
+  "revision": "6e4106fb38458d2bb2bf50b53db74031daabc208",
+  "digest": "67ad69a7c0031c0c365c8b729b3d90caffe0616506ecd689d5a3b4ca3c9e1c8a",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "skills/shipvela-publish/references/LICENSE.md"
+    ]
+  }
+}

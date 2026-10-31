@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:skills/nodejs-keccak256",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "71ae76a78bcd8f2f73c052ca68aaaccab01198d291459c3692b722d1736d9e25",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

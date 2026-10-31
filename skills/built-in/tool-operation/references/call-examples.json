@@ -1,0 +1,87 @@
+{
+  "version": 1,
+  "skill_id": "openclaude-tool-operation",
+  "examples": [
+    {
+      "tool": "ask_user",
+      "arguments": {
+        "questions": [
+          {
+            "id": "format",
+            "question": "Which deliverable do you need?",
+            "options": [
+              {
+                "label": "Editable document"
+              },
+              {
+                "label": "PDF"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "tool": "files_list",
+      "arguments": {
+        "path": "."
+      }
+    },
+    {
+      "tool": "directory_create",
+      "arguments": {
+        "path": "outputs"
+      }
+    },
+    {
+      "tool": "files_write",
+      "arguments": {
+        "path": "outputs/notes.txt",
+        "text": "<actual user-requested content>\n"
+      }
+    },
+    {
+      "tool": "files_read",
+      "arguments": {
+        "path": "outputs/notes.txt",
+        "offset": 0,
+        "limit": 12000
+      }
+    },
+    {
+      "tool": "calculate",
+      "arguments": {
+        "expression": "(100+50)-25"
+      }
+    },
+    {
+      "tool": "clock_now",
+      "arguments": {
+        "time_zone": "Asia/Kolkata"
+      }
+    },
+    {
+      "tool": "memory_search",
+      "arguments": {
+        "query": "<relevant user fact or preference>",
+        "offset": 0,
+        "limit": 10
+      }
+    },
+    {
+      "tool": "memory_save",
+      "arguments": {
+        "text": "<durable fact actually provided by the user>",
+        "global": true
+      }
+    },
+    {
+      "tool": "discover_tools",
+      "arguments": {
+        "names": [
+          "<exact missing operation name>"
+        ]
+      }
+    }
+  ]
+}

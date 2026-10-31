@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:commands/prp-prd.md",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "dc0c95d460c8d9358a8d473d13306e76efff8f7accfce9e808b54fbc6d6b7053",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

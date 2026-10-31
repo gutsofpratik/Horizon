@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:skills/data-throughput-accelerator",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "3bc091e0d66ca74fe9811a7234c1fc58a747b1f2266c1b71b1191ee026ffd5ba",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

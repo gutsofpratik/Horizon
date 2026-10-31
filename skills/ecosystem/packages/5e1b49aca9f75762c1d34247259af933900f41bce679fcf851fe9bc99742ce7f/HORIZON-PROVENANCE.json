@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:skills/cost-tracking",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "35b770b4420b8b47167b514effe5359d1ec824d3a6648924a1ea3ee1bef7258e",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

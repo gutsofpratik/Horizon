@@ -1,0 +1,13 @@
+{
+  "id": "github:anthropics/skills:skills/slack-gif-creator",
+  "repository": "anthropics/skills",
+  "revision": "ca45fc496a3436251f191354091d557da31c15b5",
+  "digest": "b36c235373e5a3e4c5120ffde03b7dade73e05ba44337596b66cafda9452fd1b",
+  "license": {
+    "decision": "allowed",
+    "label": "Apache-2.0",
+    "evidence": [
+      "skills/slack-gif-creator/LICENSE.txt"
+    ]
+  }
+}

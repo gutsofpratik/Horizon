@@ -1,0 +1,13 @@
+{
+  "id": "github:sickn33/agentic-awesome-skills:skills/web-artifacts-builder",
+  "repository": "sickn33/agentic-awesome-skills",
+  "revision": "6e4106fb38458d2bb2bf50b53db74031daabc208",
+  "digest": "9f0dc63dc2108ca5befd714178000991bca6ab8d5f97c26475e88b8d049935ed",
+  "license": {
+    "decision": "allowed",
+    "label": "Apache-2.0",
+    "evidence": [
+      "skills/web-artifacts-builder/LICENSE.txt"
+    ]
+  }
+}

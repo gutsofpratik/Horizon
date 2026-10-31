@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:skills/prediction-market-oracle-research",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "4d182f2fbdfc1ef2c023d086d34ae4e35519074ddb8449ea3d8600824e2b4859",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

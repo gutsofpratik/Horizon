@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:skills/skill-stocktake",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "af3993edd7bd08e8fbac1316e3187f30e5c23b60f17ccbd854b826d5060545d6",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

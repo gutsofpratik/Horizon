@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:skills/fal-ai-media",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "21eb80d67661f2a269648e9db1f0e51d55f4f5dc8c10c23f789d56eb09a3ea6a",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

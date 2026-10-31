@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:skills/article-writing",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "fac88475703a9f6a1faeeda3ab6635b0ba14f4ab36b89f763f38c02b5504d8ed",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

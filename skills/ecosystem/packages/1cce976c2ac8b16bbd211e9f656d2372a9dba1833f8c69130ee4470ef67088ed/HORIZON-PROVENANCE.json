@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:skills/springboot-verification",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "921a324aaa71027bfa0c32a4e8d8186f358f247bb38903240123a9cf222bb412",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

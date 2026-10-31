@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:skills/ecc-tools-cost-audit",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "6846ec01d9dc4afb8bd5cd2b12194fd1c049ef021d1ffa4c4c1b2763791ca699",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:commands/save-session.md",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "c20938a79cfcd90a2da6b85418e2f310fb56b5b3485dbfbba1443bb532e25c66",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

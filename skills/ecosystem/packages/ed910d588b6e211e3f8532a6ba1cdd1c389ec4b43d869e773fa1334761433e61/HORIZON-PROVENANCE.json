@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:commands/ecc-guide.md",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "c717e6995864f677ed2e544aede04a68fcbbc55bf7931a98c21417a673187a16",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

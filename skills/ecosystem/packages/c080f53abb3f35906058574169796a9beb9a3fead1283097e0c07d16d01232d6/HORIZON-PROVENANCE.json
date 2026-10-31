@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:skills/security-scan",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "5af6bed5e15e05df1f73befb7eefaaf1e580ef6257b3192fa4ce53b46bfb0b1d",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:skills/evm-token-decimals",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "f846ec97fdd2830a764ce3f53729b5fca149f0aad2a3df12e8a68bbf713957a2",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

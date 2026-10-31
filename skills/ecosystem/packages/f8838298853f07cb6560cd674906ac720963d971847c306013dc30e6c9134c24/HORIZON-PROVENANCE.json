@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:skills/rules-distill",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "138f301543427d8e126d7b4217719e7a97a6537ecdab62dadc73532d24732d2e",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

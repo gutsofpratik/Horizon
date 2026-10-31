@@ -1,0 +1,13 @@
+{
+  "id": "github:openai/plugins:plugins/cloudflare/skills/sandbox-sdk",
+  "repository": "openai/plugins",
+  "revision": "0722921d5542fc593105c27bd52630babd8b8c2a",
+  "digest": "09e968e6b622dd9ee408c7a12867050601a7318e7e99cf9f3c350f36222c48b5",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "plugins/cloudflare/.codex-plugin/plugin.json"
+    ]
+  }
+}

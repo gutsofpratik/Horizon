@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:skills/repo-scan",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "c0586d94ac39cf66722b0f007766e2d1903824f1c6e47e4ceaae3837246b1011",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:skills/production-scheduling",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "54ce1286ad63d3545fb56bdb3b2b686d4cb4a3bd1f9bad086f462b1764a5a8d5",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

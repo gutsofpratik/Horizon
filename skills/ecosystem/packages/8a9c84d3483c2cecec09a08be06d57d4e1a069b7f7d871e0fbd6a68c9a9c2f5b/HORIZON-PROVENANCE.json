@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:skills/benchmark-methodology",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "b26b7aa70ce088cc080dc560c546e4d5c5d1dec4b13aef2fb268e9c986dc94ef",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

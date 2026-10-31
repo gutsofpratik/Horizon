@@ -1,0 +1,13 @@
+{
+  "id": "github:obra/superpowers:skills/executing-plans",
+  "repository": "obra/superpowers",
+  "revision": "2ce8aa15d05bd57213e6f746f953aafb7ded7a8b",
+  "digest": "f2928f94eb57e5e76398063c99a56699e4f4e9601bc960b89d955fc9f273757c",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

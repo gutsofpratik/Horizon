@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:skills/kotlin-exposed-patterns",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "f86b70b1323471ecae4683273d22d53dc26ac300226083887851819735e494a8",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

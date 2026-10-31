@@ -1,0 +1,13 @@
+{
+  "id": "github:openai/plugins:plugins/boltz-api-cli/skills/boltz-cli-setup",
+  "repository": "openai/plugins",
+  "revision": "0722921d5542fc593105c27bd52630babd8b8c2a",
+  "digest": "7e988af48ba44908fa51f0df8437bbf70bf9b1c2478af05ad4cda07ef9c755b8",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "plugins/boltz-api-cli/LICENSE"
+    ]
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:skills/recsys-pipeline-architect",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "f8d4635da5a0e35fe7b1e1257eaa3a3f9bd8a751b99fc14440c081f31d9b7085",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

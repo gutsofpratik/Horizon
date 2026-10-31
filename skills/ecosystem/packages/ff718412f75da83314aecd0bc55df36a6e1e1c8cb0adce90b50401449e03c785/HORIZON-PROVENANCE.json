@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:skills/uncloud",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "39426a520755805b5b637e589a2fd37ba2b2ec05919e3ae7f870adabcf714e40",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:commands/test-coverage.md",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "e32698e05a34c41915122970d02ab277da768a91d9f3b29ada3906b004be1764",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

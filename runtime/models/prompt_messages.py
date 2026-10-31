@@ -4,6 +4,13 @@ from model_messages import template_history
 
 ENVELOPE_POLICY='\nTool response protocol: return a JSON object with content (reply text) and tool_calls (an array of {name, arguments}). Use an empty array for a final answer. The latest application-provided workspace context identifies currently eligible tools and any required-call constraint. Historical catalogs do not grant additional permissions.'
 
+def format_model_prompt(formatter,messages,tools,protocol,thinking):
+    # Native templates provide the protocol the model was trained to follow.
+    # Envelope mode has its own sampler contract and must not activate a second
+    # native protocol in the same prompt.
+    native={'tools':tools} if tools and protocol=='qwen_xml' else {}
+    return formatter(messages=messages,enable_thinking=thinking,**native)
+
 def prepare_messages(messages,tools,scope,history,required=False,protocol="envelope"):
     messages=template_history(messages,protocol)
     workspace=''

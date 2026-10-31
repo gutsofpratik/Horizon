@@ -1,0 +1,13 @@
+{
+  "id": "github:openai/plugins:plugins/hyperframes/skills/hyperframes-registry",
+  "repository": "openai/plugins",
+  "revision": "0722921d5542fc593105c27bd52630babd8b8c2a",
+  "digest": "d2615c6321790776e4882131745881f1c5077b7f61e7e57d8af0d3368c76665f",
+  "license": {
+    "decision": "allowed",
+    "label": "Apache-2.0",
+    "evidence": [
+      "plugins/hyperframes/.codex-plugin/plugin.json"
+    ]
+  }
+}

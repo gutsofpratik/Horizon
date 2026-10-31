@@ -1,0 +1,76 @@
+{
+  "version": 1,
+  "skill_id": "openclaude-terminal-workflow",
+  "examples": [
+    {
+      "tool": "shell_environment",
+      "arguments": {}
+    },
+    {
+      "tool": "directory_create",
+      "arguments": {
+        "path": "src/components"
+      }
+    },
+    {
+      "tool": "terminal_run",
+      "arguments": {
+        "command": "New-Item -ItemType Directory -Force -Path 'src/components' | Out-Null",
+        "cwd": ".",
+        "timeout_ms": 10000,
+        "interactive": false
+      }
+    },
+    {
+      "tool": "terminal_run",
+      "arguments": {
+        "command": "node --version",
+        "cwd": ".",
+        "timeout_ms": 10000,
+        "interactive": false
+      }
+    },
+    {
+      "tool": "terminal_read",
+      "arguments": {
+        "job_id": "<job_id returned by terminal_run>",
+        "offset": 0,
+        "wait_ms": 1000
+      }
+    },
+    {
+      "tool": "terminal_session",
+      "arguments": {}
+    },
+    {
+      "tool": "terminal_stdin",
+      "arguments": {
+        "job_id": "<owned running interactive job_id>",
+        "text": "help\n"
+      }
+    },
+    {
+      "tool": "terminal_resize",
+      "arguments": {
+        "job_id": "<owned running interactive job_id>",
+        "cols": 100,
+        "rows": 30
+      }
+    },
+    {
+      "tool": "terminal_cancel",
+      "arguments": {
+        "job_id": "<owned running job_id>"
+      }
+    },
+    {
+      "tool": "shell_script",
+      "arguments": {
+        "language": "python",
+        "source": "from pathlib import Path\np = Path(\"outputs\")\np.mkdir(exist_ok=True)\n(p / \"notes.txt\").write_text(\"Created by Horizon\\n\", encoding=\"utf-8\")\nprint(p / \"notes.txt\")",
+        "cwd": ".",
+        "timeout_ms": 60000
+      }
+    }
+  ]
+}

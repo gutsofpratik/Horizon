@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:skills/brownfield-retrospective",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "23ce44348a649056db2029a761752d544d1458abe0fbd0a6842cd2c2475764d0",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

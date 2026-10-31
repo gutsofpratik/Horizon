@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:commands/multi-plan.md",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "ac68c567de42fbbc71b163bb3f31bccb6e1941e0bbc3b4b31aa7701d24de5c90",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

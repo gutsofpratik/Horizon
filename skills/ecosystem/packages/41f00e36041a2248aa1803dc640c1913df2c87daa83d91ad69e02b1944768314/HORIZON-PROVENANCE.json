@@ -1,0 +1,13 @@
+{
+  "id": "github:anthropics/skills:skills/webapp-testing",
+  "repository": "anthropics/skills",
+  "revision": "ca45fc496a3436251f191354091d557da31c15b5",
+  "digest": "a244442ef39a518e04ef35c02455cbc13dd270ad55dbc522c286e13857b7b083",
+  "license": {
+    "decision": "allowed",
+    "label": "Apache-2.0",
+    "evidence": [
+      "skills/webapp-testing/LICENSE.txt"
+    ]
+  }
+}

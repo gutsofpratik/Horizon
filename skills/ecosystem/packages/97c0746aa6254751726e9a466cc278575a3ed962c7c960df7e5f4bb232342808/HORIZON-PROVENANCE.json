@@ -1,0 +1,13 @@
+{
+  "id": "github:openai/plugins:plugins/boltz-api-cli/skills/boltz-small-molecule-screen",
+  "repository": "openai/plugins",
+  "revision": "0722921d5542fc593105c27bd52630babd8b8c2a",
+  "digest": "e77fde09262c5d08ce6b13c5e667dfd2b17c9ef41dea6f533868085b6bb1411a",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "plugins/boltz-api-cli/LICENSE"
+    ]
+  }
+}

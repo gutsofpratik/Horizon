@@ -1,0 +1,13 @@
+{
+  "id": "github:openai/plugins:plugins/mixpanel-headless/skills/mixpanelyst",
+  "repository": "openai/plugins",
+  "revision": "0722921d5542fc593105c27bd52630babd8b8c2a",
+  "digest": "87f8c34413f7b36e0f0f7d430e6ac2d23f546d59abaf7f0d5f09a061afa61445",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "plugins/mixpanel-headless/LICENSE"
+    ]
+  }
+}

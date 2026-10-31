@@ -1,0 +1,13 @@
+{
+  "id": "github:sickn33/agentic-awesome-skills:skills/train-sentence-transformers",
+  "repository": "sickn33/agentic-awesome-skills",
+  "revision": "6e4106fb38458d2bb2bf50b53db74031daabc208",
+  "digest": "5c6ae70bbb62cef55a19c6eb995b8b073a352b2acf8cc828c0c031029de16092",
+  "license": {
+    "decision": "allowed",
+    "label": "Apache-2.0",
+    "evidence": [
+      "skills/train-sentence-transformers/LICENSE"
+    ]
+  }
+}

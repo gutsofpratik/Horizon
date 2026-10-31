@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:skills/kotlin-testing",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "5bc622a28f34ac06c3c75e4fda0bb1b254b40f1afb5b036b6c5a0cf5bd497e4f",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

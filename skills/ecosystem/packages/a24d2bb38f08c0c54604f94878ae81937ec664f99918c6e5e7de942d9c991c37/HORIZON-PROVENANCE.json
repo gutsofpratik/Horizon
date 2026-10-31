@@ -1,0 +1,13 @@
+{
+  "id": "github:openai/plugins:plugins/build-ios-apps/skills/ios-ettrace-performance",
+  "repository": "openai/plugins",
+  "revision": "0722921d5542fc593105c27bd52630babd8b8c2a",
+  "digest": "2f227901e9ea9a84a7fa0001286095ef505b4191ae6f9a4d62d8d146f99a6d11",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "plugins/build-ios-apps/.codex-plugin/plugin.json"
+    ]
+  }
+}

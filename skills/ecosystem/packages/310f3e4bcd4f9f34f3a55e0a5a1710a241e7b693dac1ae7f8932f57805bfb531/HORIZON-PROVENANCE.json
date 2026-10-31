@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:commands/aside.md",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "6f8d6dad7dd11871cda2eb1dd3b0e0d2e6af85e5c9d81d3dc52209c1e99f5bb0",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

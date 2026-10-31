@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:skills/quarkus-tdd",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "9cefff03bf596676172a2d7a9e2e7299d83b101dc497594b3aeebb86a0fa3bc4",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

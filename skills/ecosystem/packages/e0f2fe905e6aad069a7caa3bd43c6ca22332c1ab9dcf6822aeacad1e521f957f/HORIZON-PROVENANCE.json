@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:commands/orch-review.md",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "6d890df1b8dadce2fafb381f85e96768fe9bfe6105ee9c37e76ffbaac53e300a",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

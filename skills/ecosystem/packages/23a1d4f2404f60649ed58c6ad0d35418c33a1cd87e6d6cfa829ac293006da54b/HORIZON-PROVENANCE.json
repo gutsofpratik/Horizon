@@ -1,0 +1,13 @@
+{
+  "id": "github:sickn33/agentic-awesome-skills:skills/internal-comms",
+  "repository": "sickn33/agentic-awesome-skills",
+  "revision": "6e4106fb38458d2bb2bf50b53db74031daabc208",
+  "digest": "5c7ed516e1649e25f85eb07b014175d6ff0abeb7436230b2c723d7540524db15",
+  "license": {
+    "decision": "allowed",
+    "label": "Apache-2.0",
+    "evidence": [
+      "skills/internal-comms/LICENSE.txt"
+    ]
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "id": "github:anthropics/skills:skills/canvas-design",
+  "repository": "anthropics/skills",
+  "revision": "ca45fc496a3436251f191354091d557da31c15b5",
+  "digest": "9de2f479aba622ffb71faf5eff2fade5f171f9604cf0f865b15933ae86cf0631",
+  "license": {
+    "decision": "allowed",
+    "label": "Apache-2.0",
+    "evidence": [
+      "skills/canvas-design/LICENSE.txt"
+    ]
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:skills/quarkus-security",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "aee5d4374541681af2b492fbe515fbb133e0854c51fc8b87ca6f183abbf82dbc",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

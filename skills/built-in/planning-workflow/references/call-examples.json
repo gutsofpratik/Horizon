@@ -1,0 +1,93 @@
+{
+  "version": 1,
+  "skill_id": "horizon-planning-workflow",
+  "examples": [
+    {
+      "tool": "ask_user",
+      "arguments": {
+        "questions": [
+          {
+            "id": "goal",
+            "question": "Which outcome matters most?",
+            "options": [
+              {
+                "label": "Fast first version",
+                "description": "Deliver a small working result first."
+              },
+              {
+                "label": "Complete feature set",
+                "description": "Design the full workflow before implementation."
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "tool": "plan_create",
+      "arguments": {
+        "title": "Deliver the requested feature",
+        "tasks": [
+          "Inspect existing behavior and constraints",
+          "Implement the approved approach",
+          "Verify the requested outcome",
+          "Deliver files and any remaining limitations"
+        ]
+      }
+    },
+    {
+      "tool": "plan_read",
+      "arguments": {}
+    },
+    {
+      "tool": "plan_update",
+      "arguments": {
+        "plan_id": "<observed plan_id>",
+        "task_id": "<observed task_id>",
+        "status": "completed"
+      }
+    },
+    {
+      "tool": "artifact_save",
+      "arguments": {
+        "title": "Feature roadmap",
+        "type": "markdown",
+        "source": "# Feature roadmap\n\n## Outcome\nA working feature matching the stated user requirements.\n\n## Steps\n1. Observe existing behavior.\n2. Implement the agreed approach.\n3. Verify the outcome.\n\n## Acceptance\nThe requested workflow succeeds and saved work is preserved.\n"
+      }
+    },
+    {
+      "tool": "goal",
+      "arguments": {
+        "action": "create",
+        "objective": "<user-authorized objective>",
+        "success_criteria": [
+          "<observable completion criterion>"
+        ],
+        "run_limit": 5
+      }
+    },
+    {
+      "tool": "goal",
+      "arguments": {
+        "action": "start",
+        "goal_id": "<goal_id returned by goal create>"
+      }
+    },
+    {
+      "tool": "goal",
+      "arguments": {
+        "action": "update",
+        "goal_id": "<actual goal_id>",
+        "progress": "<specific completed step and remaining work>"
+      }
+    },
+    {
+      "tool": "goal",
+      "arguments": {
+        "action": "complete",
+        "goal_id": "<actual goal_id>",
+        "summary": "<verified outcome and delivered result>"
+      }
+    }
+  ]
+}

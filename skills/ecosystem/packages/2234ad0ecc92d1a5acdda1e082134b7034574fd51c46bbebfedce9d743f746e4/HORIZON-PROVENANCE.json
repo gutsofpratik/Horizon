@@ -1,0 +1,13 @@
+{
+  "id": "github:elevenlabs/skills:onboarding",
+  "repository": "elevenlabs/skills",
+  "revision": "503d4e9fda0190ab9357142f44e51de626f97f90",
+  "digest": "7761c288c2304baccf573d0acdb460d6641904be0fdbf0099dd9dec30904866b",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

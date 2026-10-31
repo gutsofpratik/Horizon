@@ -25,9 +25,10 @@
     "package:native": "node scripts/package-native.mjs",
     "updates:sign": "node scripts/release/sign-update.mjs",
     "desktop:icons": "tauri icon src-tauri/icons/source.svg --output src-tauri/icons",
-    "export:source": "node scripts/release/export-source.mjs",
-    "prepare:engine": "node scripts/prepare-engine-sources.mjs",
-    "check:tool-scenarios": "tsx scripts/check-tool-scenarios.ts"
+    "check:tool-scenarios": "tsx scripts/check-tool-scenarios.ts",
+    "skills:catalog": "tsx scripts/build-skill-ecosystem.ts",
+    "skills:frameworks": "tsx scripts/build-skill-frameworks.ts && tsx scripts/build-aas-catalog-data.ts",
+    "export:source": "node scripts/release/export-source.mjs"
   },
   "dependencies": {
     "@aws-sdk/client-bedrock-runtime": "^3.1152.0",
@@ -59,7 +60,9 @@
     "rehype-katex": "^7.0.1",
     "remark-gfm": "^4.0.1",
     "remark-math": "^6.0.0",
+    "sanitize-filename": "1.6.4",
     "tldts": "^7.4.18",
+    "yaml": "2.9.1",
     "zod": "^4.6.7"
   },
   "devDependencies": {

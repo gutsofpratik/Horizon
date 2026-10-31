@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:skills/messages-ops",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "9fae1131b0554a9a42627d8d0e0f122dd94fbed38856b1f810d4dade3d65044c",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:commands/python-review.md",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "8fd2de87f47e41c6d099db340c5bdce2b859baaddd94638a48cad03445535ff0",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "id": "github:elevenlabs/skills:voice-isolator",
+  "repository": "elevenlabs/skills",
+  "revision": "503d4e9fda0190ab9357142f44e51de626f97f90",
+  "digest": "4b97200426ab01a580bd2da3cefa447ffe7a84242bbbf39635514afbb1390268",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

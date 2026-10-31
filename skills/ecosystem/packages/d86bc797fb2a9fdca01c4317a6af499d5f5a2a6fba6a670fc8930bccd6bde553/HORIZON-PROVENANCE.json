@@ -1,0 +1,13 @@
+{
+  "id": "github:openai/plugins:plugins/remotion/skills/remotion-create",
+  "repository": "openai/plugins",
+  "revision": "0722921d5542fc593105c27bd52630babd8b8c2a",
+  "digest": "9ba4d6d8bc62ff388aa0ddb27cf5b3df179e5f0d524ecb15e9348b377ec7fa5a",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "plugins/remotion/.codex-plugin/plugin.json"
+    ]
+  }
+}

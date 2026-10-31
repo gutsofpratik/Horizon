@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:skills/e2e-testing",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "ebd9cee41a54eca10b0943a39041c6f3f7de1790c13c3a983c2ff085da0e3535",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

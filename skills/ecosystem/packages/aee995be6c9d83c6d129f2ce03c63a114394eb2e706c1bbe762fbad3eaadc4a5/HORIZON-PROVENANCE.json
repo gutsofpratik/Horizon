@@ -1,0 +1,14 @@
+{
+  "id": "github:sickn33/agentic-awesome-skills:skills/pro-motion",
+  "repository": "sickn33/agentic-awesome-skills",
+  "revision": "6e4106fb38458d2bb2bf50b53db74031daabc208",
+  "digest": "7ba2526a38b2e1d27b68dc7a89f308154344c77f97ba0935cc93b4d9f6b95da8",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "skills/pro-motion/LICENSE",
+      "skills/pro-motion/assets/template/assets/fonts/LICENSES.md"
+    ]
+  }
+}

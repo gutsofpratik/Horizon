@@ -1,0 +1,13 @@
+{
+  "id": "github:openai/plugins:plugins/nvidia/skills/omniverse-cad-to-simready",
+  "repository": "openai/plugins",
+  "revision": "0722921d5542fc593105c27bd52630babd8b8c2a",
+  "digest": "e22e704c245fd4b9ecc9d2958a81263b2f43b053872c9a0cccdc21d4b64e9abc",
+  "license": {
+    "decision": "allowed",
+    "label": "Apache-2.0",
+    "evidence": [
+      "plugins/nvidia/.codex-plugin/plugin.json"
+    ]
+  }
+}

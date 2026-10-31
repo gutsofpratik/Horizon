@@ -1,0 +1,13 @@
+{
+  "id": "github:openai/plugins:plugins/google-drive/skills/google-slides",
+  "repository": "openai/plugins",
+  "revision": "0722921d5542fc593105c27bd52630babd8b8c2a",
+  "digest": "d317e3294fc2b074f799f3917c1359a7a68e1cbcd4786469cba096fd4cccc4fc",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "plugins/google-drive/.codex-plugin/plugin.json"
+    ]
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "id": "github:sickn33/agentic-awesome-skills:skills/notebooklm",
+  "repository": "sickn33/agentic-awesome-skills",
+  "revision": "6e4106fb38458d2bb2bf50b53db74031daabc208",
+  "digest": "51d5065aaec66a289e46ddfd74fa1cefe6f185ff071116abbc19fbc02bc51d62",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "skills/notebooklm/LICENSE"
+    ]
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "id": "github:sickn33/agentic-awesome-skills:skills/second-deposit-igaming",
+  "repository": "sickn33/agentic-awesome-skills",
+  "revision": "6e4106fb38458d2bb2bf50b53db74031daabc208",
+  "digest": "568fab58f200374d1a55302a02a05c0136c4a6e39dd0e5190f9100d20226a217",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "skills/second-deposit-igaming/LICENSE"
+    ]
+  }
+}

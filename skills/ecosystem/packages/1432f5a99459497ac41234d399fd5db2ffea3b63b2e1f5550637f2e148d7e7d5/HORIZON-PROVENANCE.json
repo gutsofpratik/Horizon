@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:skills/canary-watch",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "8a00e603b8377b4e6d86182e2c50248f3e20871a3b81610c15bb367862a25bb6",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

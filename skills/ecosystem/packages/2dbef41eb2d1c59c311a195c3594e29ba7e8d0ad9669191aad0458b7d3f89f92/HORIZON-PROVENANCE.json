@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:commands/epic-claim.md",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "ab64bbcd004e76ea4e0cf972d657f71e815b358be8c96d0efc341fe2814ff42f",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:skills/springboot-security",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "8f3c3895a93dd9bef33f95bea32f03e0d82c1e7775f4f2193a13144bbb6aa92c",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

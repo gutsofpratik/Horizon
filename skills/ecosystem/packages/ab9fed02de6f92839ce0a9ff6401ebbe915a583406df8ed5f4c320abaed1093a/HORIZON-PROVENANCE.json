@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:commands/pr.md",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "e26eb112feaeeb70aa0a33b32f7508848aa3cb550eeb76ec72c0c01046bc05d2",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "id": "github:openai/plugins:plugins/sentry/skills/sentry",
+  "repository": "openai/plugins",
+  "revision": "0722921d5542fc593105c27bd52630babd8b8c2a",
+  "digest": "23cb9909978e0a6af43b0410717978735e148631acb7bd5aa4e37b41fd3d5ee9",
+  "license": {
+    "decision": "allowed",
+    "label": "Apache-2.0",
+    "evidence": [
+      "plugins/sentry/skills/sentry/LICENSE.txt"
+    ]
+  }
+}

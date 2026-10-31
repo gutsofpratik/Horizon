@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:commands/plan-canvas.md",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "afe61867315121d7ce5512da4245174907ae9a4c0eb3741c2a292bd3a2819443",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

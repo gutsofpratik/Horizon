@@ -1,0 +1,13 @@
+{
+  "id": "github:openai/plugins:plugins/remotion/skills/remotion-markup",
+  "repository": "openai/plugins",
+  "revision": "0722921d5542fc593105c27bd52630babd8b8c2a",
+  "digest": "634dead808814407f37380740482715c0705c75ef14c6f8ce9b28f2941bb0c0f",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "plugins/remotion/.codex-plugin/plugin.json"
+    ]
+  }
+}

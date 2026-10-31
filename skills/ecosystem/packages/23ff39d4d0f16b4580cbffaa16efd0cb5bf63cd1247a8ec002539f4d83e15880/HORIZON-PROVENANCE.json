@@ -1,0 +1,13 @@
+{
+  "id": "github:obra/superpowers:skills/writing-plans",
+  "repository": "obra/superpowers",
+  "revision": "2ce8aa15d05bd57213e6f746f953aafb7ded7a8b",
+  "digest": "a0ed9319df82def10758d266583d08c1d139684266b037cabb11cdfa77b975bf",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

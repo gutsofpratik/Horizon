@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:skills/competitive-platform-analysis",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "20529047a8ee82ffe54b903bce3b9ccd031c512d1514dc7eb359e27ae65b97d2",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

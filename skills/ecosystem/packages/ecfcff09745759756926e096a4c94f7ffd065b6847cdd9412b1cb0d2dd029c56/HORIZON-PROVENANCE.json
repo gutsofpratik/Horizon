@@ -1,0 +1,13 @@
+{
+  "id": "github:sickn33/agentic-awesome-skills:skills/skill-porter",
+  "repository": "sickn33/agentic-awesome-skills",
+  "revision": "6e4106fb38458d2bb2bf50b53db74031daabc208",
+  "digest": "f75b77bbba6cdf7e4a29f6edb2447eee33c44aa4942bd84f2cc95498d7d73d9b",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "skills/skill-porter/LICENSE"
+    ]
+  }
+}

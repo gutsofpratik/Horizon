@@ -1,0 +1,13 @@
+{
+  "id": "github:sickn33/agentic-awesome-skills:skills/find-complementary-founders",
+  "repository": "sickn33/agentic-awesome-skills",
+  "revision": "6e4106fb38458d2bb2bf50b53db74031daabc208",
+  "digest": "ce06bd7fd911752f0cf273e93821057ef7e1fa2db875a632e4315fd824cce7f0",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "skills/find-complementary-founders/LICENSE.txt"
+    ]
+  }
+}

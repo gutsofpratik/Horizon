@@ -1,0 +1,13 @@
+{
+  "id": "github:sickn33/agentic-awesome-skills:skills/break-ai-fix-loops",
+  "repository": "sickn33/agentic-awesome-skills",
+  "revision": "6e4106fb38458d2bb2bf50b53db74031daabc208",
+  "digest": "df27c7bbaec60012a382b0001852c8a7e2ee1db91d398aaf91e7e4f2b311e9b3",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "skills/break-ai-fix-loops/LICENSE"
+    ]
+  }
+}

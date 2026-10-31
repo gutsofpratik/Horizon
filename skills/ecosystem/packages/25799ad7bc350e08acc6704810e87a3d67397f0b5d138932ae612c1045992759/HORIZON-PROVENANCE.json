@@ -1,0 +1,13 @@
+{
+  "id": "github:sickn33/agentic-awesome-skills:skills/repo-foundation",
+  "repository": "sickn33/agentic-awesome-skills",
+  "revision": "6e4106fb38458d2bb2bf50b53db74031daabc208",
+  "digest": "d7fe0d680c20b9da7d18a7aa9222bd2607a8d83b3cf63ccc427e0f52ae5d76e6",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "skills/repo-foundation/references/LICENSE.md"
+    ]
+  }
+}

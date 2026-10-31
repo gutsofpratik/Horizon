@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:skills/tinystruct-patterns",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "493f083e76627d026fe6d97e36d78e9ac8712d3455423d689001c15e75b5e755",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

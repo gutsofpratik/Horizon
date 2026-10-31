@@ -1,6 +1,15 @@
+import {workspaceRoot} from '../tools/files.ts';
 
 import type {AppContext} from '../app.ts';import type {ToolContext} from '../tools/registry.ts';import {ToolError} from '../tools/registry.ts';
 export function nativeAvailable(app:AppContext,name:string){const bridge=app.ephemeral.get('nativeBridge');return !!bridge&&bridge.ipcReady!==false&&Date.now()-bridge.updated<12000&&(!bridge.tools||bridge.tools.includes(name))&&(name.startsWith('browser_')&&bridge.browser!==false||name.startsWith('terminal_')&&bridge.terminal||name.startsWith('computer_')&&bridge.computer);}
-export async function nativeRequest(app:AppContext,name:string,args:any,ctx:ToolContext){const bridge=app.ephemeral.get('nativeBridge');if(!nativeAvailable(app,name))throw new ToolError('NATIVE_UNAVAILABLE','The native desktop runtime is not connected');if(bridge.kind==='tauri')return {...await app.ephemeral.get('tauriBroker').request(name,['terminal_run','terminal_session'].includes(name)?{...args,__workspace_scope:ctx.projectId??ctx.conversationId}:args,ctx.conversationId,ctx.signal),native:true};const response=await fetch(bridge.origin+'/tool',{method:'POST',headers:{'Content-Type':'application/json',Authorization:'Bearer '+bridge.token},body:JSON.stringify({name,args,owner:ctx.conversationId}),signal:AbortSignal.any([ctx.signal,AbortSignal.timeout(45000)])});const data=await response.json();if(!response.ok)throw new ToolError('NATIVE_TOOL_FAILED',data.error??'Native browser action failed');return {...data,native:true};}
+/** A connected desktop terminal may be POSIX; connection alone does not imply PowerShell. */
+export function nativeShellIsWindows(ctx:ToolContext){
+ if(ctx.executionEnvironmentId||ctx.edition==='web'||!nativeAvailable(ctx.app,'terminal_run'))return false;
+ const bridge=ctx.app.ephemeral.get('nativeBridge');
+ if(bridge.shell)return bridge.shell==='powershell';
+ if(bridge.platform)return /^(?:win32|windows)$/i.test(bridge.platform);
+ return process.platform==='win32';
+}
+export async function nativeRequest(app:AppContext,name:string,args:any,ctx:ToolContext){const bridge=app.ephemeral.get('nativeBridge');if(!nativeAvailable(app,name))throw new ToolError('NATIVE_UNAVAILABLE','The native desktop runtime is not connected');if(bridge.kind==='tauri')return {...await app.ephemeral.get('tauriBroker').request(name,['terminal_run','terminal_session'].includes(name)?{...args,__workspace_scope:ctx.projectId??ctx.conversationId,__workspace_path:workspaceRoot({...ctx,app})}:args,ctx.conversationId,ctx.signal),native:true};const response=await fetch(bridge.origin+'/tool',{method:'POST',headers:{'Content-Type':'application/json',Authorization:'Bearer '+bridge.token},body:JSON.stringify({name,args,owner:ctx.conversationId}),signal:AbortSignal.any([ctx.signal,AbortSignal.timeout(45000)])});const data=await response.json();if(!response.ok)throw new ToolError('NATIVE_TOOL_FAILED',data.error??'Native browser action failed');return {...data,native:true};}
 
 

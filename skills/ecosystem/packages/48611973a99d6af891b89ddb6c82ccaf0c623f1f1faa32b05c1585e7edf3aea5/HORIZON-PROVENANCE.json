@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:commands/jira.md",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "749595bac585da41c81001dd2e75ba9eaa29fe4afa7a1b50958a27f4ba73f0fb",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "id": "github:openai/plugins:plugins/plugin-eval/skills/improve-skill",
+  "repository": "openai/plugins",
+  "revision": "0722921d5542fc593105c27bd52630babd8b8c2a",
+  "digest": "7f8c7d0aba0dc4e146972e301b60e0e4a43e6d4595fa98082443da3f12414511",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "plugins/plugin-eval/.codex-plugin/plugin.json"
+    ]
+  }
+}

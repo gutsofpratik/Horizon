@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:skills/videodb",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "957dc6bd5939e5439185d0c00d6ba0dfa4085986c9e23c8fc5df7e3c73091658",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

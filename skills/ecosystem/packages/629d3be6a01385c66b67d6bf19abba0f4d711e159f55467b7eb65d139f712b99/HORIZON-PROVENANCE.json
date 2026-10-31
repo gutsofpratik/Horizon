@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:skills/kotlin-patterns",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "dbfd8db1fcc6e0864a4afb6fe724a6dc5e0b840f6e1bb81aad05e04acb804ed3",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

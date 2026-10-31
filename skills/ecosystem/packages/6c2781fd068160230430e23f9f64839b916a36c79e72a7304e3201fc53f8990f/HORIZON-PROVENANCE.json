@@ -1,0 +1,13 @@
+{
+  "id": "github:sickn33/agentic-awesome-skills:skills/electron-drive-skill",
+  "repository": "sickn33/agentic-awesome-skills",
+  "revision": "6e4106fb38458d2bb2bf50b53db74031daabc208",
+  "digest": "40220343bb67c2da4d7b0279030785326355fe902b14af5b4f565bd3b0836a22",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "skills/electron-drive-skill/LICENSE"
+    ]
+  }
+}

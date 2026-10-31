@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:skills/laravel-plugin-discovery",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "cd66b668e92ca1cb1ee770de1b2cf2521ef9d862a0a696558c3aa70b04644bcb",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

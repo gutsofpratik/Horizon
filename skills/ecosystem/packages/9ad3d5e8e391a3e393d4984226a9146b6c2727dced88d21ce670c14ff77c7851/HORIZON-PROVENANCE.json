@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:skills/cost-aware-llm-pipeline",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "e7d3ca270ac53b62b9a5b47f2149f270e8e9944e71b3c29b1942345c10842111",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

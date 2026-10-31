@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:commands/kotlin-review.md",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "88f143e157008816542cf0a673f15277bbb882f9cf9001ba4d24ab26c54ce65e",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:commands/prune.md",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "4477c98478c4d83f48a67ba7e1e8149e3f5e694a61246fc49b9f777d8f15e5ef",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

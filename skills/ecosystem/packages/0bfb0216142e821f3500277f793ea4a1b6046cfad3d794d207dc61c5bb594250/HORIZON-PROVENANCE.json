@@ -1,0 +1,13 @@
+{
+  "id": "github:openai/plugins:plugins/plugin-eval/fixtures/minimal-skill",
+  "repository": "openai/plugins",
+  "revision": "0722921d5542fc593105c27bd52630babd8b8c2a",
+  "digest": "d7e2c0f8d39d7e7fe701e46c00c523591547a91612374761d5ae37bd9ff3d535",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "plugins/plugin-eval/.codex-plugin/plugin.json"
+    ]
+  }
+}

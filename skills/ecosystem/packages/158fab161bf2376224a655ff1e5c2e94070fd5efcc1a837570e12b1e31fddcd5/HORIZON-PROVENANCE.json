@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:commands/model-route.md",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "554ed93f7dabfc2038383e09ef70fc7bd82fd9696d1d09118b225780a2ee3020",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

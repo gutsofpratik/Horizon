@@ -1,0 +1,13 @@
+{
+  "id": "github:anthropics/skills:skills/frontend-design",
+  "repository": "anthropics/skills",
+  "revision": "ca45fc496a3436251f191354091d557da31c15b5",
+  "digest": "91788a86bf89e7aa4aeca46a4ef4e088ff10664f6ce6993c9d6df6eef06e5cef",
+  "license": {
+    "decision": "allowed",
+    "label": "Apache-2.0",
+    "evidence": [
+      "skills/frontend-design/LICENSE.txt"
+    ]
+  }
+}

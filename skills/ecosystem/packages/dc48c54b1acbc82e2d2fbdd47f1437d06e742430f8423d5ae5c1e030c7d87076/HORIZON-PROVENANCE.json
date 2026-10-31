@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:skills/bengali-nlp",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "70cebb17e729f5387c9c35100e923a6cb8ceff6c84e7d419cb3d5166de3beda0",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:commands/instinct-export.md",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "823300cce1405fb94961625cf5681e211dae10a518998dadcc4e7a6675bb97f8",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

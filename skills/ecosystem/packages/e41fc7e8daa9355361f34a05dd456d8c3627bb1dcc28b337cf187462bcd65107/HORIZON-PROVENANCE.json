@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:skills/story-lifecycle",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "19b8c9b2cd9e3b9d8f919eed0d192058f81c50b2cb229e90c2fee35b030bea8c",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

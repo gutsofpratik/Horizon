@@ -1,0 +1,13 @@
+{
+  "id": "github:sickn33/agentic-awesome-skills:skills/fact-check-x-unified",
+  "repository": "sickn33/agentic-awesome-skills",
+  "revision": "6e4106fb38458d2bb2bf50b53db74031daabc208",
+  "digest": "0a02a5dff4b4176c66fea7aa965d3ed94320da5cbdc96a81beb669e2ca869ef7",
+  "license": {
+    "decision": "allowed",
+    "label": "Apache-2.0",
+    "evidence": [
+      "skills/fact-check-x-unified/LICENSE"
+    ]
+  }
+}

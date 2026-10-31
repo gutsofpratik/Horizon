@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:skills/python-testing",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "8879a8ab8c4be6f706ef74a6aeaaa49799eaa00e854160980d27aea3bcb3d732",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:skills/skill-comply",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "a8f632516f426bfe6224f54b4520dce0efcb690ee5ef28a8831c6d1ca9b40fba",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

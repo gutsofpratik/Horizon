@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:commands/santa-loop.md",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "b5ae3fc5efc92834a907befd0149486b4e296ff433c1c47bb82be86e0a268447",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

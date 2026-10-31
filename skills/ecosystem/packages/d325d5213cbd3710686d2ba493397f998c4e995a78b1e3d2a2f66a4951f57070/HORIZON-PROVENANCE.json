@@ -1,0 +1,13 @@
+{
+  "id": "github:obra/superpowers:skills/receiving-code-review",
+  "repository": "obra/superpowers",
+  "revision": "2ce8aa15d05bd57213e6f746f953aafb7ded7a8b",
+  "digest": "b3b5cecafa67a8a3f3fb6a194b8d5a7974a121256433b55a99b958bd4805fb06",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

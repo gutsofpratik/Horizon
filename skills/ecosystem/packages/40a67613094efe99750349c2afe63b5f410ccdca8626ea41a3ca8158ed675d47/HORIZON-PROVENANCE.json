@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:skills/nestjs-patterns",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "e23635555af8a3373618fc8034a1f5c15d7a31cb165ba2abed9a40372cf32673",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

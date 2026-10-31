@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:skills/dart-flutter-patterns",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "406e9e271619a4b0ac13d16f7221e2bb6f5d31dcb01c68b6ae2c273743e3ccd7",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

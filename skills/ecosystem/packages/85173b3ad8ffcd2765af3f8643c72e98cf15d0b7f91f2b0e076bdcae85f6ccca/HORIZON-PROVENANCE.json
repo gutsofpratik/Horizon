@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:skills/esign-field-placement",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "79ea93e4358700d85c05c2a83a43ca32d759c354e6b57766e73374f27a32a8ac",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

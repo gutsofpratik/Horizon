@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:commands/plan.md",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "c4c9f810620c355e0e675e95f15ad990ca2669610286046c2846a18f1f4115ba",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

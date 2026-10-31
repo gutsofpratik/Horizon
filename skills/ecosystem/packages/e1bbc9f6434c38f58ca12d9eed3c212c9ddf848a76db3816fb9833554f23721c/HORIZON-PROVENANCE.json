@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:skills/pytorch-patterns",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "32e57e0b00043e3701dcdee13f3373f054fca5477d192905a51871252863790d",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

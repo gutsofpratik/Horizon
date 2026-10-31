@@ -1,0 +1,13 @@
+{
+  "id": "github:sickn33/agentic-awesome-skills:skills/syncbook-discovery",
+  "repository": "sickn33/agentic-awesome-skills",
+  "revision": "6e4106fb38458d2bb2bf50b53db74031daabc208",
+  "digest": "ad6fed20d80416abbf2413ee06f3bdade9b99d49e32ea3a00305f4f21df34da6",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "skills/syncbook-discovery/LICENSE"
+    ]
+  }
+}

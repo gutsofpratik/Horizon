@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:skills/master-agreement-generator",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "652f2aaa605a3b286ee00333664a3ebe44226f30de9908470021f119298488c3",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

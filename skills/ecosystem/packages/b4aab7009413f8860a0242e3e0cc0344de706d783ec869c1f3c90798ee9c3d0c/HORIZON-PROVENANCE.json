@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:skills/django-celery",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "f68eb90c81322d9cf369d79bc81d4a64766c98db295b00ef8c9ac7aa289fd11b",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

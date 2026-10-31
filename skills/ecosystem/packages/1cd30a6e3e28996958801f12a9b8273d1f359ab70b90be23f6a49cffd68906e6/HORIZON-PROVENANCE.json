@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:skills/quality-nonconformance",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "60053c6beac7b9df45d4ba3c5efdb93dc6b6fec4c0375c41d04d39cd5962d0aa",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

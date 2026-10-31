@@ -1,0 +1,13 @@
+{
+  "id": "github:openai/plugins:plugins/temporal/skills/temporal-ops",
+  "repository": "openai/plugins",
+  "revision": "0722921d5542fc593105c27bd52630babd8b8c2a",
+  "digest": "af24821e1502b0c4d5198f02f9c4e5ea576512f500b3d3d179badadae22845ec",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "plugins/temporal/LICENSE"
+    ]
+  }
+}

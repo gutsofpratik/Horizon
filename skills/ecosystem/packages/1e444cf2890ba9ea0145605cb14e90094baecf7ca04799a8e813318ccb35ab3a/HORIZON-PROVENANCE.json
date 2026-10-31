@@ -1,0 +1,13 @@
+{
+  "id": "github:openai/plugins:plugins/ngs-analysis/skills/ngs-dna-umi-panel-variants",
+  "repository": "openai/plugins",
+  "revision": "0722921d5542fc593105c27bd52630babd8b8c2a",
+  "digest": "c7254bb82ff84b3cf1150e8891136211e68d0c430429d3eab82a61213973fe93",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "plugins/ngs-analysis/.codex-plugin/plugin.json"
+    ]
+  }
+}

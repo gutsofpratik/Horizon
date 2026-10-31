@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:skills/council",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "3f4093901c4d3d5dee4e1ed59d2808e830f64bb6865e0affb33651d955edc269",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

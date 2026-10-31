@@ -1,0 +1,13 @@
+{
+  "id": "github:openai/plugins:plugins/plugin-eval/skills/metric-pack-designer",
+  "repository": "openai/plugins",
+  "revision": "0722921d5542fc593105c27bd52630babd8b8c2a",
+  "digest": "3d8cd627f08f89aac3b838e2ef314cda02d98c5b2930623f04af934ed116fc9f",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "plugins/plugin-eval/.codex-plugin/plugin.json"
+    ]
+  }
+}

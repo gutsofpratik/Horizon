@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:skills/intent-driven-development",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "184210a44b12f0a215dc84ccda7a663d044b5a5a77c50f2ce3ac25c61ca3382d",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

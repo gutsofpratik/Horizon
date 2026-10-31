@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:skills/fsharp-testing",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "eb38a406b4edffb3b7a6090cf8b156f2dfae403315ffd84f7b3d096ade015be7",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

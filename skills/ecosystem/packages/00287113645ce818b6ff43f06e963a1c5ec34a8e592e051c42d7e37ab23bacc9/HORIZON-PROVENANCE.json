@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:skills/eval-harness",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "9c47598d74bbb8c138a71216994c253654a7e1492bb889f0676efbd34773f3dd",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

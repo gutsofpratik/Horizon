@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:skills/laravel-security",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "3cf8bc9f1ba2237243c8cd2ebf2ac4122ca0ae08f21164fec8c717a9ec50afeb",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

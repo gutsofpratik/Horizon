@@ -1,0 +1,13 @@
+{
+  "id": "horizon:adapter:interaction",
+  "repository": "",
+  "revision": "application",
+  "digest": "cfe5e3047c7797aeefae713bc374b013e1da9b2be33a1be41778879bb4f7683d",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "Application LICENSE"
+    ]
+  }
+}

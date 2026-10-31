@@ -1,0 +1,13 @@
+{
+  "id": "github:openai/plugins:plugins/build-macos-apps/skills/swiftui-patterns",
+  "repository": "openai/plugins",
+  "revision": "0722921d5542fc593105c27bd52630babd8b8c2a",
+  "digest": "53d77ae6a190de64a01bb148ff58394d6caefea8c94dba5cae76e3c1468d57f4",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "plugins/build-macos-apps/.codex-plugin/plugin.json"
+    ]
+  }
+}

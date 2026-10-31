@@ -1,0 +1,490 @@
+{
+  "version": 1,
+  "workflows": [
+    {
+      "folder": "tool-operation",
+      "id": "openclaude-tool-operation",
+      "name": "Horizon tool operation",
+      "description": "Use when executing an unfamiliar operation, recovering invalid arguments, or coordinating basic file, memory and calculation tools.",
+      "profiles": [
+        "general",
+        "file",
+        "memory"
+      ],
+      "tools": [
+        "ask_user",
+        "discover_tools",
+        "files_list",
+        "files_read",
+        "files_write",
+        "files_patch",
+        "directory_create",
+        "memory_save",
+        "memory_search",
+        "calculate",
+        "clock_now"
+      ],
+      "category": "Foundation",
+      "subcategory": "Tool execution"
+    },
+    {
+      "folder": "coding-workflow",
+      "id": "horizon-coding-workflow",
+      "name": "Horizon coding workflow",
+      "description": "Use when building, updating or debugging source code, applications, repositories, tests, Git changes or CI checks.",
+      "profiles": [
+        "code"
+      ],
+      "tools": [
+        "ask_user",
+        "plan_create",
+        "plan_read",
+        "plan_update",
+        "task_create",
+        "task_update",
+        "directory_create",
+        "files_list",
+        "files_read",
+        "files_write",
+        "files_patch",
+        "files_search",
+        "code_search",
+        "symbol_search",
+        "terminal_run",
+        "terminal_read",
+        "code_lint",
+        "code_test",
+        "git_status",
+        "git_diff",
+        "git_branch",
+        "git_checkout",
+        "git_add",
+        "git_commit",
+        "git_log",
+        "git_push",
+        "git_pull",
+        "browser_open",
+        "browser_snapshot"
+      ],
+      "category": "Development",
+      "subcategory": "Coding",
+      "routes": [
+        "horizon-planning-workflow",
+        "horizon-systematic-debugging",
+        "horizon-verification-workflow",
+        "horizon-frontend-design",
+        "openclaude-browser-and-computer"
+      ]
+    },
+    {
+      "folder": "planning-workflow",
+      "id": "horizon-planning-workflow",
+      "name": "Superpowers · Brainstorming and planning",
+      "description": "Use when the user asks to brainstorm, compare approaches, clarify requirements, plan work, approve a plan or pursue an explicit goal.",
+      "profiles": [
+        "planning",
+        "goal"
+      ],
+      "tools": [
+        "ask_user",
+        "plan_create",
+        "plan_read",
+        "plan_update",
+        "task_create",
+        "task_update",
+        "task_list",
+        "goal",
+        "artifact_save",
+        "artifact_read",
+        "files_read",
+        "web_search"
+      ],
+      "category": "Superpowers",
+      "subcategory": "Brainstorming and planning",
+      "upstreamSkillId": "claude-plugins/superpowers/6.4.1/skills/brainstorming",
+      "routes": [
+        "horizon-coding-workflow",
+        "horizon-frontend-design",
+        "openclaude-spreadsheet-workflow",
+        "openclaude-document-workflow",
+        "openclaude-presentation-workflow",
+        "openclaude-browser-and-computer",
+        "horizon-research-workflow",
+        "horizon-systematic-debugging",
+        "horizon-verification-workflow"
+      ]
+    },
+    {
+      "folder": "frontend-design",
+      "id": "horizon-frontend-design",
+      "name": "Horizon frontend and artifact design",
+      "description": "Use when creating or improving HTML, SVG, interfaces, dashboards, visual roadmaps, prototypes, layouts or artifact aesthetics.",
+      "profiles": [
+        "frontend"
+      ],
+      "tools": [
+        "artifact_save",
+        "artifact_read",
+        "artifact_list",
+        "artifact_export",
+        "files_read",
+        "files_write",
+        "files_patch",
+        "terminal_run",
+        "terminal_read",
+        "browser_open_file",
+        "browser_snapshot",
+        "browser_click",
+        "browser_fill",
+        "browser_press",
+        "browser_scroll"
+      ],
+      "category": "Creative",
+      "subcategory": "Frontend and artifacts"
+    },
+    {
+      "folder": "spreadsheet-workflow",
+      "id": "openclaude-spreadsheet-workflow",
+      "name": "Horizon Excel workflow",
+      "description": "Use when creating or revising XLSX workbooks, budgets, financial statements, formulas, spreadsheet charts or existing Excel files.",
+      "profiles": [
+        "sheets"
+      ],
+      "tools": [
+        "spreadsheet_create",
+        "spreadsheet_inspect",
+        "spreadsheet_edit",
+        "spreadsheet_chart",
+        "calculate",
+        "document_extract",
+        "template_create",
+        "template_apply"
+      ],
+      "category": "Office",
+      "subcategory": "Excel"
+    },
+    {
+      "folder": "document-workflow",
+      "id": "openclaude-document-workflow",
+      "name": "Horizon Word and PDF workflow",
+      "description": "Use when creating, extracting, inspecting or editing Word documents, PDF files, PDF forms, reports, page selections or overlays.",
+      "profiles": [
+        "documents",
+        "pdf"
+      ],
+      "tools": [
+        "document_create",
+        "document_extract",
+        "document_inspect",
+        "document_edit",
+        "pdf_inspect",
+        "pdf_edit",
+        "document_ocr",
+        "template_create",
+        "template_apply",
+        "browser_open_file"
+      ],
+      "category": "Office",
+      "subcategory": "Word and PDF"
+    },
+    {
+      "folder": "presentation-workflow",
+      "id": "openclaude-presentation-workflow",
+      "name": "Horizon presentation workflow",
+      "description": "Use when making or revising actual PowerPoint decks, slide narratives, speaker notes, tables or slide layouts.",
+      "profiles": [
+        "slides"
+      ],
+      "tools": [
+        "slides_create",
+        "slides_inspect",
+        "slides_edit",
+        "document_extract",
+        "template_create",
+        "template_apply",
+        "browser_open_file"
+      ],
+      "category": "Office",
+      "subcategory": "Presentations"
+    },
+    {
+      "folder": "terminal-workflow",
+      "id": "openclaude-terminal-workflow",
+      "name": "Horizon terminal workflow",
+      "description": "Use when running commands, managing an owned shell job, creating folders through a shell, diagnosing processes or reading command output.",
+      "profiles": [
+        "shell"
+      ],
+      "tools": [
+        "terminal_session",
+        "terminal_run",
+        "terminal_read",
+        "terminal_stdin",
+        "terminal_cancel",
+        "terminal_resize",
+        "shell_script",
+        "shell_environment",
+        "directory_create",
+        "files_write",
+        "files_read",
+        "shell_processes",
+        "shell_process_kill"
+      ],
+      "category": "Development",
+      "subcategory": "Terminal"
+    },
+    {
+      "folder": "browser-computer",
+      "id": "openclaude-browser-and-computer",
+      "name": "Horizon browser and computer workflow",
+      "description": "Use when browsing or interacting with websites, inspecting an embedded browser, opening local outputs, or controlling the desktop from observations.",
+      "profiles": [
+        "browser",
+        "computer"
+      ],
+      "tools": [
+        "browser_open",
+        "browser_open_file",
+        "browser_snapshot",
+        "browser_click",
+        "browser_fill",
+        "browser_type",
+        "browser_press",
+        "browser_scroll",
+        "browser_tabs",
+        "browser_back",
+        "browser_forward",
+        "browser_reload",
+        "browser_find",
+        "browser_upload",
+        "browser_download",
+        "browser_screenshot",
+        "browser_read_diagnostics",
+        "computer_screenshot",
+        "computer_windows",
+        "computer_focus_window",
+        "computer_click",
+        "computer_type",
+        "computer_key",
+        "computer_scroll",
+        "computer_drag",
+        "computer_ui_tree",
+        "computer_ui_element_action"
+      ],
+      "category": "Interaction",
+      "subcategory": "Browser and computer"
+    },
+    {
+      "folder": "research-workflow",
+      "id": "horizon-research-workflow",
+      "name": "Horizon web research workflow",
+      "description": "Use when searching the web, comparing sources, fetching pages, checking current facts, continuing saved research or synthesizing cited findings.",
+      "profiles": [
+        "web"
+      ],
+      "tools": [
+        "web_search",
+        "web_fetch",
+        "web_find_text",
+        "web_crawl",
+        "web_download_file",
+        "research_read",
+        "research_source_read",
+        "chat_history_search",
+        "chat_history_read",
+        "conversation_search",
+        "conversation_read",
+        "memory_search",
+        "artifact_save"
+      ],
+      "category": "Research",
+      "subcategory": "Web and sources"
+    },
+    {
+      "folder": "runtime-orchestration",
+      "id": "openclaude-runtime-orchestration",
+      "name": "Horizon orchestration workflow",
+      "description": "Use when managing tasks, explicit goals, authorized agents, schedules, environments, connectors, retrieval, data analysis or multi-step runtime work.",
+      "profiles": [
+        "agent",
+        "workflow",
+        "goal",
+        "schedule",
+        "queue",
+        "mcp",
+        "http",
+        "webhook",
+        "task",
+        "trigger",
+        "lifecycle",
+        "template",
+        "system",
+        "python",
+        "data",
+        "retrieval",
+        "database",
+        "media"
+      ],
+      "tools": [
+        "runtime_capabilities",
+        "clock_now",
+        "goal",
+        "task_create",
+        "task_update",
+        "agent_spawn",
+        "agent_status",
+        "agent_wait",
+        "agent_result",
+        "agent_followup",
+        "agent_send_message",
+        "agent_interrupt",
+        "programmatic_tools",
+        "python_session",
+        "schedule_create",
+        "schedule_list",
+        "schedule_update",
+        "message_queue_list",
+        "memory_search",
+        "memory_save",
+        "mcp_connections",
+        "mcp_list_tools",
+        "mcp_call_tool",
+        "http_list_connections",
+        "http_request",
+        "retrieval_index",
+        "retrieval_search",
+        "environment_sync"
+      ],
+      "category": "Coordination",
+      "subcategory": "Tasks and runtimes"
+    },
+    {
+      "folder": "data-and-creative",
+      "id": "openclaude-data-and-creative-workflows",
+      "name": "Horizon artifacts and data workflow",
+      "description": "Use when combining artifacts, charts, data analysis, document deliverables, templates or semantic retrieval in one user task.",
+      "profiles": [
+        "artifact",
+        "data",
+        "retrieval",
+        "media"
+      ],
+      "tools": [
+        "artifact_save",
+        "artifact_read",
+        "artifact_list",
+        "artifact_export",
+        "data_read_csv",
+        "data_read_json",
+        "data_filter",
+        "data_aggregate",
+        "chart_create",
+        "python_session",
+        "image_open",
+        "image_transform",
+        "image_generate",
+        "template_create",
+        "template_apply",
+        "retrieval_index",
+        "retrieval_search",
+        "retrieve_chunks",
+        "rerank",
+        "document_extract"
+      ],
+      "category": "Creative",
+      "subcategory": "Data and artifacts"
+    },
+    {
+      "folder": "skill-author",
+      "id": "openclaude-skill-author",
+      "name": "Horizon skill authoring",
+      "description": "Use when creating, editing, importing or refining a reusable personal skill with verified tools, complete examples and a bounded workflow.",
+      "profiles": [
+        "skills"
+      ],
+      "tools": [
+        "skills_list",
+        "skill_load",
+        "skill_create",
+        "skill_update",
+        "skill_read_resource",
+        "files_read",
+        "files_write",
+        "custom_tool_list"
+      ],
+      "category": "Extensibility",
+      "subcategory": "Skills"
+    },
+    {
+      "folder": "tool-author",
+      "id": "openclaude-tool-author",
+      "name": "Horizon tool authoring",
+      "description": "Use when the user requests a reusable typed tool workflow composed from existing permitted tools.",
+      "profiles": [
+        "custom"
+      ],
+      "tools": [
+        "custom_tool_list",
+        "custom_tool_create",
+        "custom_tool_delete",
+        "discover_tools",
+        "skill_load",
+        "files_read",
+        "files_write",
+        "calculate"
+      ],
+      "category": "Extensibility",
+      "subcategory": "Tools"
+    },
+    {
+      "folder": "debugging-workflow",
+      "id": "horizon-systematic-debugging",
+      "name": "Superpowers · Systematic debugging",
+      "description": "Use when a tool, test, command, integration or generated output fails and the cause needs diagnosis before another edit.",
+      "profiles": [],
+      "tools": [
+        "files_read",
+        "files_search",
+        "git_diff",
+        "terminal_run",
+        "terminal_read",
+        "browser_snapshot",
+        "browser_read_diagnostics",
+        "runtime_capabilities"
+      ],
+      "category": "Superpowers",
+      "subcategory": "Debugging",
+      "routes": [
+        "horizon-coding-workflow",
+        "horizon-verification-workflow"
+      ],
+      "upstreamSkillId": "claude-plugins/superpowers/6.4.1/skills/systematic-debugging"
+    },
+    {
+      "folder": "verification-workflow",
+      "id": "horizon-verification-workflow",
+      "name": "Superpowers · Verification",
+      "description": "Use when verifying completed work, interpreting tests, checking a saved deliverable or deciding whether success can be claimed.",
+      "profiles": [],
+      "tools": [
+        "terminal_run",
+        "terminal_read",
+        "files_read",
+        "git_diff",
+        "spreadsheet_inspect",
+        "document_extract",
+        "document_inspect",
+        "slides_inspect",
+        "pdf_inspect",
+        "artifact_read",
+        "browser_snapshot"
+      ],
+      "category": "Superpowers",
+      "subcategory": "Verification",
+      "routes": [
+        "horizon-systematic-debugging"
+      ],
+      "upstreamSkillId": "claude-plugins/superpowers/6.4.1/skills/verification-before-completion"
+    }
+  ]
+}

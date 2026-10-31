@@ -1,0 +1,13 @@
+{
+  "id": "github:openai/plugins:plugins/nvidia/skills/aiq-deploy",
+  "repository": "openai/plugins",
+  "revision": "0722921d5542fc593105c27bd52630babd8b8c2a",
+  "digest": "a44766b04c94764c729cf9138461f390abb52b9ff21bc5c05137cd405fa40e98",
+  "license": {
+    "decision": "allowed",
+    "label": "Apache-2.0",
+    "evidence": [
+      "plugins/nvidia/.codex-plugin/plugin.json"
+    ]
+  }
+}

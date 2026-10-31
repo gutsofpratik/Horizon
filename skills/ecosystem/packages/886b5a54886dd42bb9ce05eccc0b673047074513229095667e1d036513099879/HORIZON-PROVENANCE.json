@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:skills/codebase-onboarding",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "dadfce35205bd96227f6561cf3a9af55a7660f68cdbde56855e76c6b16daf949",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

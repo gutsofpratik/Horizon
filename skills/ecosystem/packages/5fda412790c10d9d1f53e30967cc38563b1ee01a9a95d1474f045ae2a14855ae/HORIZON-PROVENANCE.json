@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:skills/frontend-slides",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "0f36b099186e8814608fdea993648c0529d7c1c8ad4d07e02295bf69e14eb94d",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

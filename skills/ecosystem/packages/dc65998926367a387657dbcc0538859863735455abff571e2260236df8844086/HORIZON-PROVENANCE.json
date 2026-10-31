@@ -1,0 +1,13 @@
+{
+  "id": "github:openai/plugins:plugins/build-ios-apps/skills/ios-app-intents",
+  "repository": "openai/plugins",
+  "revision": "0722921d5542fc593105c27bd52630babd8b8c2a",
+  "digest": "febc6e45ea8b58b4282414250fc9b5dc8ea806182014efeaff7f56bed7489fa3",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "plugins/build-ios-apps/.codex-plugin/plugin.json"
+    ]
+  }
+}

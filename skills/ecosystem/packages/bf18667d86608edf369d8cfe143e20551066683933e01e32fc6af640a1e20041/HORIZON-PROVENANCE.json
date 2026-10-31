@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:skills/orch-add-feature",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "d19b7e66409de097e8de90ae815f92314826dab18f7791a8f54677624554009b",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

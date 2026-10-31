@@ -1,0 +1,13 @@
+{
+  "id": "github:openai/plugins:plugins/boltz-api-cli/skills/boltz-protein-screen",
+  "repository": "openai/plugins",
+  "revision": "0722921d5542fc593105c27bd52630babd8b8c2a",
+  "digest": "4500398571f07ef901eb3d393e01f69b63ea2d1af131198812bb1e135839c6e9",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "plugins/boltz-api-cli/LICENSE"
+    ]
+  }
+}

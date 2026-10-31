@@ -1,0 +1,13 @@
+{
+  "id": "github:obra/superpowers:skills/using-git-worktrees",
+  "repository": "obra/superpowers",
+  "revision": "2ce8aa15d05bd57213e6f746f953aafb7ded7a8b",
+  "digest": "77df60e0352339d0996dfbf382522c6fa689327c6985f9055a03bf41270f5f8d",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

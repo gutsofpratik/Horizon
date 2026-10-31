@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:skills/email-ops",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "1d14fc76e6b855504eed58496b63e5016d023a33ef073efd0bde6dea97dd74f7",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

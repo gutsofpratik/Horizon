@@ -1,0 +1,13 @@
+{
+  "id": "github:openai/plugins:plugins/hyperframes/skills/website-to-hyperframes",
+  "repository": "openai/plugins",
+  "revision": "0722921d5542fc593105c27bd52630babd8b8c2a",
+  "digest": "66d77dce841b76807e0fb67ba04d78ed27e863b45ce9bbc42fa6538ea39141e7",
+  "license": {
+    "decision": "allowed",
+    "label": "Apache-2.0",
+    "evidence": [
+      "plugins/hyperframes/.codex-plugin/plugin.json"
+    ]
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:skills/motion-foundations",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "c5091ab2e1a7106eab9fa5fc842be37d073b6c720f9ed18743e94c24fecc14bf",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

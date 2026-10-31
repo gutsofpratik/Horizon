@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:skills/product-lens",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "d576c7c9af3548f74f506a2e85b7e6c7a7db85414d96ffea529effe26c594548",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

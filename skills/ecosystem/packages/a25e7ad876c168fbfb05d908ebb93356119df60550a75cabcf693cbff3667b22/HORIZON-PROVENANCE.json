@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:commands/harness-audit.md",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "fb8137885aebe61ace15075cf3e61eacb03c448e797cf542463f752afea3f182",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

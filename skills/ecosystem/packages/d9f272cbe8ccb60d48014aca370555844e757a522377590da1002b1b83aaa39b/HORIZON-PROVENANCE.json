@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:skills/orch-build-mvp",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "409aef5210088f9acd9d262c3f9dee80f41c5237e16c66da791ecb4a8494206a",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

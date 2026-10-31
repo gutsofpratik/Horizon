@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:commands/multi-workflow.md",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "9d782828ed074b38b16ece0475e6ab734c1f93b4b1ec9adf3abf476d3d18f93c",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

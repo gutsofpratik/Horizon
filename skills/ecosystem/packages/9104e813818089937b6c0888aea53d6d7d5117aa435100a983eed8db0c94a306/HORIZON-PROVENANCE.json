@@ -1,0 +1,13 @@
+{
+  "id": "github:openai/plugins:plugins/cloudflare/skills/cloudflare",
+  "repository": "openai/plugins",
+  "revision": "0722921d5542fc593105c27bd52630babd8b8c2a",
+  "digest": "4653685f3562f00aaaec29ed05570d6760e145cbae8c9bbe9ab9b7fa17469e6c",
+  "license": {
+    "decision": "allowed",
+    "label": "Apache-2.0",
+    "evidence": [
+      "plugins/cloudflare/skills/cloudflare/LICENSE.txt"
+    ]
+  }
+}

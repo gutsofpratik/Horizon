@@ -1,0 +1,13 @@
+{
+  "id": "github:obra/superpowers:skills/systematic-debugging",
+  "repository": "obra/superpowers",
+  "revision": "2ce8aa15d05bd57213e6f746f953aafb7ded7a8b",
+  "digest": "b34ce059cec79c0c0afb15ef5f6ae08c91a9f7a527fefe77d6cd871c965c9834",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

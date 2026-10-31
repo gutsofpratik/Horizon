@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:skills/enterprise-agent-ops",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "cf723f9b2db61935310a32c704bd2939db8a18e5dfe2417f9e781ab12fb6df4c",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

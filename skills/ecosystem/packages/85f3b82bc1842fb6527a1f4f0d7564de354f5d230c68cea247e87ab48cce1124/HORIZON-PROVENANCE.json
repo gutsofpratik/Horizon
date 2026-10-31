@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:skills/strategic-compact",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "415e8a4d20ad58bba1394f988888b3ca4e7e5bc10d46a470a4f058ac904663da",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

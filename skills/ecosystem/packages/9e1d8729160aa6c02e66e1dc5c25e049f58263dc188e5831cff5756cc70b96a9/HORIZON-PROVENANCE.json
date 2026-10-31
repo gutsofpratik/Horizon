@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:skills/scientific-pkg-gget",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "e2d5845c2f7ee8953740757d4c9be3c18789c04bcdf31ec88e75bc89ac046445",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

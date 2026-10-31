@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:skills/ios-icon-gen",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "be58cc8894486961fb06834ea9f6e345f105d9346d9af564653c88859f70c3b6",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

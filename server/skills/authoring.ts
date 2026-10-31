@@ -25,7 +25,7 @@ export async function saveAuthoredSkill(app:AppContext,body:z.infer<typeof skill
   let skill;
   try{skill=app.store.put('skills',{...previous,id,...body,instructions,version:digest(instructions),createdBy:'assistant'});}
   catch(error){if(original!==undefined)await writeFile(target,original,'utf8');else await rm(target,{force:true});throw error;}
-  app.store.put('skill_installations',{id,installed:true,enabled:true,version:skill.version});
+  const installation=app.store.get('skill_installations',id);app.store.put('skill_installations',{...installation,id,installed:installation?.installed??true,enabled:installation?.enabled??true,version:skill.version});
   return skill;
  }finally{if(staging)await rm(staging,{force:true});app.ephemeral.delete(key);}
 }

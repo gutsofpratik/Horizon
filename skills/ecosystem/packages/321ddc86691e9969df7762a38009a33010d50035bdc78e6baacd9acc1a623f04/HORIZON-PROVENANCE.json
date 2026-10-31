@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:commands/auto-update.md",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "0751ae51c696169884cfa9f0e400a4cbfcaab157e6bbe931219cd983384c54c3",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

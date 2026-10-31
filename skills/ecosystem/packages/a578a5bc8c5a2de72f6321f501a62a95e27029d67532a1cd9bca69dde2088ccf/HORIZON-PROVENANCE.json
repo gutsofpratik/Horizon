@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:skills/android-clean-architecture",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "2126d16fbb781cd29e62338c63b736d131f6785a3fba4f4110e3c734560188a9",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

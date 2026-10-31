@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:commands/kotlin-build.md",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "46264416dc59a76c2eba942a1a5b05e10e4b6f5d501852c7f4e24eb94e2de3ae",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

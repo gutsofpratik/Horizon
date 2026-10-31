@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:skills/returns-reverse-logistics",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "c55db4666545e42cd5c45c5f2e25c577d58450e2dbc55799f04232c9a12b974c",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

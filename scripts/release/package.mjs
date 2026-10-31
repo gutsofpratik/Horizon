@@ -49,8 +49,8 @@ await writeFile(join(backend,'package.json'),JSON.stringify({name:'horizon-deskt
 await run(process.execPath,[npm,'install','--omit=dev','--ignore-scripts','--no-audit','--no-fund'],{cwd:backend});
 for(const path of ['runtime','dist','dist-desktop'])await cp(path,join(backend,path),{recursive:true,filter:path=>!/(?:__pycache__|\.pyc$|train_lora\.py$|train_qlora\.py$|qlora\.py$)/.test(path)});
 await mkdir(join(backend,'skills'),{recursive:true});
-for(const path of ['built-in','app-research','repository-catalog.json','official-plugin-catalog.json'])await cp(join(root,'skills',path),join(backend,'skills',path),{recursive:true});
-const catalog=JSON.parse(await readFile('skills/catalog.json','utf8'));const skills=[];for(const item of catalog.skills.filter(item=>/^built-in\/|^app-research\//.test(item.bundledEntry??''))){const text=await readFile(join('skills',item.bundledEntry));skills.push({id:item.id,name:item.name,description:item.description,sourceFamily:'Horizon',builtIn:true,bundledEntry:item.bundledEntry,requirements:[],sha256:createHash('sha256').update(text).digest('hex')});}
+for(const path of ['ecosystem','repository-catalog.json','official-plugin-catalog.json'])await cp(join(root,'skills',path),join(backend,'skills',path),{recursive:true});
+const catalog=JSON.parse(await readFile('skills/catalog.json','utf8'));const skills=[];for(const item of catalog.skills.filter(item=>/^ecosystem\//.test(item.bundledEntry??''))){const text=await readFile(join('skills',item.bundledEntry));skills.push({id:item.id,name:item.name,description:item.description,sourceFamily:'Horizon',builtIn:true,bundledEntry:item.bundledEntry,requirements:[],sha256:createHash('sha256').update(text).digest('hex')});}
 await writeFile(join(backend,'skills/catalog.json'),JSON.stringify({schemaVersion:1,packs:[],skills},null,2));
 const python=await download(inputs.python,'python.tar.gz');await run('tar',['-xzf',python,'-C',backend]);await access(join(backend,'python/python.exe'));
 const licenses=join(backend,'licenses');await mkdir(join(licenses,'npm'),{recursive:true});const inventory=[];

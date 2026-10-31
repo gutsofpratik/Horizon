@@ -1,0 +1,13 @@
+{
+  "id": "github:sickn33/agentic-awesome-skills:skills/lanshu-create-ai-presenter-video",
+  "repository": "sickn33/agentic-awesome-skills",
+  "revision": "6e4106fb38458d2bb2bf50b53db74031daabc208",
+  "digest": "31600a299be6c85ab5919ab2f85c29c3dd802b45fb7fa77b139b0a08fe1c0721",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "skills/lanshu-create-ai-presenter-video/LICENSE"
+    ]
+  }
+}

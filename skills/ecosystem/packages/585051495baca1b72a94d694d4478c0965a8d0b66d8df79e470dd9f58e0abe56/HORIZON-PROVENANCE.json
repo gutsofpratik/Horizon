@@ -1,0 +1,13 @@
+{
+  "id": "github:obra/superpowers:skills/using-superpowers",
+  "repository": "obra/superpowers",
+  "revision": "2ce8aa15d05bd57213e6f746f953aafb7ded7a8b",
+  "digest": "ff5936ba3f5a7a219b9b5db36d7b8d0bd378d70ef0cb3809905a1ad47bf63eaa",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

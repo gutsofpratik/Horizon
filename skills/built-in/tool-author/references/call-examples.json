@@ -1,0 +1,62 @@
+{
+  "version": 1,
+  "skill_id": "openclaude-tool-author",
+  "examples": [
+    {
+      "tool": "custom_tool_list",
+      "arguments": {
+        "offset": 0,
+        "limit": 20
+      }
+    },
+    {
+      "tool": "custom_tool_create",
+      "arguments": {
+        "name": "user_save_project_note",
+        "description": "Save user-provided project note text to a workspace-relative file.",
+        "parameters": [
+          {
+            "name": "path",
+            "type": "string",
+            "description": "Workspace-relative target path.",
+            "required": true
+          },
+          {
+            "name": "text",
+            "type": "string",
+            "description": "Actual note content to save.",
+            "required": true
+          }
+        ],
+        "steps": [
+          {
+            "id": "save_note",
+            "tool": "files_write",
+            "arguments": {
+              "path": {
+                "$input": "path"
+              },
+              "text": {
+                "$input": "text"
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "tool": "discover_tools",
+      "arguments": {
+        "names": [
+          "user_save_project_note"
+        ]
+      }
+    },
+    {
+      "tool": "custom_tool_delete",
+      "arguments": {
+        "name": "<actual user_ tool name>"
+      }
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:skills/agent-architecture-audit",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "a5c8026a029d41966290b60554b654735dedd089780c0cd6727bf490baae0b34",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

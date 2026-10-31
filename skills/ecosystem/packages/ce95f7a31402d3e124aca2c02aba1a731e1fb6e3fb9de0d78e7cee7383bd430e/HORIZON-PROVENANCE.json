@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:commands/code-review.md",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "b029f54facf3d67160429091aea86536ce1c2980d65ea64fd6b2e8869e3566d6",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

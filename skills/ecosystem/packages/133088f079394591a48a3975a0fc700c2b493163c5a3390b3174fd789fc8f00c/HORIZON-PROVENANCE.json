@@ -1,0 +1,13 @@
+{
+  "id": "github:sickn33/agentic-awesome-skills:skills/fedora-hyprland-installer",
+  "repository": "sickn33/agentic-awesome-skills",
+  "revision": "6e4106fb38458d2bb2bf50b53db74031daabc208",
+  "digest": "1366e1adb583f5a75b12b93c01463c92ab4d402387e2d26a99b41d64dbff86e7",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "skills/fedora-hyprland-installer/LICENSE"
+    ]
+  }
+}

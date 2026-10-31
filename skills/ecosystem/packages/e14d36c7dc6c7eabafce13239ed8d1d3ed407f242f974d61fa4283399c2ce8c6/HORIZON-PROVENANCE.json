@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:skills/growth-log",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "43ba611c3fe53e8191c3d5a1b10339690f111088969e9b030136e3c32b218cfd",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

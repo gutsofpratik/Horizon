@@ -17,7 +17,7 @@ fn run(args: Value, request: &crate::cancellation::Request<'_>) -> Result<Value,
         .args([
             "-NoProfile",
             "-NonInteractive",
-            "-STA",
+            if args["operation"].as_str().is_some_and(|name| name.starts_with("computer_clipboard_")) { "-STA" } else { "-MTA" },
             "-Command",
             include_str!("computer_advanced.ps1"),
         ])

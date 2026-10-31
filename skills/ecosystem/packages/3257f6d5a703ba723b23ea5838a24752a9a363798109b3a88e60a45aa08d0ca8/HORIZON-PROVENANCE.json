@@ -1,0 +1,13 @@
+{
+  "id": "github:openai/plugins:plugins/mixpanel-headless/skills/dashboard-expert",
+  "repository": "openai/plugins",
+  "revision": "0722921d5542fc593105c27bd52630babd8b8c2a",
+  "digest": "edd1e6eabbdcbb4857294ec8f91e62adfe604b382c3a652152fa9fb9aa573db9",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "plugins/mixpanel-headless/LICENSE"
+    ]
+  }
+}

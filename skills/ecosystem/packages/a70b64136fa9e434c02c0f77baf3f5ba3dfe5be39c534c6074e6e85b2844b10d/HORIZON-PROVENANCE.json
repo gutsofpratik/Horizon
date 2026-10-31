@@ -1,0 +1,13 @@
+{
+  "id": "github:openai/plugins:plugins/temporal/skills/temporal-cloud-setup",
+  "repository": "openai/plugins",
+  "revision": "0722921d5542fc593105c27bd52630babd8b8c2a",
+  "digest": "134b7f7fdaafe2be747c31ff3a906028ff50be6a6e9eaf1dc28ce57809976f7b",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "plugins/temporal/LICENSE"
+    ]
+  }
+}

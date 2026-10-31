@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:skills/gateguard",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "5fc571483a39db9838e5dc1bda3053aa93ca8b4865b871c589d2aba8112969cf",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

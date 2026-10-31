@@ -1,0 +1,13 @@
+{
+  "id": "github:sickn33/agentic-awesome-skills:skills/scarf-single-cell",
+  "repository": "sickn33/agentic-awesome-skills",
+  "revision": "6e4106fb38458d2bb2bf50b53db74031daabc208",
+  "digest": "01250c49b635970dd1098113818ca5fe0a2b2c4e98e0a2d678f28c38506c4a83",
+  "license": {
+    "decision": "allowed",
+    "label": "BSD",
+    "evidence": [
+      "skills/scarf-single-cell/references/LICENSE.md"
+    ]
+  }
+}

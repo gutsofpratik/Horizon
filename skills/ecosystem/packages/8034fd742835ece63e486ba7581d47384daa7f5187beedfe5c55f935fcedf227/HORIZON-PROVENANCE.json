@@ -1,0 +1,13 @@
+{
+  "id": "github:anthropics/skills:skills/skill-creator",
+  "repository": "anthropics/skills",
+  "revision": "ca45fc496a3436251f191354091d557da31c15b5",
+  "digest": "cb5cb0d4e81350f948a3027ac6091ced139586d2bca10848ab17e0dc1a909efa",
+  "license": {
+    "decision": "allowed",
+    "label": "Apache-2.0",
+    "evidence": [
+      "skills/skill-creator/LICENSE.txt"
+    ]
+  }
+}

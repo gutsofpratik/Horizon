@@ -1,0 +1,119 @@
+{
+  "version": 1,
+  "skill_id": "openclaude-spreadsheet-workflow",
+  "examples": [
+    {
+      "tool": "spreadsheet_create",
+      "arguments": {
+        "output_name": "budget.xlsx",
+        "sheets": [
+          {
+            "name": "Budget",
+            "rows": [
+              [
+                "Item",
+                "Amount"
+              ],
+              [
+                "Rent",
+                100
+              ],
+              [
+                "Food",
+                50
+              ],
+              [
+                "Total",
+                "=SUM(B2:B3)"
+              ]
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "tool": "spreadsheet_inspect",
+      "arguments": {
+        "file_id": "<XLSX file_id returned by spreadsheet_create>",
+        "sheet": "Budget",
+        "max_rows": 30,
+        "max_columns": 8
+      }
+    },
+    {
+      "tool": "spreadsheet_edit",
+      "arguments": {
+        "file_id": "<latest XLSX file_id>",
+        "output_name": "budget-styled.xlsx",
+        "sheets": [
+          {
+            "name": "Budget",
+            "formats": [
+              {
+                "range": "A1:B1",
+                "bold": true,
+                "font_size": 16,
+                "fill": "17365D",
+                "font_color": "FFFFFF"
+              },
+              {
+                "range": "B2:B4",
+                "number_format": "#,##0.00;[Red](#,##0.00)"
+              },
+              {
+                "range": "A4:B4",
+                "bold": true,
+                "fill": "E8EEF5"
+              }
+            ],
+            "column_widths": {
+              "A": 30,
+              "B": 20
+            },
+            "freeze_panes": "B2"
+          }
+        ]
+      }
+    },
+    {
+      "tool": "spreadsheet_edit",
+      "arguments": {
+        "file_id": "<file_id returned by the previous edit>",
+        "output_name": "budget-summary.xlsx",
+        "sheets": [
+          {
+            "name": "Budget",
+            "cells": [
+              {
+                "cell": "A5",
+                "value": "Summary"
+              },
+              {
+                "cell": "B5",
+                "value": "=COUNTA(A2:A3)"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "tool": "spreadsheet_chart",
+      "arguments": {
+        "file_id": "<latest XLSX file_id>",
+        "output_name": "budget-chart.xlsx",
+        "sheet": "Budget",
+        "range": "A1:B3",
+        "chart_type": "bar",
+        "anchor": "D2",
+        "title": "Expense categories"
+      }
+    },
+    {
+      "tool": "calculate",
+      "arguments": {
+        "expression": "100+50"
+      }
+    }
+  ]
+}

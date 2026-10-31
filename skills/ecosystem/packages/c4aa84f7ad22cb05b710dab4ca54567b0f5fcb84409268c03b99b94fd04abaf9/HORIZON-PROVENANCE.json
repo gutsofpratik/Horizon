@@ -1,0 +1,13 @@
+{
+  "id": "github:openai/plugins:plugins/build-macos-apps/skills/swiftpm-macos",
+  "repository": "openai/plugins",
+  "revision": "0722921d5542fc593105c27bd52630babd8b8c2a",
+  "digest": "76e64f0af074692b632ef4cc2e563e95e77bc6465422145a2cfe85aa1afb836c",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "plugins/build-macos-apps/.codex-plugin/plugin.json"
+    ]
+  }
+}

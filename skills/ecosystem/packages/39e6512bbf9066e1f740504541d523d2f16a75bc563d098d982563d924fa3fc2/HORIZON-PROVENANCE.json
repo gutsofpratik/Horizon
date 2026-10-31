@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:skills/knowledge-ops",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "f4b3c0b3df58866f8a40a3f5c535d96052c45276816360d19855639a63014e66",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

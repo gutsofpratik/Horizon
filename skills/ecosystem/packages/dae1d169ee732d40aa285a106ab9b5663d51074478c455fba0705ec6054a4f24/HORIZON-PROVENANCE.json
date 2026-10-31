@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:skills/python-patterns",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "8807dbe2edcc117547bf08130e49ebf22d5452b5b1f948ed4ecd81637a614c82",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

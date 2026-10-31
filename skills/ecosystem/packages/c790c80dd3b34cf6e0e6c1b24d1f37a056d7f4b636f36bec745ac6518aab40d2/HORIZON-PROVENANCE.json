@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:skills/openclaw-persona-forge",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "90c57bd79b11d785a7d3014944cf912dda0d7c0c616542122de75f7fd2e615fe",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

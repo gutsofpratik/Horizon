@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:skills/ck",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "c97a6b537d96684f991b433c1655627497ca4eba311bd4fc5bffd502519a2da4",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "id": "github:openai/plugins:plugins/cloudflare/skills/workers-best-practices",
+  "repository": "openai/plugins",
+  "revision": "0722921d5542fc593105c27bd52630babd8b8c2a",
+  "digest": "816d389fd8c0d78f01aa75acd8016114e8e2466fa05a73fc4f2480c78e467ac5",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "plugins/cloudflare/.codex-plugin/plugin.json"
+    ]
+  }
+}

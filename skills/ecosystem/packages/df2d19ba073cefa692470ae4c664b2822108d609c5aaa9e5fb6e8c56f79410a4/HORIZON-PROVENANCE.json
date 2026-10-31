@@ -1,0 +1,13 @@
+{
+  "id": "github:elevenlabs/skills:dubbing",
+  "repository": "elevenlabs/skills",
+  "revision": "503d4e9fda0190ab9357142f44e51de626f97f90",
+  "digest": "05332067fe88bdc09255275d97efe3eacf59edda88cbcaf3a9fd48935c49a928",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

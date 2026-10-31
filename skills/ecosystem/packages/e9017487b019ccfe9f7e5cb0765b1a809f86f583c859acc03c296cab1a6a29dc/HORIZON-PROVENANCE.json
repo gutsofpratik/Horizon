@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:skills/nextjs-turbopack",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "c28f0a32b758877d3a7f9807e78b0a6751e1846018c860a1bccf6a244d7d5ef1",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

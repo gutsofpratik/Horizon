@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:skills/agentic-os",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "44cb4fc259d4b310345e5e9fef38e48f59f7fda311a5f6f2cc4efa57e110250b",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

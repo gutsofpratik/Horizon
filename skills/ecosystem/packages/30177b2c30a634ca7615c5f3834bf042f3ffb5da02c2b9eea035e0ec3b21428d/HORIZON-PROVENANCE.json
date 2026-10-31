@@ -1,0 +1,13 @@
+{
+  "id": "github:elevenlabs/skills:agents",
+  "repository": "elevenlabs/skills",
+  "revision": "503d4e9fda0190ab9357142f44e51de626f97f90",
+  "digest": "2aa6e60f904d2f0bd3e501267d724902944eff5ce550e70c0a31603a9918ad38",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

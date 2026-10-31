@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:commands/update-codemaps.md",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "baf323fe8554503f6b8cb62be981e649c89a43013b7f3eb8305bf8e184fae73f",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

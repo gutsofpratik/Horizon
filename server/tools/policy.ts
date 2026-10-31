@@ -23,7 +23,9 @@ export function executionEnvironmentBlocker(ctx:ToolContext){
  }
  if(!ctx.app.runtime?.ready)return {allowed:false,code:'EXECUTION_ENVIRONMENT_UNAVAILABLE',reason:'No ready isolated execution environment is selected. Connect an authenticated execution worker in Settings or explicitly prepare the optional sandbox, then retry this operation once. Local Office/PDF and native terminal/computer services are separate; no Docker startup or host execution was attempted.'};
 }
-export function decideTool(tool:Tool,ctx:ToolContext,settings:any){
+export function decideTool(tool:Tool,ctx:ToolContext,settings:any):{allowed:boolean;code?:string;reason?:string}{
+ if(ctx.capabilityReadOnly&&tool.name!=='runtime_capabilities')return {allowed:false,code:'CAPABILITY_QUERY_READ_ONLY',reason:'The user asked about tool availability, not to execute a task. Read runtime_capabilities and answer; do not create files, run commands, or start a demonstration.'};
+ if(ctx.awaitingContinuation)return {allowed:false,code:'USER_CONTINUATION_REQUIRED',reason:'The user asked to wait for their next chat message after answering the question. Acknowledge the answer and stop this turn. Do not execute further operations until that next message.'};
  const teamChat=ctx.app.store.get('conversations',ctx.conversationId);
  if(teamChat?.teamId&&!isToolGroup(tool.name)&&tool.name!=='toolkit'){
   const team=ctx.app.store.get('teams',teamChat.teamId),task=ctx.app.store.list('team_tasks').find(t=>t.conversationId===ctx.conversationId&&['dispatching','running'].includes(t.status));
@@ -35,7 +37,7 @@ export function decideTool(tool:Tool,ctx:ToolContext,settings:any){
  if(!capability)return {allowed:false,code:'TOOL_POLICY_UNCLASSIFIED',reason:'Tool has no declared capability classification'};
  if(ctx.edition==='web'&&['terminal','computer'].includes(capability))return {allowed:false,code:'EDITION_TOOL_DISABLED',reason:'Native terminal and computer control are available in Horizon Desktop'};
  if(settings.toolsEnabled===false||ctx.toolsEnabled===false)return {allowed:false,code:'TOOLS_DISABLED',reason:'Agent tools are disabled'};
- if(['python_session','programmatic_tools'].includes(tool.name)){const blocker=executionEnvironmentBlocker(ctx);if(blocker)return blocker;}
+ if(['python_session','programmatic_tools','skill_run_script','plugin_hook_run'].includes(tool.name)){const blocker=executionEnvironmentBlocker(ctx);if(blocker)return blocker;}
  const assistant=conversation?.assistantId?ctx.app.store.get('assistants',conversation.assistantId):undefined;
  if(tool.name!=='toolkit'&&!isToolGroup(tool.name)&&assistant?.toolNames&&!assistant.toolNames.includes(tool.name)&&!assistant.toolNames.includes(groupForLeaf(tool.name)??''))return {allowed:false,code:'ASSISTANT_TOOL_DISABLED',reason:'This tool is outside the selected assistant’s tool restrictions'};
  if(/^(memory_|chat_history_)/.test(tool.name)&&(ctx.incognito||settings.memoryEnabled===false||conversation?.useMemory===false))return {allowed:false,code:'MEMORY_DISABLED',reason:'Memory and past-chat retrieval are disabled for this conversation'};

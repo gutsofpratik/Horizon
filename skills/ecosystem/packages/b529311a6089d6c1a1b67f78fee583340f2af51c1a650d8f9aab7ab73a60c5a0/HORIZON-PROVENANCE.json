@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:skills/rails-patterns",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "747ce708122caa6e4af9b52e8b81dfd147270b0a22404fa9331b204ad52fcee6",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

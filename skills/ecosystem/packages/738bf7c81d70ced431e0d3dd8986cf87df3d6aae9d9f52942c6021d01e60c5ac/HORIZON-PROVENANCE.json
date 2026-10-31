@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:commands/epic-sync.md",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "336681c151a96efa7e646f1b37482e05ada8b49f6c4a37d6cc182ea0166aae42",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

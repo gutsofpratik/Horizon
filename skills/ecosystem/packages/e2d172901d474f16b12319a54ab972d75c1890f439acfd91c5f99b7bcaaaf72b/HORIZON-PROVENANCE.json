@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:skills/swift-protocol-di-testing",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "15046a96dc293d6a58cf0e8c002f2b65927e8e14184f7b8ec846b0fe8afbdb5e",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

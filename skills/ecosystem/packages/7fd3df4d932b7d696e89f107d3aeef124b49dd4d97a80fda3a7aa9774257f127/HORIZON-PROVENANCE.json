@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:skills/ito-training",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "ba130f6f182fce2bee57f557a7e58be9e3ac4e016a6582e13da63013c0ff4fbf",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "id": "github:openai/plugins:plugins/circleci/skills/chunk",
+  "repository": "openai/plugins",
+  "revision": "0722921d5542fc593105c27bd52630babd8b8c2a",
+  "digest": "295dae0b54c6031d4e62159468b79591dfd1c2bdad8d9d028f4acdc5bd5f283d",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "plugins/circleci/.codex-plugin/plugin.json"
+    ]
+  }
+}

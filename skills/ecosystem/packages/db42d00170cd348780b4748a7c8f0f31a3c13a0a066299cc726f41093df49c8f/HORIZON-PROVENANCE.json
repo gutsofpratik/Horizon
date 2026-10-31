@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:skills/codehealth-mcp",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "380a3ae0ac706650e188639610cd7cf3dac4d89b357124941a63fbdf24185c3b",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

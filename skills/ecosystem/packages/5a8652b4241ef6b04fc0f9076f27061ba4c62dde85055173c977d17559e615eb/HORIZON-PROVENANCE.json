@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:skills/context-budget",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "fcf2285eaff74b3c90b8ab8bf94013e095f4e3e865039be556a331d36bb02922",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

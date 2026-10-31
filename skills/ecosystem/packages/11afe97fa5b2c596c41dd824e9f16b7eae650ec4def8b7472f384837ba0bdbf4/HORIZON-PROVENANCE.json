@@ -1,0 +1,13 @@
+{
+  "id": "github:sickn33/agentic-awesome-skills:skills/weaviate",
+  "repository": "sickn33/agentic-awesome-skills",
+  "revision": "6e4106fb38458d2bb2bf50b53db74031daabc208",
+  "digest": "86407775551ef260f8ef2b183e0c838436402e6ab7388a840d0114f6efdfcba8",
+  "license": {
+    "decision": "allowed",
+    "label": "BSD",
+    "evidence": [
+      "skills/weaviate/LICENSE"
+    ]
+  }
+}

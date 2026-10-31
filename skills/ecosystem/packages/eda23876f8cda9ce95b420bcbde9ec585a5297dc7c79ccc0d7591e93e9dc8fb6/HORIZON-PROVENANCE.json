@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:skills/code-tour",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "05fa57b8889627ecf2b1ab8104794360209dd12e7191bda6cc0f8cc063f5fe74",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

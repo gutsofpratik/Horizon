@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:skills/skill-scout",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "0a2ab4a4e9e9322ecc8dbc1a8637fde8c6a6830518aec7ed07b30b1890e033a1",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "id": "github:openai/plugins:plugins/test-android-apps/skills/android-emulator-qa",
+  "repository": "openai/plugins",
+  "revision": "0722921d5542fc593105c27bd52630babd8b8c2a",
+  "digest": "f57b397eb7f1b5feae8ac761fa55960a132a9f9da058051530028879ef016b56",
+  "license": {
+    "decision": "allowed",
+    "label": "Apache-2.0",
+    "evidence": [
+      "plugins/test-android-apps/skills/android-emulator-qa/LICENSE.txt"
+    ]
+  }
+}

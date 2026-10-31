@@ -1,0 +1,13 @@
+{
+  "id": "github:openai/plugins:plugins/build-ios-apps/skills/ios-simulator-browser",
+  "repository": "openai/plugins",
+  "revision": "0722921d5542fc593105c27bd52630babd8b8c2a",
+  "digest": "497f33b5a69c3025c801df72df8765dd564062329b222d7ff94d0ddb00d00542",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "plugins/build-ios-apps/.codex-plugin/plugin.json"
+    ]
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:skills/unified-notifications-ops",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "ee3c6befb9f10df5e8bf893cbd04a05364ae0528443bf18fd8895d685bc8a480",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

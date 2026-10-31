@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:commands/resume-session.md",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "3b8aa225f87bbe32892b9d37ae665c5124d6fc341a6e58510af2cc8dcb727407",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

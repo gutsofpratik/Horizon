@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:commands/quality-gate.md",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "8a2dec727ff5b8ba9f2fc13b9da16a38c7c5719ebe7fb58d4e99d053334db4d7",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

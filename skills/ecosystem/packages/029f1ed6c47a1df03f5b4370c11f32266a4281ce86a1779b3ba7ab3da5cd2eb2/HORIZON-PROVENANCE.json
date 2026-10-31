@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:skills/product-capability",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "c0e3ddd43b6b3b7b5d378d52fc1523046a559bddd1935fe8104555040b0b1b2f",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

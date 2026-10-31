@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:commands/epic-decompose.md",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "3bdad2443b27a5cdf904fcdb9c49073daba70390e999ae3ebe27d1ab3eb266bc",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

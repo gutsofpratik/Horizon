@@ -14,6 +14,3 @@ try{for(const adapted of [false,true]){
 }
 const baseExact=results.filter(row=>row.base.exact).length,adaptedExact=results.filter(row=>row.adapted.exact).length;const report={scope:'Native llama.cpp synthetic workflow holdout on the actual imported Q4_K_M model; no tool actions executed',cases:results.length,baseExact,adaptedExact,nonRegression:adaptedExact>=baseExact&&general.filter(row=>row.adapted.correct).length>=general.filter(row=>row.base.correct).length,results,general};await writeFile(output,JSON.stringify(report,null,2));console.log(JSON.stringify({cases:results.length,baseExact,adaptedExact,nonRegression:report.nonRegression}));if(!report.nonRegression)process.exitCode=2;
 }finally{runtime.shutdown();}
-
-
-

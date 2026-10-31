@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:skills/ui-demo",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "da6d9c8d4517dcc7668fdeb63010a18a52b7764d2df78973d0d32205ae4d839a",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

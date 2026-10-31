@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:skills/blender-motion-state-inspection",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "b13fddfa259be3e68fba17922409f14b5fbbee2ae58475d4f204c0cd06c962cb",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

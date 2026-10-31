@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:skills/brand-discovery",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "0fa43c09090ba7f177d6e1609e8a7050faee9f52781fcf9ba7dea8982f834c5c",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

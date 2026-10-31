@@ -1,0 +1,5 @@
+import {z} from 'zod';
+export const upstreamHook=z.object({sourceId:z.string(),event:z.enum(['SessionStart','PreToolUse','PostToolUse','Stop']),command:z.string().max(4000),enabled:z.literal(false).default(false),timeoutMs:z.number().int().min(100).max(30000).default(10000)}).strict();
+/** Import is inspection, not permission to execute arbitrary upstream commands. */
+export function inspectUpstreamHooks(sourceId:string,raw:any){const result:z.infer<typeof upstreamHook>[]=[];for(const [event,groups]of Object.entries(raw?.hooks??{})){if(!['SessionStart','PreToolUse','PostToolUse','Stop'].includes(event)||!Array.isArray(groups))continue;for(const group of groups)for(const hook of group.hooks??[]){if(hook.type!=='command'||typeof hook.command!=='string')continue;const parsed=upstreamHook.safeParse({sourceId,event,command:hook.command,enabled:false,timeoutMs:Math.min(30000,Math.max(100,(Number(hook.timeout)||10)*1000))});if(parsed.success)result.push(parsed.data);}}return result;}
+export const lifecycleBindings={startup:'SessionStart',clear:'SessionStart',compact:'SessionStart',beforeTool:'PreToolUse',afterTool:'PostToolUse',stop:'Stop'} as const;

@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:skills/netmiko-ssh-automation",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "9fba60b524a448fa2546a878bb806671e0131dfefe85fc6e588a827d22be3a5a",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

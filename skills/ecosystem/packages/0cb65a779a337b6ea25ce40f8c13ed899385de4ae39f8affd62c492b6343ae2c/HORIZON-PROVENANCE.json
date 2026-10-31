@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:commands/skill-health.md",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "ff543e55369a4ececbe2d187d70f79a3826925fc09eef5ab3e38289cf98bf829",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

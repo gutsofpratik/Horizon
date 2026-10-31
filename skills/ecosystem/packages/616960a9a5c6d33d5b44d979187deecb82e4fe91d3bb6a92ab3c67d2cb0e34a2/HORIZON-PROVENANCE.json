@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:skills/agentic-engineering",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "a0d1f1007b3d7d7cdce8e02d6f62e8b3db9f7d6d023c7f9fdc44d434585b2777",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

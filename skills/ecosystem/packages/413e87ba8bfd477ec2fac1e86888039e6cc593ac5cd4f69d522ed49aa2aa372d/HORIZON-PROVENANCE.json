@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:skills/production-audit",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "ef2bb15b447910d3741f5020ef7ffdc06fdc828781e4e57227d04446a0b7aa53",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

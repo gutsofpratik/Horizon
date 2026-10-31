@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:commands/fastapi-review.md",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "e2134922c9aba21d7f3b88b0e6058512a0d1d4471b0bd6dbf72624829bf39517",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

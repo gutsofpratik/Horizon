@@ -5,7 +5,7 @@ from pathlib import Path
 from unicode_text import clean_unicode
 from model_messages import normalize_system_messages,template_history
 from workspace_history import WorkspaceHistory
-from prompt_messages import prepare_messages
+from prompt_messages import prepare_messages,format_model_prompt
 from native_tools import detect_protocol,NativeToolStream,decode_native_calls,_json_decoder
 protocol=sys.stdout
 sys.stdout=sys.stderr
@@ -160,7 +160,7 @@ def generate(args,id):
         formatter=Jinja2ChatFormatter(template=template,eos_token=model.detokenize([model.token_eos()],special=True).decode('utf-8',errors='replace'),bos_token=model.detokenize([model.token_bos()],special=True).decode('utf-8',errors='replace'))
         # Native reasoning runs before the constrained answer/tool envelope.
         # The decoder activates the JSON grammar only after </think>.
-        formatted=formatter(messages=messages,enable_thinking=native_thinking)
+        formatted=format_model_prompt(formatter,messages,tools,protocol,native_thinking)
         prompt=projector.prepare(clean_unicode(formatted.prompt),images,config['contextTokens']) if images else model.tokenize(clean_unicode(formatted.prompt).encode('utf-8'),add_bos=not formatted.added_special,special=True)
         if args.get('measure'):
             count=len(prompt)

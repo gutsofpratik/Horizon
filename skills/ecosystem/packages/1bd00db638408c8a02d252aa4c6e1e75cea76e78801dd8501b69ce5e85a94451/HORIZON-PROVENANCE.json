@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:skills/ai-first-engineering",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "fa69a3bde121434c7af03d0b1389adb29164166b8c1a055ba4fcf424535a6bfd",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

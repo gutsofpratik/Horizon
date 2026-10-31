@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:skills/carrier-relationship-management",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "36d72510670bdb7cbc2b57a695b56c546d1015c7e4fd0860e57651c4d63f079d",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

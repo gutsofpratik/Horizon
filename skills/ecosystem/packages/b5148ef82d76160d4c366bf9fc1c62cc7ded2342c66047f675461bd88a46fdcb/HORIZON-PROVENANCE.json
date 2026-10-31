@@ -1,0 +1,13 @@
+{
+  "id": "github:sickn33/agentic-awesome-skills:skills/memory-handoff",
+  "repository": "sickn33/agentic-awesome-skills",
+  "revision": "6e4106fb38458d2bb2bf50b53db74031daabc208",
+  "digest": "62bd413e3fc424c43ecc8317c663af4add82422742ee38aa01ae772b11eb4654",
+  "license": {
+    "decision": "allowed",
+    "label": "Apache-2.0",
+    "evidence": [
+      "skills/memory-handoff/LICENSE"
+    ]
+  }
+}

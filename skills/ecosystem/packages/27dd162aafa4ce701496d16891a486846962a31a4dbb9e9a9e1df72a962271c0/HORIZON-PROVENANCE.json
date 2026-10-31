@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:skills/tdd-workflow",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "530fd1239966f4c823d0da01d7b72b580c708ab6dca61f3a9db4e4e23ce367f7",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

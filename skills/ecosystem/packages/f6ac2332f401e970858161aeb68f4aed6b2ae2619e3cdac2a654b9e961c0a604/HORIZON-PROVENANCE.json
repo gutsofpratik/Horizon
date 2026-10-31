@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:skills/council-multi-model",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "73b4fd985231b235a8cd68ac56f503decf58237dacb5377fe68eb7b81662f586",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

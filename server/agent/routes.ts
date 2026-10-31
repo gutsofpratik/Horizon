@@ -31,6 +31,7 @@ export function registerAgentRoutes(app:FastifyInstance,context:AppContext,tools
  app.delete('/api/conversations/:id/queue/:job',async(request:any)=>({cancelled:queue.cancel(request.params.id,request.params.job)}));
  app.patch('/api/conversations/:id/queue/:job',async(request:any)=>queue.update(request.params.id,request.params.job,z.string().min(1).max(200000).parse(request.body.content)));
  app.post('/api/conversations/:id/queue/resume',async(request:any)=>queue.resume(request.params.id));
+ app.post('/api/conversations/:id/queue/:job/interrupt',async(request:any)=>queue.interrupt(request.params.id,request.params.job));
  const scopedResearch=(request:any)=>{const record=readResearch(context,request.params.id);return record&&record.conversationId===request.query.conversationId&&agent.conversation(record.conversationId)?record:undefined;};
  app.get('/api/research/:id',async(request:any,reply)=>{const record=scopedResearch(request);return record?researchSnapshot(record):reply.code(404).send({error:'Research not found in this conversation'});});
  app.get('/api/research/:id/inventory',async(request:any,reply)=>{const record=scopedResearch(request);if(!record)return reply.code(404).send({error:'Research not found in this conversation'});return reply.header('Content-Type','text/markdown; charset=utf-8').header('Content-Disposition','attachment; filename="research-sources.md"').send(sourceInventory(record));});

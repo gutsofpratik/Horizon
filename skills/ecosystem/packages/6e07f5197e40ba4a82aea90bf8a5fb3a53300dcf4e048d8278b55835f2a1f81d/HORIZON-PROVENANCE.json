@@ -1,0 +1,13 @@
+{
+  "id": "github:sickn33/agentic-awesome-skills:skills/slack-gif-creator",
+  "repository": "sickn33/agentic-awesome-skills",
+  "revision": "6e4106fb38458d2bb2bf50b53db74031daabc208",
+  "digest": "85e80fb4eac4cd9a72ebad39af7d98697e9d47f1f457c648d60c6fb164db6f83",
+  "license": {
+    "decision": "allowed",
+    "label": "Apache-2.0",
+    "evidence": [
+      "skills/slack-gif-creator/LICENSE.txt"
+    ]
+  }
+}

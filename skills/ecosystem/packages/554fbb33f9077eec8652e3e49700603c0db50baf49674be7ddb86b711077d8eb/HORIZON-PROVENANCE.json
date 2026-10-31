@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:skills/scientific-thinking-literature-review",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "531b0588a0e3df0300d48bf71f4c6ef416db03939b8777a2b2dd685350b0991e",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

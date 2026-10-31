@@ -1,0 +1,13 @@
+{
+  "id": "github:openai/plugins:plugins/hyperframes/skills/gsap",
+  "repository": "openai/plugins",
+  "revision": "0722921d5542fc593105c27bd52630babd8b8c2a",
+  "digest": "b2b47c90d452a88ba16b19abc0302d135e18016d9da77c75c2245cb0d87f524c",
+  "license": {
+    "decision": "allowed",
+    "label": "Apache-2.0",
+    "evidence": [
+      "plugins/hyperframes/.codex-plugin/plugin.json"
+    ]
+  }
+}

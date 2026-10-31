@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:skills/inherit-legacy-style",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "e418ce1a9f963d8ae79134e7515812779e52358c1a4ce13fab0c9c99e10259d2",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:skills/agent-sort",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "9bc089fce5b2ee1bce221482cfc32597732d53b51a38dd45e7ad9450e73c4874",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

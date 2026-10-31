@@ -1,0 +1,295 @@
+{
+  "repository": "sickn33/agentic-awesome-skills",
+  "revision": "6e4106fb38458d2bb2bf50b53db74031daabc208",
+  "license": "MIT (tooling only)",
+  "sourceFilesUnmodified": true,
+  "output": "skills/ecosystem/engine",
+  "transform": "CommonJS build with external dependencies bundled; module paths and schemas retained",
+  "files": [
+    {
+      "path": "schemas/aas-v1/catalog-manifest.schema.json",
+      "sha256": "6909c3fb15d30ae8f79c2abc5aac544981ddb3f965a6a3ed97633c512e9615b8",
+      "gitBlobSha1": "8dc1f2fa4674b322ba4a3eb9f9404d545f9ef331"
+    },
+    {
+      "path": "schemas/aas-v1/catalog-metadata.schema.json",
+      "sha256": "5a7a2bd13cff2f6478e886fb3d0056a99c37fccfe99517bfc74d9037b0bb922d",
+      "gitBlobSha1": "f2abe7966cdf0738b9b11df12e3a386aa0612f97"
+    },
+    {
+      "path": "schemas/aas-v1/doctor-result.schema.json",
+      "sha256": "c56decd272db65dc3764c518edbda06105e605cf301a82f6457829778a41a5cb",
+      "gitBlobSha1": "d7bf35b50907ecb812cd8edcaa23d0184253f6de"
+    },
+    {
+      "path": "schemas/aas-v1/journal.schema.json",
+      "sha256": "7998611a1f4a9dd8566c45401fc1ea3bda65f6d6ea5bacb321265356f9d7d7b9",
+      "gitBlobSha1": "f34c4d4f73bc1089af15f1218b5d06542c3510a9"
+    },
+    {
+      "path": "schemas/aas-v1/managed-state.schema.json",
+      "sha256": "ab42d85e57971e798eea48ca6c980689edd3c4d11b6bd7f6be8b7bf59a2df58f",
+      "gitBlobSha1": "80ad758b0f8414b1574a879953e34b71a8d2466f"
+    },
+    {
+      "path": "schemas/aas-v1/plan.schema.json",
+      "sha256": "002da9aec275ef8a88767135893af758e856a4a9500f122f260c35d9a2dffe48",
+      "gitBlobSha1": "a96a1ea9a0f1536ae9d357072201d8f7299747cb"
+    },
+    {
+      "path": "schemas/aas-v1/recovery-plan.schema.json",
+      "sha256": "e6dc2cc71672970dab7aacc31b8748deeba130ad14b37bc6e37b77588ee13d55",
+      "gitBlobSha1": "9b3030a1396369d0915bdd6432a6850d0519dd3d"
+    },
+    {
+      "path": "schemas/aas-v1/result-envelope.schema.json",
+      "sha256": "5f6907587395306b781614e585925cf105c5daf54d3554774549bd8a0e93436f",
+      "gitBlobSha1": "df3e19153922bfccbb9280b96bd8372ddbc1b19e"
+    },
+    {
+      "path": "schemas/aas-v1/selection-evidence.schema.json",
+      "sha256": "2f5380fdea4a89ffacb7071da22e4596887111e33fdb3f5e2a84b8848f51ab65",
+      "gitBlobSha1": "552924498e5dc0b7801e02cefff575e8e36d4cab"
+    },
+    {
+      "path": "schemas/aas-v1/selection-input.schema.json",
+      "sha256": "d646ae204c9a2c1791d691e683a5215068ca1d7aade66e16937e1399fad56110",
+      "gitBlobSha1": "3959e333e1b238efb88399a79531bf41e7eb5d23"
+    },
+    {
+      "path": "schemas/aas-v1/stack-manifest.schema.json",
+      "sha256": "e1a9fd5dc7d5e35672d956fbbb3dffa595a93af2b4e282c8cbaf934759162305",
+      "gitBlobSha1": "9d92268c11f9aeb706cf0f477ac5fa0709df53af"
+    },
+    {
+      "path": "tools/lib/aas-v1/adapters/claude.js",
+      "sha256": "189eadfac452a37e5b3e964e9614d5e4f6f9380c7d4bd6f01439686062a4c73a",
+      "gitBlobSha1": "26b0dd46a95813bad7d66d1abb52c34df3513ada"
+    },
+    {
+      "path": "tools/lib/aas-v1/adapters/codex.js",
+      "sha256": "d2e3eed84bcd0609e355713e60d6207d90316debaa129b2a29a92a6374aeeea0",
+      "gitBlobSha1": "781e6ee2fcc00e22fc258e60a98542cdfa212f43"
+    },
+    {
+      "path": "tools/lib/aas-v1/adapters/errors.js",
+      "sha256": "b3e55d95f4c076a81030a09d0adcf436361d689dc7593fb83109a2e50e832e38",
+      "gitBlobSha1": "9f2f42d877374c3352546226b884ccd82713ba87"
+    },
+    {
+      "path": "tools/lib/aas-v1/adapters/index.js",
+      "sha256": "a9354994537c8c799a930c1dbcb0178fa358a8341b38f3d99ee410a06642a700",
+      "gitBlobSha1": "9fba0b073db9aee96adde7aef5d727ba9fb4916e"
+    },
+    {
+      "path": "tools/lib/aas-v1/adapters/safety.js",
+      "sha256": "3776b6881d44e98049707656ccf8691f6254edd8b6c315467b0b8d041a314248",
+      "gitBlobSha1": "6ee2db9259552f4c7ff7b1f5c257728563ddfcdd"
+    },
+    {
+      "path": "tools/lib/aas-v1/adapters/values.js",
+      "sha256": "74b487c3a23ef12d68e1e2b65c7da9c6dfffecb9b7beeb547939fdb685701a97",
+      "gitBlobSha1": "ebc21c8cadc560ddbd7dd6973832d49761948f70"
+    },
+    {
+      "path": "tools/lib/aas-v1/cache/archive.js",
+      "sha256": "f2fa939881f054e0629ab9c104f4c53a0f1b74d4eb5ad3cb249559bdbe8fe9f6",
+      "gitBlobSha1": "b32e3fa1c11b5468b678b077834a461c0452459e"
+    },
+    {
+      "path": "tools/lib/aas-v1/cache/catalog-release.js",
+      "sha256": "ce03e806436579f34636811dfba978aaee6a1b7ce11a41e3c17b3507977f989b",
+      "gitBlobSha1": "e616fbbf888dbb33fecb30829594bcc8d3ef8f4e"
+    },
+    {
+      "path": "tools/lib/aas-v1/cache/identity.js",
+      "sha256": "e0918172cd8cf9416213059e2a7e34c6411c425f28896f5fc39657a7bd3c4d78",
+      "gitBlobSha1": "c255bf7c0682181dba0a459f13cd16a3ce009f4a"
+    },
+    {
+      "path": "tools/lib/aas-v1/cache/index.js",
+      "sha256": "d22466af4ddbbc6ef3cff89b6cf94a5d19a755b1d951b1c5089025008e5e435f",
+      "gitBlobSha1": "8d4c1f3901ab45d005f5e0e064290cf66cf7f27e"
+    },
+    {
+      "path": "tools/lib/aas-v1/cache/promote.js",
+      "sha256": "5df7ae9300334df4c3d884521ea19b878cb185d90b89101457e58a2937e7bcde",
+      "gitBlobSha1": "a1679e3f13720f776094b131bb5d0db13c8c0118"
+    },
+    {
+      "path": "tools/lib/aas-v1/cache/resolver.js",
+      "sha256": "c2d7683114e5ce027ac655100a4834cd7d4ca8e978f3889867f43c9493fe14e0",
+      "gitBlobSha1": "7c1f6434215462fb6a7e4ade274f41ebaae8d087"
+    },
+    {
+      "path": "tools/lib/aas-v1/cache/runtime.js",
+      "sha256": "a75754f4a549e6069e01875d793e33b3f7ee5abf164d0143c59c280566d2e5aa",
+      "gitBlobSha1": "4560e633e740db4f57aa6d5cbf3b828dbff0ea0c"
+    },
+    {
+      "path": "tools/lib/aas-v1/cache/scan.js",
+      "sha256": "5086b1991dff4914493086a5f525797748782d763bbc0f82cb87bf090123f31d",
+      "gitBlobSha1": "9e4486ffc26054fed66f0e1cf271617412a81720"
+    },
+    {
+      "path": "tools/lib/aas-v1/cache/status.js",
+      "sha256": "2ef3fce43c888855b9bfced933e0123961b45a85114675753731615016ef5efb",
+      "gitBlobSha1": "4a78fdff5570516411df349626671c7b26e2fe8d"
+    },
+    {
+      "path": "tools/lib/aas-v1/cache/update.js",
+      "sha256": "8649f98f570cc6b465d587c5cb28717ea913bac5150a75c736239dde5923137c",
+      "gitBlobSha1": "6a298999c0a98ced3fd68c28f866f470c84a9d2b"
+    },
+    {
+      "path": "tools/lib/aas-v1/canonical-json.js",
+      "sha256": "4fff6ea8630722eeb15948567a7716c8234978fb5ce94b29edf93f3f5013d46e",
+      "gitBlobSha1": "8ce4afa7f44525921f0685e8952f9096f9386893"
+    },
+    {
+      "path": "tools/lib/aas-v1/catalog.js",
+      "sha256": "2655cba1ffa7b538f5e4451b7871a0f165874f11552ece9e7a669c3ca4797f6c",
+      "gitBlobSha1": "aaeb3f02edbe76d5669023aa1c8d219369d8fcbf"
+    },
+    {
+      "path": "tools/lib/aas-v1/cli/installation-handoff.js",
+      "sha256": "0e9a0972f806dfe73a7033926139e48a9bc1bd2a049acd899a0c88891d1c3834",
+      "gitBlobSha1": "3bfaed916b58c51a9bd8a2baaf56f1e7ef01989f"
+    },
+    {
+      "path": "tools/lib/aas-v1/cli/main.js",
+      "sha256": "063a03f4258c3c89b668f091b1f0fd3eab01ab0a0dca654a56f67f760d3d9be8",
+      "gitBlobSha1": "a740a11b2d7f2ae1e00d9bcdee0a1399d3bf2559"
+    },
+    {
+      "path": "tools/lib/aas-v1/durability.js",
+      "sha256": "724c5c5e8f324bce27c3563d0b435c35c01c908c32f4d69b186ef4fb2e77a414",
+      "gitBlobSha1": "d326dd0319948c536d8479ad2cadbc81ba2006c0"
+    },
+    {
+      "path": "tools/lib/aas-v1/evidence.js",
+      "sha256": "6e614bf28a603b0bb6a3b0cf123fe1e462942594b24c068f56f6d3d7fdaf944d",
+      "gitBlobSha1": "c4399732c35a43133d57fd2490671f3b9aafec63"
+    },
+    {
+      "path": "tools/lib/aas-v1/index.js",
+      "sha256": "7314a55a75be648223c9bc373fcb6403bca234936e2a0d03bf19c21b8b006046",
+      "gitBlobSha1": "20e5093bbb36ed7d75ca5fef50c7d8466e1fceeb"
+    },
+    {
+      "path": "tools/lib/aas-v1/mcp/index.js",
+      "sha256": "b5e47b273fb32a985b2f2dbda13b89d3172f01f392a2ce7aab5c8d19be043549",
+      "gitBlobSha1": "fb690af0673a351ccb75f9da6bbc17480c499b1a"
+    },
+    {
+      "path": "tools/lib/aas-v1/mcp/server.js",
+      "sha256": "fb58f900d1f023237e0b695c8506f172e4274d9910021c31af15938d2440629e",
+      "gitBlobSha1": "4a54e0cbb6a16ab7e789056e4c0ef5175a333dbd"
+    },
+    {
+      "path": "tools/lib/aas-v1/mcp/stdio.js",
+      "sha256": "267502c666a64b71ee41e904d7d93102a4dd67cc41c77a7f5e59e8bf57e78245",
+      "gitBlobSha1": "6f49e28ed381623dc4ea7af85addcdc7156630cd"
+    },
+    {
+      "path": "tools/lib/aas-v1/mcp/strict-json.js",
+      "sha256": "941bca87e736556b0bdb4aab3b89ec48128dcedf627818ae378b07f0fde81afb",
+      "gitBlobSha1": "cc50ad7d7bf602261a70980fe76d2f24bd46a681"
+    },
+    {
+      "path": "tools/lib/aas-v1/normalize.js",
+      "sha256": "006d0eddbe6a44af9e14385392b686366cb6237db47f079c50bb91eba0de9ec4",
+      "gitBlobSha1": "b8e88a198d941a520aadd1a0849155c093419bc3"
+    },
+    {
+      "path": "tools/lib/aas-v1/ontology.v1.json",
+      "sha256": "aaecc6a7e1b5fc7d1f8d5577b797982974aca2642e2d716e05fa2aab6a4fa885",
+      "gitBlobSha1": "7c2d0fe469603dcbccabc01152697b4c2eee1337"
+    },
+    {
+      "path": "tools/lib/aas-v1/schema-validator.js",
+      "sha256": "32dba8a57fd5542c812259cd108eea1d5b3d60fc1e13436d66884f972c27a966",
+      "gitBlobSha1": "216f0264ff3b8e7fc3c48d75343419608dbb3c47"
+    },
+    {
+      "path": "tools/lib/aas-v1/search.js",
+      "sha256": "c74cabd5bb32907735ef8d24b9b29893580f8261db7e55c2cc7d1cea61e4501a",
+      "gitBlobSha1": "f7d544e393a20fcd7427a5a529896eeddea7d199"
+    },
+    {
+      "path": "tools/lib/aas-v1/selection.js",
+      "sha256": "a3f834ee929e9995a18b7bf297f55d36fdc721b8225fa09188d05c54930d2171",
+      "gitBlobSha1": "0eaaaccc84788cdf27393ad181b5d88106819d74"
+    },
+    {
+      "path": "tools/lib/aas-v1/skill-files.js",
+      "sha256": "3da3b565ab259965053b31509d1f61088f74b3192328ab8a2233f2e3a409257e",
+      "gitBlobSha1": "2ec2531c6dbd16ef74af6226ae7271c9943c4a24"
+    },
+    {
+      "path": "tools/lib/aas-v1/stack/index.js",
+      "sha256": "068439f701576a8d27f0833cf5cd6fbebe9b26580b6acc97d810e1c828d258cc",
+      "gitBlobSha1": "79bd0c8248d858fb1ad84caf4300bea7460aed68"
+    },
+    {
+      "path": "tools/lib/aas-v1/stack/manifest.js",
+      "sha256": "cfde68a0867c58f6fccf779dba24f237bfa8af3706b08201e4d57fcb24473659",
+      "gitBlobSha1": "f7f115465f31360dba31796eabc7176a2bbc5952"
+    },
+    {
+      "path": "tools/lib/aas-v1/stack/plan.js",
+      "sha256": "cdc777969c2a4d84ccefaa0e1552831da916bbc3c72af3fa70dc32d661d3b79a",
+      "gitBlobSha1": "df316641adb9f94cee88729c86741e3400f09267"
+    },
+    {
+      "path": "tools/lib/aas-v1/target-adapter.js",
+      "sha256": "4e27443f0eb278561b6d8ca1a77f798f1c57e2f529f7f7731befdc9aa43bc621",
+      "gitBlobSha1": "fa163ef7ef3c114d8871c6a635e6a1e9012f75f5"
+    },
+    {
+      "path": "tools/lib/aas-v1/transaction/digest.js",
+      "sha256": "11567498e9470011af1bcdfa76e4a0704f80ef694a66d5523826f118370999df",
+      "gitBlobSha1": "2719781ec1ea9dd5cd96c05fa10b38e3033ccbfc"
+    },
+    {
+      "path": "tools/lib/aas-v1/transaction/errors.js",
+      "sha256": "9db414cc7066c3eae65128e148a65624dd224ac2afa40ab5e35502147ad36a6f",
+      "gitBlobSha1": "24374351eb6f09363fdc6b170bf5602ecf983103"
+    },
+    {
+      "path": "tools/lib/aas-v1/transaction/index.js",
+      "sha256": "8ae258f0c495219fc8ae092e66cfc3847bb7ec43751a44fc2916120382dfb749",
+      "gitBlobSha1": "acc1e2847dcd03faf0de529eba21bde40ed60180"
+    },
+    {
+      "path": "tools/lib/aas-v1/transaction/journal.js",
+      "sha256": "1cd2f0c03b9c55ed284059edab5e07b88ab7888c1b96c417792fe6c6a4a06fd8",
+      "gitBlobSha1": "e4f1db005dc37d66cad7eaaac896de3a16e45940"
+    },
+    {
+      "path": "tools/lib/aas-v1/transaction/runtime.js",
+      "sha256": "c8085886755b25190002133315689fbe161e5898efe1f649d7ff7d95da718ff3",
+      "gitBlobSha1": "6fb15187639c4fb71edcc0a01cf8ce9e9c860abd"
+    },
+    {
+      "path": "tools/lib/aas-v1/transaction/safety.js",
+      "sha256": "c062ea2f6384ae726745a23d8abb2d580f6b4ab08de9436d4eb08ced5a7fb7b8",
+      "gitBlobSha1": "c4a49f03c6519f13394908bead1438b3ef4d13e4"
+    },
+    {
+      "path": "tools/lib/aas-v1/transaction/state.js",
+      "sha256": "9af199b3e9a2b3d51d4f908ee087ec0e943430a2ad1e144ee9bb1d484825565e",
+      "gitBlobSha1": "13c212b4586590c9944f602fd7c9fced51a24a39"
+    },
+    {
+      "path": "tools/lib/aas-v1/versions.js",
+      "sha256": "eea26b8fb5c0a7ca865c971379985463739806447e0a5bc979ec22630fc9a7fb",
+      "gitBlobSha1": "10ee217d86be44f6b97fba0a4e50d6a1f425f9e8"
+    },
+    {
+      "path": "package.json",
+      "sha256": "6e61a7870e4b471da80eaff1df54c63965a8d0dc4410860bb94ac86ba95023b6",
+      "gitBlobSha1": "8ee54bb3837689bf47e81fb313af19b3e0e9f443"
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "id": "github:openai/plugins:plugins/cloudflare/skills/agents-sdk",
+  "repository": "openai/plugins",
+  "revision": "0722921d5542fc593105c27bd52630babd8b8c2a",
+  "digest": "faea6577cb4915dcaa2ba08481b95dc1a727c4e1a5cb9d79e9b8acd37e90c422",
+  "license": {
+    "decision": "allowed",
+    "label": "Apache-2.0",
+    "evidence": [
+      "plugins/cloudflare/skills/agents-sdk/LICENSE.txt"
+    ]
+  }
+}

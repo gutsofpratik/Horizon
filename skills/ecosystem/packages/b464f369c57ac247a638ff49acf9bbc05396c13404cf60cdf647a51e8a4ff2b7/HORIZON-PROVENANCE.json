@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:skills/taste-application",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "902a6b88521ec22b89a72e8c03c18ef3ec72968f00e810c22300245002d55e1e",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "skills/taste-application/scripts/LICENSE"
+    ]
+  }
+}

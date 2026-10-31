@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:commands/react-review.md",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "e7401475c4da012ddc08496077f52a83bc2cb0d7b2bace20aac43896e9d88207",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:skills/scientific-db-uspto-database",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "eea57f39efff05a1e0471a05161de82697e6dd10a651b8fcbad4f6ad9507b929",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

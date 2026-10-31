@@ -1,0 +1,13 @@
+{
+  "id": "github:elevenlabs/skills:speech-engine",
+  "repository": "elevenlabs/skills",
+  "revision": "503d4e9fda0190ab9357142f44e51de626f97f90",
+  "digest": "7d0138d1bd00f4966e0c55c9d63c667a588479bde942407e96f28dcddfe32a2d",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

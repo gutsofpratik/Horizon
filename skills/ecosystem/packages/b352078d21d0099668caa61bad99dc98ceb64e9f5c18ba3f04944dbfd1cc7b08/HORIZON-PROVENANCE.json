@@ -1,0 +1,13 @@
+{
+  "id": "github:anthropics/skills:skills/discernment-nudge",
+  "repository": "anthropics/skills",
+  "revision": "ca45fc496a3436251f191354091d557da31c15b5",
+  "digest": "7ce9b3013813bb5225507d918c3845f8e5fcd59c2a9273d3e60392be8e756cc9",
+  "license": {
+    "decision": "allowed",
+    "label": "Apache-2.0",
+    "evidence": [
+      "skills/discernment-nudge/LICENSE.txt"
+    ]
+  }
+}

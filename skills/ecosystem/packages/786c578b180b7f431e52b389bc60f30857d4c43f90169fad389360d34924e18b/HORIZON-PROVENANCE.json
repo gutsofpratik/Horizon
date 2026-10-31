@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:skills/social-graph-ranker",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "92b3e980a4883f719dd1ba334b70989625f3bec3fe3394f95ecb17b7604a1b56",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

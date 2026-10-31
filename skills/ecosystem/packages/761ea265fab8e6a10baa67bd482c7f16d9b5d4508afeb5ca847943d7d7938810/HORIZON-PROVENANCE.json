@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:commands/project-init.md",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "c7819f74266496f3373f378eaeaebc259e7423d02a8160ee7f269357e9e5f3e6",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

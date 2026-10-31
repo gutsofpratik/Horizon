@@ -1,0 +1,14 @@
+{
+  "repository": "vercel-labs/skills",
+  "revision": "92a9a34ac3bf88e695e468b90c7bf32f163d32c8",
+  "license": "MIT",
+  "files": [
+    "src/frontmatter.ts",
+    "src/source-parser.ts",
+    "src/github-host.ts",
+    "src/types.ts"
+  ],
+  "destination": "server/skills/ecosystem/upstream",
+  "modifications": [],
+  "omitted": "CLI startup, telemetry, global agent installation, hooks and scripts"
+}

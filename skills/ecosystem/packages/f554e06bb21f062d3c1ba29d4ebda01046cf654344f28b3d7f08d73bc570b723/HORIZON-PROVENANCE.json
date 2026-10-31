@@ -1,0 +1,13 @@
+{
+  "id": "github:obra/superpowers:skills/dispatching-parallel-agents",
+  "repository": "obra/superpowers",
+  "revision": "2ce8aa15d05bd57213e6f746f953aafb7ded7a8b",
+  "digest": "fc1674a184b999984217659c4c4105e2451494e04089637f3682d5f09b2e1850",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:commands/epic-unblock.md",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "db046b0045632ab1022d87c80d1497209d0ef22c98b27216d6343bbaa6bf90df",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

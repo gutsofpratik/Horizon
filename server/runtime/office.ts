@@ -29,7 +29,15 @@ const fail=(code:string,message:string)=>new ToolError(code,message);
 function sheetPath(name:string){if(!name||name.length>31||/[\\/\[\]:*?\x00-\x1f]/.test(name))throw fail('OFFICE_INVALID_SHEET','Sheet names must be 1–31 characters without Excel path metacharacters');return '/'+name;}
 function column(index:number){let result='';for(;index;index=Math.floor((index-1)/26))result=String.fromCharCode(65+(index-1)%26)+result;return result;}
 const literal=(text:string)=>text.replaceAll('\\','\\\\');
-function cellProps(value:CellValue):Record<string,string|boolean|number>{if(value===null)return {value:''};if(typeof value==='string'&&value.startsWith('='))return {formula:value.slice(1)};return {value:typeof value==='boolean'?String(value):typeof value==='string'?literal(value):value,type:typeof value==='string'?'string':typeof value==='boolean'?'boolean':'number'};}
+/** Compare package contents, ignoring ZIP timestamps and document audit metadata. */
+export async function officeContentEqual(before:Buffer,after:Buffer){
+ const [a,b]=await Promise.all([JSZip.loadAsync(before),JSZip.loadAsync(after)]);
+ const names=(zip:JSZip)=>Object.keys(zip.files).filter(name=>!zip.files[name].dir&&name!=='docProps/core.xml').sort();const left=names(a),right=names(b);
+ if(left.length!==right.length||left.some((name,index)=>name!==right[index]))return false;
+ for(const name of left)if(!(await a.file(name)!.async('nodebuffer')).equals(await b.file(name)!.async('nodebuffer')))return false;
+ return true;
+}
+function cellProps(value:CellValue):Record<string,string|boolean|number>{if(value===null)return {value:''};if(typeof value==='string'&&value.startsWith('=')){if(!value.slice(1).trim())throw fail('INVALID_ARGUMENTS','Keep the whole formula in one cell, for example =SUM(B2:B3); do not split = and SUM into separate cells.');return {formula:value.slice(1)};}return {value:typeof value==='boolean'?String(value):typeof value==='string'?literal(value):value,type:typeof value==='string'?'string':typeof value==='boolean'?'boolean':'number'};}
 export function spreadsheetBatch(sheets:OfficeSheet[],create=false):OfficeBatchItem[]{
  const ops:OfficeBatchItem[]=[];
  if(create){const names=sheets.map(s=>s.name);if(new Set(names).size!==names.length)throw fail('OFFICE_INVALID_SHEET','Duplicate sheet names');}
@@ -147,7 +155,9 @@ export class OfficeRuntime {
    }
    if(ops.length>100000)throw fail('OFFICE_OPERATION_LIMIT','Office operations exceed 100000 commands');
    for(let i=0;i<ops.length;i+=80){const result=JSON.parse(await this.command(['batch',temporary,'--json'],{signal:ctx.signal,cwd:root,input:JSON.stringify(ops.slice(i,i+80))}));if(result.success!==true||result.data?.summary?.failed||result.data?.results?.some((item:any)=>!item.success))throw fail('OFFICE_BATCH_FAILED','OfficeCLI batch failed; no file is delivered');const warnings=[...(result.warnings??[]),...(result.data?.results??[]).flatMap((item:any)=>item.warnings??[])];if(warnings.some((w:any)=>/unsupported|autocorrect/i.test(JSON.stringify(w))))throw fail('OFFICE_PROPERTY_UNSUPPORTED','OfficeCLI reported unsupported or corrected properties; no file is delivered');}
-   await this.command(['close',temporary],{signal:ctx.signal,cwd:root});await this.json(['validate',temporary],ctx.signal,root);await this.get(temporary,'/',0,ctx,root);await rename(temporary,target);temporary=undefined;
+    await this.command(['close',temporary],{signal:ctx.signal,cwd:root});await this.json(['validate',temporary],ctx.signal,root);await this.get(temporary,'/',0,ctx,root);
+    if(operation==='spreadsheet_edit'&&source&&await officeContentEqual(await readFile(source),await readFile(temporary)))throw fail('OFFICE_NO_CHANGES','The edit left the workbook unchanged; no duplicate was delivered. To add or update values use sheets:[{name:"actual sheet name",cells:[{cell:"A5",value:"Summary"},{cell:"B5",value:"=COUNTA(A2:A3)"}]}]. Choose actual empty cell addresses from spreadsheet_inspect; keep existing totals. Formats and freeze settings do not add cells.');
+    await rename(temporary,target);temporary=undefined;
    const mime=extension==='xlsx'?'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet':extension==='pptx'?'application/vnd.openxmlformats-officedocument.presentationml.presentation':'application/vnd.openxmlformats-officedocument.wordprocessingml.document';
    const files=[await registerFile(this.app,target,projectKey(ctx),mime)];let preview_error:string|undefined;
    try{const preview=await safePath(root,join('previews',randomUUID()+'.html'));await mkdir(join(root,'previews'),{recursive:true});await this.command(['view',target,'html','-o',preview],{signal:ctx.signal,cwd:root});const rendered=await registerFile(this.app,preview,projectKey(ctx),'text/html');files.push({...rendered,sourceFileId:files[0].id});const primary=this.app.store.get('files',files[0].id)!;this.app.store.put('files',{...primary,previewFileId:rendered.id,previewSourceHash:primary.contentHash});this.app.store.put('files',{...this.app.store.get('files',rendered.id),id:rendered.id,sourceFileId:primary.id});files[0]={...files[0],previewFileId:rendered.id};}catch(error){preview_error=(error as Error).message;}

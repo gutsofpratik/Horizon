@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:commands/epic-validate.md",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "64a453216c3b028b645ea70a77d983a9e8cc5dbccf2e5b89c61f35e315734bcb",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

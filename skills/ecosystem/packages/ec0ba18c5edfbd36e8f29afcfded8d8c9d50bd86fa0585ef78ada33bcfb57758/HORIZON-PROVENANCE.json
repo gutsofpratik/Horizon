@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:skills/foundation-models-on-device",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "9664f41ff19e6a268472940904b54122e227638c89e3d22e83fd561e2febca65",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

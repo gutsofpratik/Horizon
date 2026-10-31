@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:skills/opensource-pipeline",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "fd170a193a4c323b27a941a5155a7b47af1da3129c1adb7bfe8896b614d8aee7",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "id": "github:sickn33/agentic-awesome-skills:skills/huggingface-lora-space-builder",
+  "repository": "sickn33/agentic-awesome-skills",
+  "revision": "6e4106fb38458d2bb2bf50b53db74031daabc208",
+  "digest": "d2e1f46efe48aec8942aec1886846fb1ea3042cafa3094c1fc5eb5e9da2c0ce6",
+  "license": {
+    "decision": "allowed",
+    "label": "Apache-2.0",
+    "evidence": [
+      "skills/huggingface-lora-space-builder/LICENSE.txt"
+    ]
+  }
+}

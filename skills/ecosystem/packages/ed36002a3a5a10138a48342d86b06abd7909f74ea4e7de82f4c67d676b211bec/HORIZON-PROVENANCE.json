@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:skills/swift-actor-persistence",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "6a605a87baa0b1ed3ed1d0d248ff6b8f08b34c6c483004822a3abc9165e4f10a",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

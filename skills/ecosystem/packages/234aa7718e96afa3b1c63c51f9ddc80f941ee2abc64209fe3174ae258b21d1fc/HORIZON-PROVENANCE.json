@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:skills/quarkus-verification",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "33ca233bee5105d7ed985ecee8dca5d8438e0ab858fd5b5490ae4e9c6818e676",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

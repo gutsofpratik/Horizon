@@ -1,0 +1,26 @@
+.onboarding-import-prompt{background:var(--bg-secondary,#f0eee7);border-radius:12px;padding:16px;max-height:300px;overflow:auto;width:100%;box-sizing:border-box}
+.onboarding-import-prompt header{display:flex;align-items:center;justify-content:space-between;gap:12px;position:sticky;top:0;background:inherit}
+.onboarding-import-prompt p{font-size:13px;line-height:1.65;white-space:pre-wrap;margin:10px 0 0}
+.onboarding-import-copy{display:block!important}
+.model-recommendation-choices{display:flex!important;flex-direction:column;gap:10px}
+.model-recommendation-choices>button{width:100%;text-align:left;display:flex;flex-direction:column;gap:4px}
+.model-library-fit,.onboarding-model-setup{min-width:0;width:100%}
+.model-page-sentinel{min-height:24px;display:flex;justify-content:center;padding:12px}
+.connection-model-fields{display:flex;flex-direction:column;gap:8px}
+.connection-model-field{display:flex;align-items:center;gap:6px}
+.connection-model-field input{flex:1;min-width:0}
+.question-card .question-options{display:flex!important;flex-direction:column!important;grid-template-columns:none!important;gap:8px}
+.question-options>button{width:100%;text-align:left;display:flex;flex-direction:column;gap:4px}
+.question-card footer{display:flex;justify-content:space-between;gap:12px}
+.library-filters{display:flex;flex-wrap:wrap;align-items:center;gap:8px}
+.library-filters .search-input{flex:1;min-width:180px}
+.library-filters .choice-trigger{width:auto;min-width:116px;max-width:200px}
+.library-pagination-label{font-size:11px;color:var(--text-secondary,#777);white-space:nowrap}
+.compact-skills-grid .skill-card-main p{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.sidebar-projects-label{padding:14px 12px 4px;text-align:left;font-size:12px;color:var(--text-secondary,#777);background:transparent;border:0;cursor:pointer}
+.sidebar-project-chats{max-height:24vh;overflow:auto;padding:0 8px}
+.sidebar-project-chats summary{display:flex;align-items:center;gap:6px;cursor:pointer;font-size:12px;padding:7px 4px}
+.sidebar-project-chats details>button{display:block;width:100%;text-align:left;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;background:transparent;border:0;border-radius:6px;padding:6px 12px;font-size:12px;color:inherit}
+.sidebar-project-chats details>button:hover,.sidebar-project-chats details>button.active{background:var(--bg-secondary,#e9e7de)}
+.sidebar-project-chats small{display:block;padding:4px 12px;font-size:11px;opacity:.6}
+.segmented button[aria-label="Grid view"],.segmented button[aria-label="List view"]{display:grid;place-items:center;width:32px;height:30px;padding:0}

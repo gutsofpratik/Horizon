@@ -1,0 +1,13 @@
+{
+  "id": "horizon:adapter:pdf",
+  "repository": "",
+  "revision": "application",
+  "digest": "861f2f4e05757bb1ed10e481a590282f38c9090844358d4572f06148329b7519",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "Application LICENSE"
+    ]
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "id": "github:obra/superpowers:skills/brainstorming",
+  "repository": "obra/superpowers",
+  "revision": "2ce8aa15d05bd57213e6f746f953aafb7ded7a8b",
+  "digest": "ce62dc4cf7e782bfe6ee972f88288c3103421e5ab61240d1aa9d9b6924444c1c",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

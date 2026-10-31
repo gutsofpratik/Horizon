@@ -1,0 +1,13 @@
+{
+  "id": "github:elevenlabs/skills:voice-changer",
+  "repository": "elevenlabs/skills",
+  "revision": "503d4e9fda0190ab9357142f44e51de626f97f90",
+  "digest": "7b4f3c91ce8d1e45a932791faaf1516da66171c3358c1c8c94b767e19d167d1d",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

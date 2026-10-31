@@ -1,0 +1,13 @@
+{
+  "id": "github:obra/superpowers:skills/writing-skills",
+  "repository": "obra/superpowers",
+  "revision": "2ce8aa15d05bd57213e6f746f953aafb7ded7a8b",
+  "digest": "850735541949933a8900827704c9cef0fd7d4c30bb909b222a3d934878e66f8a",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

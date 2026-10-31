@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:skills/cpp-testing",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "0cf179fd4fa23a2b2eb28211d1275246f443d35903dfbf2eadfadda63b8bf1a4",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

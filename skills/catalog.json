@@ -10,7 +10,7 @@
       "builtIn": true,
       "bundledEntry": "built-in/tool-author/SKILL.md",
       "requirements": [],
-      "sha256": "178959fe71dda8f5db70dca1d61d2cc27dab4acc59ee1bfd5df6cdef5529eaac"
+      "sha256": "205a75f7e5634fa5e17f0b39763d6cfb397c881ab797998f99e42e07f99fda05"
     },
     {
       "id": "openclaude-skill-author",
@@ -20,7 +20,7 @@
       "builtIn": true,
       "bundledEntry": "built-in/skill-author/SKILL.md",
       "requirements": [],
-      "sha256": "68f22b02b473eb078463597580e2ffc16a594cbfab822d337f3ce46dab27c095"
+      "sha256": "038744de3c5b316040f12c38abcc0800216924e82f4331e69f1f8accedca5463"
     },
     {
       "id": "app-native/research-workflow",

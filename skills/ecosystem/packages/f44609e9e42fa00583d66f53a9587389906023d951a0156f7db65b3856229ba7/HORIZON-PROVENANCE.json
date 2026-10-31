@@ -1,0 +1,13 @@
+{
+  "id": "github:sickn33/agentic-awesome-skills:skills/ecl-harness-engineer",
+  "repository": "sickn33/agentic-awesome-skills",
+  "revision": "6e4106fb38458d2bb2bf50b53db74031daabc208",
+  "digest": "06ca1b89a9752bf226a26cb4f83b27ed61263c3852b754588fe37edafe3ec5bb",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "skills/ecl-harness-engineer/LICENSE"
+    ]
+  }
+}

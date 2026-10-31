@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:commands/token-card.md",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "5d63b7907cd870871c349b278eb3f6f9edef8786b9d37419227552381c7ffc92",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

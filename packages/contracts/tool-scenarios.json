@@ -1,7 +1,7 @@
 {
   "version": 1,
-  "recorded_on": "2026-10-27",
-  "scope": "Issue #4 coverage accounting. Successful code cases include controlled mocks and local service fixtures; they do not certify every live external/native backend or every action. Dependency-blocked entries remain unverified in their linked issues. Category entries inherit every concrete member disposition.",
+  "recorded_on": "2026-10-28",
+  "scope": "Horizon tool reliability audit, 2026-10-28. Code cases include controlled contracts and owned local-service/process fixtures; they do not certify every live model, native desktop or external account. Retained live_blocker records identify additional live checks even where a code fixture passes. Dependency-blocked entries have no successful dispatcher result in this batch. Categories inherit each concrete action disposition.",
   "boundary_checks": [
     "JSON Schema compiles",
     "null input rejected by tool schema",
@@ -11,7 +11,7 @@
   "tools": [
     {
       "name": "agent",
-      "schema_hash": "0d8925f03f20eaf9612c7b4b7c6e4fba6b5be54d2f69a7ecbb3dad5d94bf985f",
+      "schema_hash": "2bdbeefc9b0d021730d4feb4982d7acc56ffd4f80f5eafeb1a3c94ffbf726fb5",
       "disposition": "code-case",
       "evidence_kind": "code-contract",
       "fixtures": [
@@ -21,51 +21,71 @@
     {
       "name": "agent_followup",
       "schema_hash": "811f48b7ed762fd125ef9690da319d668d1ba56a4f59fed0680fe320ea262703",
-      "disposition": "dependency-blocked",
-      "blocker": {
+      "disposition": "code-case",
+      "live_blocker": {
         "issue": 9,
         "reason": "Requires an active parent/child model run and engine lifecycle fixture. No new real subagents are launched under the user instruction; model-driven child execution remains in issue #9."
-      }
+      },
+      "fixtures": [
+        "tool-audit-agent-contracts.test.ts"
+      ],
+      "evidence_kind": "code-contract"
     },
     {
       "name": "agent_interrupt",
       "schema_hash": "27cefd889a883c315634f4a74a8f16763fa9da943da2b93e75faa1e076749473",
-      "disposition": "dependency-blocked",
-      "blocker": {
+      "disposition": "code-case",
+      "live_blocker": {
         "issue": 9,
         "reason": "Requires an active parent/child model run and engine lifecycle fixture. No new real subagents are launched under the user instruction; model-driven child execution remains in issue #9."
-      }
+      },
+      "fixtures": [
+        "tool-audit-agent-contracts.test.ts"
+      ],
+      "evidence_kind": "code-contract"
     },
     {
       "name": "agent_list",
       "schema_hash": "25c7d85c859a6f78f6f4e83edf2d3073645b7c71d2832348387882a6833b1834",
-      "disposition": "dependency-blocked",
-      "blocker": {
+      "disposition": "code-case",
+      "live_blocker": {
         "issue": 9,
         "reason": "Requires an active parent/child model run and engine lifecycle fixture. No new real subagents are launched under the user instruction; model-driven child execution remains in issue #9."
-      }
+      },
+      "fixtures": [
+        "tool-audit-agent-contracts.test.ts"
+      ],
+      "evidence_kind": "code-contract"
     },
     {
       "name": "agent_result",
       "schema_hash": "27cefd889a883c315634f4a74a8f16763fa9da943da2b93e75faa1e076749473",
-      "disposition": "dependency-blocked",
-      "blocker": {
+      "disposition": "code-case",
+      "live_blocker": {
         "issue": 9,
         "reason": "Requires an active parent/child model run and engine lifecycle fixture. No new real subagents are launched under the user instruction; model-driven child execution remains in issue #9."
-      }
+      },
+      "fixtures": [
+        "tool-audit-agent-contracts.test.ts"
+      ],
+      "evidence_kind": "code-contract"
     },
     {
       "name": "agent_send_message",
-      "schema_hash": "26829b5d0222d21b394e7909803faf555597c7387fefc2df10723903baacb647",
-      "disposition": "dependency-blocked",
-      "blocker": {
+      "schema_hash": "d65400af705168a7c72ca6ceea730ea2ee7ae4d2344feee4e97133d4235f0c42",
+      "disposition": "code-case",
+      "live_blocker": {
         "issue": 9,
         "reason": "Requires an active parent/child model run and engine lifecycle fixture. No new real subagents are launched under the user instruction; model-driven child execution remains in issue #9."
-      }
+      },
+      "fixtures": [
+        "tool-audit-agent-contracts.test.ts"
+      ],
+      "evidence_kind": "code-contract"
     },
     {
       "name": "agent_spawn",
-      "schema_hash": "634b232c4db3e164d88889f1099ff53615ddc3cf5e682a026e503fa4f866c7b8",
+      "schema_hash": "326aec748b426a32a03b13fb2cdb4cdf8854839feb0d1cf959f6294e4d3b5173",
       "disposition": "code-case",
       "evidence_kind": "code-contract",
       "fixtures": [
@@ -74,12 +94,16 @@
     },
     {
       "name": "agent_status",
-      "schema_hash": "75b3b0effbd488dbbbc06916b4bf0a61b9ffedf73bdb4218c667b3bb23812ee3",
-      "disposition": "dependency-blocked",
-      "blocker": {
+      "schema_hash": "fd45bb7117daa2eb4cf9f1fa44830ae9e6e4b21e38d8cbbb2385e805d5c29741",
+      "disposition": "code-case",
+      "live_blocker": {
         "issue": 9,
         "reason": "Requires an active parent/child model run and engine lifecycle fixture. No new real subagents are launched under the user instruction; model-driven child execution remains in issue #9."
-      }
+      },
+      "fixtures": [
+        "tool-audit-agent-contracts.test.ts"
+      ],
+      "evidence_kind": "code-contract"
     },
     {
       "name": "agent_stop",
@@ -92,21 +116,25 @@
     },
     {
       "name": "agent_templates",
-      "schema_hash": "3f14713584184b426cd6990f6ddd61600283ff31bd18ff9956a7fbac55f0379c",
+      "schema_hash": "182177ab0e0981e180bf9ecc6327caf123627f6d05bfd77e8b357c4ace6f702f",
       "disposition": "code-case",
-      "evidence_kind": "code-contract",
+      "evidence_kind": "local-service",
       "fixtures": [
         "issue4-local-workflows.test.ts"
       ]
     },
     {
       "name": "agent_wait",
-      "schema_hash": "4b833d5d07628237881f6925b5d11d59557fe627721a921b473d6a74d11b4710",
-      "disposition": "dependency-blocked",
-      "blocker": {
+      "schema_hash": "2ab25bed27d3e78e5a4f37f46340694999b5dbede03e3039a35acc7f74f64afe",
+      "disposition": "code-case",
+      "live_blocker": {
         "issue": 9,
         "reason": "Requires an active parent/child model run and engine lifecycle fixture. No new real subagents are launched under the user instruction; model-driven child execution remains in issue #9."
-      }
+      },
+      "fixtures": [
+        "tool-audit-agent-contracts.test.ts"
+      ],
+      "evidence_kind": "code-contract"
     },
     {
       "name": "api",
@@ -122,7 +150,7 @@
       "name": "api_parse_response",
       "schema_hash": "92f6088b66a36eb29f8bbf600822aaec2ff47744aa1c7ad7ab03a3c2b46dc454",
       "disposition": "code-case",
-      "evidence_kind": "code-contract",
+      "evidence_kind": "local-service",
       "fixtures": [
         "capability-catalog.test.ts",
         "issue4-local-workflows.test.ts"
@@ -150,7 +178,7 @@
       "name": "archive_create",
       "schema_hash": "8cf240905d8fc2eb4aae35fbed669cde3d2e8b8bbd34d34ac31c9bb00a39a7ba",
       "disposition": "code-case",
-      "evidence_kind": "code-contract",
+      "evidence_kind": "local-service",
       "fixtures": [
         "extended-files.test.ts",
         "issue4-local-workflows.test.ts"
@@ -160,7 +188,7 @@
       "name": "archive_extract",
       "schema_hash": "a081ab01b1f33f43fdd6ac950645baaa00596aa704588acb15684dd4bee3464a",
       "disposition": "code-case",
-      "evidence_kind": "code-contract",
+      "evidence_kind": "local-service",
       "fixtures": [
         "extended-files.test.ts",
         "issue4-local-workflows.test.ts"
@@ -168,7 +196,7 @@
     },
     {
       "name": "artifact",
-      "schema_hash": "814c54a3485b5ffc3a1a8276ec982ab7ed73e365158e32d0b50add7f4ae8a255",
+      "schema_hash": "2bdc11817d31f2511e6d6227199f883ab450f7778e0838b9eaacd794206bf9e1",
       "disposition": "code-case",
       "evidence_kind": "code-contract",
       "fixtures": [
@@ -181,7 +209,7 @@
       "name": "artifact_create",
       "schema_hash": "c2d7429856544b33d2baa80eb7bbde5f1499b617597e0e685695241ff8358a70",
       "disposition": "code-case",
-      "evidence_kind": "code-contract",
+      "evidence_kind": "local-service",
       "fixtures": [
         "agent.test.ts",
         "artifact-edit.test.ts",
@@ -191,7 +219,8 @@
         "issue4-local-workflows.test.ts",
         "research-coordinator.test.ts",
         "tool-categories.test.ts",
-        "tools.test.ts"
+        "tools.test.ts",
+        "artifact-read-integrity.test.ts"
       ]
     },
     {
@@ -207,7 +236,7 @@
     },
     {
       "name": "artifact_draft_read",
-      "schema_hash": "af72394467ce9a6c70512ebce01b26a0caa8f60dafc00d830ca28941140afe1f",
+      "schema_hash": "67c35744722aace0e89098f67c7a75385ae96e44d11d6b4ddc7529feb9166880",
       "disposition": "code-case",
       "evidence_kind": "code-contract",
       "fixtures": [
@@ -249,79 +278,86 @@
       "name": "artifact_export",
       "schema_hash": "1b30af7b5b79ef7dfb70a814776071f797de65421a55f868b285064796be4c2b",
       "disposition": "code-case",
-      "evidence_kind": "code-contract",
+      "evidence_kind": "local-service",
       "fixtures": [
         "issue4-local-workflows.test.ts"
       ]
     },
     {
       "name": "artifact_list",
-      "schema_hash": "06816f27f0280e16ca6cc4fe238c170a540aaef0df25f93e023857725e7cd31a",
+      "schema_hash": "894ae52bb585250fcf3637952b46905a61adce0a8f971a9c35da4855151a2067",
       "disposition": "code-case",
-      "evidence_kind": "code-contract",
+      "evidence_kind": "local-service",
       "fixtures": [
-        "issue4-local-workflows.test.ts"
+        "issue4-local-workflows.test.ts",
+        "artifact-read-integrity.test.ts"
       ]
     },
     {
       "name": "artifact_patch",
-      "schema_hash": "d78463c8f2af1cd1db2c188a6ac43b35d4d7d39d3343c0d67ce0f36d914e590d",
+      "schema_hash": "dbee94664992356db639d6377eac7d0078c87675e83267a312d645be3eaf74b2",
       "disposition": "code-case",
       "evidence_kind": "code-contract",
       "fixtures": [
-        "artifact-edit.test.ts"
+        "artifact-edit.test.ts",
+        "artifact-read-integrity.test.ts"
       ]
     },
     {
       "name": "artifact_read",
-      "schema_hash": "1bef6b1ecec6b0583b2b756a0f5b91873e85556244e6853780031cc3206aa7f9",
+      "schema_hash": "f6933b36e91377b803f7bdce9922da06b102d3a04c4b72771b5f793ae215cb5f",
       "disposition": "code-case",
       "evidence_kind": "code-contract",
       "fixtures": [
-        "artifact-edit.test.ts"
+        "artifact-edit.test.ts",
+        "artifact-read-integrity.test.ts"
       ]
     },
     {
       "name": "artifact_save",
-      "schema_hash": "73aeb3df386dadd65593d28e30d0e731cfa5c73749c8a8d91e87b63590eda34b",
+      "schema_hash": "c7cd4a95c553b2225735df26d742d952cc8da646b4a1b2cd1a7c80a43ac21610",
       "disposition": "code-case",
       "evidence_kind": "code-contract",
       "fixtures": [
-        "direct-model-interface.test.ts"
+        "direct-model-interface.test.ts",
+        "artifact-read-integrity.test.ts"
       ]
     },
     {
       "name": "artifact_update",
-      "schema_hash": "bd3a256635e60b5cbea4f576a347192e5629d4caa8839c9ad17cf53783389b62",
+      "schema_hash": "4eb5942afc9ac4c01b7d881cb2305399b3e788a46b374da4c10377523ff5e3f2",
       "disposition": "code-case",
       "evidence_kind": "code-contract",
       "fixtures": [
         "direct-model-interface.test.ts",
         "tool-categories.test.ts",
-        "tools.test.ts"
+        "tools.test.ts",
+        "artifact-read-integrity.test.ts"
       ]
     },
     {
       "name": "artifact_versions",
       "schema_hash": "1b30af7b5b79ef7dfb70a814776071f797de65421a55f868b285064796be4c2b",
       "disposition": "code-case",
-      "evidence_kind": "code-contract",
+      "evidence_kind": "local-service",
       "fixtures": [
         "issue4-local-workflows.test.ts"
       ]
     },
     {
       "name": "ask_user",
-      "schema_hash": "6a671c750ea6d4b6796abdc664b4f82a53b348b7fe93a2f217c200319c98c89d",
+      "schema_hash": "f29bf981e56647b6bee268331e06023440409f751f5a367349e9c3a33504380f",
       "disposition": "code-case",
-      "evidence_kind": "code-contract",
+      "evidence_kind": "local-service",
       "fixtures": [
-        "questions.test.ts"
+        "questions.test.ts",
+        "native-call-repair.test.ts",
+        "tool-audit-coding.test.ts"
       ]
     },
     {
       "name": "audio_convert",
-      "schema_hash": "69f8aa110cb64f7a1eb743015963817c12da85e5e9d6dd8f1d1699da7935a545",
+      "schema_hash": "fe1a26bf11b21ae9f8e32c8eea4b653c827a3d422d9fdf4bc2f21347e18d25bb",
       "disposition": "code-case",
       "evidence_kind": "code-contract",
       "fixtures": [
@@ -341,14 +377,14 @@
       "name": "audio_transcribe",
       "schema_hash": "21670cd5a8960db1282d3c8cb53ba828daf417feabfac284a49116e2d2df6c48",
       "disposition": "code-case",
-      "evidence_kind": "controlled-transport",
+      "evidence_kind": "code-contract",
       "fixtures": [
         "advanced-tool-services.test.ts"
       ]
     },
     {
       "name": "browser",
-      "schema_hash": "a0895edf2ae72ea66aa24ba15dd388b6d8f4085cd6589281c3c0e59dd6340ecb",
+      "schema_hash": "9406e0c3fb69e8dce88382b936657e331563018c1aff4658c1006adb8cc1ba31",
       "disposition": "code-case",
       "evidence_kind": "code-contract",
       "fixtures": [
@@ -360,83 +396,116 @@
     {
       "name": "browser_annotations",
       "schema_hash": "25c7d85c859a6f78f6f4e83edf2d3073645b7c71d2832348387882a6833b1834",
-      "disposition": "dependency-blocked",
-      "blocker": {
+      "disposition": "code-case",
+      "live_blocker": {
         "issue": 5,
         "reason": "Requires the authenticated native desktop broker or an explicitly selected isolated environment and an owned interaction/job target. Remaining native end-to-end checks are tracked in issue #5; no user desktop is actuated by this audit."
-      }
+      },
+      "fixtures": [
+        "tool-audit-browser.test.ts"
+      ],
+      "evidence_kind": "local-service"
     },
     {
       "name": "browser_back",
       "schema_hash": "3789efe5eea204d8d3b364ea24bd684e4b517fbaca62cf3fa6c1d6d7cd23f842",
-      "disposition": "dependency-blocked",
-      "blocker": {
+      "disposition": "code-case",
+      "live_blocker": {
         "issue": 5,
         "reason": "Requires the authenticated native desktop broker or an explicitly selected isolated environment and an owned interaction/job target. Remaining native end-to-end checks are tracked in issue #5; no user desktop is actuated by this audit."
-      }
+      },
+      "fixtures": [
+        "tool-audit-browser.test.ts"
+      ],
+      "evidence_kind": "local-service"
     },
     {
       "name": "browser_check",
       "schema_hash": "32d4cbbac2ae06ebdb70fb3eee57bd53b522731971ce13ef62d41f5492e4e51b",
-      "disposition": "dependency-blocked",
-      "blocker": {
+      "disposition": "code-case",
+      "live_blocker": {
         "issue": 5,
         "reason": "Requires the authenticated native desktop broker or an explicitly selected isolated environment and an owned interaction/job target. Remaining native end-to-end checks are tracked in issue #5; no user desktop is actuated by this audit."
-      }
+      },
+      "fixtures": [
+        "tool-audit-browser.test.ts"
+      ],
+      "evidence_kind": "local-service"
     },
     {
       "name": "browser_click",
       "schema_hash": "60d5bd38349c6422080de29214b8d4e7e6a4f4d2737dca2bad20e693e80307bd",
       "disposition": "code-case",
-      "evidence_kind": "code-contract",
+      "evidence_kind": "local-service",
       "fixtures": [
-        "browser-file-tools.test.ts"
+        "browser-file-tools.test.ts",
+        "tool-audit-browser.test.ts"
       ]
     },
     {
       "name": "browser_click_at",
-      "schema_hash": "ebab9625ba681ef08cb8fd187b03ce722c304025bae3ad7d88e4c6734fec05eb",
-      "disposition": "dependency-blocked",
-      "blocker": {
+      "schema_hash": "df47297f59e8e83a72d07ff5f89057b44acedc4660bf490f432281c9090daa5d",
+      "disposition": "code-case",
+      "live_blocker": {
         "issue": 5,
         "reason": "Requires the authenticated native desktop broker or an explicitly selected isolated environment and an owned interaction/job target. Remaining native end-to-end checks are tracked in issue #5; no user desktop is actuated by this audit."
-      }
+      },
+      "fixtures": [
+        "tool-audit-browser.test.ts"
+      ],
+      "evidence_kind": "local-service"
     },
     {
       "name": "browser_close_tab",
       "schema_hash": "3789efe5eea204d8d3b364ea24bd684e4b517fbaca62cf3fa6c1d6d7cd23f842",
-      "disposition": "dependency-blocked",
-      "blocker": {
+      "disposition": "code-case",
+      "live_blocker": {
         "issue": 5,
         "reason": "Requires the authenticated native desktop broker or an explicitly selected isolated environment and an owned interaction/job target. Remaining native end-to-end checks are tracked in issue #5; no user desktop is actuated by this audit."
-      }
+      },
+      "fixtures": [
+        "tool-audit-browser.test.ts"
+      ],
+      "evidence_kind": "local-service"
     },
     {
       "name": "browser_crop",
       "schema_hash": "3a4b6130bd23e399d1e4fedffa4b88b3a4419099054f12fb54491d334de9ee79",
-      "disposition": "dependency-blocked",
-      "blocker": {
+      "disposition": "code-case",
+      "live_blocker": {
         "issue": 5,
         "reason": "Requires the authenticated native desktop broker or an explicitly selected isolated environment and an owned interaction/job target. Remaining native end-to-end checks are tracked in issue #5; no user desktop is actuated by this audit."
-      }
+      },
+      "fixtures": [
+        "tool-audit-browser.test.ts"
+      ],
+      "evidence_kind": "local-service"
     },
     {
       "name": "browser_double_click",
       "schema_hash": "60d5bd38349c6422080de29214b8d4e7e6a4f4d2737dca2bad20e693e80307bd",
-      "disposition": "dependency-blocked",
-      "blocker": {
+      "disposition": "code-case",
+      "live_blocker": {
         "issue": 5,
         "reason": "Requires the authenticated native desktop broker or an explicitly selected isolated environment and an owned interaction/job target. Remaining native end-to-end checks are tracked in issue #5; no user desktop is actuated by this audit."
-      }
+      },
+      "fixtures": [
+        "tool-audit-browser.test.ts"
+      ],
+      "evidence_kind": "local-service"
     },
     {
       "name": "browser_download",
       "schema_hash": "f6e95263aeb89c6d6d1fdeed1e76fd0bbb5cf1d5b0276552e07d438528527975",
-      "disposition": "dependency-blocked",
-      "blocker": {
+      "disposition": "code-case",
+      "live_blocker": {
         "issue": 5,
         "reason": "Requires the authenticated native desktop broker or an explicitly selected isolated environment and an owned interaction/job target. Remaining native end-to-end checks are tracked in issue #5; no user desktop is actuated by this audit."
-      }
+      },
+      "fixtures": [
+        "tool-audit-browser.test.ts"
+      ],
+      "evidence_kind": "local-service"
     },
     {
       "name": "browser_downloads",
@@ -449,21 +518,29 @@
     },
     {
       "name": "browser_drag_path",
-      "schema_hash": "1ff7966def79ae8434c893d4f727a11240b4d04c5c2229cfa6ab2619352016df",
-      "disposition": "dependency-blocked",
-      "blocker": {
+      "schema_hash": "ba0bed8612dc653bd886338de14c161a6cd3a08fccf40dcfd8a623b3ec9250d8",
+      "disposition": "code-case",
+      "live_blocker": {
         "issue": 5,
         "reason": "Requires the authenticated native desktop broker or an explicitly selected isolated environment and an owned interaction/job target. Remaining native end-to-end checks are tracked in issue #5; no user desktop is actuated by this audit."
-      }
+      },
+      "fixtures": [
+        "tool-audit-browser.test.ts"
+      ],
+      "evidence_kind": "local-service"
     },
     {
       "name": "browser_emulate_device",
-      "schema_hash": "40f597651ef9c7b22fee3c91b3c3c088ab192d36ba1d729197fe147586b23c2c",
-      "disposition": "dependency-blocked",
-      "blocker": {
+      "schema_hash": "319949a5bc857b7128de980f697d9ab07a2af88a4cb2b648010de8f915221ad5",
+      "disposition": "code-case",
+      "live_blocker": {
         "issue": 5,
         "reason": "Requires the authenticated native desktop broker or an explicitly selected isolated environment and an owned interaction/job target. Remaining native end-to-end checks are tracked in issue #5; no user desktop is actuated by this audit."
-      }
+      },
+      "fixtures": [
+        "tool-audit-browser.test.ts"
+      ],
+      "evidence_kind": "local-service"
     },
     {
       "name": "browser_file_grant",
@@ -471,124 +548,171 @@
       "disposition": "code-case",
       "evidence_kind": "code-contract",
       "fixtures": [
-        "runtime-expansion.test.ts"
+        "runtime-expansion.test.ts",
+        "native-service-contracts.test.ts"
       ]
     },
     {
       "name": "browser_fill",
       "schema_hash": "e96721b028ed57362cb36a1c1bafa4e34b838ca5ac7eabd6957108a52ede9013",
       "disposition": "code-case",
-      "evidence_kind": "code-contract",
+      "evidence_kind": "local-service",
       "fixtures": [
-        "browser-file-tools.test.ts"
+        "browser-file-tools.test.ts",
+        "tool-audit-browser.test.ts"
       ]
     },
     {
       "name": "browser_find",
-      "schema_hash": "df364d87d41f30d27a85ee4669244358af88fd97d93b606605ce87e44a0fd9c7",
-      "disposition": "dependency-blocked",
-      "blocker": {
+      "schema_hash": "5c8b98999646fcb1f345c309f95435afe7e3ea682b40c472850aa1640ad7e8a5",
+      "disposition": "code-case",
+      "live_blocker": {
         "issue": 5,
         "reason": "Requires the authenticated native desktop broker or an explicitly selected isolated environment and an owned interaction/job target. Remaining native end-to-end checks are tracked in issue #5; no user desktop is actuated by this audit."
-      }
+      },
+      "fixtures": [
+        "tool-audit-browser.test.ts"
+      ],
+      "evidence_kind": "local-service"
     },
     {
       "name": "browser_forward",
       "schema_hash": "3789efe5eea204d8d3b364ea24bd684e4b517fbaca62cf3fa6c1d6d7cd23f842",
-      "disposition": "dependency-blocked",
-      "blocker": {
+      "disposition": "code-case",
+      "live_blocker": {
         "issue": 5,
         "reason": "Requires the authenticated native desktop broker or an explicitly selected isolated environment and an owned interaction/job target. Remaining native end-to-end checks are tracked in issue #5; no user desktop is actuated by this audit."
-      }
+      },
+      "fixtures": [
+        "tool-audit-browser.test.ts"
+      ],
+      "evidence_kind": "local-service"
     },
     {
       "name": "browser_get_page_text",
       "schema_hash": "3789efe5eea204d8d3b364ea24bd684e4b517fbaca62cf3fa6c1d6d7cd23f842",
-      "disposition": "dependency-blocked",
-      "blocker": {
+      "disposition": "code-case",
+      "live_blocker": {
         "issue": 5,
         "reason": "Requires the authenticated native desktop broker or an explicitly selected isolated environment and an owned interaction/job target. Remaining native end-to-end checks are tracked in issue #5; no user desktop is actuated by this audit."
-      }
+      },
+      "fixtures": [
+        "tool-audit-browser.test.ts"
+      ],
+      "evidence_kind": "local-service"
     },
     {
       "name": "browser_hold_keys",
-      "schema_hash": "c21f971ce6c8abb219113017512249d8d4ced13675a3ff0359f66894e49a1d6a",
-      "disposition": "dependency-blocked",
-      "blocker": {
+      "schema_hash": "62314342acfb34881de92e9626c2d2ff52d5aaa2d38a269f75104a6c2d155538",
+      "disposition": "code-case",
+      "live_blocker": {
         "issue": 5,
         "reason": "Requires the authenticated native desktop broker or an explicitly selected isolated environment and an owned interaction/job target. Remaining native end-to-end checks are tracked in issue #5; no user desktop is actuated by this audit."
-      }
+      },
+      "fixtures": [
+        "tool-audit-browser.test.ts"
+      ],
+      "evidence_kind": "local-service"
     },
     {
       "name": "browser_hover",
       "schema_hash": "60d5bd38349c6422080de29214b8d4e7e6a4f4d2737dca2bad20e693e80307bd",
-      "disposition": "dependency-blocked",
-      "blocker": {
+      "disposition": "code-case",
+      "live_blocker": {
         "issue": 5,
         "reason": "Requires the authenticated native desktop broker or an explicitly selected isolated environment and an owned interaction/job target. Remaining native end-to-end checks are tracked in issue #5; no user desktop is actuated by this audit."
-      }
+      },
+      "fixtures": [
+        "tool-audit-browser.test.ts"
+      ],
+      "evidence_kind": "local-service"
     },
     {
       "name": "browser_hover_at",
       "schema_hash": "c07623535e161de963dc804d2d02c773834dc40642c27fccf4fd78e63998eb0c",
-      "disposition": "dependency-blocked",
-      "blocker": {
+      "disposition": "code-case",
+      "live_blocker": {
         "issue": 5,
         "reason": "Requires the authenticated native desktop broker or an explicitly selected isolated environment and an owned interaction/job target. Remaining native end-to-end checks are tracked in issue #5; no user desktop is actuated by this audit."
-      }
+      },
+      "fixtures": [
+        "tool-audit-browser.test.ts"
+      ],
+      "evidence_kind": "local-service"
     },
     {
       "name": "browser_inspect_element",
       "schema_hash": "60d5bd38349c6422080de29214b8d4e7e6a4f4d2737dca2bad20e693e80307bd",
-      "disposition": "dependency-blocked",
-      "blocker": {
+      "disposition": "code-case",
+      "live_blocker": {
         "issue": 5,
         "reason": "Requires the authenticated native desktop broker or an explicitly selected isolated environment and an owned interaction/job target. Remaining native end-to-end checks are tracked in issue #5; no user desktop is actuated by this audit."
-      }
+      },
+      "fixtures": [
+        "tool-audit-browser.test.ts"
+      ],
+      "evidence_kind": "local-service"
     },
     {
       "name": "browser_key",
       "schema_hash": "40d7cc873dedbfb71419d9b701214ef40e8280f0dba63bb63e25ca7c1822f9ca",
-      "disposition": "dependency-blocked",
-      "blocker": {
+      "disposition": "code-case",
+      "live_blocker": {
         "issue": 5,
         "reason": "Requires the authenticated native desktop broker or an explicitly selected isolated environment and an owned interaction/job target. Remaining native end-to-end checks are tracked in issue #5; no user desktop is actuated by this audit."
-      }
+      },
+      "fixtures": [
+        "tool-audit-browser.test.ts"
+      ],
+      "evidence_kind": "local-service"
     },
     {
       "name": "browser_list_tabs",
       "schema_hash": "25c7d85c859a6f78f6f4e83edf2d3073645b7c71d2832348387882a6833b1834",
-      "disposition": "dependency-blocked",
-      "blocker": {
+      "disposition": "code-case",
+      "live_blocker": {
         "issue": 5,
         "reason": "Requires the authenticated native desktop broker or an explicitly selected isolated environment and an owned interaction/job target. Remaining native end-to-end checks are tracked in issue #5; no user desktop is actuated by this audit."
-      }
+      },
+      "fixtures": [
+        "tool-audit-browser.test.ts"
+      ],
+      "evidence_kind": "local-service"
     },
     {
       "name": "browser_navigate",
       "schema_hash": "946a7f4d014c8d4d6837d29c94288de784933b04649c1338807787384c60a1eb",
-      "disposition": "dependency-blocked",
-      "blocker": {
+      "disposition": "code-case",
+      "live_blocker": {
         "issue": 5,
         "reason": "Requires the authenticated native desktop broker or an explicitly selected isolated environment and an owned interaction/job target. Remaining native end-to-end checks are tracked in issue #5; no user desktop is actuated by this audit."
-      }
+      },
+      "fixtures": [
+        "tool-audit-browser.test.ts"
+      ],
+      "evidence_kind": "local-service"
     },
     {
       "name": "browser_new_tab",
       "schema_hash": "cb839aa4f6267ea0b4ff2364272c108f1a3474fcca2ba1707878f8f785d4905d",
-      "disposition": "dependency-blocked",
-      "blocker": {
+      "disposition": "code-case",
+      "live_blocker": {
         "issue": 5,
         "reason": "Requires the authenticated native desktop broker or an explicitly selected isolated environment and an owned interaction/job target. Remaining native end-to-end checks are tracked in issue #5; no user desktop is actuated by this audit."
-      }
+      },
+      "fixtures": [
+        "tool-audit-browser.test.ts"
+      ],
+      "evidence_kind": "local-service"
     },
     {
       "name": "browser_open",
       "schema_hash": "bfc7c75a4796cbb5cb6fce68159f9112bdcde867a7fdaa7c082e049e21142845",
       "disposition": "code-case",
-      "evidence_kind": "code-contract",
+      "evidence_kind": "local-service",
       "fixtures": [
-        "selected-workflow-tools.test.ts"
+        "selected-workflow-tools.test.ts",
+        "tool-audit-browser.test.ts"
       ]
     },
     {
@@ -603,11 +727,15 @@
     {
       "name": "browser_press",
       "schema_hash": "1c221393f6239e27f09db36f9cab009d585c8dc15f08924677671d92b5704681",
-      "disposition": "dependency-blocked",
-      "blocker": {
+      "disposition": "code-case",
+      "live_blocker": {
         "issue": 5,
         "reason": "Requires the authenticated native desktop broker or an explicitly selected isolated environment and an owned interaction/job target. Remaining native end-to-end checks are tracked in issue #5; no user desktop is actuated by this audit."
-      }
+      },
+      "fixtures": [
+        "tool-audit-browser.test.ts"
+      ],
+      "evidence_kind": "local-service"
     },
     {
       "name": "browser_print",
@@ -620,189 +748,263 @@
     },
     {
       "name": "browser_read_diagnostics",
-      "schema_hash": "e9cdbe0d6730652b09c8423c76fe939e80a00c9c9b7931ce0973ba63ec3f214c",
-      "disposition": "dependency-blocked",
-      "blocker": {
+      "schema_hash": "8bea1274d05a123504455d30d1f7b9d4fd73fa5b4ff4248601f0c82430bc7726",
+      "disposition": "code-case",
+      "live_blocker": {
         "issue": 5,
         "reason": "Requires the authenticated native desktop broker or an explicitly selected isolated environment and an owned interaction/job target. Remaining native end-to-end checks are tracked in issue #5; no user desktop is actuated by this audit."
-      }
+      },
+      "fixtures": [
+        "tool-audit-browser.test.ts"
+      ],
+      "evidence_kind": "local-service"
     },
     {
       "name": "browser_read_page",
-      "schema_hash": "c9a30763a88806cb3d2120fcd22fa77ae38a5ce085ec7d2cc7891e3b2e3ce742",
-      "disposition": "dependency-blocked",
-      "blocker": {
+      "schema_hash": "946a5f76569f4182e6baffc476d5ae74d8c6484d1a8a640df8ae55813f87e266",
+      "disposition": "code-case",
+      "live_blocker": {
         "issue": 5,
         "reason": "Requires the authenticated native desktop broker or an explicitly selected isolated environment and an owned interaction/job target. Remaining native end-to-end checks are tracked in issue #5; no user desktop is actuated by this audit."
-      }
+      },
+      "fixtures": [
+        "tool-audit-browser.test.ts"
+      ],
+      "evidence_kind": "local-service"
     },
     {
       "name": "browser_read_page_scoped",
-      "schema_hash": "6529faa40d99c10728264dbf110a564f1980c851755c71c305f921e91c30148f",
-      "disposition": "dependency-blocked",
-      "blocker": {
+      "schema_hash": "c09f2a186c456294c7e1ba75f121a82885a2ac8b1a208f3590c4c995f2f77857",
+      "disposition": "code-case",
+      "live_blocker": {
         "issue": 5,
         "reason": "Requires the authenticated native desktop broker or an explicitly selected isolated environment and an owned interaction/job target. Remaining native end-to-end checks are tracked in issue #5; no user desktop is actuated by this audit."
-      }
+      },
+      "fixtures": [
+        "tool-audit-browser.test.ts"
+      ],
+      "evidence_kind": "local-service"
     },
     {
       "name": "browser_reload",
       "schema_hash": "3789efe5eea204d8d3b364ea24bd684e4b517fbaca62cf3fa6c1d6d7cd23f842",
-      "disposition": "dependency-blocked",
-      "blocker": {
+      "disposition": "code-case",
+      "live_blocker": {
         "issue": 5,
         "reason": "Requires the authenticated native desktop broker or an explicitly selected isolated environment and an owned interaction/job target. Remaining native end-to-end checks are tracked in issue #5; no user desktop is actuated by this audit."
-      }
+      },
+      "fixtures": [
+        "tool-audit-browser.test.ts"
+      ],
+      "evidence_kind": "local-service"
     },
     {
       "name": "browser_run_script",
-      "schema_hash": "4fccf9778c65d8af05faeeee83706f4f12db86cc22cc440452b5e500285d27e5",
-      "disposition": "dependency-blocked",
-      "blocker": {
+      "schema_hash": "82d5c4f386cb28f65851350f501058888b8f735ee1e8ecb5c783142365f43b77",
+      "disposition": "code-case",
+      "live_blocker": {
         "issue": 5,
         "reason": "Requires the authenticated native desktop broker or an explicitly selected isolated environment and an owned interaction/job target. Remaining native end-to-end checks are tracked in issue #5; no user desktop is actuated by this audit."
-      }
+      },
+      "fixtures": [
+        "tool-audit-browser.test.ts"
+      ],
+      "evidence_kind": "local-service"
     },
     {
       "name": "browser_screenshot",
-      "schema_hash": "13ef961b527cfc74e4101917625c360c72c15e83d555ed1f1fd9b590be501cfc",
-      "disposition": "dependency-blocked",
-      "blocker": {
+      "schema_hash": "97ca48b5164a6456cf37346436c9feaf3cd51dab461ad4f762bb904a53f78bde",
+      "disposition": "code-case",
+      "live_blocker": {
         "issue": 5,
         "reason": "Requires the authenticated native desktop broker or an explicitly selected isolated environment and an owned interaction/job target. Remaining native end-to-end checks are tracked in issue #5; no user desktop is actuated by this audit."
-      }
+      },
+      "fixtures": [
+        "tool-audit-browser.test.ts"
+      ],
+      "evidence_kind": "local-service"
     },
     {
       "name": "browser_scroll",
-      "schema_hash": "27b1b6cf8ff38a17215e4c6849dec8f8be754c2bffd5b955c133096c4bf99fff",
+      "schema_hash": "d8a40f2fdd6cb278f6188c80d1013e883e6472d686237e0f30c3ad0b9fb32df5",
       "disposition": "code-case",
-      "evidence_kind": "code-contract",
+      "evidence_kind": "local-service",
       "fixtures": [
-        "browser-followup.test.ts"
+        "browser-followup.test.ts",
+        "tool-audit-browser.test.ts"
       ]
     },
     {
       "name": "browser_scroll_to",
       "schema_hash": "60d5bd38349c6422080de29214b8d4e7e6a4f4d2737dca2bad20e693e80307bd",
-      "disposition": "dependency-blocked",
-      "blocker": {
+      "disposition": "code-case",
+      "live_blocker": {
         "issue": 5,
         "reason": "Requires the authenticated native desktop broker or an explicitly selected isolated environment and an owned interaction/job target. Remaining native end-to-end checks are tracked in issue #5; no user desktop is actuated by this audit."
-      }
+      },
+      "fixtures": [
+        "tool-audit-browser.test.ts"
+      ],
+      "evidence_kind": "local-service"
     },
     {
       "name": "browser_select_option",
       "schema_hash": "e96721b028ed57362cb36a1c1bafa4e34b838ca5ac7eabd6957108a52ede9013",
-      "disposition": "dependency-blocked",
-      "blocker": {
+      "disposition": "code-case",
+      "live_blocker": {
         "issue": 5,
         "reason": "Requires the authenticated native desktop broker or an explicitly selected isolated environment and an owned interaction/job target. Remaining native end-to-end checks are tracked in issue #5; no user desktop is actuated by this audit."
-      }
+      },
+      "fixtures": [
+        "tool-audit-browser.test.ts"
+      ],
+      "evidence_kind": "local-service"
     },
     {
       "name": "browser_set_checked",
       "schema_hash": "32d4cbbac2ae06ebdb70fb3eee57bd53b522731971ce13ef62d41f5492e4e51b",
-      "disposition": "dependency-blocked",
-      "blocker": {
+      "disposition": "code-case",
+      "live_blocker": {
         "issue": 5,
         "reason": "Requires the authenticated native desktop broker or an explicitly selected isolated environment and an owned interaction/job target. Remaining native end-to-end checks are tracked in issue #5; no user desktop is actuated by this audit."
-      }
+      },
+      "fixtures": [
+        "tool-audit-browser.test.ts"
+      ],
+      "evidence_kind": "local-service"
     },
     {
       "name": "browser_site_call",
       "schema_hash": "e921d32ef7d0a80f45846e1a3b0259ee97310bd9d6341278ed61a64bae7428b0",
-      "disposition": "dependency-blocked",
-      "blocker": {
+      "disposition": "code-case",
+      "live_blocker": {
         "issue": 5,
         "reason": "Requires the authenticated native desktop broker or an explicitly selected isolated environment and an owned interaction/job target. Remaining native end-to-end checks are tracked in issue #5; no user desktop is actuated by this audit."
-      }
+      },
+      "fixtures": [
+        "tool-audit-browser.test.ts"
+      ],
+      "evidence_kind": "local-service"
     },
     {
       "name": "browser_site_tools",
       "schema_hash": "3789efe5eea204d8d3b364ea24bd684e4b517fbaca62cf3fa6c1d6d7cd23f842",
-      "disposition": "dependency-blocked",
-      "blocker": {
+      "disposition": "code-case",
+      "live_blocker": {
         "issue": 5,
         "reason": "Requires the authenticated native desktop broker or an explicitly selected isolated environment and an owned interaction/job target. Remaining native end-to-end checks are tracked in issue #5; no user desktop is actuated by this audit."
-      }
+      },
+      "fixtures": [
+        "tool-audit-browser.test.ts"
+      ],
+      "evidence_kind": "local-service"
     },
     {
       "name": "browser_snapshot",
       "schema_hash": "3789efe5eea204d8d3b364ea24bd684e4b517fbaca62cf3fa6c1d6d7cd23f842",
-      "disposition": "dependency-blocked",
-      "blocker": {
+      "disposition": "code-case",
+      "live_blocker": {
         "issue": 5,
         "reason": "Requires the authenticated native desktop broker or an explicitly selected isolated environment and an owned interaction/job target. Remaining native end-to-end checks are tracked in issue #5; no user desktop is actuated by this audit."
-      }
+      },
+      "fixtures": [
+        "tool-audit-browser.test.ts"
+      ],
+      "evidence_kind": "local-service"
     },
     {
       "name": "browser_switch_tab",
       "schema_hash": "3789efe5eea204d8d3b364ea24bd684e4b517fbaca62cf3fa6c1d6d7cd23f842",
-      "disposition": "dependency-blocked",
-      "blocker": {
+      "disposition": "code-case",
+      "live_blocker": {
         "issue": 5,
         "reason": "Requires the authenticated native desktop broker or an explicitly selected isolated environment and an owned interaction/job target. Remaining native end-to-end checks are tracked in issue #5; no user desktop is actuated by this audit."
-      }
+      },
+      "fixtures": [
+        "tool-audit-browser.test.ts"
+      ],
+      "evidence_kind": "local-service"
     },
     {
       "name": "browser_tabs",
-      "schema_hash": "b1e1f5d90f2b49a67d84293bbe66b07268a34fac072e359359105447e97e8d25",
+      "schema_hash": "e32246cac9cb1970ad8bff47281ce713cf69851acee19b2f41a5a3011c18f6ae",
       "disposition": "code-case",
-      "evidence_kind": "code-contract",
+      "evidence_kind": "local-service",
       "fixtures": [
-        "tool-categories.test.ts"
+        "tool-categories.test.ts",
+        "tool-audit-browser.test.ts"
       ]
     },
     {
       "name": "browser_type",
       "schema_hash": "bb444f4e2eff69b328f04a1dfdf252e83700fda764d53a3e580f2c7f8fa28004",
-      "disposition": "dependency-blocked",
-      "blocker": {
+      "disposition": "code-case",
+      "live_blocker": {
         "issue": 5,
         "reason": "Requires the authenticated native desktop broker or an explicitly selected isolated environment and an owned interaction/job target. Remaining native end-to-end checks are tracked in issue #5; no user desktop is actuated by this audit."
-      }
+      },
+      "fixtures": [
+        "tool-audit-browser.test.ts"
+      ],
+      "evidence_kind": "local-service"
     },
     {
       "name": "browser_upload",
       "schema_hash": "fbb46dc3ce42933c9850cdef5651c3306d897e9db72f77e5b750c838f627f310",
-      "disposition": "dependency-blocked",
-      "blocker": {
+      "disposition": "code-case",
+      "live_blocker": {
         "issue": 5,
         "reason": "Requires the authenticated native desktop broker or an explicitly selected isolated environment and an owned interaction/job target. Remaining native end-to-end checks are tracked in issue #5; no user desktop is actuated by this audit."
-      }
+      },
+      "fixtures": [
+        "tool-audit-browser.test.ts"
+      ],
+      "evidence_kind": "local-service"
     },
     {
       "name": "browser_wait_for",
-      "schema_hash": "b39bc41c66b7e76091947d005ed986731b72d220714c02c562b0a9ce1abc4c8b",
-      "disposition": "dependency-blocked",
-      "blocker": {
+      "schema_hash": "26b926e89fe2c1de01ff0c2498903cca887139ed0905306dc8fd67951d774ba6",
+      "disposition": "code-case",
+      "live_blocker": {
         "issue": 5,
         "reason": "Requires the authenticated native desktop broker or an explicitly selected isolated environment and an owned interaction/job target. Remaining native end-to-end checks are tracked in issue #5; no user desktop is actuated by this audit."
-      }
+      },
+      "fixtures": [
+        "tool-audit-browser.test.ts"
+      ],
+      "evidence_kind": "local-service"
     },
     {
       "name": "browser_wait_for_element",
-      "schema_hash": "96b8381b7409738e60a508fcd568c8bb47881b6226b7d3c6a392b034491d58d4",
-      "disposition": "dependency-blocked",
-      "blocker": {
+      "schema_hash": "1246325e81df93ea0c1e7dbfc20c668b7e8c09f1e44b36549dab1fb8e79c7685",
+      "disposition": "code-case",
+      "live_blocker": {
         "issue": 5,
         "reason": "Requires the authenticated native desktop broker or an explicitly selected isolated environment and an owned interaction/job target. Remaining native end-to-end checks are tracked in issue #5; no user desktop is actuated by this audit."
-      }
+      },
+      "fixtures": [
+        "tool-audit-browser.test.ts"
+      ],
+      "evidence_kind": "local-service"
     },
     {
       "name": "browser_zoom",
       "schema_hash": "8ed9423300985a0112b0a11199664f66467ec5d18953fdf225c2f32b0ff3761b",
-      "disposition": "dependency-blocked",
-      "blocker": {
+      "disposition": "code-case",
+      "live_blocker": {
         "issue": 5,
         "reason": "Requires the authenticated native desktop broker or an explicitly selected isolated environment and an owned interaction/job target. Remaining native end-to-end checks are tracked in issue #5; no user desktop is actuated by this audit."
-      }
+      },
+      "fixtures": [
+        "tool-audit-browser.test.ts"
+      ],
+      "evidence_kind": "local-service"
     },
     {
       "name": "calculate",
       "schema_hash": "06a7eebf74675b624b8bf8956bf84540dd4670f73492f618c841a8522bf673dc",
       "disposition": "code-case",
-      "evidence_kind": "code-contract",
+      "evidence_kind": "local-service",
       "fixtures": [
         "agent.test.ts",
         "issue4-local-workflows.test.ts",
@@ -810,12 +1012,13 @@
         "self-extension.test.ts",
         "tool-circuit-breaker.test.ts",
         "tool-gateway.test.ts",
-        "tools.test.ts"
+        "tools.test.ts",
+        "native-call-repair.test.ts"
       ]
     },
     {
       "name": "chart_create",
-      "schema_hash": "0ebd6e1f1901ec389edbbe186d794ecf3527c4b9c002c4cf26ede918009f6d46",
+      "schema_hash": "8ec32ecb70c3d58f54ec07f07680925eb625de1554182f477cc02ac03b80bea8",
       "disposition": "code-case",
       "evidence_kind": "local-service",
       "fixtures": [
@@ -825,9 +1028,9 @@
     },
     {
       "name": "chat_history_read",
-      "schema_hash": "a16eaebd5fa9dde75243a5615a8c6f2db30f1a530afa611bdd71be5f2e4fbbce",
+      "schema_hash": "babd310b51641d5b8295af306989413ce29e8f1f7f2c6440b884060d4c3c73ce",
       "disposition": "code-case",
-      "evidence_kind": "code-contract",
+      "evidence_kind": "local-service",
       "fixtures": [
         "issue4-local-workflows.test.ts",
         "profile-memory.test.ts"
@@ -835,9 +1038,9 @@
     },
     {
       "name": "chat_history_search",
-      "schema_hash": "2f76896e81fb7cb0f3df226f6047218d198bea5bfb9a77bfde81e24854c960cb",
+      "schema_hash": "7a4129ed5aee09597dfcac21ad4027ca568430799a8941ff429216277fda383c",
       "disposition": "code-case",
-      "evidence_kind": "code-contract",
+      "evidence_kind": "local-service",
       "fixtures": [
         "issue4-local-workflows.test.ts",
         "profile-memory.test.ts"
@@ -847,15 +1050,16 @@
       "name": "clock_now",
       "schema_hash": "957063b0cbe561b9691cabccd8d60be23b46763a399191d946ebdd0186b1885e",
       "disposition": "code-case",
-      "evidence_kind": "code-contract",
+      "evidence_kind": "local-service",
       "fixtures": [
         "issue4-local-workflows.test.ts",
-        "tool-recovery.test.ts"
+        "tool-recovery.test.ts",
+        "native-call-repair.test.ts"
       ]
     },
     {
       "name": "code",
-      "schema_hash": "9595bfb47fe7546686c00b43edb977ada040e68390a7c212ce208feae463f47a",
+      "schema_hash": "b67bb9179c7e24075955388a267691d441f7be06d3099bfb9d84a0586be3406c",
       "disposition": "code-case",
       "evidence_kind": "code-contract",
       "fixtures": [
@@ -864,43 +1068,56 @@
     },
     {
       "name": "code_format",
-      "schema_hash": "959fe9c3196879f26d2bdc94a20313ff5cce3f8be6d6d32b6b65a23fea47b4a6",
-      "disposition": "dependency-blocked",
-      "blocker": {
+      "schema_hash": "4634b65889cd245e9a9d98eda9099d1d8cb88531225f0bded11e5fd7e03060c4",
+      "disposition": "code-case",
+      "live_blocker": {
         "issue": 5,
         "reason": "Requires the authenticated native desktop broker or an explicitly selected isolated environment and an owned interaction/job target. Remaining native end-to-end checks are tracked in issue #5; no user desktop is actuated by this audit."
-      }
+      },
+      "fixtures": [
+        "tool-audit-coding.test.ts"
+      ],
+      "evidence_kind": "local-service"
     },
     {
       "name": "code_lint",
-      "schema_hash": "ccc7552a619cc6e6b379eb2ea27b4b37d24074a31b1f886e810f13bce64bad6a",
-      "disposition": "dependency-blocked",
-      "blocker": {
+      "schema_hash": "8f3fd17bcb7bce98ab941b54d6600aaeb5b21d901c1f60803340efa0a3c66364",
+      "disposition": "code-case",
+      "live_blocker": {
         "issue": 5,
         "reason": "Requires the authenticated native desktop broker or an explicitly selected isolated environment and an owned interaction/job target. Remaining native end-to-end checks are tracked in issue #5; no user desktop is actuated by this audit."
-      }
+      },
+      "fixtures": [
+        "tool-audit-coding.test.ts"
+      ],
+      "evidence_kind": "local-service"
     },
     {
       "name": "code_search",
-      "schema_hash": "3abf465d6588370b9e483f01213d200116f1d2709cd58592e12d324e099c0653",
+      "schema_hash": "2103db621ce142005d380e3cd24f4718603090e8f6422d9032a9099b358f28e6",
       "disposition": "code-case",
-      "evidence_kind": "code-contract",
+      "evidence_kind": "local-service",
       "fixtures": [
         "issue4-local-workflows.test.ts"
       ]
     },
     {
       "name": "code_test",
-      "schema_hash": "af0be7004ac0c0af76d1b626cf8d4b85ce0dc2fcc89249e636008a6ebc6b47fa",
-      "disposition": "dependency-blocked",
-      "blocker": {
+      "schema_hash": "4057fb3954caedbf81d5ce447ce5033fa5a23fff0c89ad8340a65b0d026ec5f8",
+      "disposition": "code-case",
+      "live_blocker": {
         "issue": 5,
         "reason": "Requires the authenticated native desktop broker or an explicitly selected isolated environment and an owned interaction/job target. Remaining native end-to-end checks are tracked in issue #5; no user desktop is actuated by this audit."
-      }
+      },
+      "fixtures": [
+        "tool-audit-coding.test.ts",
+        "tool-audit-shell-dialect.test.ts"
+      ],
+      "evidence_kind": "local-service"
     },
     {
       "name": "computer",
-      "schema_hash": "814874393c921876a394321f3e8290fac6532db3f4c4945ee1721908f47bae85",
+      "schema_hash": "1deb72330fb227b570793f8372ed2192c9b39148e33bd6c52b8da1098f52270c",
       "disposition": "code-case",
       "evidence_kind": "code-contract",
       "fixtures": [
@@ -918,7 +1135,7 @@
     },
     {
       "name": "computer_click",
-      "schema_hash": "218690890a7dcf0358b677060a0bc1b4927c088412ad59be11a383c9c69da55a",
+      "schema_hash": "d702a5ddde8612c33b2b81a6c303382c110103ab6a290dcff591c9d2ac278f16",
       "disposition": "dependency-blocked",
       "blocker": {
         "issue": 5,
@@ -945,7 +1162,7 @@
     },
     {
       "name": "computer_drag",
-      "schema_hash": "edbb6410074fa8d962f1ea652d4776c347ccf798bae88fae22b750e0834e3731",
+      "schema_hash": "db6b3fdadabfe5025765a725d42618aef5aa9f16b4a867148955a31b05dfee4d",
       "disposition": "dependency-blocked",
       "blocker": {
         "issue": 5,
@@ -963,12 +1180,16 @@
     },
     {
       "name": "computer_history",
-      "schema_hash": "c35a48d7f43e9c4f4658fae46ff5d135f15018ceb465ee4b3801a79aebd43d2f",
-      "disposition": "dependency-blocked",
-      "blocker": {
+      "schema_hash": "6bfbcfa7df146e92ecd53b2651156fb07f785d95b10901aa418d1c269a68bc79",
+      "disposition": "code-case",
+      "live_blocker": {
         "issue": 5,
         "reason": "Requires the authenticated native desktop broker or an explicitly selected isolated environment and an owned interaction/job target. Remaining native end-to-end checks are tracked in issue #5; no user desktop is actuated by this audit."
-      }
+      },
+      "fixtures": [
+        "tool-audit-prerequisites.test.ts"
+      ],
+      "evidence_kind": "code-contract"
     },
     {
       "name": "computer_key",
@@ -990,7 +1211,7 @@
     },
     {
       "name": "computer_open_application",
-      "schema_hash": "56aa7d5b6c0a3bca23dbb86003380a53e783d96975094702d2c4fbe063c37165",
+      "schema_hash": "896c35906312e1dcd9771daf41ef6cd24e6d8d7338f03126d7644714b0ebb075",
       "disposition": "dependency-blocked",
       "blocker": {
         "issue": 5,
@@ -999,7 +1220,7 @@
     },
     {
       "name": "computer_pointer",
-      "schema_hash": "8a59302a7fe9f23d6908005b0cc90d53033935d6f0b780ca61f41b2344d7c446",
+      "schema_hash": "3d5bd658d200119d5b1aa2dc570570b019c6d8ec3a5b7c5f3b7a41bc00e2c115",
       "disposition": "dependency-blocked",
       "blocker": {
         "issue": 5,
@@ -1044,7 +1265,7 @@
     },
     {
       "name": "computer_ui_tree",
-      "schema_hash": "1a5984bfa3c817c674a468d3fedb1408352e477c01b2c1732f9c2818913dc33a",
+      "schema_hash": "ee71a383ea8b7f02a0b0aa63e56beefb642e2ac0c09e2fa02cd3a9352afa18bf",
       "disposition": "dependency-blocked",
       "blocker": {
         "issue": 5,
@@ -1053,7 +1274,7 @@
     },
     {
       "name": "computer_wait",
-      "schema_hash": "23793ea88b456d3f5f434ccd2af39837a07f68c476e299b1f6ef24cc8ca648c3",
+      "schema_hash": "537a6a7aac24abf2df1b3be5ccba94a7d219c3d5929b363060c7c07126e63bc4",
       "disposition": "dependency-blocked",
       "blocker": {
         "issue": 5,
@@ -1098,9 +1319,9 @@
     },
     {
       "name": "conversation_read",
-      "schema_hash": "ae1532c4c7e659a0f7158a6951a9148f7aa370330891c3a4b2407fcb52f4914b",
+      "schema_hash": "5937891d7e9ea79ad0ef98db668b78eba2af33bdc2fb48cc600d3b8c74ec6873",
       "disposition": "code-case",
-      "evidence_kind": "code-contract",
+      "evidence_kind": "local-service",
       "fixtures": [
         "context.test.ts",
         "issue4-local-workflows.test.ts"
@@ -1108,18 +1329,18 @@
     },
     {
       "name": "conversation_search",
-      "schema_hash": "babce51093095281679d044dc4d888fa21504216ec6482a42a84c9cd2f74ae1d",
+      "schema_hash": "366d812590376db79df451ebbeebff4db19cd8def4fec7a4afdcec3064ea585a",
       "disposition": "code-case",
-      "evidence_kind": "code-contract",
+      "evidence_kind": "local-service",
       "fixtures": [
         "issue4-local-workflows.test.ts"
       ]
     },
     {
       "name": "custom_tool_create",
-      "schema_hash": "8ed01d9ceebbe57771a98d523080c6907057e92bf4fe7d28a72a5ab2d5efb07c",
+      "schema_hash": "d9eccb0e0396a31179223b7c7c10e30a370db3a6490b5a44eaab086de824f8b6",
       "disposition": "code-case",
-      "evidence_kind": "code-contract",
+      "evidence_kind": "local-service",
       "fixtures": [
         "issue4-local-workflows.test.ts",
         "self-extension.test.ts"
@@ -1129,23 +1350,23 @@
       "name": "custom_tool_delete",
       "schema_hash": "04aba2cb9ac9b172027aef30819350b8cd21d152bf48c50af2e54b716bfff249",
       "disposition": "code-case",
-      "evidence_kind": "code-contract",
+      "evidence_kind": "local-service",
       "fixtures": [
         "issue4-local-workflows.test.ts"
       ]
     },
     {
       "name": "custom_tool_list",
-      "schema_hash": "91ab4a36d82a700b3fb06c10d6f2992d4c99b996cab08ee073fa202342be5dd2",
+      "schema_hash": "419dab0be0695b93513d3aab9f2430c936f7f890a513e8804729ab5eab587607",
       "disposition": "code-case",
-      "evidence_kind": "code-contract",
+      "evidence_kind": "local-service",
       "fixtures": [
         "issue4-local-workflows.test.ts"
       ]
     },
     {
       "name": "data",
-      "schema_hash": "4ed0dd0a6bd81382e6198a8cba53208c01465f0a393b59d32b484a24ef8cf5bf",
+      "schema_hash": "eb94fa72421a4b4dd0f354c920dda9ef696821cae08f5616cc3a5a0ea1b39b93",
       "disposition": "code-case",
       "evidence_kind": "code-contract",
       "fixtures": [
@@ -1157,7 +1378,7 @@
       "name": "data_aggregate",
       "schema_hash": "bf408617d2f9e269f073e80885c01c6a488e925f53448030797e8a7e9bbcf32a",
       "disposition": "code-case",
-      "evidence_kind": "code-contract",
+      "evidence_kind": "local-service",
       "fixtures": [
         "data-tools.test.ts",
         "issue4-local-workflows.test.ts"
@@ -1167,16 +1388,16 @@
       "name": "data_calculate",
       "schema_hash": "06a7eebf74675b624b8bf8956bf84540dd4670f73492f618c841a8522bf673dc",
       "disposition": "code-case",
-      "evidence_kind": "code-contract",
+      "evidence_kind": "local-service",
       "fixtures": [
         "issue4-local-workflows.test.ts"
       ]
     },
     {
       "name": "data_clean",
-      "schema_hash": "2fbe01c8ab6c0c62eeb2032211fb4577e6848feb48b23e7cdbc746bf3e42e753",
+      "schema_hash": "dae88363e3254935535afd64e5b4b6b724bdad03380bd2473e8060406a941136",
       "disposition": "code-case",
-      "evidence_kind": "code-contract",
+      "evidence_kind": "local-service",
       "fixtures": [
         "issue4-local-workflows.test.ts"
       ]
@@ -1185,7 +1406,7 @@
       "name": "data_convert",
       "schema_hash": "10d8b11accc770fbd4d1b1c959cbe6c4acbfab36b6c8f5e9e2e5a591f83ff40a",
       "disposition": "code-case",
-      "evidence_kind": "code-contract",
+      "evidence_kind": "local-service",
       "fixtures": [
         "issue4-local-workflows.test.ts"
       ]
@@ -1194,7 +1415,7 @@
       "name": "data_filter",
       "schema_hash": "b9c81a98edeb656b2166e5ba778d1edf59a9e9658581681de8f29bb6c08c9d15",
       "disposition": "code-case",
-      "evidence_kind": "code-contract",
+      "evidence_kind": "local-service",
       "fixtures": [
         "data-tools.test.ts",
         "issue4-local-workflows.test.ts"
@@ -1202,9 +1423,9 @@
     },
     {
       "name": "data_join",
-      "schema_hash": "f36fcad58faf1149c6dbd02df02896daaa251451d408121c5209c1ad22683d40",
+      "schema_hash": "31d88ca13ed1efd68b08d44e39313ccaf6a7beb7f0738ebc9b89824a612238cd",
       "disposition": "code-case",
-      "evidence_kind": "code-contract",
+      "evidence_kind": "local-service",
       "fixtures": [
         "issue4-local-workflows.test.ts"
       ]
@@ -1213,7 +1434,7 @@
       "name": "data_read_csv",
       "schema_hash": "1d6f37e22246627d1b6ae43efd1d97ea8f2598347101be640a03b60917429807",
       "disposition": "code-case",
-      "evidence_kind": "code-contract",
+      "evidence_kind": "local-service",
       "fixtures": [
         "data-tools.test.ts",
         "issue4-local-workflows.test.ts"
@@ -1223,7 +1444,7 @@
       "name": "data_read_json",
       "schema_hash": "1d6f37e22246627d1b6ae43efd1d97ea8f2598347101be640a03b60917429807",
       "disposition": "code-case",
-      "evidence_kind": "code-contract",
+      "evidence_kind": "local-service",
       "fixtures": [
         "data-tools.test.ts",
         "issue4-local-workflows.test.ts"
@@ -1231,9 +1452,9 @@
     },
     {
       "name": "data_sort",
-      "schema_hash": "6e228ab8a9414a9b7b3a628c1afd9eae25be719bbd89ad668011d3e6e4426414",
+      "schema_hash": "a67c4995ff2f2333b14a10a61c4a9fff1019e7fd4fd666b9e8f7b9b028346f22",
       "disposition": "code-case",
-      "evidence_kind": "code-contract",
+      "evidence_kind": "local-service",
       "fixtures": [
         "data-tools.test.ts",
         "issue4-local-workflows.test.ts"
@@ -1241,9 +1462,9 @@
     },
     {
       "name": "data_validate",
-      "schema_hash": "445153eb52e68fee9e38923c7a7e46b02ddca64ff96c993f0b8a3f2752c2ae80",
+      "schema_hash": "9022690e9dddd6ba84f6b5b81c86f0b694c8607b0b105e66475c9c4048a099ae",
       "disposition": "code-case",
-      "evidence_kind": "code-contract",
+      "evidence_kind": "local-service",
       "fixtures": [
         "issue4-local-workflows.test.ts"
       ]
@@ -1252,7 +1473,7 @@
       "name": "data_write_csv",
       "schema_hash": "6a873394c57cceaf6f8ecf72209b3ee268a2bb0c9f9f4c00899772c4e3605dae",
       "disposition": "code-case",
-      "evidence_kind": "code-contract",
+      "evidence_kind": "local-service",
       "fixtures": [
         "data-tools.test.ts",
         "issue4-local-workflows.test.ts"
@@ -1262,7 +1483,7 @@
       "name": "data_write_json",
       "schema_hash": "ba777c5aeef96489f4d0d9e8a31062df6ba5fa9c24a71c28b2c9e378b76b8efe",
       "disposition": "code-case",
-      "evidence_kind": "code-contract",
+      "evidence_kind": "local-service",
       "fixtures": [
         "data-tools.test.ts",
         "issue4-local-workflows.test.ts"
@@ -1270,7 +1491,7 @@
     },
     {
       "name": "database",
-      "schema_hash": "a59a4620dbd1f68ed64f734fd672c108b9b67167cdd9d6fe37e040d7ccfb48c7",
+      "schema_hash": "b1126abbd11884f108e5cd4a6ffc7fd7f5d4e47026ac77061c13eeb15c727f95",
       "disposition": "category",
       "members": [
         "database_execute",
@@ -1282,18 +1503,18 @@
     },
     {
       "name": "database_execute",
-      "schema_hash": "47d35410341771f279707a20fa8ed1b2c9ce0d12333d53f9ed15128c7d8ab7b8",
+      "schema_hash": "f1d39bfdaef7cd39ffba385390122ea474a61df856fa5da62948d603d3f4e1b0",
       "disposition": "code-case",
-      "evidence_kind": "code-contract",
+      "evidence_kind": "local-service",
       "fixtures": [
         "issue4-local-workflows.test.ts"
       ]
     },
     {
       "name": "database_search",
-      "schema_hash": "4bc3e59d57cf1840a890ccaf0fd6eb2f7f8b1a0f6ae640556cccfdc55330b5f5",
+      "schema_hash": "767ca5c32afd63ed236828c2f535001c0202bcd6b422b822c39080b8b202b47d",
       "disposition": "code-case",
-      "evidence_kind": "code-contract",
+      "evidence_kind": "local-service",
       "fixtures": [
         "issue4-local-workflows.test.ts"
       ]
@@ -1302,14 +1523,14 @@
       "name": "diagnostics_status",
       "schema_hash": "25c7d85c859a6f78f6f4e83edf2d3073645b7c71d2832348387882a6833b1834",
       "disposition": "code-case",
-      "evidence_kind": "code-contract",
+      "evidence_kind": "local-service",
       "fixtures": [
         "issue4-local-workflows.test.ts"
       ]
     },
     {
       "name": "directory",
-      "schema_hash": "89937164cec7e149018f77f1b99b1294552eb4ebeef39ae3cbf56e668a8ad407",
+      "schema_hash": "739bc93aee89ffa6e9c1ea2a29519ee0327448b2bea45464d60dcae1deb24fb0",
       "disposition": "code-case",
       "evidence_kind": "code-contract",
       "fixtures": [
@@ -1321,7 +1542,7 @@
       "name": "directory_copy",
       "schema_hash": "1cf167cd72bc48e1692a3780612cd2665d618692bdeed7c9fa16a460677a5931",
       "disposition": "code-case",
-      "evidence_kind": "code-contract",
+      "evidence_kind": "local-service",
       "fixtures": [
         "issue4-local-workflows.test.ts"
       ]
@@ -1330,26 +1551,27 @@
       "name": "directory_create",
       "schema_hash": "1d6f37e22246627d1b6ae43efd1d97ea8f2598347101be640a03b60917429807",
       "disposition": "code-case",
-      "evidence_kind": "code-contract",
+      "evidence_kind": "local-service",
       "fixtures": [
         "extended-files.test.ts",
-        "issue4-local-workflows.test.ts"
+        "issue4-local-workflows.test.ts",
+        "tool-audit-coding.test.ts"
       ]
     },
     {
       "name": "directory_delete",
       "schema_hash": "1d6f37e22246627d1b6ae43efd1d97ea8f2598347101be640a03b60917429807",
       "disposition": "code-case",
-      "evidence_kind": "code-contract",
+      "evidence_kind": "local-service",
       "fixtures": [
         "issue4-local-workflows.test.ts"
       ]
     },
     {
       "name": "directory_list",
-      "schema_hash": "d2e6963b6fed6341dc521144aa308ae16cd1136bc4637ee02f4ddfcfcf771c79",
+      "schema_hash": "02a258e213435095291727598c51b7c944be96dea3e5b04a0854f1a28e73aea9",
       "disposition": "code-case",
-      "evidence_kind": "code-contract",
+      "evidence_kind": "local-service",
       "fixtures": [
         "issue4-local-workflows.test.ts"
       ]
@@ -1358,14 +1580,14 @@
       "name": "directory_move",
       "schema_hash": "1cf167cd72bc48e1692a3780612cd2665d618692bdeed7c9fa16a460677a5931",
       "disposition": "code-case",
-      "evidence_kind": "code-contract",
+      "evidence_kind": "local-service",
       "fixtures": [
         "issue4-local-workflows.test.ts"
       ]
     },
     {
       "name": "discover_tools",
-      "schema_hash": "e5d7fbb2f57279b4d6d60194c2cbd59607f9f2e4d03fce1dd6a09802410ccc54",
+      "schema_hash": "6b3f976729ff7b2017a3ef9025ccdede1d55f8ebe302bf3cbb1cf8421a0cedb7",
       "disposition": "code-case",
       "evidence_kind": "code-contract",
       "fixtures": [
@@ -1379,16 +1601,18 @@
       "disposition": "code-case",
       "evidence_kind": "local-service",
       "fixtures": [
-        "issue4-document-workflows.test.ts"
+        "issue4-document-workflows.test.ts",
+        "issue6-delivery.test.ts"
       ]
     },
     {
       "name": "document_edit",
-      "schema_hash": "d15723b697bb0187b8dc5d9a0a571bf1d8c460f86c4d6e79c8635c75b6b80345",
+      "schema_hash": "30c0276b8caef4f28c663746625647deee1c048fead33d2c16abec73a7f83a40",
       "disposition": "code-case",
       "evidence_kind": "local-service",
       "fixtures": [
-        "issue4-document-workflows.test.ts"
+        "issue4-document-workflows.test.ts",
+        "issue6-delivery.test.ts"
       ]
     },
     {
@@ -1397,12 +1621,13 @@
       "disposition": "code-case",
       "evidence_kind": "local-service",
       "fixtures": [
-        "issue4-document-workflows.test.ts"
+        "issue4-document-workflows.test.ts",
+        "issue6-delivery.test.ts"
       ]
     },
     {
       "name": "document_inspect",
-      "schema_hash": "adcdb6bf20692a8bb9ee63bbcbdc6797537b09e4776a0db14c992b5bbe3fc995",
+      "schema_hash": "559d4dabc400e95660ff4ffe4d268ff74648144a119edf84c7dd1d030dfe4487",
       "disposition": "code-case",
       "evidence_kind": "local-service",
       "fixtures": [
@@ -1411,7 +1636,7 @@
     },
     {
       "name": "document_ocr",
-      "schema_hash": "2a374007cd19f866a49f7f58ee40ee67e6662aafc04d00b33ca9116d5a768d38",
+      "schema_hash": "236408660b68fe560e3385c81897dc1d255c4beb226ee2dc69a6ac8cc80eea6c",
       "disposition": "dependency-blocked",
       "blocker": {
         "issue": 6,
@@ -1429,7 +1654,7 @@
     },
     {
       "name": "documents",
-      "schema_hash": "eb1b0887fbf298156a0f6b0df4c9585e417346bb354a6fb604f1dbb1462410c7",
+      "schema_hash": "8c46bbd76df045dd8416a33f25d2f269e829f8fb979b737c6ddb5635a2f8d5cc",
       "disposition": "category",
       "members": [
         "document_create",
@@ -1443,15 +1668,19 @@
     {
       "name": "environment_sync",
       "schema_hash": "5ed76325334b51f76ba203ff9332e4d58c6d58e3cdb4daa1beb27809b14d97af",
-      "disposition": "dependency-blocked",
-      "blocker": {
+      "disposition": "code-case",
+      "live_blocker": {
         "issue": 8,
         "reason": "Requires a provisioned, explicitly selected execution environment with persistent sessions/workspace RPC. The optional prepared sandbox was not enabled; issue #8 owns that service verification. Host execution is not substituted."
-      }
+      },
+      "fixtures": [
+        "tool-audit-skill-sync.test.ts"
+      ],
+      "evidence_kind": "code-contract"
     },
     {
       "name": "file",
-      "schema_hash": "aa169ceb2cf51a874416c1eb554afe30544bcbe639f9b5eb0973d7ced9d5716b",
+      "schema_hash": "2e5994ef09825d9b686651288a57d8d09cfd1b887fccbe0816768e0629322792",
       "disposition": "code-case",
       "evidence_kind": "code-contract",
       "fixtures": [
@@ -1464,7 +1693,7 @@
       "name": "files_append",
       "schema_hash": "75d1bb62dbf0067e6090214304d0f96d3886717e6cd2548932093c0fb0add6ca",
       "disposition": "code-case",
-      "evidence_kind": "code-contract",
+      "evidence_kind": "local-service",
       "fixtures": [
         "extended-files.test.ts",
         "issue4-local-workflows.test.ts"
@@ -1483,7 +1712,7 @@
       "name": "files_batch_edit",
       "schema_hash": "4cf182b358c5dfd6cc359c70d76fb7267da096c45291753ae58abebd8c897d5b",
       "disposition": "code-case",
-      "evidence_kind": "code-contract",
+      "evidence_kind": "local-service",
       "fixtures": [
         "issue4-local-workflows.test.ts"
       ]
@@ -1492,7 +1721,7 @@
       "name": "files_compare",
       "schema_hash": "ffc1bfed556bb68e85f997b7f96d008705a96425ef16a09f8c5a512ffed4c117",
       "disposition": "code-case",
-      "evidence_kind": "code-contract",
+      "evidence_kind": "local-service",
       "fixtures": [
         "extended-files.test.ts",
         "issue4-local-workflows.test.ts"
@@ -1502,7 +1731,7 @@
       "name": "files_compare_versions",
       "schema_hash": "01a1bb4ae1fe163a3e50050ffc146ab84733b8f47f42a52a82a6e6c6955e150a",
       "disposition": "code-case",
-      "evidence_kind": "code-contract",
+      "evidence_kind": "local-service",
       "fixtures": [
         "issue4-local-workflows.test.ts"
       ]
@@ -1511,7 +1740,7 @@
       "name": "files_copy",
       "schema_hash": "1cf167cd72bc48e1692a3780612cd2665d618692bdeed7c9fa16a460677a5931",
       "disposition": "code-case",
-      "evidence_kind": "code-contract",
+      "evidence_kind": "local-service",
       "fixtures": [
         "extended-files.test.ts",
         "issue4-local-workflows.test.ts"
@@ -1521,7 +1750,7 @@
       "name": "files_delete",
       "schema_hash": "1d6f37e22246627d1b6ae43efd1d97ea8f2598347101be640a03b60917429807",
       "disposition": "code-case",
-      "evidence_kind": "code-contract",
+      "evidence_kind": "local-service",
       "fixtures": [
         "issue4-local-workflows.test.ts"
       ]
@@ -1530,25 +1759,25 @@
       "name": "files_detect_type",
       "schema_hash": "1d6f37e22246627d1b6ae43efd1d97ea8f2598347101be640a03b60917429807",
       "disposition": "code-case",
-      "evidence_kind": "code-contract",
+      "evidence_kind": "local-service",
       "fixtures": [
         "issue4-local-workflows.test.ts"
       ]
     },
     {
       "name": "files_hash",
-      "schema_hash": "6d3823a81e1bfb1c895f44ffbcf734f476b5e76188e32336adc4b27dc51bdd12",
+      "schema_hash": "705a4663f2ddb1e15a07f516b27e51972a585ee4a6ccd4a015eeb476c4dcd47e",
       "disposition": "code-case",
-      "evidence_kind": "code-contract",
+      "evidence_kind": "local-service",
       "fixtures": [
         "issue4-local-workflows.test.ts"
       ]
     },
     {
       "name": "files_list",
-      "schema_hash": "327c2b85e5222fd4b34b4bc12667cc5a46fc36f931dd201cc9e6811856ca1b83",
+      "schema_hash": "4351ea102d5c7eaae2883f4880a06a1036f849225bc57b01027eafa51c35ea4e",
       "disposition": "code-case",
-      "evidence_kind": "code-contract",
+      "evidence_kind": "local-service",
       "fixtures": [
         "issue4-local-workflows.test.ts"
       ]
@@ -1557,7 +1786,7 @@
       "name": "files_metadata",
       "schema_hash": "1d6f37e22246627d1b6ae43efd1d97ea8f2598347101be640a03b60917429807",
       "disposition": "code-case",
-      "evidence_kind": "code-contract",
+      "evidence_kind": "local-service",
       "fixtures": [
         "issue4-local-workflows.test.ts"
       ]
@@ -1566,35 +1795,37 @@
       "name": "files_move",
       "schema_hash": "1cf167cd72bc48e1692a3780612cd2665d618692bdeed7c9fa16a460677a5931",
       "disposition": "code-case",
-      "evidence_kind": "code-contract",
+      "evidence_kind": "local-service",
       "fixtures": [
         "issue4-local-workflows.test.ts"
       ]
     },
     {
       "name": "files_patch",
-      "schema_hash": "79ed300ca96df3e00008c401f9c466f693df789e15a62247400427dad2900c02",
+      "schema_hash": "5dc6371d2575332195507e2fd3d84994d70207211406ec8cc76c503492088d5a",
       "disposition": "code-case",
-      "evidence_kind": "code-contract",
+      "evidence_kind": "local-service",
       "fixtures": [
-        "issue4-local-workflows.test.ts"
+        "issue4-local-workflows.test.ts",
+        "conversation-workflow-reliability.test.ts"
       ]
     },
     {
       "name": "files_read",
-      "schema_hash": "ce190ff05cd28ae5105ad4d1a5f4dfa7949e0b17aa6db5ddba6a1fd6f0837bc4",
+      "schema_hash": "863b95b39923b267a575cd784e5a5b1aa58a5126c5b4a31a129e8ecde3f60be6",
       "disposition": "code-case",
-      "evidence_kind": "code-contract",
+      "evidence_kind": "local-service",
       "fixtures": [
         "extended-files.test.ts",
-        "issue4-local-workflows.test.ts"
+        "issue4-local-workflows.test.ts",
+        "tool-audit-coding.test.ts"
       ]
     },
     {
       "name": "files_read_range",
-      "schema_hash": "86ed53280ef6834a7df9d9b04fae4bb8f91df6f9a6cc691db53b916fe93674cd",
+      "schema_hash": "d45d0933d5f51d3f2990a3dc05ac48421104a8e09e8501ce0ce4dd47d11f7a1c",
       "disposition": "code-case",
-      "evidence_kind": "code-contract",
+      "evidence_kind": "local-service",
       "fixtures": [
         "issue4-local-workflows.test.ts"
       ]
@@ -1603,25 +1834,25 @@
       "name": "files_revert",
       "schema_hash": "d074d612b1c4f995fb5b65e445de910e86f62d4d2ee7eb19d7052a70d4bc9300",
       "disposition": "code-case",
-      "evidence_kind": "code-contract",
+      "evidence_kind": "local-service",
       "fixtures": [
         "issue4-local-workflows.test.ts"
       ]
     },
     {
       "name": "files_search",
-      "schema_hash": "0d115be424476aaf05807bf157fdbb4c8115a6e3d0107880b383117a2f02bc51",
+      "schema_hash": "b04d85324d8d423f16bceeedefe427642f725f550d99bcfbe3d46a18aa383bac",
       "disposition": "code-case",
-      "evidence_kind": "code-contract",
+      "evidence_kind": "local-service",
       "fixtures": [
         "issue4-local-workflows.test.ts"
       ]
     },
     {
       "name": "files_search_name",
-      "schema_hash": "3baeee1d51a6d29f6472a261474d96d6a9ce106b12ef5db5a0fadc4fbdfbea44",
+      "schema_hash": "c88968d469ff424990397407740c9a5968a8ed8280ff087bae99ddf4299ec57e",
       "disposition": "code-case",
-      "evidence_kind": "code-contract",
+      "evidence_kind": "local-service",
       "fixtures": [
         "issue4-local-workflows.test.ts"
       ]
@@ -1630,14 +1861,15 @@
       "name": "files_versions",
       "schema_hash": "5d62fdcd8e3e32a2532f224f360fb67d245a8af07df2506cd94ebe2e2aefd2e5",
       "disposition": "code-case",
-      "evidence_kind": "code-contract",
+      "evidence_kind": "local-service",
       "fixtures": [
-        "issue4-local-workflows.test.ts"
+        "issue4-local-workflows.test.ts",
+        "issue6-delivery.test.ts"
       ]
     },
     {
       "name": "files_write",
-      "schema_hash": "195f9df70c47464820a29505e68d690ed4cf94cfc08267c9c203a74f4a509a8f",
+      "schema_hash": "efe0f5ebc7794a54835f8b918ef050d38e0eeace3f07a2481bd505a29bf4f53c",
       "disposition": "code-case",
       "evidence_kind": "local-service",
       "fixtures": [
@@ -1646,12 +1878,18 @@
         "extended-files.test.ts",
         "issue4-document-workflows.test.ts",
         "issue4-local-workflows.test.ts",
-        "plan-creation-boundary.test.ts"
+        "plan-creation-boundary.test.ts",
+        "issue6-delivery.test.ts",
+        "tool-audit-browser.test.ts",
+        "tool-audit-coding.test.ts",
+        "tool-audit-http.test.ts",
+        "tool-audit-skill-sync.test.ts",
+        "conversation-workflow-reliability.test.ts"
       ]
     },
     {
       "name": "git",
-      "schema_hash": "bebd3f370873c25aeb07ee5f2ca2ae468b57849aad9a46d464121ca948e17af2",
+      "schema_hash": "53fc0d8463238b75f16459cb1402cdb9c43912c8c51393795061b921e0580e33",
       "disposition": "code-case",
       "evidence_kind": "code-contract",
       "fixtures": [
@@ -1660,90 +1898,98 @@
     },
     {
       "name": "git_add",
-      "schema_hash": "143c208eca58afa4ba50df0c6f205fe4125f5f98af01e1030e6669e6cfec7b91",
+      "schema_hash": "5e242fc6f4d2e8c34206f48eee7123544396f93044499b9c9c34b8a23f8152ea",
       "disposition": "code-case",
-      "evidence_kind": "code-contract",
+      "evidence_kind": "local-service",
       "fixtures": [
         "issue4-local-workflows.test.ts"
       ]
     },
     {
       "name": "git_blame",
-      "schema_hash": "9b4e79bcef949693d0d0d7da405e6263a965d99b51210efd9db572446c3a1535",
+      "schema_hash": "f6b30de1a709b55e0113087ac663dac2211d855a35a1b07607f6c381d584c757",
       "disposition": "code-case",
-      "evidence_kind": "code-contract",
+      "evidence_kind": "local-service",
       "fixtures": [
         "issue4-local-workflows.test.ts"
       ]
     },
     {
       "name": "git_branch",
-      "schema_hash": "1669c9ee1b136a8ac661482f8438ba33a86231ba5daee9e1ef92404a27779484",
+      "schema_hash": "89af9a7f9b7e81083004b6098ee76022cae438f71d4ea64e1bb22b5e49f41b80",
       "disposition": "code-case",
-      "evidence_kind": "code-contract",
+      "evidence_kind": "local-service",
       "fixtures": [
         "issue4-local-workflows.test.ts"
       ]
     },
     {
       "name": "git_checkout",
-      "schema_hash": "aff0c9e09c522e718e396b3ea6e08fa32478df4611fb2047fb3b22b924484558",
+      "schema_hash": "034259ff1bc3b4568f9caacd0a0d3f5a97f18b87dfcfb59353d3eab0d79a8348",
       "disposition": "code-case",
-      "evidence_kind": "code-contract",
+      "evidence_kind": "local-service",
       "fixtures": [
         "issue4-local-workflows.test.ts"
       ]
     },
     {
       "name": "git_cherry_pick",
-      "schema_hash": "ac6c8557bb18b68bef37a862011d5677dc3933afc54e74fc043680ec1b9cc4d6",
+      "schema_hash": "6614e1377834bbd1d967c13743dd7f10df6ce3e942cfdd4504de6df5ff787151",
       "disposition": "code-case",
-      "evidence_kind": "code-contract",
+      "evidence_kind": "local-service",
       "fixtures": [
         "issue4-local-workflows.test.ts"
       ]
     },
     {
       "name": "git_clone",
-      "schema_hash": "cda9b90b24b42648fddafed964c1e3c922ae64c2c5eb22c8bc67df3761ab8538",
-      "disposition": "dependency-blocked",
-      "blocker": {
+      "schema_hash": "66e37d90e5e4c5b05fefad081de82948d27264d0db1289c22c58022879bf2b57",
+      "disposition": "code-case",
+      "live_blocker": {
         "issue": 7,
         "reason": "Requires an owned remote Git repository or authenticated GitHub PR fixture with authorized test branches. Local Git operations were tested independently; external repository mutations were not performed. Fixture transport coverage remains in issue #7."
-      }
+      },
+      "fixtures": [
+        "tool-audit-git-transport.test.ts"
+      ],
+      "evidence_kind": "local-service"
     },
     {
       "name": "git_commit",
-      "schema_hash": "1a7338442f7e5e41b00887d2ca2255d813e678bd30a6f16a1dee36900dc499ff",
+      "schema_hash": "b00a6462df2adbd21b61495dcf315d18646d8a3b26fb12e85857f80d75130d7f",
       "disposition": "code-case",
-      "evidence_kind": "code-contract",
+      "evidence_kind": "local-service",
       "fixtures": [
         "issue4-local-workflows.test.ts"
       ]
     },
     {
       "name": "git_diff",
-      "schema_hash": "7d09ad5855e6a19df1c42341f70179fac0000cfb78f485e927bfbe6b7e234d65",
+      "schema_hash": "f931422db4ccf7cd3566bbda7ce4559c20e090fbe9dd91e22b2e931e479a1d02",
       "disposition": "code-case",
-      "evidence_kind": "code-contract",
+      "evidence_kind": "local-service",
       "fixtures": [
         "issue4-local-workflows.test.ts"
       ]
     },
     {
       "name": "git_fetch",
-      "schema_hash": "5cd70b3856e7b58c1f8d6e2aecc1373b077c8cce334590dad7990cc0a32966a3",
-      "disposition": "dependency-blocked",
-      "blocker": {
+      "schema_hash": "305a4d93779f34911f3c10fe44864e2dcf3252e4a0cff907d4fcb4d24c54d5d5",
+      "disposition": "code-case",
+      "live_blocker": {
         "issue": 7,
         "reason": "Requires an owned remote Git repository or authenticated GitHub PR fixture with authorized test branches. Local Git operations were tested independently; external repository mutations were not performed. Fixture transport coverage remains in issue #7."
-      }
+      },
+      "fixtures": [
+        "tool-audit-git-transport.test.ts"
+      ],
+      "evidence_kind": "local-service"
     },
     {
       "name": "git_init",
-      "schema_hash": "ee29fb95d5f24c145c94cfdde13dd7dbe6c6a07a3cc79172c37f263523d376c3",
+      "schema_hash": "3186f06ba099bcb8843ae6fc08a3a092266fd2584fdf5373fbed2643a46ae85a",
       "disposition": "code-case",
-      "evidence_kind": "code-contract",
+      "evidence_kind": "local-service",
       "fixtures": [
         "git-tools.test.ts",
         "issue4-local-workflows.test.ts"
@@ -1751,34 +1997,36 @@
     },
     {
       "name": "git_log",
-      "schema_hash": "96869acd1092c380bf07508856740d842f0052828da3bdf85ebcce7902cdec7a",
+      "schema_hash": "371ab578e308cc8a61cab2aa9d2244a446d3474ab6afc24384718a2e67bdaff4",
       "disposition": "code-case",
-      "evidence_kind": "code-contract",
+      "evidence_kind": "local-service",
       "fixtures": [
-        "issue4-local-workflows.test.ts"
+        "issue4-local-workflows.test.ts",
+        "tool-audit-git-transport.test.ts"
       ]
     },
     {
       "name": "git_ls_files",
-      "schema_hash": "ee29fb95d5f24c145c94cfdde13dd7dbe6c6a07a3cc79172c37f263523d376c3",
+      "schema_hash": "3186f06ba099bcb8843ae6fc08a3a092266fd2584fdf5373fbed2643a46ae85a",
       "disposition": "code-case",
-      "evidence_kind": "code-contract",
+      "evidence_kind": "local-service",
       "fixtures": [
-        "issue4-local-workflows.test.ts"
+        "issue4-local-workflows.test.ts",
+        "tool-audit-git-transport.test.ts"
       ]
     },
     {
       "name": "git_merge",
-      "schema_hash": "71e4a314934c24097a20b9740f030d967a473dc372d6bf975d323cda19282b16",
+      "schema_hash": "1ed76a50e033be88595b5f00dc36a27a7942c1c00df1a83fd2f6d9a7f37b73e1",
       "disposition": "code-case",
-      "evidence_kind": "code-contract",
+      "evidence_kind": "local-service",
       "fixtures": [
         "issue4-local-workflows.test.ts"
       ]
     },
     {
       "name": "git_pr_checkout",
-      "schema_hash": "faa8d9f68781fd5b1ed1ffcd79029399208ff79b5a2a6897d19d80bea885337c",
+      "schema_hash": "69f0028560c387a27ac7214581d9cee5165332f4683452ef1913a1f839b41735",
       "disposition": "dependency-blocked",
       "blocker": {
         "issue": 7,
@@ -1787,7 +2035,7 @@
     },
     {
       "name": "git_pr_checks",
-      "schema_hash": "faa8d9f68781fd5b1ed1ffcd79029399208ff79b5a2a6897d19d80bea885337c",
+      "schema_hash": "69f0028560c387a27ac7214581d9cee5165332f4683452ef1913a1f839b41735",
       "disposition": "dependency-blocked",
       "blocker": {
         "issue": 7,
@@ -1796,7 +2044,7 @@
     },
     {
       "name": "git_pr_create",
-      "schema_hash": "094aea434c269354209ea2eec974be130bc707594773088fd41e7d3f856f6619",
+      "schema_hash": "b7aca09b51f1516ba9f11fe621cbe41247b9f3a0efada1fffec7b65ecb0c7c16",
       "disposition": "dependency-blocked",
       "blocker": {
         "issue": 7,
@@ -1805,7 +2053,7 @@
     },
     {
       "name": "git_pr_list",
-      "schema_hash": "ee29fb95d5f24c145c94cfdde13dd7dbe6c6a07a3cc79172c37f263523d376c3",
+      "schema_hash": "3186f06ba099bcb8843ae6fc08a3a092266fd2584fdf5373fbed2643a46ae85a",
       "disposition": "dependency-blocked",
       "blocker": {
         "issue": 7,
@@ -1814,7 +2062,7 @@
     },
     {
       "name": "git_pr_merge",
-      "schema_hash": "49880c448f15a1df14278569a203cd83aa862b0e53f5f78e376d5ef97c30db66",
+      "schema_hash": "75437417441e38b0c1f086179b9f5210ca598291f7f9022163d02cc3539e7ef7",
       "disposition": "dependency-blocked",
       "blocker": {
         "issue": 7,
@@ -1823,7 +2071,7 @@
     },
     {
       "name": "git_pr_review",
-      "schema_hash": "538d5e1a622b5c97aaa8686334d15a6ce4014b6ea66c21661fc47ea9fa19cde8",
+      "schema_hash": "0bc3dee71647f1f93c9d642449b2360de59ae60d95541d252efe2360c8c8b264",
       "disposition": "dependency-blocked",
       "blocker": {
         "issue": 7,
@@ -1832,7 +2080,7 @@
     },
     {
       "name": "git_pr_view",
-      "schema_hash": "faa8d9f68781fd5b1ed1ffcd79029399208ff79b5a2a6897d19d80bea885337c",
+      "schema_hash": "69f0028560c387a27ac7214581d9cee5165332f4683452ef1913a1f839b41735",
       "disposition": "dependency-blocked",
       "blocker": {
         "issue": 7,
@@ -1841,108 +2089,116 @@
     },
     {
       "name": "git_pull",
-      "schema_hash": "6d81d4d214d53592f14dcebd2af1a750737d429f0f7c3e9368b5a750d2e81925",
-      "disposition": "dependency-blocked",
-      "blocker": {
+      "schema_hash": "e90d1428580c4531a31d6f310c822d0f4dddbbc64125a5be34f087c4bc78bdb9",
+      "disposition": "code-case",
+      "live_blocker": {
         "issue": 7,
         "reason": "Requires an owned remote Git repository or authenticated GitHub PR fixture with authorized test branches. Local Git operations were tested independently; external repository mutations were not performed. Fixture transport coverage remains in issue #7."
-      }
+      },
+      "fixtures": [
+        "tool-audit-git-transport.test.ts"
+      ],
+      "evidence_kind": "local-service"
     },
     {
       "name": "git_push",
-      "schema_hash": "6d81d4d214d53592f14dcebd2af1a750737d429f0f7c3e9368b5a750d2e81925",
-      "disposition": "dependency-blocked",
-      "blocker": {
+      "schema_hash": "e90d1428580c4531a31d6f310c822d0f4dddbbc64125a5be34f087c4bc78bdb9",
+      "disposition": "code-case",
+      "live_blocker": {
         "issue": 7,
         "reason": "Requires an owned remote Git repository or authenticated GitHub PR fixture with authorized test branches. Local Git operations were tested independently; external repository mutations were not performed. Fixture transport coverage remains in issue #7."
-      }
+      },
+      "fixtures": [
+        "tool-audit-git-transport.test.ts"
+      ],
+      "evidence_kind": "local-service"
     },
     {
       "name": "git_rebase",
-      "schema_hash": "71e4a314934c24097a20b9740f030d967a473dc372d6bf975d323cda19282b16",
+      "schema_hash": "1ed76a50e033be88595b5f00dc36a27a7942c1c00df1a83fd2f6d9a7f37b73e1",
       "disposition": "code-case",
-      "evidence_kind": "code-contract",
+      "evidence_kind": "local-service",
       "fixtures": [
         "issue4-local-workflows.test.ts"
       ]
     },
     {
       "name": "git_reflog",
-      "schema_hash": "96869acd1092c380bf07508856740d842f0052828da3bdf85ebcce7902cdec7a",
+      "schema_hash": "371ab578e308cc8a61cab2aa9d2244a446d3474ab6afc24384718a2e67bdaff4",
       "disposition": "code-case",
-      "evidence_kind": "code-contract",
+      "evidence_kind": "local-service",
       "fixtures": [
         "issue4-local-workflows.test.ts"
       ]
     },
     {
       "name": "git_remotes",
-      "schema_hash": "ee29fb95d5f24c145c94cfdde13dd7dbe6c6a07a3cc79172c37f263523d376c3",
+      "schema_hash": "3186f06ba099bcb8843ae6fc08a3a092266fd2584fdf5373fbed2643a46ae85a",
       "disposition": "code-case",
-      "evidence_kind": "code-contract",
+      "evidence_kind": "local-service",
       "fixtures": [
         "issue4-local-workflows.test.ts"
       ]
     },
     {
       "name": "git_reset",
-      "schema_hash": "6c7e397369a8dd1dbd70ecccedfdd6536862e0737094f13f1bd70bb5caa3c723",
+      "schema_hash": "980d4cc05d0aba4677661b12defdff8b6075f90c5cfd0ac49f03651566cbae55",
       "disposition": "code-case",
-      "evidence_kind": "code-contract",
+      "evidence_kind": "local-service",
       "fixtures": [
         "issue4-local-workflows.test.ts"
       ]
     },
     {
       "name": "git_restore",
-      "schema_hash": "9b4e79bcef949693d0d0d7da405e6263a965d99b51210efd9db572446c3a1535",
+      "schema_hash": "f6b30de1a709b55e0113087ac663dac2211d855a35a1b07607f6c381d584c757",
       "disposition": "code-case",
-      "evidence_kind": "code-contract",
+      "evidence_kind": "local-service",
       "fixtures": [
         "issue4-local-workflows.test.ts"
       ]
     },
     {
       "name": "git_revert",
-      "schema_hash": "ac6c8557bb18b68bef37a862011d5677dc3933afc54e74fc043680ec1b9cc4d6",
+      "schema_hash": "6614e1377834bbd1d967c13743dd7f10df6ce3e942cfdd4504de6df5ff787151",
       "disposition": "code-case",
-      "evidence_kind": "code-contract",
+      "evidence_kind": "local-service",
       "fixtures": [
         "issue4-local-workflows.test.ts"
       ]
     },
     {
       "name": "git_show",
-      "schema_hash": "ac6c8557bb18b68bef37a862011d5677dc3933afc54e74fc043680ec1b9cc4d6",
+      "schema_hash": "6614e1377834bbd1d967c13743dd7f10df6ce3e942cfdd4504de6df5ff787151",
       "disposition": "code-case",
-      "evidence_kind": "code-contract",
+      "evidence_kind": "local-service",
       "fixtures": [
         "issue4-local-workflows.test.ts"
       ]
     },
     {
       "name": "git_stash",
-      "schema_hash": "ee29fb95d5f24c145c94cfdde13dd7dbe6c6a07a3cc79172c37f263523d376c3",
+      "schema_hash": "3186f06ba099bcb8843ae6fc08a3a092266fd2584fdf5373fbed2643a46ae85a",
       "disposition": "code-case",
-      "evidence_kind": "code-contract",
+      "evidence_kind": "local-service",
       "fixtures": [
         "issue4-local-workflows.test.ts"
       ]
     },
     {
       "name": "git_stash_pop",
-      "schema_hash": "ee29fb95d5f24c145c94cfdde13dd7dbe6c6a07a3cc79172c37f263523d376c3",
+      "schema_hash": "3186f06ba099bcb8843ae6fc08a3a092266fd2584fdf5373fbed2643a46ae85a",
       "disposition": "code-case",
-      "evidence_kind": "code-contract",
+      "evidence_kind": "local-service",
       "fixtures": [
         "issue4-local-workflows.test.ts"
       ]
     },
     {
       "name": "git_status",
-      "schema_hash": "ee29fb95d5f24c145c94cfdde13dd7dbe6c6a07a3cc79172c37f263523d376c3",
+      "schema_hash": "3186f06ba099bcb8843ae6fc08a3a092266fd2584fdf5373fbed2643a46ae85a",
       "disposition": "code-case",
-      "evidence_kind": "code-contract",
+      "evidence_kind": "local-service",
       "fixtures": [
         "git-tools.test.ts",
         "issue4-local-workflows.test.ts"
@@ -1950,45 +2206,45 @@
     },
     {
       "name": "git_switch",
-      "schema_hash": "71e4a314934c24097a20b9740f030d967a473dc372d6bf975d323cda19282b16",
+      "schema_hash": "1ed76a50e033be88595b5f00dc36a27a7942c1c00df1a83fd2f6d9a7f37b73e1",
       "disposition": "code-case",
-      "evidence_kind": "code-contract",
+      "evidence_kind": "local-service",
       "fixtures": [
         "issue4-local-workflows.test.ts"
       ]
     },
     {
       "name": "git_worktree_add",
-      "schema_hash": "380d539df12865de4feb1a0c2fcab9150163d707ce4c92a5f9d94dba842d46e9",
+      "schema_hash": "d5a7c6b3b055a7be57be775397262d61d2f193228b0152d52ff8d873b49d79be",
       "disposition": "code-case",
-      "evidence_kind": "code-contract",
+      "evidence_kind": "local-service",
       "fixtures": [
         "issue4-local-workflows.test.ts"
       ]
     },
     {
       "name": "git_worktree_list",
-      "schema_hash": "ee29fb95d5f24c145c94cfdde13dd7dbe6c6a07a3cc79172c37f263523d376c3",
+      "schema_hash": "3186f06ba099bcb8843ae6fc08a3a092266fd2584fdf5373fbed2643a46ae85a",
       "disposition": "code-case",
-      "evidence_kind": "code-contract",
+      "evidence_kind": "local-service",
       "fixtures": [
         "issue4-local-workflows.test.ts"
       ]
     },
     {
       "name": "git_worktree_prune",
-      "schema_hash": "ee29fb95d5f24c145c94cfdde13dd7dbe6c6a07a3cc79172c37f263523d376c3",
+      "schema_hash": "3186f06ba099bcb8843ae6fc08a3a092266fd2584fdf5373fbed2643a46ae85a",
       "disposition": "code-case",
-      "evidence_kind": "code-contract",
+      "evidence_kind": "local-service",
       "fixtures": [
         "issue4-local-workflows.test.ts"
       ]
     },
     {
       "name": "git_worktree_remove",
-      "schema_hash": "9b4e79bcef949693d0d0d7da405e6263a965d99b51210efd9db572446c3a1535",
+      "schema_hash": "f6b30de1a709b55e0113087ac663dac2211d855a35a1b07607f6c381d584c757",
       "disposition": "code-case",
-      "evidence_kind": "code-contract",
+      "evidence_kind": "local-service",
       "fixtures": [
         "issue4-local-workflows.test.ts"
       ]
@@ -1997,14 +2253,14 @@
       "name": "goal",
       "schema_hash": "9aec030c8e77666a263cdd5ff7d53e2e80cb9e433b94e5637fd96cf8087c33e8",
       "disposition": "code-case",
-      "evidence_kind": "code-contract",
+      "evidence_kind": "local-service",
       "fixtures": [
         "issue4-local-workflows.test.ts"
       ]
     },
     {
       "name": "http",
-      "schema_hash": "dc585a790fdd2dda6d5e5fc16fc36c2481480165f59622c6dc6c2d132cb2b721",
+      "schema_hash": "830de63065afee121ed614113c9db815b236b106435449c53cf8742503f979ec",
       "disposition": "code-case",
       "evidence_kind": "code-contract",
       "fixtures": [
@@ -2022,16 +2278,20 @@
     },
     {
       "name": "http_request",
-      "schema_hash": "c1cf70bcae034959febc02db46bf1af8c430fdc4eba31fe72f5c3b90c323f1dd",
-      "disposition": "dependency-blocked",
-      "blocker": {
+      "schema_hash": "24c0ad77aafd5398a08aebdf70e0735a980a057ff40e41aa46a82d3954ff8a8a",
+      "disposition": "code-case",
+      "live_blocker": {
         "issue": 7,
         "reason": "Requires a saved, authorized connector or owned endpoint with its authentication/resource/delivery fixture. Missing IDs or credentials are not treated as successful service calls. Service contract and live checks remain in issue #7."
-      }
+      },
+      "fixtures": [
+        "tool-audit-http.test.ts"
+      ],
+      "evidence_kind": "local-service"
     },
     {
       "name": "image",
-      "schema_hash": "3e2add02cffd108098aaedd389f1a8a0e598f18376e85e908c5052e0f73e0f70",
+      "schema_hash": "5af67e22930bf413fa68c09f827e9cf9169208dcb3ce5458a372ce2ca8ff5c8e",
       "disposition": "category",
       "members": [
         "image_generate",
@@ -2042,9 +2302,9 @@
     },
     {
       "name": "image_generate",
-      "schema_hash": "89f7a71018f0572dae5a35dedf7ff5554c9c18b32026c21aca0aec614da90676",
+      "schema_hash": "1273bde5c1d9d39e0b7bea2633f9c4baaa88967c13a3a3686e282000a3f6062c",
       "disposition": "code-case",
-      "evidence_kind": "controlled-transport",
+      "evidence_kind": "local-service",
       "fixtures": [
         "issue4-local-workflows.test.ts"
       ]
@@ -2069,7 +2329,7 @@
     },
     {
       "name": "image_transform",
-      "schema_hash": "5f4e830c4307099381042408a00d3f99414c630a390189b0aa5a0ecf99a67f53",
+      "schema_hash": "53baf8ebe89091475a9f22f5db32736385126590a1b3d222228cf39264754695",
       "disposition": "code-case",
       "evidence_kind": "local-service",
       "fixtures": [
@@ -2078,7 +2338,7 @@
     },
     {
       "name": "lifecycle",
-      "schema_hash": "e323b399e8d92c371c57d08fe1e4fd3b63a846abf90989e963d7fa35ceeb8bb0",
+      "schema_hash": "664b62957aa54e6973664bfb13cd2e14e246042ed446460a288f932aaf766a53",
       "disposition": "code-case",
       "evidence_kind": "code-contract",
       "fixtures": [
@@ -2089,7 +2349,7 @@
       "name": "lifecycle_delete",
       "schema_hash": "e3715edcae4de1151ca25758c02d82925ed18a4fc7d737b66c90422c33309e98",
       "disposition": "code-case",
-      "evidence_kind": "code-contract",
+      "evidence_kind": "local-service",
       "fixtures": [
         "issue4-local-workflows.test.ts"
       ]
@@ -2098,23 +2358,23 @@
       "name": "lifecycle_list",
       "schema_hash": "25c7d85c859a6f78f6f4e83edf2d3073645b7c71d2832348387882a6833b1834",
       "disposition": "code-case",
-      "evidence_kind": "code-contract",
+      "evidence_kind": "local-service",
       "fixtures": [
         "issue4-local-workflows.test.ts"
       ]
     },
     {
       "name": "lifecycle_save",
-      "schema_hash": "918f50a302babf6b965cd4d4ccee98947b52ccb35effe3e8995845b43fa0647d",
+      "schema_hash": "54b393c428ed2df4353fd794b2abf34b2832d8423b2f11194fc742239b979bfa",
       "disposition": "code-case",
-      "evidence_kind": "code-contract",
+      "evidence_kind": "local-service",
       "fixtures": [
         "issue4-local-workflows.test.ts"
       ]
     },
     {
       "name": "mcp",
-      "schema_hash": "6c10c80a37c6655e2962b455b2589e0cc5e8cf06ce64954dc39af877c20028d8",
+      "schema_hash": "04420e5f6f04f650d0495645b9b4b6ab1fb1355746a7632a33f384b81ce3d4bc",
       "disposition": "code-case",
       "evidence_kind": "code-contract",
       "fixtures": [
@@ -2125,68 +2385,93 @@
       "name": "mcp_call_tool",
       "schema_hash": "e7598462c44b4fbc8421eb287bf737ee94e0d20ed547c9f8ce93f39d974e490d",
       "disposition": "code-case",
-      "evidence_kind": "code-contract",
+      "evidence_kind": "local-service",
       "fixtures": [
-        "http-mcp-tools.test.ts"
+        "http-mcp-tools.test.ts",
+        "connectors.test.ts"
       ]
     },
     {
       "name": "mcp_connect",
       "schema_hash": "839df91590cb07adc962ac7da1874cfa4288beff112d052176f8d50773c99c0b",
-      "disposition": "dependency-blocked",
-      "blocker": {
+      "disposition": "code-case",
+      "live_blocker": {
         "issue": 7,
         "reason": "Requires a saved, authorized connector or owned endpoint with its authentication/resource/delivery fixture. Missing IDs or credentials are not treated as successful service calls. Service contract and live checks remain in issue #7."
-      }
+      },
+      "fixtures": [
+        "connectors.test.ts"
+      ],
+      "evidence_kind": "local-service"
     },
     {
       "name": "mcp_connections",
       "schema_hash": "25c7d85c859a6f78f6f4e83edf2d3073645b7c71d2832348387882a6833b1834",
-      "disposition": "dependency-blocked",
-      "blocker": {
+      "disposition": "code-case",
+      "live_blocker": {
         "issue": 7,
         "reason": "Requires a saved, authorized connector or owned endpoint with its authentication/resource/delivery fixture. Missing IDs or credentials are not treated as successful service calls. Service contract and live checks remain in issue #7."
-      }
+      },
+      "fixtures": [
+        "connectors.test.ts"
+      ],
+      "evidence_kind": "local-service"
     },
     {
       "name": "mcp_disconnect",
       "schema_hash": "839df91590cb07adc962ac7da1874cfa4288beff112d052176f8d50773c99c0b",
-      "disposition": "dependency-blocked",
-      "blocker": {
+      "disposition": "code-case",
+      "live_blocker": {
         "issue": 7,
         "reason": "Requires a saved, authorized connector or owned endpoint with its authentication/resource/delivery fixture. Missing IDs or credentials are not treated as successful service calls. Service contract and live checks remain in issue #7."
-      }
+      },
+      "fixtures": [
+        "connectors.test.ts"
+      ],
+      "evidence_kind": "local-service"
     },
     {
       "name": "mcp_list_resources",
       "schema_hash": "19c599c6732e80b2ecc92241b53bd5b9911ef43d47e99f32789d9b9ca4717aea",
-      "disposition": "dependency-blocked",
-      "blocker": {
+      "disposition": "code-case",
+      "live_blocker": {
         "issue": 7,
         "reason": "Requires a saved, authorized connector or owned endpoint with its authentication/resource/delivery fixture. Missing IDs or credentials are not treated as successful service calls. Service contract and live checks remain in issue #7."
-      }
+      },
+      "fixtures": [
+        "connectors.test.ts"
+      ],
+      "evidence_kind": "local-service"
     },
     {
       "name": "mcp_list_tools",
-      "schema_hash": "349d6a198f44cde129c4307b1100fff6ba2d9fe62250409c8b2318d7214dd27c",
-      "disposition": "dependency-blocked",
-      "blocker": {
+      "schema_hash": "d0b973acf2e3254c44eba51ebb0b757f1b5cf9bc79e4b60a06053fd544a01830",
+      "disposition": "code-case",
+      "live_blocker": {
         "issue": 7,
         "reason": "Requires a saved, authorized connector or owned endpoint with its authentication/resource/delivery fixture. Missing IDs or credentials are not treated as successful service calls. Service contract and live checks remain in issue #7."
-      }
+      },
+      "fixtures": [
+        "connectors.test.ts"
+      ],
+      "evidence_kind": "local-service"
     },
     {
       "name": "mcp_read_resource",
       "schema_hash": "6395120eb0acdc420ff2cd350f073c58d23dee86550dc35a4ccb02277a983f83",
-      "disposition": "dependency-blocked",
-      "blocker": {
+      "disposition": "code-case",
+      "live_blocker": {
         "issue": 7,
         "reason": "Requires a saved, authorized connector or owned endpoint with its authentication/resource/delivery fixture. Missing IDs or credentials are not treated as successful service calls. Service contract and live checks remain in issue #7."
-      }
+      },
+      "fixtures": [
+        "connectors.test.ts"
+      ],
+      "evidence_kind": "local-service"
     },
     {
       "name": "media",
-      "schema_hash": "715b086041fe3a55967000618155e03466c4a8ea8d6f8cdd6ab5b282bf35b806",
+      "schema_hash": "e99139816a17ebab70494e757b68da325561a42ef806eb692c62618215950d9d",
       "disposition": "category",
       "members": [
         "audio_convert",
@@ -2199,9 +2484,9 @@
     },
     {
       "name": "media_ffmpeg",
-      "schema_hash": "e45203fdf3e2ca8099e6d75aaa1b38b2678e262499187c2fb83f20764ca3e4bd",
+      "schema_hash": "1eafee0df0a9c2611f81b16c12e36c416ce1a5f224c07d62742ae6bedd4aa427",
       "disposition": "code-case",
-      "evidence_kind": "code-contract",
+      "evidence_kind": "local-service",
       "fixtures": [
         "issue4-local-workflows.test.ts"
       ]
@@ -2210,7 +2495,7 @@
       "name": "media_inspect",
       "schema_hash": "207d3395f9054563061674fd72b0f98307e020a632544e8de8e8f960b9f436d5",
       "disposition": "code-case",
-      "evidence_kind": "code-contract",
+      "evidence_kind": "local-service",
       "fixtures": [
         "issue4-local-workflows.test.ts"
       ]
@@ -2219,25 +2504,25 @@
       "name": "memory_delete",
       "schema_hash": "1b26cfb328a24c3ca72b65622ae74ea953132d818bafb0cca032132595913b37",
       "disposition": "code-case",
-      "evidence_kind": "code-contract",
+      "evidence_kind": "local-service",
       "fixtures": [
         "issue4-local-workflows.test.ts"
       ]
     },
     {
       "name": "memory_read",
-      "schema_hash": "0c9d6f1e3a2e4f8bfa155894d64ccbf2402d114586df792b8ad41b185cb98991",
+      "schema_hash": "c039c1c68c8a82fbc91f44181d7bf05ba52488c591aa6b353072e215c1d28e13",
       "disposition": "code-case",
-      "evidence_kind": "code-contract",
+      "evidence_kind": "local-service",
       "fixtures": [
         "issue4-local-workflows.test.ts"
       ]
     },
     {
       "name": "memory_save",
-      "schema_hash": "b3e961200ed63d8f5479b9ebe0fd8a2b2a6788b6461c2082ea07c563b5bdd005",
+      "schema_hash": "a0945b20c9af1d9d85aefc3d5bcd36c279ed837ff5bb27159a4e824d3a0dd9e2",
       "disposition": "code-case",
-      "evidence_kind": "code-contract",
+      "evidence_kind": "local-service",
       "fixtures": [
         "issue4-local-workflows.test.ts",
         "memory-save-agent.test.ts",
@@ -2248,9 +2533,9 @@
     },
     {
       "name": "memory_search",
-      "schema_hash": "3c9c5a0e05d206a33bdd181faec16f399810adf96ddb2c78cbdd58ed8070dca5",
+      "schema_hash": "ba9853f2b0327455aadaa33ca16a15b0e59725a7a3b087333ede6e42501da0ee",
       "disposition": "code-case",
-      "evidence_kind": "code-contract",
+      "evidence_kind": "local-service",
       "fixtures": [
         "issue4-local-workflows.test.ts",
         "self-extension.test.ts"
@@ -2260,7 +2545,7 @@
       "name": "memory_update",
       "schema_hash": "9bdd4f345b032080a59f96ae7bce19783b8275615fc50d6a29236ee3c5ac7e95",
       "disposition": "code-case",
-      "evidence_kind": "code-contract",
+      "evidence_kind": "local-service",
       "fixtures": [
         "issue4-local-workflows.test.ts"
       ]
@@ -2269,7 +2554,7 @@
       "name": "message_queue_add",
       "schema_hash": "aa71b1421a657093c2df45668e45c927826d50f711c49180153017e3e26e3279",
       "disposition": "code-case",
-      "evidence_kind": "code-contract",
+      "evidence_kind": "local-service",
       "fixtures": [
         "issue4-local-workflows.test.ts"
       ]
@@ -2278,7 +2563,7 @@
       "name": "message_queue_cancel",
       "schema_hash": "15c9ba168f8c392bf67f8f80a5a85d6d60a0e17477fcc9f2581ca86fe4f78fb7",
       "disposition": "code-case",
-      "evidence_kind": "code-contract",
+      "evidence_kind": "local-service",
       "fixtures": [
         "issue4-local-workflows.test.ts"
       ]
@@ -2287,14 +2572,14 @@
       "name": "message_queue_list",
       "schema_hash": "25c7d85c859a6f78f6f4e83edf2d3073645b7c71d2832348387882a6833b1834",
       "disposition": "code-case",
-      "evidence_kind": "code-contract",
+      "evidence_kind": "local-service",
       "fixtures": [
         "issue4-local-workflows.test.ts"
       ]
     },
     {
       "name": "network",
-      "schema_hash": "78be754749407951fb2adda8d50523f535a2d19863d032a0c29d225a9f083f38",
+      "schema_hash": "d9e19719a1dc1c56ea6688aca42f9edd7005dd83af8cdbc81ea0f02bc050dbb7",
       "disposition": "category",
       "members": [
         "network_dns_lookup",
@@ -2307,7 +2592,7 @@
       "name": "network_dns_lookup",
       "schema_hash": "09d2f29971c2a7e1f3270f1ad94ed359a8d44f7f641102aa3972026b89bb0dcf",
       "disposition": "code-case",
-      "evidence_kind": "controlled-transport",
+      "evidence_kind": "local-service",
       "fixtures": [
         "issue4-local-workflows.test.ts"
       ]
@@ -2316,28 +2601,33 @@
       "name": "network_ping",
       "schema_hash": "09d2f29971c2a7e1f3270f1ad94ed359a8d44f7f641102aa3972026b89bb0dcf",
       "disposition": "code-case",
-      "evidence_kind": "code-contract",
+      "evidence_kind": "local-service",
       "fixtures": [
-        "issue4-ping.ts"
+        "issue4-ping.ts",
+        "tool-audit-http.test.ts"
       ]
     },
     {
       "name": "network_port_check",
-      "schema_hash": "5d737373bdc21c35399dcba8f1b605cce7252d6f27b31d513482c3f4f2ad5b86",
+      "schema_hash": "bb6742f7a10fd6707e514d0d46b89caed36b5afe5033adfb12b88020ccdb43eb",
       "disposition": "code-case",
-      "evidence_kind": "controlled-transport",
+      "evidence_kind": "code-contract",
       "fixtures": [
         "network-tool-cancellation.test.ts"
       ]
     },
     {
       "name": "network_upload",
-      "schema_hash": "302ddc9b9a17d1ef9294023e45730f04860cfe511fc64ba38edb870b01d1b2fa",
-      "disposition": "dependency-blocked",
-      "blocker": {
+      "schema_hash": "b9bc35a1f45628d184a7a1196fc701ce912ff4c73bc15f0ae16e1e1190cf896f",
+      "disposition": "code-case",
+      "live_blocker": {
         "issue": 7,
         "reason": "Requires a saved, authorized connector or owned endpoint with its authentication/resource/delivery fixture. Missing IDs or credentials are not treated as successful service calls. Service contract and live checks remain in issue #7."
-      }
+      },
+      "fixtures": [
+        "tool-audit-http.test.ts"
+      ],
+      "evidence_kind": "local-service"
     },
     {
       "name": "notification",
@@ -2353,7 +2643,7 @@
       "name": "notification_list",
       "schema_hash": "25c7d85c859a6f78f6f4e83edf2d3073645b7c71d2832348387882a6833b1834",
       "disposition": "code-case",
-      "evidence_kind": "code-contract",
+      "evidence_kind": "local-service",
       "fixtures": [
         "issue4-local-workflows.test.ts"
       ]
@@ -2362,7 +2652,7 @@
       "name": "notification_send",
       "schema_hash": "0fc12866a5c8957eb493e77549493dbb3a304678d5e725039ddb3cda5d179eaa",
       "disposition": "code-case",
-      "evidence_kind": "code-contract",
+      "evidence_kind": "local-service",
       "fixtures": [
         "capability-catalog.test.ts",
         "issue4-local-workflows.test.ts"
@@ -2370,7 +2660,7 @@
     },
     {
       "name": "pdf",
-      "schema_hash": "c12181b1348f36e4cbf55225d48015ad5e3b9b6b0534d5823b9aef19612da961",
+      "schema_hash": "9fd5aec47ce4eb9029fe11f3dd92cc84c8ffda3b37259b6e206548261eb5483f",
       "disposition": "category",
       "members": [
         "pdf_edit",
@@ -2379,11 +2669,12 @@
     },
     {
       "name": "pdf_edit",
-      "schema_hash": "0210e20987fdf3c53e34df2c23e13296bb62409076fb01828ca7d1d69d0ad2f0",
+      "schema_hash": "aa811e27be9d9c47423e735f24c8e9a63e343b757ab4a11ebf33210314766982",
       "disposition": "code-case",
       "evidence_kind": "local-service",
       "fixtures": [
-        "issue4-document-workflows.test.ts"
+        "issue4-document-workflows.test.ts",
+        "issue6-delivery.test.ts"
       ]
     },
     {
@@ -2392,23 +2683,25 @@
       "disposition": "code-case",
       "evidence_kind": "local-service",
       "fixtures": [
-        "issue4-document-workflows.test.ts"
+        "issue4-document-workflows.test.ts",
+        "issue6-delivery.test.ts"
       ]
     },
     {
       "name": "plan_create",
       "schema_hash": "94653d3e1f443cc115022a9e7e2c3ee2514e61af76785ef99a9b1bc3d57cf975",
       "disposition": "code-case",
-      "evidence_kind": "code-contract",
+      "evidence_kind": "local-service",
       "fixtures": [
-        "questions.test.ts"
+        "questions.test.ts",
+        "tool-audit-coding.test.ts"
       ]
     },
     {
       "name": "plan_read",
       "schema_hash": "25c7d85c859a6f78f6f4e83edf2d3073645b7c71d2832348387882a6833b1834",
       "disposition": "code-case",
-      "evidence_kind": "code-contract",
+      "evidence_kind": "local-service",
       "fixtures": [
         "issue4-local-workflows.test.ts",
         "questions.test.ts"
@@ -2418,9 +2711,10 @@
       "name": "plan_update",
       "schema_hash": "10d6b00314bf89ae78319267e336a9e707044d2b45b7a8f45f213407273c8066",
       "disposition": "code-case",
-      "evidence_kind": "code-contract",
+      "evidence_kind": "local-service",
       "fixtures": [
-        "questions.test.ts"
+        "questions.test.ts",
+        "tool-audit-coding.test.ts"
       ]
     },
     {
@@ -2434,27 +2728,35 @@
     },
     {
       "name": "plugin_hook_run",
-      "schema_hash": "814b2aa6e11b5b44f4778f5a6558ebf11212638ec519b17279e3e8937e71804a",
-      "disposition": "dependency-blocked",
-      "blocker": {
+      "schema_hash": "03651d7aa342e2f426c447868bc60f455d599cca7d7ccfef196a2fd6fc922fe9",
+      "disposition": "code-case",
+      "live_blocker": {
         "issue": 5,
         "reason": "Requires the authenticated native desktop broker or an explicitly selected isolated environment and an owned interaction/job target. Remaining native end-to-end checks are tracked in issue #5; no user desktop is actuated by this audit."
-      }
+      },
+      "fixtures": [
+        "tool-audit-skill-sync.test.ts"
+      ],
+      "evidence_kind": "code-contract"
     },
     {
       "name": "programmatic_tools",
-      "schema_hash": "724361b2f38f84c06f93e904976027241e5e7f4479fbb0ca2ae48b049359b14a",
-      "disposition": "dependency-blocked",
-      "blocker": {
+      "schema_hash": "6b047ce387471d7eb65b1448bd0a6694365522ea230b1bc246caaceafca2424a",
+      "disposition": "code-case",
+      "live_blocker": {
         "issue": 8,
         "reason": "Requires a provisioned, explicitly selected execution environment with persistent sessions/workspace RPC. The optional prepared sandbox was not enabled; issue #8 owns that service verification. Host execution is not substituted."
-      }
+      },
+      "fixtures": [
+        "issue8-program-rpc.test.ts"
+      ],
+      "evidence_kind": "code-contract"
     },
     {
       "name": "project_search",
       "schema_hash": "6ed8ac47ea402df387045b14b9d7bb50352caf31e9f8805feb758073775a13da",
       "disposition": "code-case",
-      "evidence_kind": "code-contract",
+      "evidence_kind": "local-service",
       "fixtures": [
         "issue4-local-workflows.test.ts",
         "profile-memory.test.ts"
@@ -2462,7 +2764,7 @@
     },
     {
       "name": "python",
-      "schema_hash": "4c0ccc321fa91f88bfe4d989c04119242626aa3644e834825a097f585fdd0dda",
+      "schema_hash": "9eb7c0227e773548902c48c61ee194865c226bc2a349e71e186aa39bf3e352df",
       "disposition": "category",
       "members": [
         "python_session"
@@ -2470,12 +2772,16 @@
     },
     {
       "name": "python_session",
-      "schema_hash": "107f29471346c990edaead3cd9bfcdc5303a6ea8d04d41d04add9713e653d258",
-      "disposition": "dependency-blocked",
-      "blocker": {
+      "schema_hash": "e0cd30299b26bc7592e768a20def53915f7ca14e0ec4d076470f3772377f611b",
+      "disposition": "code-case",
+      "live_blocker": {
         "issue": 8,
         "reason": "Requires a provisioned, explicitly selected execution environment with persistent sessions/workspace RPC. The optional prepared sandbox was not enabled; issue #8 owns that service verification. Host execution is not substituted."
-      }
+      },
+      "fixtures": [
+        "issue8-execution-selection.test.ts"
+      ],
+      "evidence_kind": "code-contract"
     },
     {
       "name": "queue",
@@ -2489,34 +2795,34 @@
     },
     {
       "name": "rerank",
-      "schema_hash": "f41e63ae61437d3cccec508eea62408487a8963d2139274bca5c71ebde88db7e",
+      "schema_hash": "c108378f0910f6fefef8536517ad6004360336e3ca8f936ca2b8ac10a6fbdff5",
       "disposition": "code-case",
-      "evidence_kind": "code-contract",
+      "evidence_kind": "local-service",
       "fixtures": [
         "issue4-local-workflows.test.ts"
       ]
     },
     {
       "name": "research_read",
-      "schema_hash": "d77351c137562f422095caa0b52a8a62e7839ced9c8d93ac299484a0976ef289",
+      "schema_hash": "9bad397a747f551e5e525c108520d15f79fcbbba6afdac314aff7d5a15f8ec6e",
       "disposition": "code-case",
-      "evidence_kind": "code-contract",
+      "evidence_kind": "local-service",
       "fixtures": [
         "issue4-local-workflows.test.ts"
       ]
     },
     {
       "name": "research_source_read",
-      "schema_hash": "e06d77bf00c7ab62ea060f80b7303839cdc084b8d1bece32e29fd64116e0417c",
+      "schema_hash": "cd7fe82524a0634834970ee0d7f8d6784015db953579a774b36efdae7b37f0c7",
       "disposition": "code-case",
-      "evidence_kind": "code-contract",
+      "evidence_kind": "local-service",
       "fixtures": [
         "issue4-local-workflows.test.ts"
       ]
     },
     {
       "name": "retrieval",
-      "schema_hash": "d2325457f18eda0d8d0e607d9ab174bac69ed8ab7b8cd06ae454ee03b126a980",
+      "schema_hash": "d8f44c144afb1c32ecaf29b6441792cb374bb6ea95d40091f3680224d103577d",
       "disposition": "category",
       "members": [
         "rerank",
@@ -2528,9 +2834,9 @@
     },
     {
       "name": "retrieval_index",
-      "schema_hash": "6228e7812537ee1bfe30ed2a8068f3f1537645859270a1645f45f4d9674a485d",
+      "schema_hash": "6618feaf3193b42d4e7bf28e2a83e75b09f795eb06bf4dc215e3e6bfde85de78",
       "disposition": "code-case",
-      "evidence_kind": "controlled-transport",
+      "evidence_kind": "local-service",
       "fixtures": [
         "issue4-local-workflows.test.ts",
         "runtime-expansion.test.ts"
@@ -2538,18 +2844,18 @@
     },
     {
       "name": "retrieval_index_directory",
-      "schema_hash": "e594a74f629e833b01865a0a59db1e916e5979442ec04410f25450636ef84fac",
+      "schema_hash": "0c352d9f544f7c1b3b0d1125e715d90ab29b43f5a597eb407047c23bcd245316",
       "disposition": "code-case",
-      "evidence_kind": "controlled-transport",
+      "evidence_kind": "local-service",
       "fixtures": [
         "issue4-local-workflows.test.ts"
       ]
     },
     {
       "name": "retrieval_search",
-      "schema_hash": "d654fc6b367ba1eb7bd75508d489d2f52ee9d6223ba49bb7a5448b2e93ef137e",
+      "schema_hash": "048b6651ce0387a3efdf0707912ccd5b68fa85cdbb1ffcef1f92c5c64f79d544",
       "disposition": "code-case",
-      "evidence_kind": "controlled-transport",
+      "evidence_kind": "local-service",
       "fixtures": [
         "issue4-local-workflows.test.ts",
         "runtime-expansion.test.ts"
@@ -2559,7 +2865,7 @@
       "name": "retrieve_chunks",
       "schema_hash": "12f109081de9a98c85f6b63b95c14a0c56944038a0205eaff2a38d63b02ad6e7",
       "disposition": "code-case",
-      "evidence_kind": "code-contract",
+      "evidence_kind": "local-service",
       "fixtures": [
         "issue4-local-workflows.test.ts"
       ]
@@ -2568,14 +2874,14 @@
       "name": "runtime_capabilities",
       "schema_hash": "25c7d85c859a6f78f6f4e83edf2d3073645b7c71d2832348387882a6833b1834",
       "disposition": "code-case",
-      "evidence_kind": "code-contract",
+      "evidence_kind": "local-service",
       "fixtures": [
         "issue4-local-workflows.test.ts"
       ]
     },
     {
       "name": "schedule",
-      "schema_hash": "ce0f40af6e7206fa3adb6299b934744ae4db6181617139c79f0e25756487d9c7",
+      "schema_hash": "1285f36dfbeafc8edde5454ed79991a4ae1e9fac9bc6ade323c399b2c611eb24",
       "disposition": "category",
       "members": [
         "schedule_create",
@@ -2589,9 +2895,9 @@
     },
     {
       "name": "schedule_create",
-      "schema_hash": "1cb50836898811ca893d53b19e518399a47a1593d31eac1d84d4712a45554270",
+      "schema_hash": "c4b140e5564938f0d0826bd4f2c9e41f7f658ac385db3b173c307ff3b608ebec",
       "disposition": "code-case",
-      "evidence_kind": "code-contract",
+      "evidence_kind": "local-service",
       "fixtures": [
         "issue4-local-workflows.test.ts"
       ]
@@ -2600,7 +2906,7 @@
       "name": "schedule_delete",
       "schema_hash": "4bdc959409356024ce7be1598a040d20b1f448bed711c7384313a9a357e94d18",
       "disposition": "code-case",
-      "evidence_kind": "code-contract",
+      "evidence_kind": "local-service",
       "fixtures": [
         "issue4-local-workflows.test.ts"
       ]
@@ -2609,7 +2915,7 @@
       "name": "schedule_get",
       "schema_hash": "4bdc959409356024ce7be1598a040d20b1f448bed711c7384313a9a357e94d18",
       "disposition": "code-case",
-      "evidence_kind": "code-contract",
+      "evidence_kind": "local-service",
       "fixtures": [
         "issue4-local-workflows.test.ts"
       ]
@@ -2618,7 +2924,7 @@
       "name": "schedule_history",
       "schema_hash": "4bdc959409356024ce7be1598a040d20b1f448bed711c7384313a9a357e94d18",
       "disposition": "code-case",
-      "evidence_kind": "code-contract",
+      "evidence_kind": "local-service",
       "fixtures": [
         "issue4-local-workflows.test.ts"
       ]
@@ -2627,7 +2933,7 @@
       "name": "schedule_list",
       "schema_hash": "25c7d85c859a6f78f6f4e83edf2d3073645b7c71d2832348387882a6833b1834",
       "disposition": "code-case",
-      "evidence_kind": "code-contract",
+      "evidence_kind": "local-service",
       "fixtures": [
         "issue4-local-workflows.test.ts"
       ]
@@ -2636,7 +2942,7 @@
       "name": "schedule_run_now",
       "schema_hash": "4bdc959409356024ce7be1598a040d20b1f448bed711c7384313a9a357e94d18",
       "disposition": "code-case",
-      "evidence_kind": "code-contract",
+      "evidence_kind": "local-service",
       "fixtures": [
         "issue4-local-workflows.test.ts"
       ]
@@ -2645,7 +2951,7 @@
       "name": "schedule_update",
       "schema_hash": "6da0b7e044b650ffc4ad399db731ec7841b4b837b2bda2acd5a65d2aefcad6fb",
       "disposition": "code-case",
-      "evidence_kind": "code-contract",
+      "evidence_kind": "local-service",
       "fixtures": [
         "issue4-local-workflows.test.ts"
       ]
@@ -2654,14 +2960,14 @@
       "name": "schema_inspect",
       "schema_hash": "cb9a5b1e0ce3f5b9b268111e8020157cb7d0ca002235275bce315777adecbaac",
       "disposition": "code-case",
-      "evidence_kind": "code-contract",
+      "evidence_kind": "local-service",
       "fixtures": [
         "issue4-local-workflows.test.ts"
       ]
     },
     {
       "name": "sheets",
-      "schema_hash": "76d97f407dbe5e6cb8bae3c32514cf0b0f2341bbd39d6fb3faf47061fa565921",
+      "schema_hash": "65021c127d97004cc7d1a8f70be23e469b64e80be9c8d14ba95458e64ea6c9fd",
       "disposition": "category",
       "members": [
         "spreadsheet_chart",
@@ -2672,7 +2978,7 @@
     },
     {
       "name": "shell",
-      "schema_hash": "7c69997b945060f7e40af64eb25e03e92252b7936932d5af7a81affc7044ec64",
+      "schema_hash": "725d5936ff7d85b2391c6f6800aaaedab305fd1a162807bb1527b94ac94d0070",
       "disposition": "code-case",
       "evidence_kind": "code-contract",
       "fixtures": [
@@ -2681,117 +2987,167 @@
     },
     {
       "name": "shell_background",
-      "schema_hash": "9af0ba40ce64567cac2d0b8d7cd5cfdc9fdb9ec2f7d8bc4071ab5dd335655026",
-      "disposition": "dependency-blocked",
-      "blocker": {
+      "schema_hash": "03762f84a2239e5eb1ab45b3c16eb73b9c24c7ac4c9a9c00e6a9ac1c01735768",
+      "disposition": "code-case",
+      "live_blocker": {
         "issue": 5,
         "reason": "Requires the authenticated native desktop broker or an explicitly selected isolated environment and an owned interaction/job target. Remaining native end-to-end checks are tracked in issue #5; no user desktop is actuated by this audit."
-      }
+      },
+      "fixtures": [
+        "tool-audit-coding.test.ts"
+      ],
+      "evidence_kind": "local-service"
     },
     {
       "name": "shell_debug_command",
       "schema_hash": "cb58241167620474bbc77df100a5c441183b0aae84da9a26c59ae9374e96bfe7",
-      "disposition": "dependency-blocked",
-      "blocker": {
+      "disposition": "code-case",
+      "live_blocker": {
         "issue": 5,
         "reason": "Requires the authenticated native desktop broker or an explicitly selected isolated environment and an owned interaction/job target. Remaining native end-to-end checks are tracked in issue #5; no user desktop is actuated by this audit."
-      }
+      },
+      "fixtures": [
+        "tool-audit-coding.test.ts"
+      ],
+      "evidence_kind": "local-service"
     },
     {
       "name": "shell_debug_start",
-      "schema_hash": "fd0841af2f02d1e259a697ac5bb0dfc2fca21e7bb05b690afceac15de27a573e",
-      "disposition": "dependency-blocked",
-      "blocker": {
+      "schema_hash": "dd1b4dfa7d789c5389ecdabfb19a7bd2b71ad76e0034ebd4632cec1878ea5d13",
+      "disposition": "code-case",
+      "live_blocker": {
         "issue": 5,
         "reason": "Requires the authenticated native desktop broker or an explicitly selected isolated environment and an owned interaction/job target. Remaining native end-to-end checks are tracked in issue #5; no user desktop is actuated by this audit."
-      }
+      },
+      "fixtures": [
+        "tool-audit-coding.test.ts"
+      ],
+      "evidence_kind": "local-service"
     },
     {
       "name": "shell_dependency",
-      "schema_hash": "66a5afd21c71f6c2f937c8cf2effc1c42763f69310e73624ed27526ed6c8dfa5",
-      "disposition": "dependency-blocked",
-      "blocker": {
+      "schema_hash": "74f5b963408194e35e56d28f860afbc88012443274966badc1ff9270466d0af5",
+      "disposition": "code-case",
+      "live_blocker": {
         "issue": 5,
         "reason": "Requires the authenticated native desktop broker or an explicitly selected isolated environment and an owned interaction/job target. Remaining native end-to-end checks are tracked in issue #5; no user desktop is actuated by this audit."
-      }
+      },
+      "fixtures": [
+        "tool-audit-coding.test.ts"
+      ],
+      "evidence_kind": "local-service"
     },
     {
       "name": "shell_environment",
-      "schema_hash": "ee29fb95d5f24c145c94cfdde13dd7dbe6c6a07a3cc79172c37f263523d376c3",
-      "disposition": "dependency-blocked",
-      "blocker": {
+      "schema_hash": "3186f06ba099bcb8843ae6fc08a3a092266fd2584fdf5373fbed2643a46ae85a",
+      "disposition": "code-case",
+      "live_blocker": {
         "issue": 5,
         "reason": "Requires the authenticated native desktop broker or an explicitly selected isolated environment and an owned interaction/job target. Remaining native end-to-end checks are tracked in issue #5; no user desktop is actuated by this audit."
-      }
+      },
+      "fixtures": [
+        "tool-audit-coding.test.ts"
+      ],
+      "evidence_kind": "local-service"
     },
     {
       "name": "shell_environment_get",
-      "schema_hash": "6b39ad1b98cd3c72718c26789a73b292af62eba491593e462eb57ca1f3e580d1",
-      "disposition": "dependency-blocked",
-      "blocker": {
+      "schema_hash": "87dc5c579e202db349f87e8570976673bdb8f7acfd69747205ded18ebbe97fe9",
+      "disposition": "code-case",
+      "live_blocker": {
         "issue": 5,
         "reason": "Requires the authenticated native desktop broker or an explicitly selected isolated environment and an owned interaction/job target. Remaining native end-to-end checks are tracked in issue #5; no user desktop is actuated by this audit."
-      }
+      },
+      "fixtures": [
+        "tool-audit-coding.test.ts",
+        "tool-audit-shell-dialect.test.ts"
+      ],
+      "evidence_kind": "local-service"
     },
     {
       "name": "shell_environment_set",
       "schema_hash": "942fcf5e81ef4bc0d26801353a1eff5242a440a56f0977f8aad7f38bb25c1ab2",
-      "disposition": "dependency-blocked",
-      "blocker": {
+      "disposition": "code-case",
+      "live_blocker": {
         "issue": 5,
         "reason": "Requires the authenticated native desktop broker or an explicitly selected isolated environment and an owned interaction/job target. Remaining native end-to-end checks are tracked in issue #5; no user desktop is actuated by this audit."
-      }
+      },
+      "fixtures": [
+        "tool-audit-coding.test.ts"
+      ],
+      "evidence_kind": "local-service"
     },
     {
       "name": "shell_install_package",
-      "schema_hash": "437064d1820b4015d03bd5de6c746907b8a333e2c01de018ccae1894e7e0308f",
-      "disposition": "dependency-blocked",
-      "blocker": {
+      "schema_hash": "991854be62c46af2b7a7d71916c5227f774d180f43c20b96bffef1be018c4682",
+      "disposition": "code-case",
+      "live_blocker": {
         "issue": 5,
         "reason": "Requires the authenticated native desktop broker or an explicitly selected isolated environment and an owned interaction/job target. Remaining native end-to-end checks are tracked in issue #5; no user desktop is actuated by this audit."
-      }
+      },
+      "fixtures": [
+        "tool-audit-coding.test.ts"
+      ],
+      "evidence_kind": "local-service"
     },
     {
       "name": "shell_process_kill",
       "schema_hash": "76fd60e8db3ff00a9d3899532833edfcf55501a2afa3c409b80d363c2ab87b24",
-      "disposition": "dependency-blocked",
-      "blocker": {
+      "disposition": "code-case",
+      "live_blocker": {
         "issue": 5,
         "reason": "Requires the authenticated native desktop broker or an explicitly selected isolated environment and an owned interaction/job target. Remaining native end-to-end checks are tracked in issue #5; no user desktop is actuated by this audit."
-      }
+      },
+      "fixtures": [
+        "tool-audit-coding.test.ts"
+      ],
+      "evidence_kind": "local-service"
     },
     {
       "name": "shell_processes",
-      "schema_hash": "ee29fb95d5f24c145c94cfdde13dd7dbe6c6a07a3cc79172c37f263523d376c3",
-      "disposition": "dependency-blocked",
-      "blocker": {
+      "schema_hash": "3186f06ba099bcb8843ae6fc08a3a092266fd2584fdf5373fbed2643a46ae85a",
+      "disposition": "code-case",
+      "live_blocker": {
         "issue": 5,
         "reason": "Requires the authenticated native desktop broker or an explicitly selected isolated environment and an owned interaction/job target. Remaining native end-to-end checks are tracked in issue #5; no user desktop is actuated by this audit."
-      }
+      },
+      "fixtures": [
+        "tool-audit-coding.test.ts"
+      ],
+      "evidence_kind": "local-service"
     },
     {
       "name": "shell_script",
-      "schema_hash": "f9e5b8611804061f6b0ae2fade71b76b159e7d9f0aba3682074b31e1f349a31e",
-      "disposition": "dependency-blocked",
-      "blocker": {
+      "schema_hash": "310b3720d0f1374b82da363b42cbd74422acef1bb7b242e03f5585b33c7d5eb5",
+      "disposition": "code-case",
+      "live_blocker": {
         "issue": 5,
         "reason": "Requires the authenticated native desktop broker or an explicitly selected isolated environment and an owned interaction/job target. Remaining native end-to-end checks are tracked in issue #5; no user desktop is actuated by this audit."
-      }
+      },
+      "fixtures": [
+        "tool-audit-coding.test.ts",
+        "tool-audit-shell-dialect.test.ts"
+      ],
+      "evidence_kind": "local-service"
     },
     {
       "name": "shell_session_config",
       "schema_hash": "cf0e26d2e317f7c310af775e9521a9a8dddab00ff4da0e5e4b3883749105eabc",
-      "disposition": "dependency-blocked",
-      "blocker": {
+      "disposition": "code-case",
+      "live_blocker": {
         "issue": 5,
         "reason": "Requires the authenticated native desktop broker or an explicitly selected isolated environment and an owned interaction/job target. Remaining native end-to-end checks are tracked in issue #5; no user desktop is actuated by this audit."
-      }
+      },
+      "fixtures": [
+        "tool-audit-coding.test.ts"
+      ],
+      "evidence_kind": "local-service"
     },
     {
       "name": "skill_create",
       "schema_hash": "37362f4b1babb3b39ffa7d517035304ad75d62dad685a57e0f76ac12df36a787",
       "disposition": "code-case",
-      "evidence_kind": "code-contract",
+      "evidence_kind": "local-service",
       "fixtures": [
         "issue4-local-workflows.test.ts",
         "self-extension.test.ts"
@@ -2821,26 +3177,33 @@
         "self-extension.test.ts",
         "tool-categories.test.ts",
         "tool-gateway.test.ts",
-        "tools.test.ts"
+        "tools.test.ts",
+        "artifact-read-integrity.test.ts",
+        "issue6-delivery.test.ts",
+        "tool-audit-skill-sync.test.ts"
       ]
     },
     {
       "name": "skill_read_resource",
-      "schema_hash": "14e85c30ec9c59755291b25e8b32404ae23e594b32c4973f072d62d177172627",
+      "schema_hash": "2cfc5f370580bdb42c845fc330e71cfdfa50a2788791a963b39cb2ce5e7d7017",
       "disposition": "code-case",
-      "evidence_kind": "code-contract",
+      "evidence_kind": "local-service",
       "fixtures": [
         "issue4-local-workflows.test.ts"
       ]
     },
     {
       "name": "skill_run_script",
-      "schema_hash": "8596ae594d8959bfbb81501e3e0218c46bb77bfca5e0aac6fc21a117d5650f6c",
-      "disposition": "dependency-blocked",
-      "blocker": {
+      "schema_hash": "cb651cadd2c76cb2df067202c7eb2985d18985c993fba3b6534c237b76f0a9f4",
+      "disposition": "code-case",
+      "live_blocker": {
         "issue": 5,
         "reason": "Requires the authenticated native desktop broker or an explicitly selected isolated environment and an owned interaction/job target. Remaining native end-to-end checks are tracked in issue #5; no user desktop is actuated by this audit."
-      }
+      },
+      "fixtures": [
+        "tool-audit-skill-sync.test.ts"
+      ],
+      "evidence_kind": "code-contract"
     },
     {
       "name": "skill_update",
@@ -2853,7 +3216,7 @@
     },
     {
       "name": "skills_list",
-      "schema_hash": "b5d6f82f14139f5af27f5b49b88ac334ba25c44068d78c364f350a6262414aa4",
+      "schema_hash": "68ec386ff5742627f6d230d224c79d683bd57dff388238aa54c6aa1ade2b0c6c",
       "disposition": "code-case",
       "evidence_kind": "code-contract",
       "fixtures": [
@@ -2862,7 +3225,7 @@
     },
     {
       "name": "slides",
-      "schema_hash": "2a336fbd71070a3626515cb234ac5313120a6bb801d3e29e71363b27895ec404",
+      "schema_hash": "1bd3ec672161f783ce6139ce20fd92f424e3de4533ad16a97fda1f8fcb0ae5b9",
       "disposition": "category",
       "members": [
         "slides_create",
@@ -2872,84 +3235,95 @@
     },
     {
       "name": "slides_create",
-      "schema_hash": "d4f5f3af571ac9a5559ad014c72b4abc3f27a4f481f585c83d82017480d1b067",
+      "schema_hash": "09711eb0fb922314ac089b1ed5587da2310c9c9c519c7d5c968bf2d1e2dea29c",
       "disposition": "code-case",
       "evidence_kind": "local-service",
       "fixtures": [
         "issue4-document-workflows.test.ts",
-        "issue4-office-inspect.ts"
+        "issue4-office-inspect.ts",
+        "issue6-delivery.test.ts"
       ]
     },
     {
       "name": "slides_edit",
-      "schema_hash": "ee81874931dee12916c6b7d359d5cc035ae75cec2d029d2baa1b9a10110b27b8",
+      "schema_hash": "687d705204c085d7d2d2a0bdd9db84c56c4d396c8fa50aba4f38d627f2d4d37e",
       "disposition": "code-case",
       "evidence_kind": "local-service",
       "fixtures": [
-        "issue4-document-workflows.test.ts"
+        "issue4-document-workflows.test.ts",
+        "issue6-delivery.test.ts"
       ]
     },
     {
       "name": "slides_inspect",
       "schema_hash": "5d62fdcd8e3e32a2532f224f360fb67d245a8af07df2506cd94ebe2e2aefd2e5",
       "disposition": "code-case",
-      "evidence_kind": "local-service",
+      "evidence_kind": "code-contract",
       "fixtures": [
-        "issue4-office-inspect.ts"
+        "issue4-office-inspect.ts",
+        "issue6-delivery.test.ts"
       ]
     },
     {
       "name": "spreadsheet_chart",
-      "schema_hash": "abf4e0b053f205d8a87c5778d7253deadae28d3fbb6b489a69508d6555a2de84",
+      "schema_hash": "40f7d4dea1d7cd299ec907bf0ff9460200f379406a50f2079cacb18e26f18db5",
       "disposition": "code-case",
       "evidence_kind": "local-service",
       "fixtures": [
-        "issue4-document-workflows.test.ts"
+        "issue4-document-workflows.test.ts",
+        "issue6-delivery.test.ts"
       ]
     },
     {
       "name": "spreadsheet_create",
-      "schema_hash": "6cf99ec90ed483a639d1744524249cfb9fd3209d18d1d06acefc45f23965b4a6",
+      "schema_hash": "6001abf69e91dcbb7b46ab10927287d1416505d72da04bc57388317553ae89a2",
       "disposition": "code-case",
       "evidence_kind": "local-service",
       "fixtures": [
         "issue4-document-workflows.test.ts",
         "issue4-office-inspect.ts",
-        "plan-creation-boundary.test.ts"
+        "plan-creation-boundary.test.ts",
+        "issue6-delivery.test.ts",
+        "spreadsheet-formula-recovery.test.ts",
+        "conversation-office-integration.test.ts"
       ]
     },
     {
       "name": "spreadsheet_edit",
-      "schema_hash": "dda919b9e63045ebb4da7bb6825ed602cb26f5529b7b2930d53262089fc71134",
+      "schema_hash": "b4277448a7f42f79974213316c324588b2c27eca8c486e8f72d934e6680e394b",
       "disposition": "code-case",
       "evidence_kind": "local-service",
       "fixtures": [
-        "issue4-document-workflows.test.ts"
+        "issue4-document-workflows.test.ts",
+        "issue6-delivery.test.ts",
+        "spreadsheet-formula-recovery.test.ts",
+        "conversation-office-integration.test.ts"
       ]
     },
     {
       "name": "spreadsheet_inspect",
-      "schema_hash": "a6379fb0b891dea760a19c183f35c180337f20b25071fae660bce46bc35da0de",
+      "schema_hash": "e474e0689d2962e5a5cbc870c2232b77ef26b3c894fe733eadcb48884d4d0032",
       "disposition": "code-case",
-      "evidence_kind": "local-service",
+      "evidence_kind": "code-contract",
       "fixtures": [
-        "issue4-office-inspect.ts"
+        "issue4-office-inspect.ts",
+        "issue6-delivery.test.ts"
       ]
     },
     {
       "name": "sql_query",
-      "schema_hash": "83ebaf1f1ce2a9b3bd65ff4ac7b9d1a43a50eed5af65fc0862f27b2d8efbeb3d",
+      "schema_hash": "eda9c078b2611a0801c9138eb3c7fe5657e7d1d0ad58d7901f7c8c6fdc0f5ef8",
       "disposition": "code-case",
-      "evidence_kind": "code-contract",
+      "evidence_kind": "local-service",
       "fixtures": [
         "issue4-local-workflows.test.ts"
       ]
     },
     {
       "name": "symbol_search",
-      "schema_hash": "1e3374b7b810c4cf4137069c59f4ee7288d281c930830082ac3e07884e602b84",
+      "schema_hash": "6904d3be33f15c339eb7343b841e45647293fdd7d8fcd04c39aee3c122d1308e",
       "disposition": "code-case",
-      "evidence_kind": "code-contract",
+      "evidence_kind": "local-service",
       "fixtures": [
         "issue4-local-workflows.test.ts"
       ]
@@ -2967,7 +3341,7 @@
       "name": "system_cpu_info",
       "schema_hash": "25c7d85c859a6f78f6f4e83edf2d3073645b7c71d2832348387882a6833b1834",
       "disposition": "code-case",
-      "evidence_kind": "code-contract",
+      "evidence_kind": "local-service",
       "fixtures": [
         "issue4-local-workflows.test.ts"
       ]
@@ -2976,7 +3350,7 @@
       "name": "system_disk_info",
       "schema_hash": "25c7d85c859a6f78f6f4e83edf2d3073645b7c71d2832348387882a6833b1834",
       "disposition": "code-case",
-      "evidence_kind": "code-contract",
+      "evidence_kind": "local-service",
       "fixtures": [
         "issue4-local-workflows.test.ts"
       ]
@@ -2985,7 +3359,7 @@
       "name": "system_gpu_info",
       "schema_hash": "25c7d85c859a6f78f6f4e83edf2d3073645b7c71d2832348387882a6833b1834",
       "disposition": "code-case",
-      "evidence_kind": "code-contract",
+      "evidence_kind": "local-service",
       "fixtures": [
         "issue4-local-workflows.test.ts"
       ]
@@ -2994,7 +3368,7 @@
       "name": "system_info",
       "schema_hash": "25c7d85c859a6f78f6f4e83edf2d3073645b7c71d2832348387882a6833b1834",
       "disposition": "code-case",
-      "evidence_kind": "code-contract",
+      "evidence_kind": "local-service",
       "fixtures": [
         "issue4-local-workflows.test.ts"
       ]
@@ -3003,7 +3377,7 @@
       "name": "system_installed_apps",
       "schema_hash": "25c7d85c859a6f78f6f4e83edf2d3073645b7c71d2832348387882a6833b1834",
       "disposition": "code-case",
-      "evidence_kind": "code-contract",
+      "evidence_kind": "local-service",
       "fixtures": [
         "issue4-local-workflows.test.ts"
       ]
@@ -3012,7 +3386,7 @@
       "name": "system_memory_info",
       "schema_hash": "25c7d85c859a6f78f6f4e83edf2d3073645b7c71d2832348387882a6833b1834",
       "disposition": "code-case",
-      "evidence_kind": "code-contract",
+      "evidence_kind": "local-service",
       "fixtures": [
         "issue4-local-workflows.test.ts"
       ]
@@ -3021,7 +3395,7 @@
       "name": "system_network_info",
       "schema_hash": "25c7d85c859a6f78f6f4e83edf2d3073645b7c71d2832348387882a6833b1834",
       "disposition": "code-case",
-      "evidence_kind": "code-contract",
+      "evidence_kind": "local-service",
       "fixtures": [
         "issue4-local-workflows.test.ts"
       ]
@@ -3030,14 +3404,14 @@
       "name": "table_list",
       "schema_hash": "1d6f37e22246627d1b6ae43efd1d97ea8f2598347101be640a03b60917429807",
       "disposition": "code-case",
-      "evidence_kind": "code-contract",
+      "evidence_kind": "local-service",
       "fixtures": [
         "issue4-local-workflows.test.ts"
       ]
     },
     {
       "name": "task",
-      "schema_hash": "27d2fdc891b4b08be0ecad93a491c40197b8b00ed2b15f1ba25310a9eb5fb92d",
+      "schema_hash": "9d8f6363bf31e14eee588987bfee518b65147d96a43bedc28fefb3c9b5872695",
       "disposition": "code-case",
       "evidence_kind": "code-contract",
       "fixtures": [
@@ -3046,9 +3420,9 @@
     },
     {
       "name": "task_cancel",
-      "schema_hash": "45982e8c3462cf5ffa723d48112165e9c40ffc74d1734c4bc2489cded5fe683b",
+      "schema_hash": "4a0c59a42bbd93aa455ddfcbfe8ca1c258fe4db1e1c228434cf3f875d8506fb1",
       "disposition": "code-case",
-      "evidence_kind": "code-contract",
+      "evidence_kind": "local-service",
       "fixtures": [
         "advanced-tool-services.test.ts",
         "issue4-local-workflows.test.ts"
@@ -3056,9 +3430,9 @@
     },
     {
       "name": "task_create",
-      "schema_hash": "7a9c7e9dbeebdbd3b932de9c8b5abe931dcb857b5d8c3c2780cd58c7324e1c6c",
+      "schema_hash": "37caec72c7f84acb8126ed2e47f0608d724e7ba3be0dbb6ea40f69ec08262dd6",
       "disposition": "code-case",
-      "evidence_kind": "code-contract",
+      "evidence_kind": "local-service",
       "fixtures": [
         "advanced-tool-services.test.ts",
         "issue4-local-workflows.test.ts"
@@ -3068,16 +3442,16 @@
       "name": "task_list",
       "schema_hash": "25c7d85c859a6f78f6f4e83edf2d3073645b7c71d2832348387882a6833b1834",
       "disposition": "code-case",
-      "evidence_kind": "code-contract",
+      "evidence_kind": "local-service",
       "fixtures": [
         "issue4-local-workflows.test.ts"
       ]
     },
     {
       "name": "task_update",
-      "schema_hash": "e2508753c0522479c3cf49de1b71bfab7b0664cab9df592f70fb33b9fe326851",
+      "schema_hash": "dc877d5be8729cd2078d1d9899e5330a3f0d98677c23394235bfcfaaedac7db0",
       "disposition": "code-case",
-      "evidence_kind": "code-contract",
+      "evidence_kind": "local-service",
       "fixtures": [
         "advanced-tool-services.test.ts",
         "issue4-local-workflows.test.ts"
@@ -3087,7 +3461,7 @@
       "name": "team_message",
       "schema_hash": "f0be511020a6e9d37d5ed1295f299bf3895968d78044b0973de504cf2ff681ac",
       "disposition": "code-case",
-      "evidence_kind": "code-contract",
+      "evidence_kind": "local-service",
       "fixtures": [
         "issue4-local-workflows.test.ts"
       ]
@@ -3096,7 +3470,7 @@
       "name": "team_progress",
       "schema_hash": "7158c788c5ba83bb2ecd9e9664b4a67680aa7918841d7a545a40aef8f07091cf",
       "disposition": "code-case",
-      "evidence_kind": "code-contract",
+      "evidence_kind": "local-service",
       "fixtures": [
         "issue4-local-workflows.test.ts"
       ]
@@ -3105,7 +3479,7 @@
       "name": "team_read",
       "schema_hash": "25c7d85c859a6f78f6f4e83edf2d3073645b7c71d2832348387882a6833b1834",
       "disposition": "code-case",
-      "evidence_kind": "code-contract",
+      "evidence_kind": "local-service",
       "fixtures": [
         "issue4-local-workflows.test.ts"
       ]
@@ -3114,7 +3488,7 @@
       "name": "template_apply",
       "schema_hash": "5a280f0cbfed676b8eb5f156a62a3e20bd4bbd87fe5529224d56d4845deae54d",
       "disposition": "code-case",
-      "evidence_kind": "code-contract",
+      "evidence_kind": "local-service",
       "fixtures": [
         "issue4-local-workflows.test.ts"
       ]
@@ -3123,16 +3497,16 @@
       "name": "template_create",
       "schema_hash": "23c9842cdde333b055b7ec586e0d1b24880527b6639666935732104993b94d22",
       "disposition": "code-case",
-      "evidence_kind": "code-contract",
+      "evidence_kind": "local-service",
       "fixtures": [
         "issue4-local-workflows.test.ts"
       ]
     },
     {
       "name": "template_list",
-      "schema_hash": "3f14713584184b426cd6990f6ddd61600283ff31bd18ff9956a7fbac55f0379c",
+      "schema_hash": "182177ab0e0981e180bf9ecc6327caf123627f6d05bfd77e8b357c4ace6f702f",
       "disposition": "code-case",
-      "evidence_kind": "code-contract",
+      "evidence_kind": "local-service",
       "fixtures": [
         "issue4-local-workflows.test.ts"
       ]
@@ -3140,64 +3514,86 @@
     {
       "name": "terminal_cancel",
       "schema_hash": "76fd60e8db3ff00a9d3899532833edfcf55501a2afa3c409b80d363c2ab87b24",
-      "disposition": "dependency-blocked",
-      "blocker": {
+      "disposition": "code-case",
+      "live_blocker": {
         "issue": 5,
         "reason": "Requires the authenticated native desktop broker or an explicitly selected isolated environment and an owned interaction/job target. Remaining native end-to-end checks are tracked in issue #5; no user desktop is actuated by this audit."
-      }
+      },
+      "fixtures": [
+        "tool-audit-coding.test.ts"
+      ],
+      "evidence_kind": "local-service"
     },
     {
       "name": "terminal_read",
-      "schema_hash": "4e47fea745819fbd1a5d63b3b95ee4f872ca355145eec44aacaf81045d986b4f",
-      "disposition": "dependency-blocked",
-      "blocker": {
+      "schema_hash": "be4f1941dc9dcf7441cefa51f14e12538b8cb39fd937fcf0ebbc441f8f555163",
+      "disposition": "code-case",
+      "live_blocker": {
         "issue": 5,
         "reason": "Requires the authenticated native desktop broker or an explicitly selected isolated environment and an owned interaction/job target. Remaining native end-to-end checks are tracked in issue #5; no user desktop is actuated by this audit."
-      }
+      },
+      "fixtures": [
+        "tool-audit-coding.test.ts"
+      ],
+      "evidence_kind": "local-service"
     },
     {
       "name": "terminal_resize",
       "schema_hash": "829b6bd6e3de906e88fe8a7fd787245a432f54103147bf96d47429b196ba58b7",
-      "disposition": "dependency-blocked",
-      "blocker": {
+      "disposition": "code-case",
+      "live_blocker": {
         "issue": 5,
         "reason": "Requires the authenticated native desktop broker or an explicitly selected isolated environment and an owned interaction/job target. Remaining native end-to-end checks are tracked in issue #5; no user desktop is actuated by this audit."
-      }
+      },
+      "fixtures": [
+        "tool-audit-coding.test.ts"
+      ],
+      "evidence_kind": "local-service"
     },
     {
       "name": "terminal_run",
-      "schema_hash": "9a1781aa8d21e4bbb6131e17e59110bfd8cb81cee90b9fb1079ed69a30759f25",
+      "schema_hash": "4e714f5a592c4ce9aeba2754e75024dd3c3182982867640cb753843787f5803f",
       "disposition": "code-case",
-      "evidence_kind": "code-contract",
+      "evidence_kind": "local-service",
       "fixtures": [
         "chat-tool-policy.test.ts",
         "runtime-security.test.ts",
-        "shell-category.test.ts"
+        "shell-category.test.ts",
+        "tool-audit-coding.test.ts",
+        "tool-audit-shell-dialect.test.ts"
       ]
     },
     {
       "name": "terminal_session",
       "schema_hash": "25c7d85c859a6f78f6f4e83edf2d3073645b7c71d2832348387882a6833b1834",
-      "disposition": "dependency-blocked",
-      "blocker": {
+      "disposition": "code-case",
+      "live_blocker": {
         "issue": 5,
         "reason": "Requires the authenticated native desktop broker or an explicitly selected isolated environment and an owned interaction/job target. Remaining native end-to-end checks are tracked in issue #5; no user desktop is actuated by this audit."
-      }
+      },
+      "fixtures": [
+        "tool-audit-coding.test.ts"
+      ],
+      "evidence_kind": "local-service"
     },
     {
       "name": "terminal_stdin",
       "schema_hash": "ebe51c23a476779a4178b1a369ac884d5bf353c517462427c217f868c040243e",
-      "disposition": "dependency-blocked",
-      "blocker": {
+      "disposition": "code-case",
+      "live_blocker": {
         "issue": 5,
         "reason": "Requires the authenticated native desktop broker or an explicitly selected isolated environment and an owned interaction/job target. Remaining native end-to-end checks are tracked in issue #5; no user desktop is actuated by this audit."
-      }
+      },
+      "fixtures": [
+        "tool-audit-coding.test.ts"
+      ],
+      "evidence_kind": "local-service"
     },
     {
       "name": "tool_output_read",
-      "schema_hash": "00eaf74082f624fe86c5b2ad622637a2a660bd6ce14cddede321d99405933b3d",
+      "schema_hash": "02ca805797e6b990ce68b5df39f4ae973305a78db9def3e4f4334cd28bda182f",
       "disposition": "code-case",
-      "evidence_kind": "code-contract",
+      "evidence_kind": "local-service",
       "fixtures": [
         "issue4-local-workflows.test.ts"
       ]
@@ -3219,7 +3615,7 @@
     },
     {
       "name": "trigger",
-      "schema_hash": "fa0bbb65c279eccdfa6b2dfdae24fd54338ab261ac109174d388d005b736e064",
+      "schema_hash": "096f495fb46dffeccd7e65efdad7edb5f65dac713b75e12de4f008f385ab80ba",
       "disposition": "code-case",
       "evidence_kind": "code-contract",
       "fixtures": [
@@ -3231,16 +3627,16 @@
       "name": "trigger_condition",
       "schema_hash": "a8cefc825364ff51dfac594c75b2fb8a1745034f51804035ff57568f58c59d80",
       "disposition": "code-case",
-      "evidence_kind": "code-contract",
+      "evidence_kind": "local-service",
       "fixtures": [
         "issue4-local-workflows.test.ts"
       ]
     },
     {
       "name": "trigger_create",
-      "schema_hash": "0dd11a08042d70a7a1beb94e168536be8ae3de94f02bd3ab725cb671f61cc478",
+      "schema_hash": "18a23036a5ac6232333743bee40005a01677234aeb0c39916abb3f5049d7676b",
       "disposition": "code-case",
-      "evidence_kind": "code-contract",
+      "evidence_kind": "local-service",
       "fixtures": [
         "capability-catalog.test.ts",
         "issue4-local-workflows.test.ts"
@@ -3250,7 +3646,7 @@
       "name": "trigger_delete",
       "schema_hash": "80ae68c40f28a235665684db487951985b30ee3832b92299f21e2381ca7c62ef",
       "disposition": "code-case",
-      "evidence_kind": "code-contract",
+      "evidence_kind": "local-service",
       "fixtures": [
         "capability-catalog.test.ts",
         "issue4-local-workflows.test.ts"
@@ -3260,7 +3656,7 @@
       "name": "trigger_list",
       "schema_hash": "25c7d85c859a6f78f6f4e83edf2d3073645b7c71d2832348387882a6833b1834",
       "disposition": "code-case",
-      "evidence_kind": "code-contract",
+      "evidence_kind": "local-service",
       "fixtures": [
         "issue4-local-workflows.test.ts"
       ]
@@ -3269,7 +3665,7 @@
       "name": "trigger_update",
       "schema_hash": "6efc0384e0b30f3657a47887b61b243217ecb4ac14d34e949474af33df6f4509",
       "disposition": "code-case",
-      "evidence_kind": "code-contract",
+      "evidence_kind": "local-service",
       "fixtures": [
         "issue4-local-workflows.test.ts"
       ]
@@ -3278,14 +3674,14 @@
       "name": "video_probe",
       "schema_hash": "207d3395f9054563061674fd72b0f98307e020a632544e8de8e8f960b9f436d5",
       "disposition": "code-case",
-      "evidence_kind": "code-contract",
+      "evidence_kind": "local-service",
       "fixtures": [
         "issue4-local-workflows.test.ts"
       ]
     },
     {
       "name": "web",
-      "schema_hash": "66a93bd690e5184326ab4ed5412641517b024bb865ea8a7ecda49b929eeeb381",
+      "schema_hash": "ca62dd2d52068715e29ce70a795520e23e1e28342dfe11ce032f8087a1438924",
       "disposition": "category",
       "members": [
         "web_collect_sources",
@@ -3307,36 +3703,36 @@
     },
     {
       "name": "web_collect_sources",
-      "schema_hash": "b2cac902ef738f068cdbe0662759524d6363ec548685b59da7d6f5d5c3f559d9",
+      "schema_hash": "f5f5d75ebb01e43d8d4409d630e67a180b651271c3130945b4e29056ad07e611",
       "disposition": "code-case",
-      "evidence_kind": "controlled-transport",
+      "evidence_kind": "local-service",
       "fixtures": [
         "issue4-local-workflows.test.ts"
       ]
     },
     {
       "name": "web_compare_sources",
-      "schema_hash": "85c84137a5176973beaca9281bede5f5b98bfb66fbf16899e4b9262935e76ad5",
+      "schema_hash": "376b908cf2f14156baa22a6444c633b55c3bcdfa0ad299312acc7a3105062ed6",
       "disposition": "code-case",
-      "evidence_kind": "controlled-transport",
+      "evidence_kind": "local-service",
       "fixtures": [
         "issue4-local-workflows.test.ts"
       ]
     },
     {
       "name": "web_crawl",
-      "schema_hash": "1216803672141860efe56edb8bfab169bcd5a5fe5262c9b970ea6c154f12aec3",
+      "schema_hash": "bc50f3bf29434281850178071260f3bdbc79a38f670e918730ba153ef7a79589",
       "disposition": "code-case",
-      "evidence_kind": "controlled-transport",
+      "evidence_kind": "local-service",
       "fixtures": [
         "issue4-local-workflows.test.ts"
       ]
     },
     {
       "name": "web_download_file",
-      "schema_hash": "9992fc93d97bf2803d6810ad52da5d86e2b6e01e7d4103ef2c87a1e0d88b50a7",
+      "schema_hash": "e3addb0e2f21260ec1ab63facf868cc5058e33aac828e4b481347c185aebcb88",
       "disposition": "code-case",
-      "evidence_kind": "controlled-transport",
+      "evidence_kind": "local-service",
       "fixtures": [
         "issue4-local-workflows.test.ts"
       ]
@@ -3345,7 +3741,7 @@
       "name": "web_download_resource",
       "schema_hash": "5cfffaeefb44d262154dea5f9b79a2ecd5e365a55553f2458a41d812df35076d",
       "disposition": "code-case",
-      "evidence_kind": "controlled-transport",
+      "evidence_kind": "local-service",
       "fixtures": [
         "issue4-local-workflows.test.ts"
       ]
@@ -3354,25 +3750,25 @@
       "name": "web_extract_links",
       "schema_hash": "cb839aa4f6267ea0b4ff2364272c108f1a3474fcca2ba1707878f8f785d4905d",
       "disposition": "code-case",
-      "evidence_kind": "controlled-transport",
+      "evidence_kind": "local-service",
       "fixtures": [
         "issue4-local-workflows.test.ts"
       ]
     },
     {
       "name": "web_extract_text",
-      "schema_hash": "3407a3fda7fd26dbe13e187ee580ff181af1052e5583f2089ab35c8bc97d093d",
+      "schema_hash": "99d9f14d7cbf2084bf1097232a6eba4343817f94476725c91f70b4a20f95c14e",
       "disposition": "code-case",
-      "evidence_kind": "controlled-transport",
+      "evidence_kind": "local-service",
       "fixtures": [
         "issue4-local-workflows.test.ts"
       ]
     },
     {
       "name": "web_fetch",
-      "schema_hash": "3407a3fda7fd26dbe13e187ee580ff181af1052e5583f2089ab35c8bc97d093d",
+      "schema_hash": "99d9f14d7cbf2084bf1097232a6eba4343817f94476725c91f70b4a20f95c14e",
       "disposition": "code-case",
-      "evidence_kind": "controlled-transport",
+      "evidence_kind": "code-contract",
       "fixtures": [
         "chat-tool-policy.test.ts",
         "security-fixes.test.ts"
@@ -3382,7 +3778,7 @@
       "name": "web_find_text",
       "schema_hash": "cc9a6c89af781f792421b2c7aeb2468122951befa2a78db971b04e10e1d53ca0",
       "disposition": "code-case",
-      "evidence_kind": "controlled-transport",
+      "evidence_kind": "local-service",
       "fixtures": [
         "issue4-local-workflows.test.ts"
       ]
@@ -3391,7 +3787,7 @@
       "name": "web_parse_html",
       "schema_hash": "6d0105135e34184955b818063edc41c2ff2555c2573c7293f8ac019dfe7e5af1",
       "disposition": "code-case",
-      "evidence_kind": "controlled-transport",
+      "evidence_kind": "code-contract",
       "fixtures": [
         "tool-audit-regressions.test.ts"
       ]
@@ -3400,43 +3796,43 @@
       "name": "web_parse_json",
       "schema_hash": "cb839aa4f6267ea0b4ff2364272c108f1a3474fcca2ba1707878f8f785d4905d",
       "disposition": "code-case",
-      "evidence_kind": "controlled-transport",
+      "evidence_kind": "local-service",
       "fixtures": [
         "issue4-local-workflows.test.ts"
       ]
     },
     {
       "name": "web_search",
-      "schema_hash": "fb9fe8aada14694f5d694afd8e718ff64a8ade71626e44db6e146ad926a7df67",
+      "schema_hash": "59bed62e1e05acddf694f3dac7c353ad200646729e75d9b1dfe98d88088e95c4",
       "disposition": "code-case",
-      "evidence_kind": "controlled-transport",
+      "evidence_kind": "local-service",
       "fixtures": [
         "issue4-local-workflows.test.ts"
       ]
     },
     {
       "name": "web_search_documents",
-      "schema_hash": "f44d20eba3e67ecfc3e99fe859a3699b99e9e2540f345eb416073af43c7ce934",
+      "schema_hash": "34597039c4960bf83df7131bf0e3995ea03405b2439a62bc7c69e67f780278ee",
       "disposition": "code-case",
-      "evidence_kind": "controlled-transport",
+      "evidence_kind": "local-service",
       "fixtures": [
         "issue4-local-workflows.test.ts"
       ]
     },
     {
       "name": "web_search_images",
-      "schema_hash": "f44d20eba3e67ecfc3e99fe859a3699b99e9e2540f345eb416073af43c7ce934",
+      "schema_hash": "34597039c4960bf83df7131bf0e3995ea03405b2439a62bc7c69e67f780278ee",
       "disposition": "code-case",
-      "evidence_kind": "controlled-transport",
+      "evidence_kind": "code-contract",
       "fixtures": [
         "advanced-tool-services.test.ts"
       ]
     },
     {
       "name": "web_search_news",
-      "schema_hash": "f44d20eba3e67ecfc3e99fe859a3699b99e9e2540f345eb416073af43c7ce934",
+      "schema_hash": "34597039c4960bf83df7131bf0e3995ea03405b2439a62bc7c69e67f780278ee",
       "disposition": "code-case",
-      "evidence_kind": "controlled-transport",
+      "evidence_kind": "code-contract",
       "fixtures": [
         "advanced-tool-services.test.ts"
       ]
@@ -3455,20 +3851,28 @@
     {
       "name": "webhook_delivery_status",
       "schema_hash": "b02552d50575192db58e7f59c39d9eeba9b3584164c95699f915e31a39f5a0d9",
-      "disposition": "dependency-blocked",
-      "blocker": {
+      "disposition": "code-case",
+      "live_blocker": {
         "issue": 7,
         "reason": "Requires a saved, authorized connector or owned endpoint with its authentication/resource/delivery fixture. Missing IDs or credentials are not treated as successful service calls. Service contract and live checks remain in issue #7."
-      }
+      },
+      "fixtures": [
+        "tool-audit-webhooks.test.ts"
+      ],
+      "evidence_kind": "local-service"
     },
     {
       "name": "webhook_events",
       "schema_hash": "a0b661a7c409c203b915ef4535d6b806b5fc849fd25c5903a91eaf0000eca9bd",
-      "disposition": "dependency-blocked",
-      "blocker": {
+      "disposition": "code-case",
+      "live_blocker": {
         "issue": 7,
         "reason": "Requires a saved, authorized connector or owned endpoint with its authentication/resource/delivery fixture. Missing IDs or credentials are not treated as successful service calls. Service contract and live checks remain in issue #7."
-      }
+      },
+      "fixtures": [
+        "tool-audit-webhooks.test.ts"
+      ],
+      "evidence_kind": "local-service"
     },
     {
       "name": "webhook_list",
@@ -3482,11 +3886,15 @@
     {
       "name": "webhook_send",
       "schema_hash": "2176aab2bf3fe896e4b11f6007de853ebf02e186bc707939ef4de0986ece8674",
-      "disposition": "dependency-blocked",
-      "blocker": {
+      "disposition": "code-case",
+      "live_blocker": {
         "issue": 7,
         "reason": "Requires a saved, authorized connector or owned endpoint with its authentication/resource/delivery fixture. Missing IDs or credentials are not treated as successful service calls. Service contract and live checks remain in issue #7."
-      }
+      },
+      "fixtures": [
+        "tool-audit-webhooks.test.ts"
+      ],
+      "evidence_kind": "local-service"
     },
     {
       "name": "workflow",
@@ -3501,7 +3909,7 @@
       "name": "workflow_install_skill",
       "schema_hash": "650dc9b835924112411a7d9f1b44219c405f52f60ddbe6807c17aa1703e88d20",
       "disposition": "code-case",
-      "evidence_kind": "code-contract",
+      "evidence_kind": "local-service",
       "fixtures": [
         "issue4-local-workflows.test.ts"
       ]
@@ -3510,7 +3918,7 @@
       "name": "workflow_list",
       "schema_hash": "25c7d85c859a6f78f6f4e83edf2d3073645b7c71d2832348387882a6833b1834",
       "disposition": "code-case",
-      "evidence_kind": "code-contract",
+      "evidence_kind": "local-service",
       "fixtures": [
         "issue4-local-workflows.test.ts"
       ]
@@ -3519,7 +3927,7 @@
       "name": "workflow_read",
       "schema_hash": "fa57939c2ae5c3565b56149aa2f29b8d99053be053eb5b7cd52eeed9593dbef9",
       "disposition": "code-case",
-      "evidence_kind": "code-contract",
+      "evidence_kind": "local-service",
       "fixtures": [
         "issue4-local-workflows.test.ts"
       ]
@@ -3528,7 +3936,7 @@
       "name": "workflow_record",
       "schema_hash": "46f38edeefb9b0b8cf470233b0b68bbe2cf8bf3e858946b7ab6a692d6e1840ab",
       "disposition": "code-case",
-      "evidence_kind": "code-contract",
+      "evidence_kind": "local-service",
       "fixtures": [
         "issue4-local-workflows.test.ts"
       ]
@@ -3537,10 +3945,22 @@
       "name": "workflow_replay",
       "schema_hash": "fa57939c2ae5c3565b56149aa2f29b8d99053be053eb5b7cd52eeed9593dbef9",
       "disposition": "code-case",
-      "evidence_kind": "code-contract",
+      "evidence_kind": "local-service",
       "fixtures": [
         "issue4-local-workflows.test.ts"
       ]
     }
-  ]
+  ],
+  "schema_revision_note": "Input schemas now preserve optional defaulted fields; presentation layout alternatives match execution validation. Coverage dispositions and dependency blockers are unchanged. Model-driven end-to-end evidence remains separate from code-contract coverage.",
+  "audit": {
+    "concrete_actions": 339,
+    "orchestration_entrypoints": 2,
+    "category_wrappers": 35,
+    "input_validation_actions": 339,
+    "dispatcher_success_actions": 310,
+    "code_tests": 272,
+    "native_code_tests": 18,
+    "live_desktop_capture_skipped": true,
+    "model_content_quality": "Prior model-generated spreadsheet content checks remain inconsistent; deterministic Office workflows are separate."
+  }
 }

@@ -1,0 +1,13 @@
+{
+  "id": "horizon:adapter:documents",
+  "repository": "",
+  "revision": "application",
+  "digest": "411f76910aa0467c09c63b5d8fc79068034b7208a9d398aa96958a0fdd4d80a9",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "Application LICENSE"
+    ]
+  }
+}

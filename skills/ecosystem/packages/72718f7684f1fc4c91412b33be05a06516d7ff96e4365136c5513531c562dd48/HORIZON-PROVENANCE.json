@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:commands/rust-build.md",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "fa8a52c9386e001285c306ce39c71505d4dd091083dbf9fdc7a7851d031d78e4",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

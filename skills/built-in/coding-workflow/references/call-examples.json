@@ -1,0 +1,177 @@
+{
+  "version": 1,
+  "skill_id": "horizon-coding-workflow",
+  "examples": [
+    {
+      "tool": "ask_user",
+      "arguments": {
+        "questions": [
+          {
+            "id": "storage",
+            "question": "How should this app store its data?",
+            "options": [
+              {
+                "label": "JSON files",
+                "description": "Persist locally between restarts."
+              },
+              {
+                "label": "In memory",
+                "description": "Reset when the process stops."
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "tool": "plan_create",
+      "arguments": {
+        "title": "Build the notes app",
+        "tasks": [
+          "Inspect the workspace and confirm the API",
+          "Implement storage and search",
+          "Add isolated regression tests",
+          "Run tests and deliver source files"
+        ]
+      }
+    },
+    {
+      "tool": "plan_read",
+      "arguments": {}
+    },
+    {
+      "tool": "plan_update",
+      "arguments": {
+        "plan_id": "<plan_id returned by plan_read>",
+        "task_id": "<task_id from that plan>",
+        "status": "in-progress"
+      }
+    },
+    {
+      "tool": "task_create",
+      "arguments": {
+        "title": "Implement and verify note persistence",
+        "description": "Save, restart a fresh process, retrieve the saved record, and preserve existing records."
+      }
+    },
+    {
+      "tool": "task_update",
+      "arguments": {
+        "task_id": "<task_id returned by task_create>",
+        "status": "running",
+        "note": "Implementation started."
+      }
+    },
+    {
+      "tool": "files_list",
+      "arguments": {
+        "path": "."
+      }
+    },
+    {
+      "tool": "git_status",
+      "arguments": {
+        "cwd": "."
+      }
+    },
+    {
+      "tool": "files_read",
+      "arguments": {
+        "path": "package.json",
+        "offset": 0,
+        "limit": 12000
+      }
+    },
+    {
+      "tool": "files_search",
+      "arguments": {
+        "path": "src",
+        "query": "addNote"
+      }
+    },
+    {
+      "tool": "directory_create",
+      "arguments": {
+        "path": "src"
+      }
+    },
+    {
+      "tool": "files_write",
+      "arguments": {
+        "path": "src/add.mjs",
+        "text": "export function add(a, b) { return a + b; }\n"
+      }
+    },
+    {
+      "tool": "files_read",
+      "arguments": {
+        "path": "src/add.mjs"
+      }
+    },
+    {
+      "tool": "files_patch",
+      "arguments": {
+        "path": "src/add.mjs",
+        "expected_hash": "<hash returned by the immediately preceding files_read>",
+        "find": "return a + b;",
+        "replace": "return Number(a) + Number(b);"
+      }
+    },
+    {
+      "tool": "terminal_run",
+      "arguments": {
+        "command": "node --test notes.test.mjs",
+        "cwd": ".",
+        "timeout_ms": 60000,
+        "interactive": false
+      }
+    },
+    {
+      "tool": "terminal_read",
+      "arguments": {
+        "job_id": "<job_id returned by terminal_run>",
+        "offset": 0,
+        "wait_ms": 1000
+      }
+    },
+    {
+      "tool": "code_test",
+      "arguments": {
+        "cwd": ".",
+        "script": "test",
+        "timeout_ms": 60000
+      }
+    },
+    {
+      "tool": "code_lint",
+      "arguments": {
+        "cwd": ".",
+        "script": "lint",
+        "timeout_ms": 60000
+      }
+    },
+    {
+      "tool": "git_diff",
+      "arguments": {
+        "cwd": ".",
+        "staged": false
+      }
+    },
+    {
+      "tool": "git_add",
+      "arguments": {
+        "cwd": ".",
+        "paths": [
+          "src/add.mjs"
+        ]
+      }
+    },
+    {
+      "tool": "git_commit",
+      "arguments": {
+        "cwd": ".",
+        "message": "fix: validate numeric addition"
+      }
+    }
+  ]
+}

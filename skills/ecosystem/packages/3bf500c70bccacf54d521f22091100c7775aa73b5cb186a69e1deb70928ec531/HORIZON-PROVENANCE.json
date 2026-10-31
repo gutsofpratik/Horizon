@@ -1,0 +1,13 @@
+{
+  "id": "github:elevenlabs/skills:text-to-speech",
+  "repository": "elevenlabs/skills",
+  "revision": "503d4e9fda0190ab9357142f44e51de626f97f90",
+  "digest": "6669930f8d73894683a570d1f517da25c50a4c7e4643d2c58b9f22d15d9f1ba4",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

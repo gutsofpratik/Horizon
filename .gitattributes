@@ -1,0 +1,4 @@
+* text=auto eol=lf
+/skills/ecosystem/packages/** -text
+/skills/ecosystem/frameworks/** -text
+/skills/ecosystem/engine/** -text

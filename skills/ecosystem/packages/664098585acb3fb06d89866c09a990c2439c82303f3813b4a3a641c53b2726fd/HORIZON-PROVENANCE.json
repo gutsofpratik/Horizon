@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:skills/api-connector-builder",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "cdcfe4de8ed2ae5a110fa35f6c3422fe7e7f2182b5ae737e5a23c4d896e344da",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

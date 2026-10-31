@@ -1,0 +1,13 @@
+{
+  "id": "github:openai/plugins:plugins/google-drive/skills/google-sheets",
+  "repository": "openai/plugins",
+  "revision": "0722921d5542fc593105c27bd52630babd8b8c2a",
+  "digest": "7672e31168445eba074e1aa5976887f99cbddeffcc18ffd061bf3f2195e3d53c",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "plugins/google-drive/.codex-plugin/plugin.json"
+    ]
+  }
+}

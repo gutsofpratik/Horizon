@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:skills/ui-to-vue",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "7bb4ac76ae02c4fea9813a931de83c1698bd2bd0ea119e2e64269a065975f848",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

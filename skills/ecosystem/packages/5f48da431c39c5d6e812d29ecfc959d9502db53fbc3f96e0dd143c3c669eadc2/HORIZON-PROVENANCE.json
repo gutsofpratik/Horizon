@@ -1,0 +1,13 @@
+{
+  "id": "github:openai/plugins:plugins/build-web-apps/skills/frontend-testing-debugging",
+  "repository": "openai/plugins",
+  "revision": "0722921d5542fc593105c27bd52630babd8b8c2a",
+  "digest": "6b3155ac2a85d9f4e9c939e73f46f241803acf74711a1f6ea2d49238ec9e1c59",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "plugins/build-web-apps/.codex-plugin/plugin.json"
+    ]
+  }
+}

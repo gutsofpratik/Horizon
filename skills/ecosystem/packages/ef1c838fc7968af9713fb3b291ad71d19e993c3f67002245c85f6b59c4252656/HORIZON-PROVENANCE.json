@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:commands/multi-frontend.md",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "c3be96fe3e7181d46bd1115d79dd2091a693ef365870db7a3a59b0d8cf3e6664",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

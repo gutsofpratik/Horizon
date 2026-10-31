@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:skills/windows-desktop-e2e",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "1fc09e9110727d4206444f641f383a736b2b0014c18b4ad74d2effeb8e9dca84",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

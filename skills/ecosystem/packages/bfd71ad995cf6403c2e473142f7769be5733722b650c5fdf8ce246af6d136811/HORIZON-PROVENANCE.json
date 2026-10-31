@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:skills/agent-introspection-debugging",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "1ac26780eb7d587f24bfe9c56df86480347fe5c7dbf9ab631d4d359b01771e6e",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:commands/orch-fix-defect.md",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "5acc7dd9c133ca5383a784ac85380c8f45b444c70fd2a2dcd3b381f2dc23ca40",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

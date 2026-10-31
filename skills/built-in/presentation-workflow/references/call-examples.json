@@ -1,0 +1,81 @@
+{
+  "version": 1,
+  "skill_id": "openclaude-presentation-workflow",
+  "examples": [
+    {
+      "tool": "slides_create",
+      "arguments": {
+        "output_name": "project-review.pptx",
+        "theme": {
+          "background": "FFFFFF",
+          "foreground": "172033",
+          "accent": "315D95",
+          "font": "Aptos"
+        },
+        "slides": [
+          {
+            "title": "Reliable project delivery",
+            "body": "Observe, implement and verify",
+            "layout": "section",
+            "notes": "Introduce the actual project purpose."
+          },
+          {
+            "title": "Observe",
+            "bullets": [
+              "Capture the user requirement",
+              "Inspect current behavior"
+            ],
+            "notes": "Explain the actual evidence and constraints."
+          },
+          {
+            "title": "Implement and verify",
+            "bullets": [
+              "Make the agreed change",
+              "Check the real outcome"
+            ],
+            "notes": "End with concrete next steps."
+          }
+        ]
+      }
+    },
+    {
+      "tool": "slides_inspect",
+      "arguments": {
+        "file_id": "<PPTX file_id returned by slides_create>"
+      }
+    },
+    {
+      "tool": "slides_edit",
+      "arguments": {
+        "file_id": "<latest PPTX file_id>",
+        "output_name": "project-review-revised.pptx",
+        "changes": [
+          {
+            "slide": 2,
+            "shape_id": 1,
+            "text": "Observe the current workflow"
+          }
+        ],
+        "notes": [
+          {
+            "slide": 2,
+            "text": "Explain the captured requirement and known constraints."
+          }
+        ]
+      }
+    },
+    {
+      "tool": "slides_edit",
+      "arguments": {
+        "file_id": "<latest PPTX file_id>",
+        "output_name": "project-review-with-summary.pptx",
+        "add_slides": [
+          {
+            "title": "Summary",
+            "body": "State the verified result and next action."
+          }
+        ]
+      }
+    }
+  ]
+}

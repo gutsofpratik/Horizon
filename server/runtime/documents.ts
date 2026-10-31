@@ -1,6 +1,6 @@
 import {registerOwnedProcess} from './managed-process.ts';
 import {spawn,execFile,type ChildProcess} from 'node:child_process';
-import {access,mkdir} from 'node:fs/promises';
+import {mkdir} from 'node:fs/promises';
 import {join,resolve,relative} from 'node:path';
 import type {AppContext} from '../app.ts';
 import {ToolError,type ToolContext} from '../tools/registry.ts';
@@ -37,11 +37,16 @@ export class DocumentRuntime {
   const probe='import reportlab,pypdf,pandas,matplotlib,PIL,pypdfium2; print("ready")';
   try{await this.command(this.python,['-I','-c',probe],{timeout:30000});this.status='ready';return;}catch{}
   await mkdir(join(resolve(this.app.dataDirectory),'documents'),{recursive:true});
-  try{await access(this.python);}catch{
+  // A venv launcher can still exist after its base interpreter was removed.
+  // Check that it actually runs before reusing it for dependency installation.
+  try{await this.command(this.python,['-I','-c','import sys;assert sys.version_info >= (3,10)'],{timeout:15000});}catch{
    const candidates=[process.env.OPENCLAUDE_PYTHON,process.env.OPENCLAUDE_BUNDLED_PYTHON?join(process.env.OPENCLAUDE_BUNDLED_PYTHON,process.platform==='win32'?'python.exe':'bin/python3'):undefined,process.platform==='win32'?'python':'python3'].filter(Boolean) as string[];
    let base:string|undefined;for(const candidate of candidates)try{await this.command(candidate,['-I','-c','import sys;assert sys.version_info >= (3,10)'],{timeout:15000});base=candidate;break;}catch{}
    if(!base)throw fail('DOCUMENT_PYTHON_MISSING','Python 3.10 or newer was not found. Repair the bundled Python runtime or install Python, then retry document setup. Docker is not required.');
    await this.command(base,['-I','-m','venv',join(resolve(this.app.dataDirectory),'documents','python')],{timeout:120000});
+   // Rebinding a broken venv preserves its installed packages; avoid an
+   // unnecessary network installation when those packages already work.
+   try{await this.command(this.python,['-I','-c',probe],{timeout:30000});this.status='ready';return;}catch{}
   }
   await this.command(this.python,['-I','-m','pip','install','--disable-pip-version-check','--only-binary=:all:','--index-url','https://pypi.org/simple','-r',join(this.app.root,'runtime','worker','pdf-requirements.txt')],{timeout:300000});
   await this.command(this.python,['-I','-c',probe],{timeout:30000});this.status='ready';

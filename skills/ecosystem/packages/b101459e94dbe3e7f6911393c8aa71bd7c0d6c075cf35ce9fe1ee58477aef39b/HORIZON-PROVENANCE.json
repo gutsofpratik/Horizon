@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:commands/epic-review.md",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "da183fcc4a19dfc4f11869ac8d75921108866ea9086b0117fe2df8a6888bb449",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

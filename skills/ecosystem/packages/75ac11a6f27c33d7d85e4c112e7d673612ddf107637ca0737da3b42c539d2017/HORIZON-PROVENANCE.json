@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:skills/configure-ecc",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "c08adcf4e230cc7139ddf1abe06b8742e1c3a977a78c9e9908574ea7941b9ae3",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

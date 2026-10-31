@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:skills/django-patterns",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "09c7a23fbc8a97832b23ecdd66848d05a48ac7c06a4e87af09aa99c54eeabade",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

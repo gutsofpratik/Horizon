@@ -1,0 +1,44 @@
+{
+  "version": 1,
+  "skill_id": "horizon-research-workflow",
+  "examples": [
+    {
+      "tool": "web_search",
+      "arguments": {
+        "query": "<focused topic plus relevant date or location>",
+        "limit": 5,
+        "time_range": "any"
+      }
+    },
+    {
+      "tool": "web_fetch",
+      "arguments": {
+        "url": "https://example.com",
+        "max_chars": 12000
+      }
+    },
+    {
+      "tool": "web_crawl",
+      "arguments": {
+        "url": "https://example.com",
+        "max_pages": 5,
+        "max_chars": 3000
+      }
+    },
+    {
+      "tool": "web_download_file",
+      "arguments": {
+        "url": "https://example.com/document.pdf",
+        "output_name": "source-document.pdf"
+      }
+    },
+    {
+      "tool": "research_read",
+      "arguments": {
+        "research_id": "<research_id returned by the actual research run>",
+        "offset": 0,
+        "limit": 10
+      }
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:commands/gan-build.md",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "7b4043fb92d715c541d58ff0949c48e762156ae2a7461ad0db27fc8826027026",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

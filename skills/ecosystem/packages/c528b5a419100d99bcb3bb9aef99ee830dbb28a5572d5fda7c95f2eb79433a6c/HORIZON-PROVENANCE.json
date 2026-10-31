@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:skills/defi-amm-security",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "55d9338c706278fcff759feb865243aa1f02782360018e18b19e9fe23ede0299",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

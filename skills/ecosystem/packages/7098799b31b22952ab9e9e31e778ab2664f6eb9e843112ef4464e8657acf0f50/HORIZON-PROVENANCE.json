@@ -1,0 +1,13 @@
+{
+  "id": "github:anthropics/skills:skills/brand-guidelines",
+  "repository": "anthropics/skills",
+  "revision": "ca45fc496a3436251f191354091d557da31c15b5",
+  "digest": "c79d314ee423bab062014e4fd61ad26aba190164bc3dbd1cf4f004d752ee8ec2",
+  "license": {
+    "decision": "allowed",
+    "label": "Apache-2.0",
+    "evidence": [
+      "skills/brand-guidelines/LICENSE.txt"
+    ]
+  }
+}

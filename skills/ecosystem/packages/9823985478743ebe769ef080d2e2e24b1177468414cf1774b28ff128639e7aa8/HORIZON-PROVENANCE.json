@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:commands/flutter-review.md",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "4b86acc66c3c7dd7e40f1256cc88b55617f4adf09611f01a07cba6f4ff5de883",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

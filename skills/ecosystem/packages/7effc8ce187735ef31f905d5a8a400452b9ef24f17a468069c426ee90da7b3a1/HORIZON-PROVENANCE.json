@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:skills/continuous-learning",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "98b6e8405ff7f892f1b20df92f052b1250443f05e86450bcdf3475a0f8a1f48f",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

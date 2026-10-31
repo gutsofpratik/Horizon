@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:commands/learn.md",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "84e095494bff4505b9882cf440d15ebdfa6316c7f0e7e664d153ab1b1f4c577f",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

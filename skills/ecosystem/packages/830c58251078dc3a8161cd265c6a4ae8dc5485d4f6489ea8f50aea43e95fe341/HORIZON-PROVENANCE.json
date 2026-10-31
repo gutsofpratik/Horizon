@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:skills/docker-patterns",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "39ea1ab1f285a79145199a3b781cc7704f58b88020be7fd2a79bbb4524ad37d3",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "id": "github:openai/plugins:plugins/google-drive/skills/google-drive-comments",
+  "repository": "openai/plugins",
+  "revision": "0722921d5542fc593105c27bd52630babd8b8c2a",
+  "digest": "02ef8b79af5d13ae559a00b9ba5429b6720d1cdce0a93fe06c49c4dba1d9c1b0",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "plugins/google-drive/.codex-plugin/plugin.json"
+    ]
+  }
+}

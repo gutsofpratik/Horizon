@@ -1,0 +1,13 @@
+{
+  "id": "github:sickn33/agentic-awesome-skills:skills/webapp-testing",
+  "repository": "sickn33/agentic-awesome-skills",
+  "revision": "6e4106fb38458d2bb2bf50b53db74031daabc208",
+  "digest": "8d45f20a1e92ed80281f2747a1d93c3c72b4085661e1ebaf8ed8cd9b28d82dc2",
+  "license": {
+    "decision": "allowed",
+    "label": "Apache-2.0",
+    "evidence": [
+      "skills/webapp-testing/LICENSE.txt"
+    ]
+  }
+}

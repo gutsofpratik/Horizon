@@ -1,0 +1,13 @@
+{
+  "id": "github:sickn33/agentic-awesome-skills:skills/what-could-break",
+  "repository": "sickn33/agentic-awesome-skills",
+  "revision": "6e4106fb38458d2bb2bf50b53db74031daabc208",
+  "digest": "44346419fbeee3d7b41fabc3b35e30d10d5d962e87f12fc809e47e381bf84d5f",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "skills/what-could-break/references/LICENSE-pstack.txt"
+    ]
+  }
+}

@@ -1,6 +1,6 @@
 import {randomUUID} from 'node:crypto';import type {AppContext} from '../app.ts';import type {Agent} from './orchestrator.ts';
 export class MessageQueue {
- private temporary=new Map<string,any>();private draining=new Set<string>();private closed=false;private sequence=0;
+ private temporary=new Map<string,any>();private draining=new Set<string>();private interrupting=new Set<string>();private closed=false;private sequence=0;
  constructor(private app:AppContext,private agent:Agent){
   for(const job of app.store.list('message_queue').filter(j=>['queued','running'].includes(j.status)))this.save({...job,status:job.status==='queued'&&job.input?.automationOccurrence?'queued':'paused',recoveryPreviousStatus:job.status,error:job.status==='queued'&&job.input?.automationOccurrence?undefined:'Server restarted. Resume when ready.'});
  }
@@ -14,6 +14,22 @@ export class MessageQueue {
  cancel(conversationId:string,id:string){const job=this.all().find(j=>j.id===id&&j.conversationId===conversationId);if(!job||!['queued','paused'].includes(job.status))throw new Error('Queued message is no longer editable');return this.save({...job,status:'cancelled',input:{...job.input,attachments:[]}}).id;}
  update(conversationId:string,id:string,content:string){const job=this.all().find(j=>j.id===id&&j.conversationId===conversationId);if(!job||!['queued','paused'].includes(job.status))throw new Error('Queued message is no longer editable');if(!content.trim()||content.length>200000)throw new Error('Invalid queued message');this.save({...job,input:{...job.input,content}});return {updated:true};}
  resume(conversationId:string){this.conversation(conversationId);for(const job of this.all().filter(j=>j.conversationId===conversationId&&j.status==='paused'))this.save({...job,status:'queued',error:undefined});void this.drain(conversationId);return {resumed:true};}
+ async interrupt(conversationId:string,id:string){
+  const conversation=this.conversation(conversationId),job=this.all().find(item=>item.id===id&&item.conversationId===conversationId);
+  if(!job||!['queued','paused'].includes(job.status))throw new Error('Queued message is no longer pending');
+  if(this.interrupting.has(conversationId))throw new Error('An interruption is already in progress');
+  this.interrupting.add(conversationId);
+  try{
+   this.pause(conversationId);
+   const run=conversation.activeRunId&&this.agent.getRun(conversation.activeRunId);
+   if(run?.status==='running'){this.agent.cancel(run.id);await this.agent.wait(run.id);}
+   if(this.closed)throw new Error('Queue stopped before the message could start');
+   const current=this.all().find(item=>item.id===id&&item.conversationId===conversationId);
+   if(!current||!['queued','paused'].includes(current.status))throw new Error('Queued message changed while stopping the previous response');
+   this.save({...current,status:'queued',error:undefined});await this.drain(conversationId);
+   return {interrupted:true,queueId:id};
+  }finally{this.interrupting.delete(conversationId);}
+ }
  pause(conversationId:string){this.conversation(conversationId);for(const job of this.all().filter(j=>j.conversationId===conversationId&&j.status==='queued'))this.save({...job,status:'paused',error:'Paused while the active agent was interrupted'});return {paused:true};}
  settled(run:any,status:string){const job=this.all().find(j=>j.runId===run.id&&j.status==='running');if(job)this.save({...job,status,finishedAt:new Date().toISOString()});if(status!=='completed'){for(const queued of this.all().filter(j=>j.conversationId===run.conversationId&&j.status==='queued'))this.save({...queued,status:'paused',error:'Previous response '+status+'. Resume when ready.'});}else queueMicrotask(()=>void this.drain(run.conversationId));}
  async drain(conversationId:string){if(this.closed||this.draining.has(conversationId))return;this.draining.add(conversationId);try{const conversation=this.agent.conversation(conversationId);if(!conversation)return;if(conversation.activeRunId&&this.agent.getRun(conversation.activeRunId)?.status==='running')return;const job=this.all().filter(j=>j.conversationId===conversationId&&j.status==='queued').sort((a,b)=>a.createdAt.localeCompare(b.createdAt)||a.sequence-b.sequence)[0];if(!job)return;try{const run=await this.agent.start(job.input);const current=this.all().find(item=>item.id===job.id);if(this.closed||!current||current.status==='cancelled'){this.agent.cancel(run.id);if(current&&!this.closed)this.save({...current,runId:run.id});return;}this.save({...current,status:'running',runId:run.id});}catch(error){const current=this.all().find(item=>item.id===job.id);if(this.closed||!current||current.status==='cancelled')return;this.save({...current,status:'failed',error:(error as Error).message});for(const queued of this.all().filter(j=>j.conversationId===conversationId&&j.status==='queued'))this.save({...queued,status:'paused',error:'A queued message failed to start. Resume when ready.'});}}finally{this.draining.delete(conversationId);}}

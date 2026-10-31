@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:commands/checkpoint.md",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "e42e72e3584ce9b288cf385d37f8012c7c337831b72b2df66cc52a903767ae4d",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

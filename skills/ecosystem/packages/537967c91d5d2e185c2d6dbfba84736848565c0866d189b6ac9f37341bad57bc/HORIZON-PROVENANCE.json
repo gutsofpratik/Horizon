@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:skills/vite-patterns",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "829590d25da5d1d99d63234f6acb7d7879406366e521cfae7d58d8ebb624f47f",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

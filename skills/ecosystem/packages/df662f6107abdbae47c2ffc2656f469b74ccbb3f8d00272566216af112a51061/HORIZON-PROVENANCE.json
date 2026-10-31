@@ -1,0 +1,13 @@
+{
+  "id": "github:sickn33/agentic-awesome-skills:skills/invokely-statistics",
+  "repository": "sickn33/agentic-awesome-skills",
+  "revision": "6e4106fb38458d2bb2bf50b53db74031daabc208",
+  "digest": "05e11ea9c117ad8679f2ad591efc6f66358a5b40fb660f15e5cf54c7abde6660",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "skills/invokely-statistics/references/LICENSE.md"
+    ]
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:skills/dmux-workflows",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "85e706aa2d2aa320a0c612c4b42279c56ae4817d59761161ac7863b7913c7e75",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

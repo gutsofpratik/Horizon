@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:skills/crosspost",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "2ce687203923afd5815fe4ec6c5e53bf0202a0e6c1ed6c350b2fe911958bfb83",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

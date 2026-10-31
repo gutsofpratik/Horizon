@@ -1,0 +1,13 @@
+{
+  "id": "github:openai/plugins:plugins/coderabbit/skills/coderabbit-review",
+  "repository": "openai/plugins",
+  "revision": "0722921d5542fc593105c27bd52630babd8b8c2a",
+  "digest": "a4cddba1a7e804981785860b829e3eba12910ff2222313d49a7bea964b09de9e",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "plugins/coderabbit/.codex-plugin/plugin.json"
+    ]
+  }
+}

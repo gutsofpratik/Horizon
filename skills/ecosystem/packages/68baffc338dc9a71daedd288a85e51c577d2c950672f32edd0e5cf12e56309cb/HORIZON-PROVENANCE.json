@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:skills/claude-devfleet",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "d40ca2a265e9c755d53f4d61bcbc80e73a67ab893f7a97386b79d6cfeae4a067",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

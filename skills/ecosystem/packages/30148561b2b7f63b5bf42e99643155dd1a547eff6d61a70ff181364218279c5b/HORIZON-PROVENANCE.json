@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:skills/hipaa-compliance",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "bf1ca8674ac1f3bb92cca8f3ed90a2b7e27964d65e4440249536f2ceefe40503",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

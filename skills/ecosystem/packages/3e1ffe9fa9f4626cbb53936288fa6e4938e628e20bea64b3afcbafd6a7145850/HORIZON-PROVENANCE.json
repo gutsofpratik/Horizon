@@ -1,0 +1,13 @@
+{
+  "id": "github:sickn33/agentic-awesome-skills:skills/logo-to-stickers",
+  "repository": "sickn33/agentic-awesome-skills",
+  "revision": "6e4106fb38458d2bb2bf50b53db74031daabc208",
+  "digest": "2513fcfc5e7b5638661ba81aff146f975833734b6a8e90bd9d7a3c6d023566c5",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "skills/logo-to-stickers/LICENSE"
+    ]
+  }
+}

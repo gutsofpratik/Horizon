@@ -1,0 +1,13 @@
+{
+  "id": "github:openai/plugins:plugins/cloudflare/skills/wrangler",
+  "repository": "openai/plugins",
+  "revision": "0722921d5542fc593105c27bd52630babd8b8c2a",
+  "digest": "263cdf6c6c35406bc2a7ffaf9bb9b74b2876a760f3af618edf19dbe112bca8b3",
+  "license": {
+    "decision": "allowed",
+    "label": "Apache-2.0",
+    "evidence": [
+      "plugins/cloudflare/skills/wrangler/LICENSE.txt"
+    ]
+  }
+}

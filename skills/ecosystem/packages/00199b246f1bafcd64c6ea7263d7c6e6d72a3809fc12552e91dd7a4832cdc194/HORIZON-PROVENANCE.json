@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:skills/google-workspace-ops",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "cee16021b34d4e716b49feed210f04455e5e89e7844284186aa779330422462d",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

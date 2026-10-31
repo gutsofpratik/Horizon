@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:skills/rust-testing",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "53b77b53a4c1edfe7efc07242b1ee3d7f087b9d6552ad953c823c3b098c85f4e",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

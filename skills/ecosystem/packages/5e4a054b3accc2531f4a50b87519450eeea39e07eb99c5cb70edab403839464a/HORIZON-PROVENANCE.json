@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:skills/search-first",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "bd36d3c2b33322a8abd54d0539a57fde7e9733e175ee24739f8be6c7286e5a8c",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "id": "github:elevenlabs/skills:sound-effects",
+  "repository": "elevenlabs/skills",
+  "revision": "503d4e9fda0190ab9357142f44e51de626f97f90",
+  "digest": "8774eb3bbb05a4c87fe17910903b5baccc00fef5340afbcd3482fd6abf999f14",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

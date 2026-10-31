@@ -1,0 +1,13 @@
+{
+  "id": "github:openai/plugins:plugins/temporal/skills/temporal-developer",
+  "repository": "openai/plugins",
+  "revision": "0722921d5542fc593105c27bd52630babd8b8c2a",
+  "digest": "7671e1ed6e130046054e3b18f0c3d8f77e0a9720ed350e15c04c096197c27098",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "plugins/temporal/LICENSE"
+    ]
+  }
+}

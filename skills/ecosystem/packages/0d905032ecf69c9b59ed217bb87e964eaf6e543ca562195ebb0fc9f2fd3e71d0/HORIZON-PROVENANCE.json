@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:commands/react-test.md",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "60479b9e721104319f4f1c732c42a7bf9ae9ab169ee88ba6623d9411e0fb64f5",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

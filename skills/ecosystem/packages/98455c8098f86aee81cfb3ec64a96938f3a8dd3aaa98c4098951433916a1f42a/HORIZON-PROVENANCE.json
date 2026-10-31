@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:skills/customer-billing-ops",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "195583a5a99bbab52075128d082509bcd2006d2cb8408a29e5989733e6087933",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

@@ -1,6 +1,6 @@
 import {createHash} from 'node:crypto';
 
-export type ScenarioEntry={name:string;schema_hash:string;disposition:'code-case'|'dependency-blocked'|'category';fixtures?:string[];evidence_kind?:'code-contract'|'controlled-transport'|'local-service';members?:string[];blocker?:{issue:number;reason:string}};
+export type ScenarioEntry={name:string;schema_hash:string;disposition:'code-case'|'dependency-blocked'|'category';fixtures?:string[];evidence_kind?:'code-contract'|'controlled-transport'|'local-service';members?:string[];blocker?:{issue:number;reason:string};live_blocker?:{issue:number;reason:string}};
 export const scenarioSchemaHash=(schema:unknown)=>createHash('sha256').update(JSON.stringify(schema)).digest('hex');
 
 /** A coverage disposition is not a live-service certification. Unknown tools fail closed. */

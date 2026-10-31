@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:skills/flutter-dart-code-review",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "043f0d8788433db8c8fc35c051bc037a571b4c45abb1f708424683f8e9288b9d",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}

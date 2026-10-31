@@ -1,0 +1,13 @@
+{
+  "id": "github:affaan-m/ecc:skills/exa-search",
+  "repository": "affaan-m/ECC",
+  "revision": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
+  "digest": "6508793ba970c15b9003c7c12452ef73684719f966f918292032145f7e68f016",
+  "license": {
+    "decision": "allowed",
+    "label": "MIT",
+    "evidence": [
+      "LICENSE"
+    ]
+  }
+}
